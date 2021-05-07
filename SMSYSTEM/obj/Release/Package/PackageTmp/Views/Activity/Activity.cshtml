@@ -1,0 +1,477 @@
+﻿@model SSS.Property.Transactions.LP_Activity_Property
+@{
+    ViewBag.Title = "Activity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card-body">
+    <h3><b>Local Purchase</b></h3>
+    <br />
+    <form role="form" id="purchaseform">
+        @Html.HiddenFor(model => model.idx, new { id = "idx", value = 0 })
+
+        <div class="row">
+            <div class="col-sm-3">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Reference:</label>
+                 <select id="typeIdx" class="form-control">
+                     <option value="">
+                         Select Type
+                     </option>
+                     <option value="1">
+                         Sales Order
+                     </option>
+                     <option value="2">
+                        Display Order
+                     </option>
+                 </select>  
+                </div>
+                @Html.ValidationMessageFor(model => model.typeIdx, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="row">
+
+
+
+            <div class="col-sm-3 " id="ddlOrder">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Order#:</label>
+                    @Html.DropDownListFor(m => m.orderIdx,
+       new SelectList(Enumerable.Empty<SelectListItem>(), "idx", "soNumber"),
+              "Select Order",
+              new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.orderIdx, "", new { @class = "text-danger" })
+                    @*@Html.DropDownListFor(model => model.orderIdx, new SelectList(Model.salesOrderLST, "idx", "soNumber"), "Select Order", new { @Class = "form-control font-weight-bold" })*@
+
+                </div>
+                @*@Html.ValidationMessageFor(model => model.orderIdx, "", new { @class = "text-danger" })*@
+            </div>
+
+            <div class="col-sm-3">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Product#:</label>
+
+                    @Html.DropDownListFor(m => m.productIdx,
+       new SelectList(Enumerable.Empty<SelectListItem>(), "itemIdx", "itemName"),
+              "Select Product",
+              new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.productIdx, "", new { @class = "text-danger" })
+
+                </div>
+                @*@Html.ValidationMessageFor(model => model.productIdx, "", new { @class = "text-danger" })*@
+            </div>
+            <div class="col-sm-3">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Process*:</label>
+
+                    @Html.DropDownListFor(model => model.vendorCatIdx, new SelectList(Model.vendorCatLST, "idx", "VendorCategory"), "Select Category", new { @Class = "form-control font-weight-bold" })
+
+                </div>
+                @Html.ValidationMessageFor(model => model.vendorCatIdx, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Vendor*:</label>
+
+                    @*            @Html.DropDownListFor(model => model.vendorIdx, new SelectList(Model.vendorLST, "idx", "vendorName"), "Select Category", new { @Class = "form-control font-weight-bold" })*@
+                    @Html.DropDownListFor(m => m.vendorIdx,
+       new SelectList(Enumerable.Empty<SelectListItem>(), "idx", "vendorName"),
+              "Select Vendor",
+              new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.vendorIdx, "", new { @class = "text-danger" })
+                </div>
+                @*@Html.ValidationMessageFor(model => model.vendorIdx, "", new { @class = "text-danger" })*@
+            </div>
+
+
+
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Reference:</label>
+                    @Html.EditorFor(model => model.reference, new { htmlAttributes = new { @placeholder = "Reference:", @class = "form-control" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.reference, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3">
+                <!-- text input -->
+
+                <div class="form-group">
+                    <label>Size:</label>
+
+                    @Html.EditorFor(model => model.size, new { htmlAttributes = new { @placeholder = "Size:", @class = "form-control" } })
+
+                </div>
+                @Html.ValidationMessageFor(model => model.size, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3">
+                <!-- text input -->
+
+                <div class="form-group">
+                    <label>Qty:</label>
+
+                    @Html.EditorFor(model => model.qty, new { htmlAttributes = new { @placeholder = "Quantity:", @class = "form-control" } })
+
+                </div>
+                @Html.ValidationMessageFor(model => model.qty, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3">
+                <!-- text input -->
+
+                <div class="form-group">
+                    <label>Price:</label>
+
+                    @Html.EditorFor(model => model.activityPrice, new { htmlAttributes = new { @placeholder = "Price:", @class = "form-control" } })
+
+                </div>
+                @Html.ValidationMessageFor(model => model.activityPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- text input -->
+
+                <div class="form-group">
+                    <label>Description:</label>
+
+                    @Html.EditorFor(model => model.description, new { htmlAttributes = new { @placeholder = "Description:", @class = "form-control" } })
+
+                </div>
+                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+            </div>
+
+
+        </div>
+        <hr />
+
+
+        <div class="row">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btnAddSale">Submit</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section MyScripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ddlOrder').hide();
+        });
+           $("#typeIdx").on('change', function () {
+            var value = $("#typeIdx option:selected").val();
+            if (value == 1)
+            {
+                $.getJSON("@Url.Action("getSalesOrders", "Activity")", null,
+                       function (data) {
+
+                           $("#orderIdx").empty();
+                           $("#ddlOrder").show();
+                           $('#orderIdx').append($('<option>',
+                                {
+                                    value: "",
+                                    text: "Select Order"
+                                }));
+                           for (var i = 0; i < data.data.length; i++) {
+
+                               $('#orderIdx').append($('<option>',
+                                       {
+                                           value: data.data[i].idx,
+                                           text: data.data[i].soNumber
+                                       }));
+
+                           }
+
+
+
+
+                       });
+            }
+            else if (value == 2) {
+                $.getJSON("@Url.Action("getDisplayOrder", "Activity")", null,
+                       function (data) {
+
+                           $("#orderIdx").empty();
+                           $("#ddlOrder").show();
+                           $('#orderIdx').append($('<option>',
+                                {
+                                    value: "",
+                                    text: "Select Order"
+                                }));
+                           for (var i = 0; i < data.data.length; i++) {
+
+                               $('#orderIdx').append($('<option>',
+                                       {
+                                           value: data.data[i].idx,
+                                           text: data.data[i].doNumber
+                                       }));
+
+                           }
+
+
+
+
+                       });
+            }
+            else
+            {
+                $("#orderIdx").html("");
+
+                $('#orderIdx').append($('<option>',
+                                {
+                                    value: "",
+                                    text: "Select Order"
+                                }));
+                $('#ddlOrder').hide();
+            }
+        });
+        var allInvoiceDetails = {};
+        $("#orderIdx").on('change', function () {
+            var orderId = $("#orderIdx option:selected").val();
+            var typeId = $("#typeIdx option:selected").val();
+            if (orderId > 0 && typeId==1) {
+                $.ajax({
+                    url: '/Activity/SearchProductsInDetail',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: {
+                        Id: orderId
+                    },
+                    success: function (data) {
+
+                        $("#productIdx").html(""); // clear before appending new list
+                        //var invoicData = JSON.parse(data.data)
+                        //allInvoice = { invoicData };
+
+                        $('#productIdx').append($('<option>',
+                                        {
+                                            value: "",
+                                            text: "Select Products"
+                                        }));
+
+                        console.log(data.data);
+                        $.each(data.data, function (key, value) {
+                            $('#productIdx').append($('<option>',
+                                        {
+                                            value: value.itemIdx,
+                                            text: value.itemName
+                                        }));
+
+
+
+                        });
+                       
+
+                    }
+                });
+            }
+            else if (orderId > 0 && typeId == 2)
+            {
+                $.ajax({
+                    url: '/Activity/SearchProductsInDODetail',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: {
+                        Id: orderId
+                    },
+                    success: function (data) {
+
+                        $("#productIdx").html(""); // clear before appending new list
+                        //var invoicData = JSON.parse(data.data)
+                        //allInvoice = { invoicData };
+
+                        $('#productIdx').append($('<option>',
+                                        {
+                                            value: "",
+                                            text: "Select Products"
+                                        }));
+
+                        console.log(data.data);
+                        $.each(data.data, function (key, value) {
+                            $('#productIdx').append($('<option>',
+                                        {
+                                            value: value.itemIdx,
+                                            text: value.itemName
+                                        }));
+
+
+
+                        });
+
+
+                    }
+                });
+
+            }
+            else {
+
+                $("#productIdx").empty();
+                $("#productIdx").append($('<option>',
+                                        {
+                                            value: "",
+                                            text: "Select Product"
+                                        }));
+
+            }
+
+        });
+        $("#vendorCatIdx").on('change', function () {
+            var vendorId = $("#vendorCatIdx option:selected").val();
+            if (vendorId > 0) {
+                $.ajax({
+                    url: '/Activity/SearchVendorsOnCatIdx',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: {
+                        Id: vendorId
+                    },
+                    success: function (data) {
+
+                        $("#vendorIdx").html(""); // clear before appending new list
+
+
+                        $('#vendorIdx').append($('<option>',
+                                        {
+                                            value: "",
+                                            text: "Select Vendor"
+                                        }));
+
+                        $.each(data.data, function (key, value) {
+                            $('#vendorIdx').append($('<option>',
+                                        {
+                                            value: value.idx,
+                                            text: value.vendorName
+                                        }));
+
+
+
+                        });
+
+
+                    }
+                });
+            }
+            else {
+
+                $("#vendorIdx").empty();
+                $("#vendorIdx").append($('<option>',
+                                        {
+                                            value: "",
+                                            text: "Select Vendor"
+                                        }));
+
+            }
+
+        });
+
+        function displayerror() {
+            for (var i = 0; i < errmsg.length; i++) {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+                Command: toastr["error"](errmsg[i], "")
+            }
+        }
+
+        $("#btnAddSale").click(function (e) {
+
+            e.preventDefault();
+            var form = $("#purchaseform");
+            console.log($('#activityPrice').val());
+            console.log($('#size').val())
+            var datatosend = {
+                objVoucher: {
+                    idx: $('#idx').val(),
+                    reference: $('#reference').val(),
+                    orderIdx: $('#orderIdx').val(),
+                    typeIdx: $('#typeIdx option:selected').val(),
+                    productIdx: $('#productIdx').val(),
+                    vendorCatIdx: $('#vendorCatIdx').val(),
+                    vendorIdx: $('#vendorIdx').val(),
+                    activityPrice: $('#activityPrice').val(),
+                    qty: $('#qty').val(),
+                    size: $('#size').val(),
+                    description: $("#description").val()
+
+                }
+
+            }
+
+
+            console.log(JSON.stringify(datatosend));
+
+
+
+            var form = $("#purchaseform");
+            console.log(datatosend)
+            $(this).removeData("validator").removeData("unobtrusiveValidation");//remove the form validation
+            $.validator.unobtrusive.parse($(this));//add the form validation
+            //$.validator.unobtrusive.parse(form);
+            //if ($(form).valid()) // using not operator for a time being
+            if ($(form).valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Activity/AddUpdate",
+                    data: JSON.stringify(datatosend),// JSON.stringify(milestonearray),// $(form).serialize(),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        if (res.success) {
+
+                            window.location.href = "/Activity/Activity"
+                        }
+                        else if (res.success == false && res.msg == 'Failed') {
+
+                        }
+                    },
+                    failure: function (res) {
+                        console.log(res);
+                    },
+                    err: function (res) {
+                        console.log(res);
+                    }
+
+                })
+            }
+            else {
+                return false;
+            }
+
+        });
+
+
+    </script>
+}
+
+
+
+
+
+

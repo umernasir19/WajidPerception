@@ -1,0 +1,181 @@
+The type initializer for 'CrystalDecisions.CrystalReports.Engine.ReportDocument' threw an exception.
+The type initializer for 'CrystalDecisions.CrystalReports.Engine.ReportDocument' threw an exception.
+The type initializer for 'CrystalDecisions.CrystalReports.Engine.ReportDocument' threw an exception.
+4/22/2021 1:41:42 AM
+Error in File GDNReport 15472_20552_{7ADCD60F-C4E5-42EE-8357-E118875A5DDC}.rpt:
+Failed to load database information.
+System.Runtime.InteropServices.COMException (0x800002CD): Error in File GDNReport 15472_20552_{7ADCD60F-C4E5-42EE-8357-E118875A5DDC}.rpt:
+Failed to load database information.
+   at CrystalDecisions.ReportAppServer.Controllers.DatabaseControllerClass.ReplaceConnection(Object oldConnection, Object newConnection, Object parameterFields, Object crDBOptionUseDefault)
+   at CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+CrystalDecisions.CrystalReports.Engine.DataSourceException: Error in File GDNReport 15472_20552_{7ADCD60F-C4E5-42EE-8357-E118875A5DDC}.rpt:
+Failed to load database information. ---> System.Runtime.InteropServices.COMException: Error in File GDNReport 15472_20552_{7ADCD60F-C4E5-42EE-8357-E118875A5DDC}.rpt:
+Failed to load database information.
+   at CrystalDecisions.ReportAppServer.Controllers.DatabaseControllerClass.ReplaceConnection(Object oldConnection, Object newConnection, Object parameterFields, Object crDBOptionUseDefault)
+   at CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   --- End of inner exception stack trace ---
+   at CrystalDecisions.ReportAppServer.ConvertDotNetToErom.ThrowDotNetException(Exception e)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(DataTable dataTable)
+   at SMSYSTEM.Controllers.BaseController.GenerateReport(Nullable`1 id, Nullable`1 query, String ReportName) in E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\19-04-21\Updated\SMSYSTEM\Controllers\BaseController.cs:line 605
+4/22/2021 1:41:42 AM
+4/22/2021 1:45:06 AM
+Error in File GDNReport 15472_19524_{0A686FCA-743A-470D-BBB0-3E3D3D8C0F9B}.rpt:
+Failed to load database information.
+System.Runtime.InteropServices.COMException (0x800002CD): Error in File GDNReport 15472_19524_{0A686FCA-743A-470D-BBB0-3E3D3D8C0F9B}.rpt:
+Failed to load database information.
+   at CrystalDecisions.ReportAppServer.Controllers.DatabaseControllerClass.ReplaceConnection(Object oldConnection, Object newConnection, Object parameterFields, Object crDBOptionUseDefault)
+   at CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+CrystalDecisions.CrystalReports.Engine.DataSourceException: Error in File GDNReport 15472_19524_{0A686FCA-743A-470D-BBB0-3E3D3D8C0F9B}.rpt:
+Failed to load database information. ---> System.Runtime.InteropServices.COMException: Error in File GDNReport 15472_19524_{0A686FCA-743A-470D-BBB0-3E3D3D8C0F9B}.rpt:
+Failed to load database information.
+   at CrystalDecisions.ReportAppServer.Controllers.DatabaseControllerClass.ReplaceConnection(Object oldConnection, Object newConnection, Object parameterFields, Object crDBOptionUseDefault)
+   at CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   --- End of inner exception stack trace ---
+   at CrystalDecisions.ReportAppServer.ConvertDotNetToErom.ThrowDotNetException(Exception e)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(DataTable dataTable)
+   at SMSYSTEM.Controllers.BaseController.GenerateReport(Nullable`1 id, Nullable`1 query, String ReportName) in E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\19-04-21\Updated\SMSYSTEM\Controllers\BaseController.cs:line 605
+4/22/2021 1:45:21 AM
+4/22/2021 1:55:11 AM
+Error in File GDNReport 3912_18388_{12627185-C28A-4356-967F-5EB434A658EC}.rpt:
+Failed to load database information.
+System.Runtime.InteropServices.COMException (0x800002CD): Error in File GDNReport 3912_18388_{12627185-C28A-4356-967F-5EB434A658EC}.rpt:
+Failed to load database information.
+   at CrystalDecisions.ReportAppServer.Controllers.DatabaseControllerClass.ReplaceConnection(Object oldConnection, Object newConnection, Object parameterFields, Object crDBOptionUseDefault)
+   at CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+CrystalDecisions.CrystalReports.Engine.DataSourceException: Error in File GDNReport 3912_18388_{12627185-C28A-4356-967F-5EB434A658EC}.rpt:
+Failed to load database information. ---> System.Runtime.InteropServices.COMException: Error in File GDNReport 3912_18388_{12627185-C28A-4356-967F-5EB434A658EC}.rpt:
+Failed to load database information.
+   at CrystalDecisions.ReportAppServer.Controllers.DatabaseControllerClass.ReplaceConnection(Object oldConnection, Object newConnection, Object parameterFields, Object crDBOptionUseDefault)
+   at CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   --- End of inner exception stack trace ---
+   at CrystalDecisions.ReportAppServer.ConvertDotNetToErom.ThrowDotNetException(Exception e)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(DataTable dataTable)
+   at SMSYSTEM.Controllers.BaseController.GenerateReport(Nullable`1 id, Nullable`1 query, String ReportName) in E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\19-04-21\Updated\SMSYSTEM\Controllers\BaseController.cs:line 605
+4/22/2021 1:55:11 AM
+4/22/2021 1:58:44 AM
+Error in File GDNReport 3912_108_{60234097-E022-4A5F-ABCD-577279301BDD}.rpt:
+Failed to load database information.
+System.Runtime.InteropServices.COMException (0x800002CD): Error in File GDNReport 3912_108_{60234097-E022-4A5F-ABCD-577279301BDD}.rpt:
+Failed to load database information.
+   at CrystalDecisions.ReportAppServer.Controllers.DatabaseControllerClass.ReplaceConnection(Object oldConnection, Object newConnection, Object parameterFields, Object crDBOptionUseDefault)
+   at CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+CrystalDecisions.CrystalReports.Engine.DataSourceException: Error in File GDNReport 3912_108_{60234097-E022-4A5F-ABCD-577279301BDD}.rpt:
+Failed to load database information. ---> System.Runtime.InteropServices.COMException: Error in File GDNReport 3912_108_{60234097-E022-4A5F-ABCD-577279301BDD}.rpt:
+Failed to load database information.
+   at CrystalDecisions.ReportAppServer.Controllers.DatabaseControllerClass.ReplaceConnection(Object oldConnection, Object newConnection, Object parameterFields, Object crDBOptionUseDefault)
+   at CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   --- End of inner exception stack trace ---
+   at CrystalDecisions.ReportAppServer.ConvertDotNetToErom.ThrowDotNetException(Exception e)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(DataTable dataTable)
+   at SMSYSTEM.Controllers.BaseController.GenerateReport(Nullable`1 id, Nullable`1 query, String ReportName) in E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\19-04-21\Updated\SMSYSTEM\Controllers\BaseController.cs:line 605
+4/22/2021 1:58:44 AM
+4/22/2021 2:01:35 AM
+Error in File MRNReport 3912_11344_{3786D482-8B90-4CF0-BA29-B43A6E556CC3}.rpt:
+Failed to load database information.
+System.Runtime.InteropServices.COMException (0x800002CD): Error in File MRNReport 3912_11344_{3786D482-8B90-4CF0-BA29-B43A6E556CC3}.rpt:
+Failed to load database information.
+   at CrystalDecisions.ReportAppServer.Controllers.DatabaseControllerClass.ReplaceConnection(Object oldConnection, Object newConnection, Object parameterFields, Object crDBOptionUseDefault)
+   at CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+CrystalDecisions.CrystalReports.Engine.DataSourceException: Error in File MRNReport 3912_11344_{3786D482-8B90-4CF0-BA29-B43A6E556CC3}.rpt:
+Failed to load database information. ---> System.Runtime.InteropServices.COMException: Error in File MRNReport 3912_11344_{3786D482-8B90-4CF0-BA29-B43A6E556CC3}.rpt:
+Failed to load database information.
+   at CrystalDecisions.ReportAppServer.Controllers.DatabaseControllerClass.ReplaceConnection(Object oldConnection, Object newConnection, Object parameterFields, Object crDBOptionUseDefault)
+   at CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   --- End of inner exception stack trace ---
+   at CrystalDecisions.ReportAppServer.ConvertDotNetToErom.ThrowDotNetException(Exception e)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(DataTable dataTable)
+   at SMSYSTEM.Controllers.BaseController.GenerateReport(Nullable`1 id, Nullable`1 query, String ReportName) in E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\19-04-21\Updated\SMSYSTEM\Controllers\BaseController.cs:line 605
+4/22/2021 2:01:35 AM
+4/22/2021 2:05:59 AM
+Error in File GDNReport 5316_22036_{1EC9F97F-09C4-44CE-89AD-253E4322C307}.rpt:
+Failed to load database information.
+System.Runtime.InteropServices.COMException (0x800002CD): Error in File GDNReport 5316_22036_{1EC9F97F-09C4-44CE-89AD-253E4322C307}.rpt:
+Failed to load database information.
+   at CrystalDecisions.ReportAppServer.Controllers.DatabaseControllerClass.ReplaceConnection(Object oldConnection, Object newConnection, Object parameterFields, Object crDBOptionUseDefault)
+   at CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+CrystalDecisions.CrystalReports.Engine.DataSourceException: Error in File GDNReport 5316_22036_{1EC9F97F-09C4-44CE-89AD-253E4322C307}.rpt:
+Failed to load database information. ---> System.Runtime.InteropServices.COMException: Error in File GDNReport 5316_22036_{1EC9F97F-09C4-44CE-89AD-253E4322C307}.rpt:
+Failed to load database information.
+   at CrystalDecisions.ReportAppServer.Controllers.DatabaseControllerClass.ReplaceConnection(Object oldConnection, Object newConnection, Object parameterFields, Object crDBOptionUseDefault)
+   at CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   --- End of inner exception stack trace ---
+   at CrystalDecisions.ReportAppServer.ConvertDotNetToErom.ThrowDotNetException(Exception e)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(DataTable dataTable)
+   at SMSYSTEM.Controllers.BaseController.GenerateReport(Nullable`1 id, Nullable`1 query, String ReportName)
+4/22/2021 2:05:59 AM
+4/22/2021 2:06:13 AM
+Error in File GDNReport 5316_13860_{AF9381D8-B21F-4A18-9C5D-5300732C9B10}.rpt:
+Failed to load database information.
+System.Runtime.InteropServices.COMException (0x800002CD): Error in File GDNReport 5316_13860_{AF9381D8-B21F-4A18-9C5D-5300732C9B10}.rpt:
+Failed to load database information.
+   at CrystalDecisions.ReportAppServer.Controllers.DatabaseControllerClass.ReplaceConnection(Object oldConnection, Object newConnection, Object parameterFields, Object crDBOptionUseDefault)
+   at CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+CrystalDecisions.CrystalReports.Engine.DataSourceException: Error in File GDNReport 5316_13860_{AF9381D8-B21F-4A18-9C5D-5300732C9B10}.rpt:
+Failed to load database information. ---> System.Runtime.InteropServices.COMException: Error in File GDNReport 5316_13860_{AF9381D8-B21F-4A18-9C5D-5300732C9B10}.rpt:
+Failed to load database information.
+   at CrystalDecisions.ReportAppServer.Controllers.DatabaseControllerClass.ReplaceConnection(Object oldConnection, Object newConnection, Object parameterFields, Object crDBOptionUseDefault)
+   at CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   --- End of inner exception stack trace ---
+   at CrystalDecisions.ReportAppServer.ConvertDotNetToErom.ThrowDotNetException(Exception e)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(DataTable dataTable)
+   at SMSYSTEM.Controllers.BaseController.GenerateReport(Nullable`1 id, Nullable`1 query, String ReportName)
+4/22/2021 2:06:13 AM
+5/2/2021 9:13:13 PM
+Load report failed.
+System.Runtime.InteropServices.COMException (0x80004005): The system cannot find the file specified.
+   at CrystalDecisions.ReportAppServer.ClientDoc.ReportClientDocumentClass.Open(Object& DocumentPath, Int32 Options)
+   at CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.Open(Object& DocumentPath, Int32 Options)
+   at CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.EnsureDocumentIsOpened()
+CrystalDecisions.Shared.CrystalReportsException: Load report failed. ---> System.Runtime.InteropServices.COMException: The system cannot find the file specified.
+   at CrystalDecisions.ReportAppServer.ClientDoc.ReportClientDocumentClass.Open(Object& DocumentPath, Int32 Options)
+   at CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.Open(Object& DocumentPath, Int32 Options)
+   at CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.EnsureDocumentIsOpened()
+   --- End of inner exception stack trace ---
+   at CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.EnsureDocumentIsOpened()
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.Load(String filename, OpenReportMethod openMethod, Int16 parentJob)
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument.Load(String filename)
+   at SMSYSTEM.Controllers.BaseController.GenerateReport(Nullable`1 id, Nullable`1 query, String ReportName) in E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\19-04-21\Updated\SMSYSTEM\Controllers\BaseController.cs:line 603
+5/2/2021 9:13:13 PM
+5/2/2021 11:06:52 PM
+The type initializer for 'CrystalDecisions.CrystalReports.Engine.ReportDocument' threw an exception.
+System.Runtime.InteropServices.COMException (0x80040154): Retrieving the COM class factory for component with CLSID {4DB2E2BB-78E6-4AEA-BEFB-FDAAB610FD1B} failed due to the following error: 80040154 Class not registered (Exception from HRESULT: 0x80040154 (REGDB_E_CLASSNOTREG)).
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument..cctor()
+System.TypeInitializationException: The type initializer for 'CrystalDecisions.CrystalReports.Engine.ReportDocument' threw an exception. ---> System.Runtime.InteropServices.COMException: Retrieving the COM class factory for component with CLSID {4DB2E2BB-78E6-4AEA-BEFB-FDAAB610FD1B} failed due to the following error: 80040154 Class not registered (Exception from HRESULT: 0x80040154 (REGDB_E_CLASSNOTREG)).
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument..cctor()
+   --- End of inner exception stack trace ---
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument..ctor()
+   at SMSYSTEM.Controllers.BaseController.GenerateReport(Nullable`1 id, Nullable`1 query, String ReportName) in E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\19-04-21\Updated\SMSYSTEM\Controllers\BaseController.cs:line 602
+5/2/2021 11:06:52 PM
+04/05/2021 10:00:24 pm
+Object reference not set to an instance of an object.
+
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at SMSYSTEM.Controllers.BaseController.GenerateReport(Nullable`1 id, Nullable`1 query, String ReportName) in D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\Controllers\BaseController.cs:line 676
+04/05/2021 10:00:24 pm
+04/05/2021 10:01:20 pm
+Object reference not set to an instance of an object.
+
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at SMSYSTEM.Controllers.BaseController.GenerateReport(Nullable`1 id, Nullable`1 query, String ReportName) in D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\Controllers\BaseController.cs:line 676
+04/05/2021 10:01:20 pm

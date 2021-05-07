@@ -1,0 +1,203 @@
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\ApplicationInsights.config
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\roslyn\csc.exe
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\roslyn\System.Collections.Immutable.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\roslyn\System.Reflection.Metadata.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\roslyn\vbc.exe
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\roslyn\VBCSCompiler.exe
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\roslyn\VBCSCompiler.exe.config
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\SMSYSTEM.dll.config
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\SMSYSTEM.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\SMSYSTEM.pdb
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\CrystalDecisions.CrystalReports.Engine.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\CrystalDecisions.ReportSource.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\CrystalDecisions.Shared.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Microsoft.AI.Agent.Intercept.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Microsoft.AI.DependencyCollector.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Microsoft.AI.PerfCounterCollector.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Microsoft.AI.ServerTelemetryChannel.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Microsoft.AI.Web.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Microsoft.AI.WindowsServer.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Microsoft.ApplicationInsights.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Microsoft.Web.Infrastructure.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Newtonsoft.Json.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\SSS.BLL.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\SSS.Property.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\SSS.Utility.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\System.Web.Helpers.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\System.Web.Mvc.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\System.Web.Razor.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\System.Web.Webpages.Deployment.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\System.Web.Webpages.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\System.Web.Webpages.Razor.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\SSS.DAL.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\FluentValidation.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\AjaxControlToolkit.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\stdole.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\SSS.BLL.pdb
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\SSS.Property.pdb
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\SSS.Utility.pdb
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Microsoft.AI.DependencyCollector.xml
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Microsoft.AI.ServerTelemetryChannel.xml
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Microsoft.AI.Web.xml
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Microsoft.AI.WindowsServer.xml
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Microsoft.ApplicationInsights.xml
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\Newtonsoft.Json.xml
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\System.Web.Razor.xml
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\System.Web.Webpages.xml
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\System.Web.Webpages.Deployment.xml
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\System.Web.Webpages.Razor.xml
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\System.Web.Helpers.xml
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\System.Web.Mvc.xml
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\bin\SSS.DAL.pdb
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\obj\Release\SMSYSTEM.csprojResolveAssemblyReference.cache
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\obj\Release\SMSYSTEM.dll
+E:\Visual Studio Projects\MangoTechProjects\ABDUL GHAFOOR\Project\wetransfer-017c3f (1)\Updated\SMSYSTEM\obj\Release\SMSYSTEM.pdb
+D:\WajidUpdated\Updated\SMSYSTEM\bin\ApplicationInsights.config
+D:\WajidUpdated\Updated\SMSYSTEM\bin\roslyn\csc.exe
+D:\WajidUpdated\Updated\SMSYSTEM\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\WajidUpdated\Updated\SMSYSTEM\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\WajidUpdated\Updated\SMSYSTEM\bin\roslyn\System.Collections.Immutable.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\roslyn\System.Reflection.Metadata.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\roslyn\vbc.exe
+D:\WajidUpdated\Updated\SMSYSTEM\bin\roslyn\VBCSCompiler.exe
+D:\WajidUpdated\Updated\SMSYSTEM\bin\roslyn\VBCSCompiler.exe.config
+D:\WajidUpdated\Updated\SMSYSTEM\bin\SMSYSTEM.dll.config
+D:\WajidUpdated\Updated\SMSYSTEM\bin\SMSYSTEM.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\SMSYSTEM.pdb
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Microsoft.AI.Agent.Intercept.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Microsoft.AI.DependencyCollector.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Microsoft.AI.Web.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Microsoft.AI.WindowsServer.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Microsoft.ApplicationInsights.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Microsoft.Web.Infrastructure.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Newtonsoft.Json.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\SSS.BLL.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\SSS.Property.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\SSS.Utility.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\System.Web.Helpers.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\System.Web.Mvc.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\System.Web.Razor.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\System.Web.Webpages.Deployment.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\System.Web.Webpages.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\System.Web.Webpages.Razor.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\SSS.DAL.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\FluentValidation.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\AjaxControlToolkit.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\stdole.dll
+D:\WajidUpdated\Updated\SMSYSTEM\bin\SSS.BLL.pdb
+D:\WajidUpdated\Updated\SMSYSTEM\bin\SSS.Property.pdb
+D:\WajidUpdated\Updated\SMSYSTEM\bin\SSS.Utility.pdb
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Microsoft.AI.DependencyCollector.xml
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Microsoft.AI.Web.xml
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Microsoft.AI.WindowsServer.xml
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Microsoft.ApplicationInsights.xml
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\WajidUpdated\Updated\SMSYSTEM\bin\Newtonsoft.Json.xml
+D:\WajidUpdated\Updated\SMSYSTEM\bin\System.Web.Razor.xml
+D:\WajidUpdated\Updated\SMSYSTEM\bin\System.Web.Webpages.xml
+D:\WajidUpdated\Updated\SMSYSTEM\bin\System.Web.Webpages.Deployment.xml
+D:\WajidUpdated\Updated\SMSYSTEM\bin\System.Web.Webpages.Razor.xml
+D:\WajidUpdated\Updated\SMSYSTEM\bin\System.Web.Helpers.xml
+D:\WajidUpdated\Updated\SMSYSTEM\bin\System.Web.Mvc.xml
+D:\WajidUpdated\Updated\SMSYSTEM\bin\SSS.DAL.pdb
+D:\WajidUpdated\Updated\SMSYSTEM\obj\Release\SMSYSTEM.csprojResolveAssemblyReference.cache
+D:\WajidUpdated\Updated\SMSYSTEM\obj\Release\SMSYSTEM.dll
+D:\WajidUpdated\Updated\SMSYSTEM\obj\Release\SMSYSTEM.pdb
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\ApplicationInsights.config
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\roslyn\csc.exe
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\roslyn\System.Collections.Immutable.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\roslyn\System.Reflection.Metadata.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\roslyn\vbc.exe
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\roslyn\VBCSCompiler.exe
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\roslyn\VBCSCompiler.exe.config
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\SMSYSTEM.dll.config
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\SMSYSTEM.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\SMSYSTEM.pdb
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Microsoft.AI.Agent.Intercept.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Microsoft.AI.DependencyCollector.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Microsoft.AI.Web.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Microsoft.AI.WindowsServer.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Microsoft.ApplicationInsights.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Microsoft.Web.Infrastructure.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Newtonsoft.Json.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\SSS.BLL.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\SSS.Property.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\SSS.Utility.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\System.Web.Helpers.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\System.Web.Mvc.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\System.Web.Razor.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\System.Web.Webpages.Deployment.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\System.Web.Webpages.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\System.Web.Webpages.Razor.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\SSS.DAL.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\FluentValidation.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\AjaxControlToolkit.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\SSS.BLL.pdb
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\SSS.Property.pdb
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\SSS.Utility.pdb
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Microsoft.AI.DependencyCollector.xml
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Microsoft.AI.Web.xml
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Microsoft.AI.WindowsServer.xml
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Microsoft.ApplicationInsights.xml
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\Newtonsoft.Json.xml
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\System.Web.Razor.xml
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\System.Web.Webpages.xml
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\System.Web.Webpages.Deployment.xml
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\System.Web.Webpages.Razor.xml
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\System.Web.Helpers.xml
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\System.Web.Mvc.xml
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\bin\SSS.DAL.pdb
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\obj\Release\SMSYSTEM.csprojResolveAssemblyReference.cache
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\obj\Release\SMSYSTEM.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SMSYSTEM\obj\Release\SMSYSTEM.pdb

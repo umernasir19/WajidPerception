@@ -1,0 +1,345 @@
+﻿using Newtonsoft.Json;
+using SSS.BLL.Transactions;
+using SSS.Property.Setups;
+using SSS.Property.Transactions;
+using SSS.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace SMSYSTEM.Controllers
+{
+    public class ActivityController : BaseController
+    {
+        // GET: Activity
+        #region Activity
+        public ActionResult ViewActivity()
+        {
+            if (Session["LOGGEDIN"] != null)
+            {
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+        public JsonResult GetAllActivity()
+        {
+            var Data =JsonConvert.SerializeObject(GetAllActivityData());
+            return Json(new {data=Data,success=true,code=200 },JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult Activity(int? id)
+        {   // GET: Payment
+            LP_Activity_Property objActivityVM;
+            LP_Activity_BLL objVoucherBll;
+            LP_Voucher_Property objActivityMaster;
+            if (Session["LOGGEDIN"] != null)
+            {
+                objActivityVM = new LP_Activity_Property();
+                if (id > 0)
+                {
+                    objActivityVM = new LP_Activity_Property();
+                    objActivityVM.orderIdx = Convert.ToInt32(id);
+                    objVoucherBll = new LP_Activity_BLL(objActivityVM);
+                    objActivityVM.ActivityDetailLST= Helper.ConvertDataTable<LP_Activity_Property>(objVoucherBll.SelectAll());
+                    objActivityVM.salesOrderLST = Helper.ConvertDataTable<LP_SalesOrder_Master_Property>(GetAllSalesInvoice());
+                    objActivityVM.vendorCatLST = Helper.ConvertDataTable<Vendor_Category_Property>(GetAllVendorsCategory());
+                    objActivityVM.productLST = Helper.ConvertDataTable<Product_Property>(ViewAllProducts());
+
+
+                }
+                else
+                {
+                    LP_Activity_BLL objbll = new LP_Activity_BLL();
+                    objActivityVM.salesOrderLST = Helper.ConvertDataTable<LP_SalesOrder_Master_Property>(GetAllSalesInvoice());
+                    objActivityVM.vendorCatLST = Helper.ConvertDataTable<Vendor_Category_Property>(GetAllVendorsCategory());
+                }
+
+                return View("Activity", objActivityVM);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+        [HttpGet]
+        public JsonResult SearchProductsInDetail(int Id)
+        {
+            try
+            {
+                LP_PInvoice_BLL objbll = new LP_PInvoice_BLL();
+                //DataTable tblFiltered;
+                if (Id != 0)
+                {
+
+
+
+                    var Data = Helper.ConvertDataTable<LP_SalesOrder_Detail_Property>(GetAllSalesInvoiceDetails(Id));//JsonConvert.SerializeObject(GetAllPIByDate(objsearchPI));
+                    return Json(new { data = Data, success = true, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "Error Occured", success = false, statuscode = 500 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        [HttpGet]
+        public JsonResult SearchProductsInDODetail(int Id)
+        {
+            try
+            {
+                LP_PInvoice_BLL objbll = new LP_PInvoice_BLL();
+                //DataTable tblFiltered;
+                if (Id != 0)
+                {
+
+
+
+                    var Data = Helper.ConvertDataTable<LP_DisplayOrder_Details_Property>(GetAllSalesInvoiceDODetails(Id));//JsonConvert.SerializeObject(GetAllPIByDate(objsearchPI));
+                    return Json(new { data = Data, success = true, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "Error Occured", success = false, statuscode = 500 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        [HttpGet]
+        public JsonResult SearchPrice(int id)
+        {
+            try
+            {
+                LP_Activity_BLL objbll = new LP_Activity_BLL(id);
+                //DataTable tblFiltered;
+                if (id != 0)
+                {
+
+
+
+                    var Data = Helper.ConvertDataTable<Vendors_Property>(objbll.getVendorPrice(id));//JsonConvert.SerializeObject(GetAllPIByDate(objsearchPI));
+                    return Json(new { data = Data, success = true, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "Error Occured", success = false, statuscode = 500 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult SearchVendorsOnCatIdx(int Id)
+        {
+            try
+            {
+
+                if (Id > 0)
+                {
+
+
+
+                    var Data = Helper.ConvertDataTable<Vendors_Property>(GetVendorByVendorCat(Id));//JsonConvert.SerializeObject(GetAllPIByDate(objsearchPI));
+                    return Json(new { data = Data, success = true, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "Error Occured", success = false, statuscode = 500 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        [HttpPost]
+        public JsonResult AddUpdate(LP_Activity_Property objVoucher)
+        {
+            try
+            {
+                bool flag = false;
+
+                LP_Activity_Property obj = new LP_Activity_Property();
+                obj.idx = objVoucher.idx;
+                obj.activityDate = DateTime.Now.ToString("yyyy-MM-dd");
+                obj.creationDate = DateTime.Now.ToString("yyyy-MM-dd");
+                obj.createdBy = Convert.ToInt16(Session["UID"].ToString());
+                obj.typeIdx = objVoucher.typeIdx;
+                obj.orderIdx = objVoucher.orderIdx;
+                obj.productIdx = objVoucher.productIdx;
+                obj.vendorCatIdx = objVoucher.vendorCatIdx;
+                obj.vendorIdx = objVoucher.vendorIdx;
+                obj.size = objVoucher.size;
+                obj.qty = objVoucher.qty;
+                obj.activityPrice = objVoucher.activityPrice;
+                obj.description = objVoucher.description;
+                obj.reference = objVoucher.reference;
+                obj.DetailData = Helper.ToDataTable<LP_Activity_Property>(objVoucher.ActivityDetailLST);
+                LP_Activity_BLL objBLL = new LP_Activity_BLL(obj);
+                flag = objBLL.Insert();
+                if (flag)
+                {
+                    return Json(new { data = "Inserted", success = flag, msg = flag == true ? "Successfull" : "Success", statuscode = flag == true ? 200 : 401 }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "", success = flag, msg = flag == true ? "Failure" : "Failure", statuscode = flag == true ? 200 : 401 }, JsonRequestBehavior.AllowGet);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpGet]
+        public virtual JsonResult getSalesOrders()
+        {
+
+            var Data = Helper.ConvertDataTable<LP_SalesOrder_Master_Property>(GetAllSalesInvoiceForDropDown());
+            return Json(new { data = Data, success = true, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public virtual JsonResult getDisplayOrder()
+        {
+            var Data = Helper.ConvertDataTable<LP_DisplayOrder_Master_Property>(GetAllDisplayOrderForDropDown());
+            return Json(new { data = Data, success = true, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region Local Finish Good
+        public ActionResult FinsihProducts(int? id)
+        {  // GET: Payment
+
+
+
+            if (Session["LOGGEDIN"] != null)
+            {
+                LP_FinsihProduct_Property objPInvoiceVM = new LP_FinsihProduct_Property();
+                LP_FinishProduct_BLL objFPBLL = new LP_FinishProduct_BLL();
+               
+
+                objPInvoiceVM.salesOrderLST = Helper.ConvertDataTable<LP_SalesOrder_Master_Property>(objFPBLL.SelectAll());
+                
+                objPInvoiceVM.ProductLST = Helper.ConvertDataTable<Product_Property>(ViewAllProducts());
+                
+
+                if (id > 0)
+                {
+                    //update 
+
+
+                    return View("FinsihProducts", objPInvoiceVM);
+                }
+                else
+                {
+
+                    return View("FinsihProducts", objPInvoiceVM);
+
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+        }
+
+        public JsonResult GetAllAcitvityBYOrderId(int id )
+        {
+
+            if (Session["LOGGEDIN"] != null)
+            {
+                try
+                {
+
+
+                    LP_FinishProduct_BLL objPIBLL = new LP_FinishProduct_BLL();
+                    var Data = JsonConvert.SerializeObject(objPIBLL.SelectAllActivityOnSoNumber(id));
+                    return Json(new { data = Data, success = true, statuscode = 200, count = Data.Length }, JsonRequestBehavior.AllowGet);
+
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        [HttpPost]
+        public JsonResult AddUpdateFP(LP_FinsihProduct_Property objPI)
+        {
+            try
+            {
+                bool flag = false;
+
+                LP_FinsihProduct_Property obj = new LP_FinsihProduct_Property();
+                 obj.orderIdx = objPI.orderIdx;
+                if (objPI.InventoryDetails.Count > 0)
+                {
+                    obj.DetailData = Helper.ToDataTable<LP_InventoryLogs_Property>(objPI.InventoryDetails);
+                    LP_FinishProduct_BLL objBLL = new LP_FinishProduct_BLL(obj);
+                    flag = objBLL.Insert();
+                    if (flag)
+                    {
+                        return Json(new { data = "Inserted", success = flag, msg = flag == true ? "Successfull" : "Success", statuscode = flag == true ? 200 : 401 }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { data = "", success = flag, msg = flag == true ? "Failure" : "Failure", statuscode = flag == true ? 200 : 401 }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    return Json(new { data = "", success = flag, msg = flag == true ? "Failure" : "Failure", statuscode = flag == true ? 200 : 401 }, JsonRequestBehavior.AllowGet);
+                }
+                //obj.activityDate = DateTime.Now.ToString("yyyy-MM-dd");
+                //obj.creationDate = DateTime.Now.ToString("yyyy-MM-dd");
+                //obj.createdBy = Convert.ToInt16(Session["UID"].ToString());
+                //obj.orderIdx = objVoucher.orderIdx;
+                //obj.productIdx = objVoucher.productIdx;
+                //obj.vendorCatIdx = objVoucher.vendorCatIdx;
+                //obj.vendorIdx = objVoucher.vendorIdx;
+                //obj.size = objVoucher.size;
+                //obj.qty = objVoucher.qty;
+                //obj.activityPrice = objVoucher.activityPrice;
+                //obj.description = objVoucher.description;
+               
+
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
+
+    }
+}
