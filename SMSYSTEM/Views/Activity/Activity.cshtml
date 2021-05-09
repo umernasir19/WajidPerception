@@ -14,17 +14,28 @@
                 <!-- text input -->
                 <div class="form-group">
                     <label>Reference:</label>
-                    <select id="typeIdx" class="form-control">
-                        <option value="">
-                            Select Type
-                        </option>
-                        <option value="1">
-                            Sales Order
-                        </option>
-                        <option value="2">
-                            Display Order
-                        </option>
-                    </select>
+                    @{
+                        if (Model.idx > 0)
+                        {
+                            @Html.DropDownListFor(model => model.typeIdx, new List<SelectListItem>
+               {
+                   new SelectListItem {Text="Select Type",Value="0" },
+                  new SelectListItem {Text=" Sales Order",Value="1" },
+                  new SelectListItem {Text="Display Order",Value="2" }
+               }, new { @class = "form-control" })
+                         
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(model => model.typeIdx, new List<SelectListItem>
+               {
+                   new SelectListItem {Text="Select Type",Value="0" },
+                  new SelectListItem {Text=" Sales Order",Value="1" },
+                  new SelectListItem {Text="Display Order",Value="2" }
+               }, new { @class = "form-control" })
+                        }
+                    }
+                   
                 </div>
                 @Html.ValidationMessageFor(model => model.typeIdx, "", new { @class = "text-danger" })
             </div>
@@ -35,14 +46,17 @@
                 <!-- text input -->
                 <div class="form-group">
                     <label>Order#:</label>
+
                     @Html.DropDownListFor(m => m.orderIdx,
        new SelectList(Enumerable.Empty<SelectListItem>(), "idx", "soNumber"),
               "Select Order",
               new { @class = "form-control" })
+
+
+
                     @Html.ValidationMessageFor(m => m.orderIdx, "", new { @class = "text-danger" })
-                    @*@Html.DropDownListFor(model => model.orderIdx, new SelectList(Model.salesOrderLST, "idx", "soNumber"), "Select Order", new { @Class = "form-control font-weight-bold" })*@
                 </div>
-                @*@Html.ValidationMessageFor(model => model.orderIdx, "", new { @class = "text-danger" })*@
+
             </div>
             <div class="col-sm-3">
                 <!-- text input -->
@@ -68,11 +82,21 @@
                 <!-- text input -->
                 <div class="form-group">
                     <label>Vendor*:</label>
-                    @*            @Html.DropDownListFor(model => model.vendorIdx, new SelectList(Model.vendorLST, "idx", "vendorName"), "Select Category", new { @Class = "form-control font-weight-bold" })*@
-                    @Html.DropDownListFor(m => m.vendorIdx,
+                    @{
+                        if (Model.ActivityDetailLST.Count > 0)
+                        {
+                            @Html.DropDownListFor(model => model.vendorIdx, new SelectList(Model.vendorLST, "idx", "vendorName"), "Select Category", new { @Class = "form-control font-weight-bold" })
+
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(m => m.vendorIdx,
        new SelectList(Enumerable.Empty<SelectListItem>(), "idx", "vendorName"),
               "Select Vendor",
               new { @class = "form-control" })
+                        }
+                    }
+
                     @Html.ValidationMessageFor(m => m.vendorIdx, "", new { @class = "text-danger" })
                 </div>
                 @*@Html.ValidationMessageFor(model => model.vendorIdx, "", new { @class = "text-danger" })*@
@@ -147,23 +171,23 @@
                             </thead>
                             <tbody style="background:white;color:black; ">
                                 @{
-                                    if (Model.ActivityDetailLST.Count>0)
+                                    if (Model.ActivityDetailLST.Count > 0)
                                     {
 
 
 
-                                        for (int i=0; i<Model.ActivityDetailLST.Count;i++)
+                                        for (int i = 0; i < Model.ActivityDetailLST.Count; i++)
                                         {
-                                <tr>
-                                    <td style="display:none">@Model.ActivityDetailLST[i].productIdx</td>
-                                    <td>@Model.productLST.Where(p=>p.idx==Model.ActivityDetailLST[i].productIdx).Select(p=>p.itemName).FirstOrDefault()</td>
-                                    <td>@Model.ActivityDetailLST[i].reference</td>
-                                    <td>@Model.ActivityDetailLST[i].size</td>
-                                    <td>@Model.ActivityDetailLST[i].qty</td>
-                                    <td>@Model.ActivityDetailLST[i].activityPrice</td>
-                                    <td>@Model.ActivityDetailLST[i].description</td>
-                                    <td><button id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button></td>
-                                </tr>
+                                            <tr>
+                                                <td style="display:none">@Model.ActivityDetailLST[i].productIdx</td>
+                                                <td>@Model.productLST.Where(p => p.idx == Model.ActivityDetailLST[i].productIdx).Select(p => p.itemName).FirstOrDefault()</td>
+                                                <td>@Model.ActivityDetailLST[i].reference</td>
+                                                <td>@Model.ActivityDetailLST[i].size</td>
+                                                <td>@Model.ActivityDetailLST[i].qty</td>
+                                                <td>@Model.ActivityDetailLST[i].activityPrice</td>
+                                                <td>@Model.ActivityDetailLST[i].description</td>
+                                                <td><button id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button></td>
+                                            </tr>
 
                                         }
                                     }
@@ -193,8 +217,37 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#ddlOrder').hide();
+            $('#typeIdx').trigger("change");
+            //alert(update);
+            checkUpdate();
+            
+        
         });
 
+        function checkUpdate(){
+            var update=@Html.Raw(Json.Encode(ViewBag.update));
+            if(update==true){
+                if(@Model.ActivityDetailLST.Count>0){
+
+                   // alert(Model.ActivityDetailLST.Count);
+                    @*document.getElementById('typeIdx').value=@Model.ActivityDetailLST[0].typeIdx;
+                    $('#typeIdx').trigger("change");
+                    document.getElementById('typeIdx').value=@Model.ActivityDetailLST[0].typeIdx;
+
+
+                    var orderid=@Model.ActivityDetailLST[0].orderIdx;
+
+                    SearchProductsInDetail(orderid);*@
+
+
+                    // $('#orderIdx').trigger("change");
+                }}
+
+            @*alert(@Model.ActivityDetailLST.Count);
+            var c=@Model.ActivityDetailLST.Count
+                console.log(@Model.ActivityDetailLST.Count);*@
+
+        }
         $("#vendorIdx").on('change', function () {
             var vendorValue = $('#vendorIdx').val();
             if (Number(vendorValue)>0) {
@@ -234,11 +287,30 @@
                                 }));
                            for (var i = 0; i < data.data.length; i++) {
 
-                               $('#orderIdx').append($('<option>',
-                                       {
-                                           value: data.data[i].idx,
-                                           text: data.data[i].soNumber
-                                       }));
+                              // if(Model.ActivityDetailLST.Count>0){
+                                   @*var orderid=@Model.ActivityDetailLST[0].orderIdx;
+                                   var select='';
+                                   if(orderid==data.data[i].idx){
+                                       $("#orderIdx").html("");
+                                       selection='Selected'
+                                       $('#orderIdx').append($('<option>'+selection +' ' ,
+                                          {
+                                              value: data.data[i].idx,
+                                              text: data.data[i].soNumber
+                                          }));
+                                   }
+                                   else{
+
+                                   }*@
+
+
+                              // }else{
+                                   $('#orderIdx').append($('<option>',
+                                           {
+                                               value: data.data[i].idx,
+                                               text: data.data[i].soNumber
+                                           }));
+                               //}
 
                            }
 
@@ -259,13 +331,34 @@
                                     text: "Select Order"
                                 }));
                            for (var i = 0; i < data.data.length; i++) {
+                               
+                              // if(@Model.ActivityDetailLST.Count>0)
+                              // {
 
+                                   @*var orderid=@Model.ActivityDetailLST[0].orderIdx;
+                                   var select='';
+                                   if(orderid==data.data[i].idx){
+                                       $("#orderIdx").html("");
+                                       selection='Selected'
+                                       $('#orderIdx').append($('<option> selected="selected" ' ,
+                                            {
+                                                value: data.data[i].idx,
+                                                text: data.data[i].doNumber
+                                            }));
+
+                                   }
+                                   else
+                                   {
+
+                                   }*@
+                              // }
+                      // else{
                                $('#orderIdx').append($('<option>',
                                        {
                                            value: data.data[i].idx,
                                            text: data.data[i].doNumber
                                        }));
-
+                       //}
                            }
 
 
@@ -284,8 +377,98 @@
                                 }));
                 $('#ddlOrder').hide();
             }
+
         });
         var allInvoiceDetails = {};
+
+        function SearchProductsInDetail(orderid){
+
+                var orderId =orderid
+                var typeId = $("#typeIdx option:selected").val();
+                if (orderId > 0 && typeId==1) {
+                    $.ajax({
+                        url: '/Activity/SearchProductsInDetail',
+                        type: "GET",
+                        dataType: "JSON",
+                        data: {
+                            Id: orderId
+                        },
+                        success: function (data) {
+
+                            $("#productIdx").html(""); // clear before appending new list
+                            $('#productIdx').append($('<option>',
+                                            {
+                                                value: "",
+                                                text: "Select Products"
+                                            }));
+
+                            console.log(data.data);
+                            $.each(data.data, function (key, value) {
+                                $('#productIdx').append($('<option>',
+                                            {
+                                                value: value.itemIdx,
+                                                text: value.itemName
+                                            }));
+
+
+
+                            });
+
+
+                        }
+                    });
+                }
+                else if (orderId > 0 && typeId == 2)
+                {
+                    $.ajax({
+                        url: '/Activity/SearchProductsInDODetail',
+                        type: "GET",
+                        dataType: "JSON",
+                        data: {
+                            Id: orderId
+                        },
+                        success: function (data) {
+
+                            $("#productIdx").html(""); // clear before appending new list
+                            //var invoicData = JSON.parse(data.data)
+                            //allInvoice = { invoicData };
+
+                            $('#productIdx').append($('<option>',
+                                            {
+                                                value: "",
+                                                text: "Select Products"
+                                            }));
+
+                            console.log(data.data);
+                            $.each(data.data, function (key, value) {
+                                $('#productIdx').append($('<option>',
+                                            {
+                                                value: value.itemIdx,
+                                                text: value.itemName
+                                            }));
+
+
+
+                            });
+
+
+                        }
+                    });
+
+                }
+                else {
+
+                    $("#productIdx").empty();
+                    $("#productIdx").append($('<option>',
+                                            {
+                                                value: "",
+                                                text: "Select Product"
+                                            }));
+
+                }
+
+
+        }
         $("#orderIdx").on('change', function () {
             var orderId = $("#orderIdx option:selected").val();
             var typeId = $("#typeIdx option:selected").val();
@@ -372,6 +555,95 @@
             }
 
         });
+        function changeorderid(){
+
+                var orderId = $("#orderIdx option:selected").val();
+                var typeId = $("#typeIdx option:selected").val();
+                if (orderId > 0 && typeId==1) {
+                    $.ajax({
+                        url: '/Activity/SearchProductsInDetail',
+                        type: "GET",
+                        dataType: "JSON",
+                        data: {
+                            Id: orderId
+                        },
+                        success: function (data) {
+
+                            $("#productIdx").html(""); // clear before appending new list
+                            $('#productIdx').append($('<option>',
+                                            {
+                                                value: "",
+                                                text: "Select Products"
+                                            }));
+
+                            console.log(data.data);
+                            $.each(data.data, function (key, value) {
+                                $('#productIdx').append($('<option>',
+                                            {
+                                                value: value.itemIdx,
+                                                text: value.itemName
+                                            }));
+
+
+
+                            });
+
+
+                        }
+                    });
+                }
+                else if (orderId > 0 && typeId == 2)
+                {
+                    $.ajax({
+                        url: '/Activity/SearchProductsInDODetail',
+                        type: "GET",
+                        dataType: "JSON",
+                        data: {
+                            Id: orderId
+                        },
+                        success: function (data) {
+
+                            $("#productIdx").html(""); // clear before appending new list
+                            //var invoicData = JSON.parse(data.data)
+                            //allInvoice = { invoicData };
+
+                            $('#productIdx').append($('<option>',
+                                            {
+                                                value: "",
+                                                text: "Select Products"
+                                            }));
+
+                            console.log(data.data);
+                            $.each(data.data, function (key, value) {
+                                $('#productIdx').append($('<option>',
+                                            {
+                                                value: value.itemIdx,
+                                                text: value.itemName
+                                            }));
+
+
+
+                            });
+
+
+                        }
+                    });
+
+                }
+                else {
+
+                    $("#productIdx").empty();
+                    $("#productIdx").append($('<option>',
+                                            {
+                                                value: "",
+                                                text: "Select Product"
+                                            }));
+
+                }
+
+
+        }
+
         $("#vendorCatIdx").on('change', function () {
             var vendorId = $("#vendorCatIdx option:selected").val();
             if (vendorId > 0) {

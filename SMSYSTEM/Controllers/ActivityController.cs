@@ -5,6 +5,7 @@ using SSS.Property.Transactions;
 using SSS.Utility;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -51,14 +52,32 @@ namespace SMSYSTEM.Controllers
                     objActivityVM.salesOrderLST = Helper.ConvertDataTable<LP_SalesOrder_Master_Property>(GetAllSalesInvoice());
                     objActivityVM.vendorCatLST = Helper.ConvertDataTable<Vendor_Category_Property>(GetAllVendorsCategory());
                     objActivityVM.productLST = Helper.ConvertDataTable<Product_Property>(ViewAllProducts());
-
-
+                    objActivityVM.vendorIdx = objActivityVM.ActivityDetailLST[0].vendorIdx;
+                    objActivityVM.vendorCatIdx = objActivityVM.ActivityDetailLST[0].vendorCatIdx;
+                    objActivityVM.idx = objActivityVM.ActivityDetailLST[0].idx;
+                    objActivityVM.typeIdx = objActivityVM.ActivityDetailLST[0].typeIdx;
+                    objActivityVM.orderIdx = objActivityVM.ActivityDetailLST[0].orderIdx;
+                    objActivityVM.vendorLST = Helper.ConvertDataTable<Vendors_Property>(GetVendorByVendorCat(objActivityVM.vendorCatIdx));
+                    if (objActivityVM.ActivityDetailLST[0].typeIdx == 1)
+                    {
+                        objActivityVM.salesOrderLST = Helper.ConvertDataTable<LP_SalesOrder_Master_Property>(GetAllSalesInvoiceForDropDown());
+                    }
+                    else
+                    {
+                        DataTable dt = GetAllDisplayOrderForDropDown();
+                        dt.Columns["doNumber"].ColumnName = "soNumber";
+                        objActivityVM.salesOrderLST= Helper.ConvertDataTable<LP_SalesOrder_Master_Property>(dt);
+                    }
+                    
+                    ViewBag.update = true;
                 }
                 else
                 {
                     LP_Activity_BLL objbll = new LP_Activity_BLL();
                     objActivityVM.salesOrderLST = Helper.ConvertDataTable<LP_SalesOrder_Master_Property>(GetAllSalesInvoice());
                     objActivityVM.vendorCatLST = Helper.ConvertDataTable<Vendor_Category_Property>(GetAllVendorsCategory());
+                    objActivityVM.ActivityDetailLST = new List<LP_Activity_Property>();
+                    ViewBag.update = false;
                 }
 
                 return View("Activity", objActivityVM);
@@ -180,25 +199,52 @@ namespace SMSYSTEM.Controllers
             try
             {
                 bool flag = false;
+                if (objVoucher.idx > 0)
+                {
+                    LP_Activity_Property obj = new LP_Activity_Property();
+                    obj.idx = objVoucher.idx;
+                    obj.activityDate = DateTime.Now.ToString("yyyy-MM-dd");
+                    obj.creationDate = DateTime.Now.ToString("yyyy-MM-dd");
+                    obj.createdBy = Convert.ToInt16(Session["UID"].ToString());
+                    obj.typeIdx = objVoucher.typeIdx;
+                    obj.orderIdx = objVoucher.orderIdx;
+                    obj.productIdx = objVoucher.productIdx;
+                    obj.vendorCatIdx = objVoucher.vendorCatIdx;
+                    obj.vendorIdx = objVoucher.vendorIdx;
+                    obj.size = objVoucher.size;
+                    obj.qty = objVoucher.qty;
+                    obj.activityPrice = objVoucher.activityPrice;
+                    obj.description = objVoucher.description;
+                    obj.reference = objVoucher.reference;
+                    obj.DetailData = Helper.ToDataTable<LP_Activity_Property>(objVoucher.ActivityDetailLST);
 
-                LP_Activity_Property obj = new LP_Activity_Property();
-                obj.idx = objVoucher.idx;
-                obj.activityDate = DateTime.Now.ToString("yyyy-MM-dd");
-                obj.creationDate = DateTime.Now.ToString("yyyy-MM-dd");
-                obj.createdBy = Convert.ToInt16(Session["UID"].ToString());
-                obj.typeIdx = objVoucher.typeIdx;
-                obj.orderIdx = objVoucher.orderIdx;
-                obj.productIdx = objVoucher.productIdx;
-                obj.vendorCatIdx = objVoucher.vendorCatIdx;
-                obj.vendorIdx = objVoucher.vendorIdx;
-                obj.size = objVoucher.size;
-                obj.qty = objVoucher.qty;
-                obj.activityPrice = objVoucher.activityPrice;
-                obj.description = objVoucher.description;
-                obj.reference = objVoucher.reference;
-                obj.DetailData = Helper.ToDataTable<LP_Activity_Property>(objVoucher.ActivityDetailLST);
-                LP_Activity_BLL objBLL = new LP_Activity_BLL(obj);
-                flag = objBLL.Insert();
+                    LP_Activity_BLL objBLL = new LP_Activity_BLL(obj);
+
+                    flag = objBLL.DeleteAndInsert();
+                }
+                else
+                {
+                    LP_Activity_Property obj = new LP_Activity_Property();
+                    obj.idx = objVoucher.idx;
+                    obj.activityDate = DateTime.Now.ToString("yyyy-MM-dd");
+                    obj.creationDate = DateTime.Now.ToString("yyyy-MM-dd");
+                    obj.createdBy = Convert.ToInt16(Session["UID"].ToString());
+                    obj.typeIdx = objVoucher.typeIdx;
+                    obj.orderIdx = objVoucher.orderIdx;
+                    obj.productIdx = objVoucher.productIdx;
+                    obj.vendorCatIdx = objVoucher.vendorCatIdx;
+                    obj.vendorIdx = objVoucher.vendorIdx;
+                    obj.size = objVoucher.size;
+                    obj.qty = objVoucher.qty;
+                    obj.activityPrice = objVoucher.activityPrice;
+                    obj.description = objVoucher.description;
+                    obj.reference = objVoucher.reference;
+                    obj.DetailData = Helper.ToDataTable<LP_Activity_Property>(objVoucher.ActivityDetailLST);
+
+                    LP_Activity_BLL objBLL = new LP_Activity_BLL(obj);
+
+                    flag = objBLL.Insert();
+                }
                 if (flag)
                 {
                     return Json(new { data = "Inserted", success = flag, msg = flag == true ? "Successfull" : "Success", statuscode = flag == true ? 200 : 401 }, JsonRequestBehavior.AllowGet);

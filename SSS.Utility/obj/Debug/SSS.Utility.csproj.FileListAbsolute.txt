@@ -272,6 +272,6 @@ D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.Utility\obj\Debug\SSS.Utili
 D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.Utility\obj\Debug\SSS.Utility.csprojResolveAssemblyReference.cache
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.Utility\bin\Debug\SSS.Utility.dll
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.Utility\bin\Debug\SSS.Utility.pdb
-E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.Utility\obj\Debug\SSS.Utility.csprojResolveAssemblyReference.cache
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.Utility\obj\Debug\SSS.Utility.dll
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.Utility\obj\Debug\SSS.Utility.pdb
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.Utility\obj\Debug\SSS.Utility.csprojResolveAssemblyReference.cache

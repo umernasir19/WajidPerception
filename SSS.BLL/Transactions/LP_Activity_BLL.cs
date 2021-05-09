@@ -30,6 +30,12 @@ namespace SSS.BLL.Transactions
             _objACTDAL = new LP_Activity_DAL(_objACTMasterProperty);
             return _objACTDAL.Insert();
         }
+        public bool DeleteAndInsert()
+        {
+            _objACTDAL = new LP_Activity_DAL(_objACTMasterProperty);
+            return _objACTDAL.DeleteAndInsert();
+        }
+
         public DataTable getVendorPrice(int id)
         {
             _objACTDAL = new LP_Activity_DAL(_objACTMasterProperty);
