@@ -69,9 +69,10 @@ namespace SMSYSTEM.Controllers
         {
             if (Session["LOGGEDIN"] != null)
             {
-
+                Product_Property objProductVm = new Product_Property();
+                objProductVm.idx = Convert.ToInt32(id);
                 objProductProperty = new Product_Property();
-                objProductProperty.idx = Convert.ToInt32(id);
+                objProductProperty.idx = objProductVm.idx;// Convert.ToInt32(id);
                 //objProductProperty.branchIdx = 1;//It will have the value of session branchIdx
                 objProductBLL = new Product_BLL(objProductProperty);
                 DataTable categories = objProductBLL.ddlCategory();
@@ -82,6 +83,7 @@ namespace SMSYSTEM.Controllers
                 List<Product_Type_Property> productTypeLST = new List<Product_Type_Property>();
                 DataTable units = objProductBLL.ddlUnit();
                 List<itemUnit_Property> unitLST = new List<itemUnit_Property>();
+                List<LP_Products_Picture> LSTProductsPicture = new List<LP_Products_Picture>();
                 foreach (DataRow dr in categories.Rows)
                 {
                     Product_Category_Property objProductCat = new Product_Category_Property();
@@ -123,25 +125,50 @@ namespace SMSYSTEM.Controllers
                     decimal cp, sp, pt;
                     var dt = objProductBLL.GetById(id);
                     //objProductProperty.companyIdx = 1;
-                    objProductProperty.idx = int.Parse(dt.Rows[0]["idx"].ToString());
-                    objProductProperty.productTypeIdx = int.Parse(dt.Rows[0]["productTypeIdx"].ToString());
-                    objProductProperty.productCatIdx = int.Parse(dt.Rows[0]["productCatIdx"].ToString());
-                    objProductProperty.productSubCatIdx = int.Parse(dt.Rows[0]["productSubCatIdx"].ToString());
-                    objProductProperty.unitIdx = int.Parse(dt.Rows[0]["unitIdx"].ToString());
-                    objProductProperty.HSCODE = (dt.Rows[0]["HSCODE"].ToString());
-                    objProductProperty.itemCode = (dt.Rows[0]["itemCode"].ToString());
-                    objProductProperty.itemName = (dt.Rows[0]["itemName"].ToString());
-                    objProductProperty.description = (dt.Rows[0]["description"].ToString());
+                    objProductVm.idx = int.Parse(dt.Rows[0]["idx"].ToString());
+                    objProductVm.productTypeIdx = int.Parse(dt.Rows[0]["productTypeIdx"].ToString());
+                    objProductVm.productCatIdx = int.Parse(dt.Rows[0]["productCatIdx"].ToString());
+                    objProductVm.productSubCatIdx = int.Parse(dt.Rows[0]["productSubCatIdx"].ToString());
+                    objProductVm.unitIdx = int.Parse(dt.Rows[0]["unitIdx"].ToString());
+                    objProductVm.HSCODE = (dt.Rows[0]["HSCODE"].ToString());
+                    objProductVm.itemCode = (dt.Rows[0]["itemCode"].ToString());
+                    objProductVm.itemName = (dt.Rows[0]["itemName"].ToString());
+                    objProductVm.description = (dt.Rows[0]["description"].ToString());
                     //objProductProperty.costPrice = 0.00m;
                     string costPrice = (dt.Rows[0]["costPrice"].ToString());
-                    decimal.TryParse(costPrice, out cp);                    
-                    objProductProperty.costPrice = cp;
+                    decimal.TryParse(costPrice, out cp);
+                    objProductVm.costPrice = cp;
                     string salePrice = (dt.Rows[0]["salePrice"].ToString());
                     decimal.TryParse(salePrice, out sp);
-                    objProductProperty.salePrice = sp;                    
+                    objProductVm.salePrice = sp;                    
                     string productTax = (dt.Rows[0]["productTax"].ToString());
                     decimal.TryParse(productTax, out pt);
-                    objProductProperty.productTax = pt;
+                    objProductVm.productTax = pt;
+
+
+
+                    foreach (DataRow dr in units.Rows)
+                    {
+                        itemUnit_Property objProductCat = new itemUnit_Property();
+                        objProductCat.itemUnit = dr["itemUnit"].ToString();
+                        objProductCat.idx = Convert.ToInt32(dr["idx"].ToString());
+                        unitLST.Add(objProductCat);
+                    }
+                    ViewBag.unitLST = unitLST;
+
+
+                    DataTable ProdctPic = objProductBLL.GetPicturesById(id);
+                  
+                    foreach (DataRow dr in ProdctPic.Rows)
+                    {
+                        LP_Products_Picture objprdctpic = new LP_Products_Picture();
+                        objprdctpic.PicturePath= dr["PicturePath"].ToString();
+                        LSTProductsPicture.Add(objprdctpic);
+                        //objProductVm.ProductPicPath[i] = dr["PicturePath"].ToString();
+                        
+                    }
+                    ViewBag.ProductPics = LSTProductsPicture;
+                    //
                     //objProductProperty.product_catIdx = int.Parse(dt.Rows[0]["product_catIdx"].ToString());
                     //objProductProperty.subCategory = dt.Rows[0]["subCategory"].ToString();
                     //objProductProperty.HS_CodeSub = dt.Rows[0]["HS_CodeSub"].ToString();
@@ -154,15 +181,18 @@ namespace SMSYSTEM.Controllers
                 }
                 else
                 {
+
+                    ViewBag.ProductPics = LSTProductsPicture;
+                    objProductVm.ProductPicPath = new string[0];
                     LP_GenerateTransNumber_Property objtrans = new LP_GenerateTransNumber_Property();
                     objtrans.TableName = "products";
                     objtrans.Identityfieldname = "idx";
                     objtrans.userid = Session["UID"].ToString();
-                    objProductProperty.itemCode = objProductBLL.GenerateProductCode(objtrans);
+                    objProductVm.itemCode = objProductBLL.GenerateProductCode(objtrans);
                 }
 
 
-                return PartialView("_AddNewProduct", objProductProperty);
+                return PartialView("_AddNewProduct", objProductVm);
             }
             else
             {
@@ -172,19 +202,33 @@ namespace SMSYSTEM.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddUpdate(Product_Property objProductCategory)
+        public JsonResult AddUpdate(Product_Property objproduct)
         {
             if (Session["LOGGEDIN"] != null)
             {
 
                 try
                 {
-                    if (objProductCategory.idx > 0)
+                    string[] picturepath;
+                    if (objproduct.idx > 0)
                     {
 
-                        objProductCategory.lastModifiedByUserIdx = Convert.ToInt32(Session["UID"].ToString());
-                        objProductCategory.lastModificationDate = DateTime.Now.ToString("dd/MM/yyyy");
-                        objProductBLL = new Product_BLL(objProductCategory);
+                        objproduct.lastModifiedByUserIdx = Convert.ToInt32(Session["UID"].ToString());
+                        objproduct.lastModificationDate = DateTime.Now.ToString("dd/MM/yyyy");
+                        //objProductProperty = JsonConvert.DeserializeObject<Product_Property>(JsonConvert.SerializeObject(objproduct)); 
+                        if(objproduct.PicturePath.Length > 0)
+                        {
+                            picturepath = SavePicture(objproduct.PicturePath);
+
+                            objproduct.ProductPictureList = new List<LP_Products_Picture>();
+                            for (int i = 0; i < picturepath.Length; i++)
+                            {
+                                LP_Products_Picture objprflepicpth = new LP_Products_Picture();
+                                objprflepicpth.PicturePath = picturepath[i].ToString();
+                                objproduct.ProductPictureList.Add(objprflepicpth);
+                            }
+                        }
+                        objProductBLL = new Product_BLL(objproduct);
 
                         bool flag = objProductBLL.Update();
                         return Json(new { data = "Updated", success = flag, statuscode = 200 }, JsonRequestBehavior.AllowGet);
@@ -192,8 +236,22 @@ namespace SMSYSTEM.Controllers
                     else
                     {
                         //objProductCategory.companyIdx = 1;
-                        objProductCategory.createdByUserIdx = Convert.ToInt32(Session["UID"].ToString());
-                        objProductBLL = new Product_BLL(objProductCategory);
+                        objproduct.createdByUserIdx = Convert.ToInt32(Session["UID"].ToString());
+                        //objProductProperty = JsonConvert.DeserializeObject<Product_Property>(JsonConvert.SerializeObject(objproduct));
+                        if (objproduct.PicturePath.Length > 0)
+                        {
+                            picturepath = SavePicture(objproduct.PicturePath);
+
+                            objproduct.ProductPictureList = new List<LP_Products_Picture>();
+                            for(int i = 0; i < picturepath.Length; i++)
+                            {
+                                LP_Products_Picture objprflepicpth = new LP_Products_Picture();
+                                objprflepicpth.PicturePath = picturepath[i].ToString();
+                                objproduct.ProductPictureList.Add(objprflepicpth);
+                            }
+                        }
+                        objProductBLL = new Product_BLL(objproduct);
+                        
                         //if (objProductCategory.isMainBranch == 1)
                         //{
                         //    var check = objProductCategory.MainBranch();
@@ -269,5 +327,7 @@ namespace SMSYSTEM.Controllers
                 return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
     }
 }

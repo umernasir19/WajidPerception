@@ -3,10 +3,12 @@ using Newtonsoft.Json;
 using SSS.BLL.Report;
 using SSS.BLL.Setups;
 using SSS.BLL.Setups.Accounts;
+using SSS.BLL.Setups.Reporting;
 using SSS.BLL.Transactions;
 using SSS.Property.Report;
 using SSS.Property.Setups;
 using SSS.Property.Setups.Accounts;
+using SSS.Property.Setups.Reports;
 using SSS.Property.Transactions;
 using SSS.Property.Transactions.ViewModels;
 using System;
@@ -61,7 +63,7 @@ namespace SMSYSTEM.Controllers
                 try
                 {
                     Taxes_BLL objTaxes = new Taxes_BLL();
-                   
+
                     return objTaxes.ViewAll();
                 }
                 catch (Exception ex)
@@ -83,7 +85,7 @@ namespace SMSYSTEM.Controllers
                 try
                 {
                     CompanyBank_BLL objcompanybll = new CompanyBank_BLL();
-                    
+
                     return objcompanybll.ViewAll();
                 }
                 catch (Exception ex)
@@ -150,7 +152,7 @@ namespace SMSYSTEM.Controllers
 
 
                     LP_PInvoice_BLL objPIBLL = new LP_PInvoice_BLL();
-                   
+
                     return objPIBLL.SelectPIByDate(objvchr);
                 }
                 catch (Exception ex)
@@ -649,9 +651,9 @@ namespace SMSYSTEM.Controllers
                 LP_Activity_BLL objbll = new LP_Activity_BLL(new LP_Activity_Property());
                 return objbll.SelectAll();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                using(var tw=new StreamWriter(Server.MapPath("/Reports/Error.txt"), true))
+                using (var tw = new StreamWriter(Server.MapPath("/Reports/Error.txt"), true))
                 {
                     tw.Write(ex.InnerException + DateTime.Now.ToString());
                 }
@@ -669,7 +671,7 @@ namespace SMSYSTEM.Controllers
             {
                 Invoice_BLL objBLL = new Invoice_BLL();
                 return objBLL.GenerateReport(id, query);
-               // return new DataTable();
+                // return new DataTable();
 
 
             }
@@ -732,6 +734,89 @@ namespace SMSYSTEM.Controllers
             }
 
         }
+        public JsonResult SelectReportData(LP_Report_Property objreportprprty)
+        {
+            try
+            {
+                LP_Reporting_BLL objrprtbll = new LP_Reporting_BLL(objreportprprty);
+                DataTable dt = objrprtbll.SelectReportData();
+                string datetime = DateTime.Now.ToFileTimeUtc().ToString();
+                string ReportName = objreportprprty.ReportName;
+                //List<Customer> allCustomer = new List<Customer>();
+                //allCustomer = context.Customers.ToList();
+                if (objreportprprty.ReportID == 1)
+                {
+
+
+
+
+                }
+
+                ReportDocument rd = new ReportDocument();
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), ReportName + ".rpt"));
+
+                // rd.SetDatabaseLogon("sa", "leaptech#0");
+                rd.SetDataSource(dt);
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+
+                rd.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Path.Combine(Server.MapPath("~/Reports"), ReportName + datetime + ".Pdf"));
+                //stream.Seek(0, SeekOrigin.Begin);
+                //return File(stream, "application/pdf", "CustomerList.pdf");
+                return Json(new { data = "/Reports/" + ReportName + datetime + ".Pdf", success = true, msg = "Successfull", statuscode = 200 }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                using (StreamWriter tr = new StreamWriter(Server.MapPath("/Reports/Error.txt"), true))
+                {
+                    tr.WriteLine("Exception at level Reporting Controller ADDUpdate Start" + DateTime.Now);
+                    tr.WriteLine("Exception at level Reporting Controller ADDUpdate " + ex.InnerException + DateTime.Now);
+
+                    tr.WriteLine("Exception at level Reporting Controller ADDUpdate " + ex.Message + DateTime.Now);
+                    tr.WriteLine("Exception at level Reporting Controller ADDUpdate End" + DateTime.Now);
+                }
+                return Json(new { data = "/Reports/MRNReport.Pdf", success = false, msg = "Failed", statuscode = 400 }, JsonRequestBehavior.AllowGet);
+
+            }
+
+
+
+
+        }
+
+        #endregion
+
+        #region PictureSaving
+
+        public string[] SavePicture(HttpPostedFileWrapper[] pics)
+        {
+            string[] profilepath = new string[pics.Length];
+            try
+            {
+                if (pics.Length > 0)
+                {
+                    for (int i = 0; i < pics.Length; i++)
+                    {
+                        string filename = System.IO.Path.GetRandomFileName().Replace(".", "") + pics[0].FileName;
+
+                        pics[i].SaveAs(Server.MapPath("/Product_Picture/" + filename));
+                        profilepath[i] = "/Product_Picture/" + filename;
+                    }
+                }
+                return profilepath;
+
+            }
+            catch (Exception ex)
+            {
+                return profilepath;
+            }
+
+        }
+
+
 
         #endregion
     }

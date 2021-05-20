@@ -570,3 +570,6 @@ E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\S
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\obj\Debug\SSS.DAL.csprojResolveAssemblyReference.cache
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\obj\Debug\SSS.DAL.dll
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\obj\Debug\SSS.DAL.pdb
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\bin\Debug\SSS.Utility.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\bin\Debug\AjaxControlToolkit.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\bin\Debug\SSS.Utility.pdb

@@ -90,6 +90,7 @@
     <Compile Include="Setups\PurchaseOrder_BLL.cs" />
     <Compile Include="Setups\PurchaseRequisition_BLL.cs" />
     <Compile Include="Setups\PurchaseVM_BLL.cs" />
+    <Compile Include="Setups\Reporting\LP_Reporting_BLL.cs" />
     <Compile Include="Setups\Supplier_BLL.cs" />
     <Compile Include="Setups\Taxes_BLL.cs" />
     <Compile Include="Setups\User_Region_BLL.cs" />

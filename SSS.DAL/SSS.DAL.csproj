@@ -94,6 +94,7 @@
     <Compile Include="Setups\PuchaseVM_DAL.cs" />
     <Compile Include="Setups\PurchaseOrder_DAL.cs" />
     <Compile Include="Setups\PurchaseRequisition_DAL.cs" />
+    <Compile Include="Setups\Reporting_DAL.cs" />
     <Compile Include="Setups\Supplier_DAL.cs" />
     <Compile Include="Setups\Taxes_DAL.cs" />
     <Compile Include="Setups\User_Region_DAL.cs" />
@@ -227,6 +228,10 @@
     <ProjectReference Include="..\SSS.Property\SSS.Property.csproj">
       <Project>{8A15CB57-FF17-429C-B014-671625167421}</Project>
       <Name>SSS.Property</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SSS.Utility\SSS.Utility.csproj">
+      <Project>{BA84E779-D245-4CA1-A6EC-2B78DE356EB2}</Project>
+      <Name>SSS.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

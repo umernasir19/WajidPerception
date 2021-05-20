@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlTypes;
 using System.Data.SqlClient;
 using SSS.Property.Transactions;
+using System.Web;
 
 namespace SSS.Property.Setups
 {
@@ -37,7 +38,15 @@ namespace SSS.Property.Setups
         public List<Product_Property> ProductLST { get; set; }
         public string productName { get; set; }
         public decimal qty { get; set; }
+
+        public string[] ProductPicPath { get; set; }
+
+
+
+        public HttpPostedFileWrapper[] PicturePath { get; set; }
         public List<LP_ProductDetailsForCombo_Property> ProductDetailLST { get; set; }
+
+        public List<LP_Products_Picture> ProductPictureList { get; set; }
 
         private DataTable _detail_data;
         public DataTable DetailData

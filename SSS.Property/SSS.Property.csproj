@@ -88,6 +88,8 @@
     <Compile Include="Setups\LP_CustomerBanks_Property.cs" />
     <Compile Include="Setups\LP_GenerateTransNumber_Property.cs" />
     <Compile Include="Setups\itemUnit_Property.cs" />
+    <Compile Include="Setups\LP_Products_Picture.cs" />
+    <Compile Include="Setups\LP_Product_VM.cs" />
     <Compile Include="Setups\LP_Purchase_Type.cs" />
     <Compile Include="Setups\LP_Transaction_Type_Property.cs" />
     <Compile Include="Setups\LP_VendorBanks_Property.cs" />
@@ -105,6 +107,7 @@
     <Compile Include="Setups\PurchaseVM_Property.cs" />
     <Compile Include="Setups\QuotationDetails_Property.cs" />
     <Compile Include="Setups\QuotationVM_Property.cs" />
+    <Compile Include="Setups\Reports\LP_Report_Property.cs" />
     <Compile Include="Setups\SalesOrdersDetails_Property.cs" />
     <Compile Include="Setups\SalesOrderVM_Property.cs" />
     <Compile Include="Setups\Suppliers_Property.cs" />

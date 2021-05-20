@@ -105,5 +105,11 @@ namespace SSS.BLL.Setups
             }
             //return _objMRNDAL.GenerateMRNNo(objtransno);
         }
+
+        public DataTable GetPicturesById(int? id)
+        {
+            objProduct_DAL = new Product_DAL(objProductProperty);
+            return objProduct_DAL.SelectPictureById(id);
+        }
     }
 }

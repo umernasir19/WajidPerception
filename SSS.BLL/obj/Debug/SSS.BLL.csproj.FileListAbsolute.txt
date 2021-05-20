@@ -608,3 +608,6 @@ E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\S
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\obj\Debug\SSS.BLL.csprojResolveAssemblyReference.cache
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\obj\Debug\SSS.BLL.dll
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\obj\Debug\SSS.BLL.pdb
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\bin\Debug\SSS.Utility.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\bin\Debug\AjaxControlToolkit.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\bin\Debug\SSS.Utility.pdb

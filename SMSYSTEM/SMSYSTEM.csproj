@@ -127,8 +127,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Dist\css\icon.css" />
     <Content Include="Dist\css\style.css" />
     <Content Include="Dist\fonts\Roboto\LICENSE.txt" />
+    <Content Include="Dist\image-uploader.min.css" />
+    <Content Include="Dist\image-uploader.min.js" />
+    <Content Include="Dist\images\default.png" />
     <Content Include="Dist\images\favicon.png" />
     <Content Include="Dist\images\lightbox\play-button.png" />
     <Content Include="Dist\images\logo-mini.svg" />
@@ -291,6 +295,7 @@
     <Compile Include="Controllers\QuotationController.cs" />
     <Compile Include="Controllers\ReceiptController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\ReportingController.cs" />
     <Compile Include="Controllers\SaleController.cs" />
     <Compile Include="Controllers\SalesOrderController.cs" />
     <Compile Include="Controllers\TaxesController.cs" />
@@ -397,6 +402,7 @@
     <Content Include="Views\Inventory\InventoryMovement.cshtml" />
     <Content Include="Views\Inventory\ViewInventory.cshtml" />
     <Content Include="Views\Activity\ViewActivity.cshtml" />
+    <Content Include="Views\Reporting\ViewReports.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -408,6 +414,7 @@
     <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Product_Picture\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\companyCurrency\" />
     <Folder Include="Views\CustomerType\" />

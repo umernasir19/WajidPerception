@@ -83,21 +83,57 @@
 
                 $("#modelbody").load("/Product/AddNewProduct", function (e) {
                     $("#modal-default").modal("show");
+
                 });
+                
             })
+            //$("input[name='images'").change(function (evnt) {
+            //    console.log("testing");
+            //    console.log(fileinput.value);
+            //    //console.log(filelist);
+            //    console.log("testing");
+            //});
 
             //add customer button event
             $("#btnsubmit").click(function (e) {
                 console.log("here");
                 e.preventDefault();
-                var form = $("#addnewform");
-
-                $.validator.unobtrusive.parse(form);
-                if ($(form).valid()) {
+                var form = $("#addnewform")[0];
+                var imagelist = $("#addnewform")
+                var formdata = new FormData(form);
+                // formdata = $('#addnewform')[0];;
+                var imagefiles = document.getElementsByName("images")
+                console.log(imagefiles)
+                let $inputImages = imagelist.find('input[name^="images"]');
+                if ($inputImages[0].files.length > 0) {
+                    for (var i = 0; i < $inputImages[0].files.length ; i++) {
+                        formdata.append("PicturePath", $inputImages[0].files[i]);
+                     
+                    }
+                }
+                console.log($inputImages);
+                //if (!$inputImages.length) {
+                //    $inputImages = form.find('input[name^="photos"]')
+                //    alert($inputImages.length)
+                //    $inputImages.each(function (i, file) {
+                //        console.log("alif")
+                //    });
+                //}
+                //for (var i = 0; i < imagefiles.files.length; i++) {
+                //    alert("HEllo");
+                //}
+                //formdata.append("PicturePath", pic1.files[0]);
+                //formdata.append("PicturePath", pic2.files[0]);
+                //formdata.append("PicturePath", pic3.files[0]);
+               $.validator.unobtrusive.parse(form);
+                if ($(form).valid())
+                {
                     $.ajax({
                         type: "POST",
                         url: "/Product/AddUpdate",
-                        data: $(form).serialize(),
+                        data: formdata,// $(form).serialize(),
+                        contentType: false,
+                        processData: false,
                         success: function (res) {
                             console.log(res);
                             if (res.success) {

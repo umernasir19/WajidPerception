@@ -179,5 +179,21 @@ namespace SMSYSTEM.Controllers
                 return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        #region VendorProcess
+
+        public ActionResult VendorProcess()
+        {
+            if (Session["LOGGEDIN"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
+        #endregion
     }
 }
