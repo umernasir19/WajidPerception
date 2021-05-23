@@ -1109,7 +1109,8 @@
         $(this).removeData("validator").removeData("unobtrusiveValidation");//remove the form validation
         $.validator.unobtrusive.parse($(this));//add the form validation
         //if ($(form).valid()) // using not operator for a time being
-        if (!$(form).valid())
+        //if (!$(form).valid())
+            if(true)
         {
             $.ajax({
                 type : "POST",

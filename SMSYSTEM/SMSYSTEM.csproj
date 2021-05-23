@@ -280,6 +280,7 @@
     <Compile Include="Controllers\FinanceController.cs" />
     <Compile Include="Controllers\FirstTierController.cs" />
     <Compile Include="Controllers\FourthTierController.cs" />
+    <Compile Include="Controllers\GDNController.cs" />
     <Compile Include="Controllers\GRNController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
@@ -403,6 +404,8 @@
     <Content Include="Views\Inventory\ViewInventory.cshtml" />
     <Content Include="Views\Activity\ViewActivity.cshtml" />
     <Content Include="Views\Reporting\ViewReports.cshtml" />
+    <Content Include="Views\GDN\ViewGDN.cshtml" />
+    <Content Include="Views\GDN\AddNewGDN.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

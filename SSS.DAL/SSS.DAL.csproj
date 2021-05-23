@@ -193,6 +193,7 @@
     <Compile Include="Transactions\Collection_Master_DAL.cs" />
     <Compile Include="Transactions\DCR_DAL.cs" />
     <Compile Include="Transactions\DSRAdjustment_DAL.cs" />
+    <Compile Include="Transactions\GDN_DAL\LP_GDN_DAL.cs" />
     <Compile Include="Transactions\Inventory_DAL.cs" />
     <Compile Include="Transactions\LP_Activity_DAL.cs" />
     <Compile Include="Transactions\LP_DisplayOrder_DAL.cs" />

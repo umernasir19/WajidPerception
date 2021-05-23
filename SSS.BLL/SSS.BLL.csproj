@@ -177,6 +177,7 @@
     <Compile Include="Transactions\Collection_Master_BLL.cs" />
     <Compile Include="Transactions\DCR_BLL.cs" />
     <Compile Include="Transactions\DSRAdjustment_BLL.cs" />
+    <Compile Include="Transactions\GDN\LP_GDN_BLL.cs" />
     <Compile Include="Transactions\LP_Activity_BLL.cs" />
     <Compile Include="Transactions\LP_DisplayOrder_BLL.cs" />
     <Compile Include="Transactions\LP_FinishProduct_BLL.cs" />

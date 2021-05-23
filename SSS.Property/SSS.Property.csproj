@@ -85,6 +85,9 @@
     <Compile Include="Setups\CustomerType_Property.cs" />
     <Compile Include="Setups\Departments_property.cs" />
     <Compile Include="Setups\Department_Setup_Property.cs" />
+    <Compile Include="Setups\GDN\LP_GDNDetail_Property.cs" />
+    <Compile Include="Setups\GDN\LP_GDNMaster_Property.cs" />
+    <Compile Include="Setups\GDN\LP_GDN_VM.cs" />
     <Compile Include="Setups\LP_CustomerBanks_Property.cs" />
     <Compile Include="Setups\LP_GenerateTransNumber_Property.cs" />
     <Compile Include="Setups\itemUnit_Property.cs" />
