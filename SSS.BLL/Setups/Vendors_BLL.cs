@@ -35,6 +35,11 @@ namespace SSS.BLL.Setups
             objVendors_DAL = new Vendors_DAL(objVendorsProperty);
             return objVendors_DAL.SelectAll();
         }
+        public DataTable ViewAllVendorByType(int id) //if send id is one then local and if 2 then internation hardcoded
+        {
+            objVendors_DAL = new Vendors_DAL(objVendorsProperty);
+            return objVendors_DAL.SelectAllByType(id);
+        }
         public DataTable ddlVendorsType()
         {
             objVendors_DAL = new Vendors_DAL(objVendorsProperty);
@@ -44,6 +49,11 @@ namespace SSS.BLL.Setups
         {
             objVendors_DAL = new Vendors_DAL(objVendorsProperty);
             return objVendors_DAL.ddlCategory();
+        }
+        public DataTable getVendorPrice(int id)
+        {
+            objVendors_DAL = new Vendors_DAL(objVendorsProperty);
+            return objVendors_DAL.selectVendorPrice(id);
         }
 
         public DataTable GetByCatId(int? id)
@@ -71,6 +81,30 @@ namespace SSS.BLL.Setups
         {
             objVendors_DAL = new Vendors_DAL(objVendorsProperty);
             return objVendors_DAL.Delete(id);
+        }
+        public string GenerateSO(LP_GenerateTransNumber_Property objtransno)
+        {
+            string TransactionNumber = "";
+            objVendors_DAL = new Vendors_DAL(objVendorsProperty);
+            DataTable dt = objVendors_DAL.GenerateSONo(objtransno);
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    TransactionNumber = dr["TransNumber"].ToString();
+                    TransactionNumber = "V-00" + (int.Parse(TransactionNumber) + 1) + "-" + objtransno.userid;
+
+
+                }
+                return TransactionNumber;
+            }
+            else
+            {
+
+                TransactionNumber = "V-001-" + objtransno.userid;
+
+                return TransactionNumber;
+            }
         }
     }
 }

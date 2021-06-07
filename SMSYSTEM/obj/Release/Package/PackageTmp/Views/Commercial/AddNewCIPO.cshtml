@@ -4,28 +4,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
 <div class="card-body">
     <h3>Commercial Invoice</h3>
     <br />
     <form role="form" id="purchaseform">
         @Html.HiddenFor(model => model.idx, new { id = "idx", value = 0 })
 
-
         <div class="row">
-
             <div class="col-sm-3">
                 <!-- text input -->
                 <div class="form-group">
                     <label>Select PI*:</label>
-
                     @Html.DropDownListFor(model => model.PINO, new SelectList(Model.PerformaLISt, "idx", "poNumber"), "Select Performa Invoice", new { @Class = "form-control font-weight-bold" })
-
                 </div>
                 @Html.ValidationMessageFor(model => model.PINO, "", new { @class = "text-danger" })
             </div>
-
             <div class="col-sm-3">
                 <!-- text input -->
                 <div class="form-group">
@@ -53,17 +46,35 @@
                 @Html.ValidationMessageFor(model => model.purchaseDate, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div>
+        </div>
         <div class="row">
+            <div class="col-sm-3">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Product Count:</label>
+                    @Html.EditorFor(model => model.numberOfProducts, new { htmlAttributes = new { @placeholder = "Count*:", @class = "form-control", @readonly = true } })
+                    @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                </div>
+                @Html.ValidationMessageFor(model => model.numberOfProducts, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Total Actual Value PKR#*:</label>
+                    @Html.EditorFor(model => model.grandTotalAVPKR, new { htmlAttributes = new { @placeholder = "TACPKR:", @class = "form-control", @readonly = true } })
+                    @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                </div>
+                @Html.ValidationMessageFor(model => model.grandTotalAVPKR, "", new { @class = "text-danger" })
+            </div>
         </div>
         <hr />
-
         <div class="row" id="PurchaseDetails">
             <div class="col-md-12">
                 <div class="card card-primary">
                     <div class="card-header">
                         <h5>+Add Product</h5>
                         <div class="card-tools">
-
                         </div>
                     </div>
                     <div class="">
@@ -79,11 +90,9 @@
                                         <th>Description</th>
                                         <th>Action</th>
                                     </tr>*@
-
                             </thead>
                             <tbody class="" style="background:white;">
                                 <tr class="thead-dark">
-
                                     <th>Item Name</th>
                                     <th>QTY</th>
                                     <th>(Unit/DV) Price(KG)/Qty</th>
@@ -94,20 +103,16 @@
                                 </tr>
                                 <tr>
 
-
                                     <td><select id="itemIdx" class="form-control"></select></td>
                                     <td>@Html.EditorFor(model => model.qty, new { htmlAttributes = new { @placeholder = "Qty", @class = "form-control", @onkeyup = "culculateinputs()" } })</td>
                                     <td>@Html.EditorFor(model => model.DVRate, new { htmlAttributes = new { @placeholder = "Unit Price", @class = "form-control" } })</td>
                                     <td>@Html.EditorFor(model => model.TDVRate, new { htmlAttributes = new { @placeholder = "Sub Amount", @class = "form-control", @readonly = true } })</td>
                                     <td>@Html.EditorFor(model => model.ADVRate, new { htmlAttributes = new { @placeholder = "ADV", @class = "form-control" } })</td>
                                     <td>@Html.EditorFor(model => model.ItemDescription, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control" } })</td>
-
                                     <td>@Html.EditorFor(model => model.ASSVCI, new { htmlAttributes = new { @placeholder = "ASSVCI", @class = "form-control", @onkeyup = "culculateinputs()" } })</td>
-
 
                                 </tr>
                                 <tr class="thead-dark">
-
                                     <th>Total ASSVCI</th>
                                     <th>Landing</th>
                                     <th>Landing(PKR)</th>
@@ -118,111 +123,82 @@
                                 </tr>
                                 <tr>
 
-
                                     <td><input type="text" class="form-control" id="tassv" readonly="readonly" /></td>
                                     <td>@Html.EditorFor(model => model.Landing, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control" } })</td>
-
                                     <td><input type="text" class="form-control" id="tLanding" readonly="readonly" /></td>
                                     <td>@Html.EditorFor(model => model.CDPercntage, new { htmlAttributes = new { @placeholder = "CD percnt", @class = "form-control", @onkeyup = "culculateinputs()" } })</td>
                                     <td><input type="text" class="form-control" id="tCDPercntage" readonly="readonly" /></td>
                                     <td>@Html.EditorFor(model => model.RDPercentage, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control", @onkeyup = "culculateinputs()" } })</td>
                                     <td><input type="text" class="form-control" id="tRDPercentage" readonly="readonly" /></td>
 
-
-
                                 </tr>
                                 <tr class="thead-dark">
-
                                     <th>ACD %</th>
                                     <th>Total ACD Price</th>
-
                                     <th>ST %</th>
                                     <th>Total ST Price</th>
-
                                     <th>AST %</th>
                                     <th>Total AST Price</th>
-
                                     <th>IT %</th>
-
                                 </tr>
                                 <tr>
-
 
                                     <td>@Html.EditorFor(model => model.ACDPercentage, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "culculateinputs()" } })</td>
                                     <td><input type="text" class="form-control" id="tACDPercentage" readonly="readonly" /></td>
-
                                     <td>@Html.EditorFor(model => model.STPercentage, new { htmlAttributes = new { @placeholder = "CD percnt", @class = "form-control", @onkeyup = "culculateinputs()" } })</td>
                                     <td><input type="text" class="form-control" id="tSTDPercentage" readonly="readonly" /></td>
-
                                     <td>@Html.EditorFor(model => model.ASTPercentage, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control", @onkeyup = "culculateinputs()" } })</td>
                                     <td><input type="text" class="form-control" id="tASTPercentage" readonly="readonly" /></td>
-
                                     <td>@Html.EditorFor(model => model.ITPercentage, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control", @onkeyup = "culculateinputs()" } })</td>
-
-
 
                                 </tr>
                                 <tr class="thead-dark">
-
                                     <th>Total IT Price</th>
-
-                                    <th>TD Rate</th>
-
-                                    <th>Cleaning</th>
-                                    <th>Total Cleaning</th>
-                                    <th>Total  Price</th>
-
+                                    <th>TD/Tax</th>
+                                    @*<th>Cleaning</th>
+                                        <th>Total Cleaning</th>
+                                        <th>Total  Price</th>*@
                                     <th>Action</th>
-
 
                                 </tr>
                                 <tr>
 
-
                                     <td><input type="text" class="form-control" id="tITTPercentage" readonly="readonly" /></td>
+                                    <td>@Html.EditorFor(model => model.TDTax, new { htmlAttributes = new { @placeholder = "CD percnt", @class = "form-control", @onkeyup = "culculateinputs()",@readOnly="true" } })</td>
 
-                                    <td>@Html.EditorFor(model => model.TDTax, new { htmlAttributes = new { @placeholder = "CD percnt", @class = "form-control", @onkeyup = "culculateinputs()" } })</td>
+                                    @*<td>@Html.EditorFor(model => model.CleaningPrice, new { htmlAttributes = new { @placeholder = "CD percnt", @class = "form-control", @onkeyup = "culculateinputs()" } })</td>
+                                        <td><input type="text" class="form-control" id="tCleaningPrice" readonly="readonly" /></td>
 
-
-                                    <td>@Html.EditorFor(model => model.CleaningPrice, new { htmlAttributes = new { @placeholder = "CD percnt", @class = "form-control", @onkeyup = "culculateinputs()" } })</td>
-                                    <td><input type="text" class="form-control" id="tCleaningPrice" readonly="readonly" /></td>
-
-                                    <td>@Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @placeholder = "CD percnt", @class = "form-control", @onkeyup = "culculateinputs()" } })</td>
-
+                                        <td>@Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @placeholder = "CD percnt", @class = "form-control", @onkeyup = "culculateinputs()" } })</td>*@
                                     <td><input type="button" value="Add To Grid" id="btnaddtogrid" class="btn btn-primary form-control" /></td>
                                 </tr>
                             </tbody>
                         </table>
-
                         <div class="row" style="display:block; overflow:scroll" id="milestones">
                             <div class="col-md-12">
                                 <div class="card card-primary">
-
                                     <div class="">
                                         <table id="example2" class="table table-dark table-bordered table-hover">
                                             <thead class="thead-dark">
                                                 <tr>
-
                                                     <th>Item Name</th>
                                                     <th colspan="1">QTY</th>
                                                     <th>(Unit/DV) Price(KG)/Qty</th>
                                                     <th>Total (DV)Price</th>
-                                                    <th>Tota Price</th>
+                                                    @*<th>Tota Price</th>*@
+                                                    <th>Actual Price</th>
                                                     <th>Description</th>
                                                     <th>ASSVCI</th>
-
                                                     <th>Landing</th>
                                                     <th>CD%</th>
                                                     <th>RD%</th>
-
                                                     <th>ACD %</th>
                                                     <th>ST %</th>
                                                     <th>AST %</th>
                                                     <th>IT %</th>
-
-                                                    <th>TD Rate</th>
-                                                    <th>Cleaning</th>
-                                                    <th>Total  Price</th>
+                                                    <th>TD/Tax</th>
+                                                    @*<th>Cleaning</th>
+                                                        <th>Total  Price</th>*@
                                                     <th>TotalASSVSCI</th>
                                                     <th>TotalLanding</th>
                                                     <th>TotalCDValue</th>
@@ -233,15 +209,10 @@
                                                     <th>TotalSTValue</th>
 
 
-
-
-
                                                     <th>Action</th>
                                                 </tr>
-
                                             </thead>
                                             <tbody style="background:white;color:black; ">
-
                                                 @{
                                                     if (ViewBag.DetailData != null)
                                                     {
@@ -255,7 +226,6 @@
                                                     <td>@items.itemName</td>
                                                     <td>@items.qty</td>
                                                     <td><input type="text" placeholder="Enter Unit Price" onkeyup="changeinunitprice(this)" value="@items.unitPrice" id="unitprice" class="form-control" /></td>
-
                                                     <td>@items.amount</td>
                                                     <td><button id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button></td>
                                                 </tr>
@@ -265,27 +235,20 @@
                                                 }
                                             </tbody>
                                         </table>
-
                                     </div>
-
                                     <!-- /.card-body -->
                                 </div>
                                 <!-- /.card -->
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-
 
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
         </div>
-
         <br />
-
         <div class="row">
             <div class="col-sm-12">
                 <div class="form-group">
@@ -302,12 +265,14 @@
                 </div>
                 @Html.ValidationMessageFor(model => model.totalAmount, "", new { @class = "text-danger" })
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-4">
                 <div class="form-group">
-                    <label for="inputName"></label>
-                    @*<input type="button" class="btn btn-primary form-control" step="display:none;" id="calculate" value="Calculate Total" />*@
+                    <label for="inputName">Total TD/Tax</label>
+                    @Html.EditorFor(model => model.totalTD, new { htmlAttributes = new { @placeholder = "Total Amount", @class = "form-control", @readonly = true } })
                 </div>
+                @Html.ValidationMessageFor(model => model.totalTD, "", new { @class = "text-danger" })
             </div>
+
         </div>
         <div class="row">
             <div class="modal-footer">
@@ -378,6 +343,8 @@
                     $('#milestones').show();
                     var markup;
                     $('#exchangerate').val(POData[0].ExchangeRate);
+                    $('#numberOfProducts').val(POData[0].numberOfProducts);
+                    $('#grandTotalAVPKR').val(POData[0].grandTotalAVPKR);
                     $('#itemIdx').append($('<option>', {
                         value: 0,
                         text: 'Select Product'
@@ -389,28 +356,6 @@
                             text: POData[i].itemName
                         }));
 
-                        //console.log(data[i]);
-                        //var closebutton = '<input type="button" value="x" id="deleterow" disable="true" class="fa fa-window-close close" />';
-
-                        //var unitPrice = '<input type="text" placeholder="Enter Unit Price" onkeyup="changeinunitprice(this)" value="0" id="unitprice" class="form-control" />';
-
-                        ////'<button type="button" class="close" style="float:left" id="deleterow" aria-label="Close">' +
-                        ////'<span aria-hidden="true" styel="color:red">&times;</span>' +
-                        //// '</button>'
-
-                        //var productname = POData[i].itemName; //$("#itemIdx option:selected").text();
-                        //var ProductID = POData[i].itemIdx;// $("#itemIdx option:selected").val();
-                        //var Qty = POData[i].qty;// $("#qty").val();
-                        ////var unitprice = POData[i].unitPrice;// $("#unitPrice").val();
-                        ////var totalamount = POData[i].qty * POData[i].unitPrice;
-                        ////var unitprice = $("#unitPrice").val();
-                        //var totalamount = $("#amount").val();
-
-                        ////var duedate = $("#DueDate").val();
-                        //markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td>" + unitPrice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + closebutton + "</td></tr>";
-                        ////console.log(markup);
-
-                        //$("#example2 tbody").append(markup);
 
                     }
 
@@ -450,15 +395,12 @@
             // alert("hello");
             $('#milestones').show();
             var closebutton = '<input type="button" value="x" id="deleterow" onclick="SomeDeleteRowFunction(this)" class="fa fa-window-close close" />';
-            //'<button type="button" class="close" style="float:left" id="deleterow" aria-label="Close">' +
-            //'<span aria-hidden="true" styel="color:red">&times;</span>' +
-            // '</button>'
             var productname = $("#itemIdx option:selected").text();
             var ProductID = $("#itemIdx option:selected").val();
             var Qty = $("#qty").val();
             var unitprice = $("#DVRate").val();
             var totalamount = $("#TDVRate").val();
-            var adv = $("#TotalPrice").val();
+            var adv = $("#ADVRate").val();
             var itemdescription = $("#ItemDescription").val();
             //2
             var ASSVCI = $("#ASSVCI").val();
@@ -490,31 +432,22 @@
             //
 
             var TDTax = $("#TDTax").val();
-            var CleaningPrice = $("#CleaningPrice").val();
-            var TotalPrice = $("#TotalPrice").val();
+            //var CleaningPrice = $("#CleaningPrice").val();
+            //var TotalPrice = $("#TotalPrice").val();
             //
             var row2markup = "<td>" + ASSVCI + "</td><td>" + Landing + "</td><td>" + CDPercntage + "</td><td>" + RDPercentage + "</td>";
             var row3markup = "<td>" + ACDPercentage + "</td><td>" + STDPercentage + "</td><td>" + ASTPercentage + "</td><td>" + ITTPercentage + "</td>";
-            var row4markup = "<td>" + TDTax + "</td><td>" + CleaningPrice + "</td><td>" + TotalPrice + "</td>";
+            var row4markup = "<td>" + TDTax + "</td>";
             var row5Totalsmarkup = "<td>" + TotalASSVSCI + "</td><td>" + TotalLanding + "</td><td>" + TotalCDPercntage + "</td><td>" + TotalRDPercentage + "</td><td>" + TotalACDPercentage + "</td><td>" + TotalSTDPercentage + "</td><td>" + TotalASTPercentage + "</td><td>" + TotalITTPercentage + "</td>";
 
-            var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td id='unitprice'>" + unitprice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + adv + "</td><td>" + itemdescription + "</td>" + row2markup + row3markup + row4markup + row5Totalsmarkup+"<td>" + closebutton + "</td></tr>";
-            //if (milestone == "") {
-            //    alert("Enter milestone");
-            //    return;
-            //} else {
-
+            var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td id='unitprice'>" + unitprice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + adv + "</td><td>" + itemdescription + "</td>" + row2markup + row3markup + row4markup + row5Totalsmarkup + "<td>" + closebutton + "</td></tr>";
             $("#example2 tbody").append(markup);
-            var tamount = 0;
-            //var labourcost = $("#tax").val();
-            //var transportcost = $("#taxAount").val();
-            var tamount = parseFloat($("#TotalPrice").val());
-            tamount = parseFloat(tamount) + parseFloat(totalamount);//+ parseFloat(labourcost) + parseFloat(transportcost);
-            $("#totalAmount").val(tamount.toFixed(2));
+            calculation();
 
 
 
         });
+
         $('#purchaseDate').change(function () {
             var date = $(this).val();
             console.log(date, 'change')
@@ -542,14 +475,12 @@
             var itmmant = o.parentNode.parentNode.children[4].innerText;
             var tmnt = $('#totalAmount').val();
 
-            tmnt = tmnt - itmmant;
-            $('#totalAmount').val(tmnt);
-
             // $('#balanceAmount').val(tmnt);
             var p = o.parentNode.parentNode;
 
             p.parentNode.removeChild(p);
             $(this).closest('tr').remove();
+            calculation();
 
 
         };
@@ -695,10 +626,14 @@
                     idx: $('#idx').val(),
                     poNumber: $('#poNumber').val(),
                     PINO: $("#PINO option:selected").val(),
-                    exchangerate: $('#exchangerate').val(),
+                    //exchangerate: $('#exchangerate').val(),
                     purchaseDate: $('#purchaseDate').val(),
                     description: $('#description').val(),
                     totalAmount: $('#totalAmount').val(),
+                    totalTD: $('#totalTD').val(),
+                    ExchangeRate: $('#exchangerate').val(),
+                    grandTotalAVPKR: $("#grandTotalAVPKR").val(),
+                    numberOfProducts: $("#numberOfProducts").val(),
                     //ContainerNo: $('#ContainerNo').val(),
                     //DocumentNumber: $('#DocumentNumber').val(),
                     //ExchangeRate:$('#ExchangeRate').val(),
@@ -758,10 +693,6 @@
                 ;
 
             });
-
-
-
-
             var form = $("#purchaseform");
             console.log(datatosend)
             $.validator.unobtrusive.parse(form);
@@ -893,17 +824,66 @@
             $('#tITTPercentage').val(titvalue);
 
             //TDPRICE
-            var tdtax = (parseFloat(Number($('#tCDPercntage').val()) + Number($('#tSTDPercentage').val()) + Number($('#tRDPercentage').val()) + Number($('#tACDPercentage').val()) + Number($('#tASTPercentage').val()) + Number($('#tITTPercentage').val()))).toFixed(2);
+            //        12                                                14                                      16                               18                                     20                                   22
+            var tdtax = (parseFloat(Number($('#tCDPercntage').val()) + Number($('#tRDPercentage').val()) + Number($('#tACDPercentage').val()) + Number($('#tSTDPercentage').val()) + Number($('#tASTPercentage').val()) + Number($('#tITTPercentage').val()))).toFixed(2);
             $('#TDTax').val(tdtax);
 
 
 
-            $('#tCleaningPrice').val(0);
-            $('#TotalPrice').val(0);
+            //$('#tCleaningPrice').val(0);
+            //$('#TotalPrice').val(0);
             //$('#tCleaningPrice').val(((parseFloat(Number($('#TDTax').val())))) * (parseFloat(Number($('#CleaningPrice').val()))).toFixed(2));
 
             // $('#TotalPrice').val((parseFloat(Number($('#Landing').val())) + parseFloat(Number($('#TDTax').val())) + parseFloat(Number($('#tCleaningPrice').val())) / qty).toFixed(2));
         }
+
+        function calculation() {
+
+            var table = $("#example2 tbody");
+            $('#totalAmount').val('0');
+            $('#totalTD').val('0');
+            var tamnt = 0;
+            var TotalTD = Number('0');
+            var ExchangeRate = $('#exchangerate').val();
+            if (Number(ExchangeRate) <= 0) {
+                ExchangeRate = 1;
+                $('#exchangerate').val(ExchangeRate);
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+                Command: toastr["error"]("Exchange Rate cannot be less than or Equals to 0 !", "")
+            }
+
+
+            table.find('tr').each(function (i) {
+                var $tds = $(this).find('td'),
+                  totalASTV = $tds.eq(16).text(),
+                  totalTD = $tds.eq(15).text();
+
+
+                tamnt = Number(tamnt) + (Number(totalASTV))
+                TotalTD = Number(TotalTD) + (Number(totalTD))
+
+
+            });
+
+            $('#totalAmount').val(tamnt);//Gross Amount Filled
+            $('#totalTD').val(TotalTD);
+
+        }
     </script>
 }
-

@@ -8,7 +8,7 @@
         @Html.HiddenFor(model => model.idx, new { id = "idx", value = 0 })
         <div class="row">
 
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <!-- text input -->
                 <div class="form-group">
                     <label>Transaction Number*:</label>
@@ -17,11 +17,20 @@
                 </div>
                 @Html.ValidationMessageFor(model => model.voucher_no, "", new { @class = "text-danger" })
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <!-- text input -->
                 <div class="form-group">
                     <label>Voucher Date*:</label>
                     @Html.EditorFor(model => model.date_created, new { htmlAttributes = new { @placeholder = "Purchase Date*:", @class = "form-control" } })
+                    @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                </div>
+                @Html.ValidationMessageFor(model => model.date_created, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-4">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>=Reference*:</label>
+                    @Html.EditorFor(model => model.reference, new { htmlAttributes = new { @placeholder = "Purchase Date*:", @class = "form-control" } })
                     @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
                 </div>
                 @Html.ValidationMessageFor(model => model.date_created, "", new { @class = "text-danger" })
@@ -42,18 +51,18 @@
             <div class="col-sm-3">
                 <!-- text input -->
                 <div class="form-group">
-                    <label>Vendor*:</label>
+                    <label>Customer*:</label>
                     @Html.DropDownListFor(model => model.customer_id, new SelectList(Model.customerlist, "idx", "customerName"), "Select Customer", new { @Class = "form-control font-weight-bold" })
                 </div>
                 @Html.ValidationMessageFor(model => model.customer_id, "", new { @class = "text-danger" })
             </div>
 
-            <div class="col-sm-3">
+            @*<div class="col-sm-3">
                 <!-- text input -->
                 <div class="form-group">
                     <label>From Date*:</label>
                     @Html.EditorFor(model => model.From_Date, new { htmlAttributes = new { @placeholder = "Purchase Date*:", @class = "form-control" } })
-                    @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                  
                 </div>
                 @Html.ValidationMessageFor(model => model.From_Date, "", new { @class = "text-danger" })
             </div>
@@ -62,10 +71,10 @@
                 <div class="form-group">
                     <label>To Date*:</label>
                     @Html.EditorFor(model => model.To_Date, new { htmlAttributes = new { @placeholder = "Purchase Date*:", @class = "form-control" } })
-                    @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                   
                 </div>
                 @Html.ValidationMessageFor(model => model.To_Date, "", new { @class = "text-danger" })
-            </div>
+            </div>*@
         </div>
         <div class="row">
             <div class="col-sm-6">

@@ -203,18 +203,6 @@ namespace SSS.Property.Transactions
                 _detail_data = value;
             }
         }
-        private DataTable _sales_tax_data;
-        public DataTable SalesTaxData
-        {
-            get
-            {
-                return _sales_tax_data;
-            }
-            set
-            {
-                _sales_tax_data = value;
-            }
-        }
         private string _tableName;
         public String TableName
         {
@@ -227,6 +215,19 @@ namespace SSS.Property.Transactions
                 _tableName = value;
             }
         }
+        private DataTable _sales_tax_data;
+        public DataTable SalesTaxData
+        {
+            get
+            {
+                return _sales_tax_data;
+            }
+            set
+            {
+                _sales_tax_data = value;
+            }
+        }
+       
         private string _reference;
         public string reference
         {

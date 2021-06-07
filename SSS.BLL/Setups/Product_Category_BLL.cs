@@ -28,6 +28,17 @@ namespace SSS.BLL.Setups
             objProductCategoryDAL = new Product_Category_DAL(objProductCategoryProperty);
             return objProductCategoryDAL.SelectAll();
         }
+
+        public DataTable CheckForInsert()
+        {
+            objProductCategoryDAL = new Product_Category_DAL(objProductCategoryProperty);
+            return objProductCategoryDAL.checkForInsert();
+        }
+        public DataTable CheckForUpdate()
+        {
+            objProductCategoryDAL = new Product_Category_DAL(objProductCategoryProperty);
+            return objProductCategoryDAL.checkForUpdate();
+        }
         public DataTable GetById(int? id)
         {
             objProductCategoryDAL = new Product_Category_DAL(objProductCategoryProperty);

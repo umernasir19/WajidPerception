@@ -326,3 +326,23 @@ E:\Visual Studio Projects\MangoTechProjects\WAJID\Updated (1)\Updated\SSS.Proper
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Updated (1)\Updated\SSS.Property\obj\Debug\SSS.Property.csprojResolveAssemblyReference.cache
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Updated (1)\Updated\SSS.Property\obj\Debug\SSS.Property.dll
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Updated (1)\Updated\SSS.Property\obj\Debug\SSS.Property.pdb
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.Property\bin\Debug\SSS.Property.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.Property\bin\Debug\SSS.Property.pdb
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.Property\obj\Debug\SSS.Property.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.Property\obj\Debug\SSS.Property.pdb
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.Property\obj\Debug\SSS.Property.csprojResolveAssemblyReference.cache
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.Property\bin\Debug\SSS.Property.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.Property\bin\Debug\SSS.Property.pdb
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.Property\obj\Debug\SSS.Property.csprojResolveAssemblyReference.cache
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.Property\obj\Debug\SSS.Property.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.Property\obj\Debug\SSS.Property.pdb
+D:\Ahsan\WajidPerception-master\SSS.Property\bin\Debug\SSS.Property.dll
+D:\Ahsan\WajidPerception-master\SSS.Property\bin\Debug\SSS.Property.pdb
+D:\Ahsan\WajidPerception-master\SSS.Property\obj\Debug\SSS.Property.csprojResolveAssemblyReference.cache
+D:\Ahsan\WajidPerception-master\SSS.Property\obj\Debug\SSS.Property.dll
+D:\Ahsan\WajidPerception-master\SSS.Property\obj\Debug\SSS.Property.pdb
+E:\Perception BP\WajidPerception-master\SSS.Property\bin\Debug\SSS.Property.dll
+E:\Perception BP\WajidPerception-master\SSS.Property\bin\Debug\SSS.Property.pdb
+E:\Perception BP\WajidPerception-master\SSS.Property\obj\Debug\SSS.Property.csprojResolveAssemblyReference.cache
+E:\Perception BP\WajidPerception-master\SSS.Property\obj\Debug\SSS.Property.dll
+E:\Perception BP\WajidPerception-master\SSS.Property\obj\Debug\SSS.Property.pdb

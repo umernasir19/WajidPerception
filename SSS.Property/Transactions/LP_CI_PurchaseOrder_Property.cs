@@ -8,6 +8,11 @@ namespace SSS.Property.Transactions
 {
    public class LP_CI_PurchaseOrder_Property
     {
+        public decimal TotalPrice { get; set; }
+        public int productIdx { get; set; }
+        public decimal stock { get; set; }
+        public decimal unitPrice { get; set; }
+
         private int _idx;
         public int idx
         {
@@ -133,5 +138,10 @@ namespace SSS.Property.Transactions
             get { return _detaildata; }
             set { _detaildata = value; }
         }
+        public decimal totalTD { get; set; }//Added By Arsalan
+        public decimal grandTotalAVPKR { get; set; }//Added By Arsalan
+        public int numberOfProducts { get; set; } //Added By Arsalan
+        public decimal ExchangeRate { get; set; }//Added By Arsalan
+
     }
 }

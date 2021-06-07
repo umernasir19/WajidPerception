@@ -15,7 +15,7 @@
         @Html.HiddenFor(model => model.idx, new { id = "idx", value = 0 })
         <div class="row">
 
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <!-- text input -->
                 <div class="form-group">
                     <label>Transaction Number*:</label>
@@ -24,7 +24,7 @@
                 </div>
                 @Html.ValidationMessageFor(model => model.voucher_no, "", new { @class = "text-danger" })
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <!-- text input -->
                 <div class="form-group">
                     <label>Voucher Date*:</label>
@@ -32,6 +32,15 @@
                     @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
                 </div>
                 @Html.ValidationMessageFor(model => model.date_created, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-4">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Reference*:</label>
+                    @Html.EditorFor(model => model.reference, new { htmlAttributes = new { @placeholder = "Reference*:", @class = "form-control" } })
+                    @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                </div>
+                @Html.ValidationMessageFor(model => model.reference, "", new { @class = "text-danger" })
             </div>
             @*<div class="col-sm-3">
 
@@ -49,18 +58,47 @@
             <div class="col-sm-3">
                 <!-- text input -->
                 <div class="form-group">
-                    <label>Vendor*:</label>
-                    @Html.DropDownListFor(model => model.customer_id, new SelectList(Model.customerlist, "idx", "customerName"), "Select Customer", new { @Class = "form-control font-weight-bold" })
+                    <label>Customer*:</label>
+                    @Html.DropDownListFor(model => model.customer_id, new SelectList(Model.customerlist, "coaIdx", "customerName"), "Select Customer", new { @Class = "form-control font-weight-bold" })
                 </div>
                 @Html.ValidationMessageFor(model => model.customer_id, "", new { @class = "text-danger" })
             </div>
+            <div class="col-sm-3 " id="ddlOrder">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Invoice#:</label>
+                    @Html.DropDownListFor(m => m.invoiceIdx,
+       new SelectList(Enumerable.Empty<SelectListItem>(), "idxx", "invoiceNoIdx"),
+              "Select Invoice",
+              new { @class = "form-control" })
 
+                    @Html.ValidationMessageFor(m => m.invoiceIdx, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-3" id="txtBalanceAmount">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Invoice Balance*:</label>
+                    @Html.EditorFor(model => model.invoiceBalance, new { htmlAttributes = new { @placeholder = "Reference*:", @class = "form-control",@readOnly="true" } })
+                    
+                </div>
+                @Html.ValidationMessageFor(model => model.invoiceBalance, "", new { @class = "text-danger" })
+            </div>
             <div class="col-sm-3">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Paid Amount*:</label>
+                    @Html.EditorFor(model => model.paidAmount, new { htmlAttributes = new { @placeholder = "Reference*:", @class = "form-control" } })
+                    @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                </div>
+                @Html.ValidationMessageFor(model => model.paidAmount, "", new { @class = "text-danger" })
+            </div>
+            @*<div class="col-sm-3">
                 <!-- text input -->
                 <div class="form-group">
                     <label>From Date*:</label>
                     @Html.EditorFor(model => model.From_Date, new { htmlAttributes = new { @placeholder = "Purchase Date*:", @class = "form-control" } })
-                    @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                    
                 </div>
                 @Html.ValidationMessageFor(model => model.From_Date, "", new { @class = "text-danger" })
             </div>
@@ -69,31 +107,87 @@
                 <div class="form-group">
                     <label>To Date*:</label>
                     @Html.EditorFor(model => model.To_Date, new { htmlAttributes = new { @placeholder = "Purchase Date*:", @class = "form-control" } })
-                    @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                   
                 </div>
                 @Html.ValidationMessageFor(model => model.To_Date, "", new { @class = "text-danger" })
-            </div>
+            </div>*@
         </div>
         <div class="row">
             <div class="col-sm-6">
                 <!-- text input -->
                 <div class="form-group">
-                    <input type="button" class="btn btn-primary form-control" value="Search" id="btnserach" />
+                    <input type="button" value="+" id="btnaddtogrid" class="btn btn-outline-primary" style="font-size: 20px " />
+                    @*<input type="button" class="btn btn-primary form-control" value="Search" id="btnserach" />*@
                 </div>
             </div>
         </div>
 
 
         <hr />
+
         <div class="row" id="PurchaseDetails">
             <div class="col-md-12">
                 <div class="card card-primary">
-                    @*<div class="card-header" >
-                        
-                        <div class="card-tools">
+                    @*<div class="card-header" style="background-color:black;color:white">*@
+                    <h5>+Add</h5>
+                    @*<div class="card-tools">
 
-                        </div>
                     </div>*@
+                </div>
+                <div class="">
+
+                    <div class="row" style="display:block; overflow:scroll" id="milestones">
+                        <div class="col-md-12">
+                            <div class="card card-primary">
+                                <div class="">
+                                    <table id="example2" class=" table table-dark table-bordered table-hover">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>Customer</th>
+                                                <th>Invoice</th>
+                                                <th>Amount</th>
+                                                <th>Paid Amount</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="background:white;color:black; ">
+                                            @{
+                                                if (ViewBag.DetailData != null)
+                                                {
+
+
+
+                                                    foreach (var items in ViewBag.DetailData)
+                                                    {
+                                                        <tr>
+                                                            <td style="display:none">@items.vendorIdx</td>
+                                                            <td>@items.vendorName</td>
+                                                            <td>@items.amount</td>
+                                                            @*<td><i class="icon-trash menu-icon" id="btnaddtogrid"><input type="button" id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn-danger" /></i></td>*@
+                                                            <td><button id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button></td>
+                                                        </tr>
+
+                                                    }
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+
+        @*<div class="row" id="PurchaseDetails">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    
                     <div class="card-body">
                         <div class="row" style="display:block; overflow:scroll" id="milestones">
                             <div class="col-md-12">
@@ -152,7 +246,7 @@
 
 
 
-        </div>
+        </div>*@
         <br />
         <div class="row">
 
@@ -169,13 +263,13 @@
                     @Html.EditorFor(model => model.voucher_amount, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control", @readonly = true } })
                 </div>
             </div>
-            <div class="col-sm-3">
+            @*<div class="col-sm-3">
                 <div class="form-group">
                     <label for="inputName"></label>
                     <input type="button" class="btn btn-primary form-control" id="calculateamnt" value="calculte Total" />
                 </div>
-            </div>
-            <div class="col-sm-3">
+            </div>*@
+            @*<div class="col-sm-3">
                 <div class="form-group">
                     <label for="inputName">Payment Method</label>
                     <select id="paymenttype" class="form-control">
@@ -184,13 +278,57 @@
                         <option value="3">Cheque</option>
                     </select>
                 </div>
+            </div>*@
+
+
+
+          
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="inputName">Payment Method</label>
+                    <select id="paymenttype" class="form-control">
+                        <option value="0">Select Payment Mode</option>
+                        <option value="1">Cash</option>
+                        <option value="3">Bank</option>
+                        <option value="2">Cheque</option>
+                        <option value="4">Customer Payment</option>
+                    </select>
+                </div>
             </div>
-
-
-
 
         </div>
         <div class="row" id="paymntmethodoptions" style="display:none;">
+
+            <div class="col-sm-4" id="banks">
+                <div class="form-group">
+                    <label for="inputName">Bank</label>
+                    @Html.DropDownListFor(model => model.bankIdx, new SelectList(Model.BankList, "coaIdx", "accountTitle"), "Select Bank", new { @Class = "form-control font-weight-bold" })
+                </div>
+            </div>
+            <div class="col-sm-3" id="cheqno">
+                <div class="form-group">
+                    <label for="inputName">Cheque</label>
+                    @Html.EditorFor(model => model.accorChequeNumber, new { htmlAttributes = new { @placeholder = "Acc /Cheque", @class = "form-control" } })
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="modal-footer">
+
+
+
+
+                <button type="button" class="btn btn-success" id="btnAddSale">Submit</button>
+
+                <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+        @*<div class="row" id="paymntmethodoptions" style="display:none;">
 
 
             <div class="col-sm-4" id="banks">
@@ -206,7 +344,7 @@
                 </div>
             </div>
 
-        </div>
+        </div>*@
 
     </form>
 
@@ -218,41 +356,38 @@
     //Add Project Button Event start
     $("#qty").keyup(function () {
         var qtyval = $(this).val();
-        //var unitpriceval = $("#unitPrice").val();
-        //var totalamount = qtyval * unitpriceval;
-
-        //$("#amount").val(totalamount);
+        
     });
 
-    $('#paymenttype').on('change', function () {
+    //$('#paymenttype').on('change', function () {
 
-        if ($('#paymenttype option:selected').val() == 1) {
-            $('#paymntmethodoptions').hide();
-        }
-        if ($('#paymenttype option:selected').val() == 2) {
-            $('#paymntmethodoptions').show();
-            $('#cheqno').hide();
-        }
+    //    if ($('#paymenttype option:selected').val() == 1) {
+    //        $('#paymntmethodoptions').hide();
+    //    }
+    //    if ($('#paymenttype option:selected').val() == 2) {
+    //        $('#paymntmethodoptions').show();
+    //        $('#cheqno').hide();
+    //    }
 
-        if ($('#paymenttype option:selected').val() == 3) {
-            $('#paymntmethodoptions').show();
-            $('#cheqno').show();
-        }
-    });
-
-
-    $("#btnserach").click(function (e) {
-
-        GetSIData();
-
-        // alert("hello");
-        $('#milestones').show();
+    //    if ($('#paymenttype option:selected').val() == 3) {
+    //        $('#paymntmethodoptions').show();
+    //        $('#cheqno').show();
+    //    }
+    //});
 
 
+    //$("#btnserach").click(function (e) {
+
+    //    GetSIData();
+
+    //    // alert("hello");
+    //    $('#milestones').show();
 
 
 
-    });
+
+
+    //});
 
     function GetSIData() {
         var datatosearch = {
@@ -339,55 +474,131 @@
 
         p.parentNode.removeChild(p);
         $(this).closest('tr').remove();
-
+        calculation();
 
     };
 
+    $("#btnaddtogrid").click(function (e) {
+
+        if (!(gridValidation($("#invoiceIdx option:selected").val()))) {
+            // alert("Product Alreaty Exist")
+            displayerror();
+            return;
+        }
+
+
+        // alert("hello");
+        $('#milestones').show();
+
+        var actualQty = $("#invoiceBalance").val();
+        var closebutton = '<button id="deleterow" onclick="SomeDeleteRowFunction(this)"  class="close btn "><i class="fa fa-trash menu-icon"></i></button>';
+        //'<button type="button" class="close" style="float:left" id="deleterow" aria-label="Close">' +
+        //'<span aria-hidden="true" styel="color:red">&times;</span>' +
+        // '</button>'
+        var vendorname, vendorID,invoiceId,invoiceNo,paidAmount;
+        vendorname = $("#customer_id option:selected").text();
+        vendorID = $("#customer_id option:selected").val();
+        invoiceNo = $("#invoiceIdx option:selected").text();
+        invoiceId = $("#invoiceIdx option:selected").val();
+        paidAmount = $('#invoiceIdx').find(':selected').attr('value3')
+        var amount = $('#paidAmount').val();
+
+        var markup = "<tr><td style='display:none;'>" + vendorID + "</td><td>" + vendorname + "</td><td style='display:none;'>" + invoiceId + "</td><td>" + invoiceNo + "</td><td>" + actualQty + "</td><td class='tamnt'>" + amount + "</td><td>" + closebutton + "</td><td style='display:none;'>" + paidAmount + "</td></tr>";
+
+
+        $("#example2 tbody").append(markup);
+        var tamount = parseFloat($("#voucher_amount").val());
+        //var Amount = $('#amount').val();
+        tamount = parseFloat(tamount) + parseFloat(amount);//+ parseFloat(labourcost) + parseFloat(transportcost);
+        $("#voucher_amount").val(tamount);
+
+        calculation();
+
+
+
+
+    });
+
+    function calculation() {
+        var tmnt = $('#voucher_amount').val('0');
+        var table = $("#example2 tbody");
+        var calculateNetAmount = 0;
+        var totalTaxAmount = 0;
+        //var tamnt = $('#netAmount').val('0');
+        var grossAmountinInvoice = Number('0');
+        table.find('tr').each(function (i) {
+            var $tds = $(this).find('td'),
+              itemamount = $tds.eq(5).text();
+
+
+            grossAmountinInvoice = Number(grossAmountinInvoice) + (Number(itemamount))
+
+        });
+
+        $('#voucher_amount').val(grossAmountinInvoice);
+
+    }
     function gridValidation(Id) {
         errmsg = [];
         var myTab = $("#example2 tbody");
         var rtrn = true;
+      
+                // LOOP THROUGH EACH ROW OF THE TABLE AFTER HEADER.
+                var vendorId = $('#invoiceIdx option:selected').val();
+                var customerIdx = $('#customer_id option:selected').val();
+                myTab.find('tr').each(function (i) {
+                    var $tds = $(this).find('td'),
+                        coaId = $tds.eq(2).text(),
+                        customerId = $tds.eq(0).text();
 
-        // LOOP THROUGH EACH ROW OF THE TABLE AFTER HEADER.
-        myTab.find('tr').each(function (i) {
-            var $tds = $(this).find('td'),
-                productid = $tds.eq(0).text();
+                    //if (vendorId == coaId ) {
+                    //    rtrn = false;
+                    //    errmsg.push("Invoice Already exist");
+                    //}
+                    if (customerIdx == customerId && vendorId == coaId) {
+                        rtrn = false;
+                        errmsg.push("Customer And Invoice Already exist");
+                    }
 
-            if (Id == productid) {
-                rtrn = false;
-                errmsg.push("Product Already exist");
-            }
-        })
-        if ($('#itemIdx option:selected').val() == '') {
-            rtrn = false;
-            errmsg.push("Select Product");
+                })
+                if ($('#customer_id option:selected').val() == '') {
+                    rtrn = false;
+                    errmsg.push("Select Customer");
+                }
+                if (parseFloat($('#paidAmount').val()).toFixed(2) < 0) {
+                    rtrn = false;
+                    errmsg.push("Paid Amount Should Be Greater Than Zero!");
+                }
+                var balanceAmount = $('#invoiceBalance').val();
+                var paidAmount = parseFloat($('#paidAmount').val()).toFixed(2);
+
+                if (balanceAmount < 0) {
+                    balanceAmount = parseFloat(balanceAmount).toFixed(2);
+                }
+                else//if vendor ko paise dene hoi tou yahan logic aye gi
+                {
+                }
+                var paid = parseFloat(paidAmount).toFixed(2);
+                var balance = parseFloat(balanceAmount).toFixed(2);
+                if (Number(paid) > Number(balance)) {
+                    rtrn = false;
+                    errmsg.push("Paid Amount Is Greater Than Remaining Amount!");
+                }
+           
+            
+      
+
+
+
+
+
+
+            return rtrn;
         }
-        if ($('#qty').val() <= 0) {
-            rtrn = false;
-            errmsg.push("Qty value is zero");
-        }
 
-        //if ($('#DueDate').val() < 0) {
-        //    rtrn = false;
-        //    errmsg.push("DUE date is Invalid");
-        //}
-        //var dat = $('#DueDate').val()
-        //console.log(moment((new Date())).format("DD-MM-YYYY"));
-        //var today = moment((new Date())).format("DD-MM-YYYY");
-        //var slctddte = moment(dat).format("DD-MM-YYYY");
+   
 
-        //if ((new Date($('#DueDate').val())) == 'Invalid Date') {
-        //    rtrn = false;
-        //    errmsg.push("DUE date is invalid ");
-        //    // alert(errorarray.length);
-        //}
-        //if (slctddte < today) {
-        //    rtrn = false;
-        //    errmsg.push("DUE date is INVALID /Should be greater than current date");
-        //    // alert(errorarray.length);
-        //}
-        return rtrn;
-    }
+
 
     function displayerror() {
         for (var i = 0; i < errmsg.length; i++) {
@@ -429,6 +640,267 @@
 
 
     });
+    
+    $('#customer_id').click(function (e) {
+
+        var value = $('#customer_id option:selected').val()
+        if (Number(value) > 0) {
+            $.ajax({
+                type: 'GET',
+                url: '/Receipt/getCustomerBalance',
+                data: { id: value },
+                success: function (data) {
+                    var POData = JSON.parse(data.data);
+                    //console.log(POData[0].customerBalance)
+
+                    $("#invoiceIdx").empty();
+                           $("#ddlOrder").show();
+                           $('#invoiceIdx').append($('<option>',
+                                {
+                                    value: "",
+                                    text: "Select Invoice"
+                                }));
+                           for (var i = 0; i < POData.length; i++) {
+                               
+                             
+                      
+                               $('#invoiceIdx').append($('<option>',
+                                       {
+                                           value: POData[i].idxx,
+                                           text: POData[i].invoiceNoIdx,
+                                           value2: POData[i].balance,
+                                           value3: POData[i].paidAmount
+                                       }));
+                      
+                           }
+                           $('#txtBalanceAmount').hide();
+                           $('#invoiceBalance').val('0  ')
+                },
+                failure: function (data) {
+                    $("#orderIdx").html("");
+
+                    $('#orderIdx').append($('<option>',
+                                    {
+                                        value: "",
+                                        text: "Select Order"
+                                    }));
+                    $('#ddlOrder').hide();
+                },
+                err: function (data) {
+                    $("#orderIdx").html("");
+
+                    $('#orderIdx').append($('<option>',
+                                    {
+                                        value: "",
+                                        text: "Select Order"
+                                    }));
+                    $('#ddlOrder').hide();
+                }
+
+            });
+        }
+        else
+        {
+            $("#orderIdx").html("");
+
+            $('#orderIdx').append($('<option>',
+                            {
+                                value: "",
+                                text: "Select Order"
+                            }));
+            $('#ddlOrder').hide();
+            $('#txtBalanceAmount').hide();
+            $('#invoicebalance').val("0");
+        }
+    });
+
+    $(document).ready(function () {
+        $('#ddlOrder').hide();
+        $('#txtBalanceAmount').hide();
+    });
+    
+    $('#invoiceIdx').click(function (e) {
+
+        var value = $('#invoiceIdx option:selected').val()
+        if (Number(value) > 0) {
+            var balance = $(this).find(':selected').attr('value2')
+            
+            $('#txtBalanceAmount').show();
+            $('#invoiceBalance').val(balance);
+        }
+        else {
+            $('#txtBalanceAmount').hide();
+            $('#invoiceBalance').val('0')
+        }
+    });
+    $('#paymenttype').on('change', function () {
+        if ($('#paymenttype option:selected').val() == 0) {
+            $('#paymntmethodoptions').hide();
+            $('#divTxtPaid').hide();
+            $('#paidAmount').val('0.00');
+            calculation();
+        }
+        if ($('#paymenttype option:selected').val() == 1) {
+            $('#paymntmethodoptions').hide();
+            $('#divTxtPaid').show();
+        }
+        if ($('#paymenttype option:selected').val() == 3) {
+            $('#paymntmethodoptions').show();
+            $('#cheqno').hide();
+            $('#customerBanks').hide();
+            $('#divTxtPaid').show();
+        }
+
+        if ($('#paymenttype option:selected').val() == 2) {
+            $('#paymntmethodoptions').show();
+            $('#cheqno').show();
+            $('#customerBanks').hide();
+            $('#divTxtPaid').show();
+        }
+        if ($('#paymenttype option:selected').val() == 4) {
+            $('#paymntmethodoptions').show();
+            $('#customerIdx').trigger("change");
+            $('#customerBanks').show();
+
+            $('#cheqno').hide();
+            $('#banks').hide()
+            $("#bankIdx").prop('selectedIndex', 0);
+            $('#divTxtPaid').show();
+        }
+    });
+
+    $("#btnAddSale").click(function (e) {
+
+        e.preventDefault();
+        var form = $("#purchaseform");
+        var paymentModeIdx= $('#paymenttype option:selected').val();
+        var totalAmount = $('#voucher_amount').val();
+        var bankId = $("#bankIdx option:selected").val("");
+        var cheque = $("#accorChequeNumber").val("");
+        if (paymentModeIdx > 0 && totalAmount > 0) {
+            if (paymentModeIdx == 1 || paymentModeIdx == 4)
+            {
+                $("#bankIdx option:selected").val("");
+                $("#accorChequeNumber").val("");
+            }
+            else if (paymentModeIdx == 2 || paymentModeIdx == 3) {
+                if (bankId > 0)
+                {
+                    if (paymentModeIdx ==2)
+                    {
+                        if (cheque != null)
+                        {
+                        }
+                        else
+                        {
+                            return false;//cheque number not added
+                        }
+                        
+                    }
+                }
+                else
+                {
+                    return false;//Bank Should be Selected Error toastr
+                }
+            }
+            else
+            {
+                return false;//Return Toastr For Error Due to Validation of PaymentMode
+            }
+            var datatosend = {
+                objVoucher: {
+                    idx: $('#idx').val(),
+                    reference: $('#reference').val(),
+                    voucher_no: $('#voucher_no').val(),
+                    customer_id: $('#customer_id option:selected').val(),
+                    date_created: $('#date_created').val(),
+                    description: $("#description").val(),
+                    voucher_amount: $("#voucher_amount").val(),
+                    paymentModeIdx: $("#paymenttype option:selected").val(),
+                    bankIdx: $("#bankIdx option:selected").val(),
+                    accorChequeNumber: $("#accorChequeNumber").val(),
+                    AccountGJLST: [],
+
+
+                }
+
+            }
+            var table = $("#example2 tbody");
+
+            var milestonearray = [];
+            var milestonedetails = {
+            };
+            var pomasternetamount = 0;
+            table.find('tr').each(function (i) {
+                var $tds = $(this).find('td'),
+                    customerIdx = $tds.eq(0).text(),
+                    invoiceNoIdx = $tds.eq(3).text(),
+                    balanceAmount = $tds.eq(4).text(),
+                    paidAmount = $tds.eq(5).text(),
+                    previousBalance = $tds.eq(7).text()
+
+
+
+                datatosend.objVoucher.AccountGJLST.push({
+                    customerIdx: customerIdx,
+                    invoiceNo: invoiceNoIdx,
+                    debit: balanceAmount,
+                    credit: paidAmount,
+                    previousBalance: previousBalance,
+                    
+                })
+                ;
+
+            });
+
+            console.log(JSON.stringify(datatosend));
+
+
+
+            var form = $("#purchaseform");
+            console.log(datatosend)
+            $(this).removeData("validator").removeData("unobtrusiveValidation");//remove the form validation
+            $.validator.unobtrusive.parse($(this));//add the form validation
+            //$.validator.unobtrusive.parse(form);
+            //if ($(form).valid()) // using not operator for a time being
+            if ($(form).valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Receipt/AddUpdate",
+                    data: JSON.stringify(datatosend),// JSON.stringify(milestonearray),// $(form).serialize(),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        if (res.success) {
+
+                            window.location.href = "/Receipt/Receipts"
+                        }
+                        else if (res.success == false && res.msg == 'Failed') {
+
+                        }
+                    },
+                    failure: function (res) {
+                        console.log(res);
+                    },
+                    err: function (res) {
+                        console.log(res);
+                    }
+
+                })
+            }
+            else {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+        
+
+    });
+
 </script>
 }
 

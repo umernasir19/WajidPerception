@@ -19,5 +19,6 @@ namespace SSS.Property.Transactions
         public int FullReturn { get; set; }
         public int BRANCHID { get; set; }
         public int wareHouseIdx { get; set; }
+
     }
 }

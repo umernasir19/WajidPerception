@@ -223,7 +223,11 @@ namespace SSS.Property.Transactions
             get { return _ExchangeRate; }
             set { _ExchangeRate = value; }
         }
+        public decimal grandTotalAVPKR { get; set; }
+        public int numberOfProducts { get; set; }
         public String TableName { get; set; }
         public DataTable DetailData { get; set; }
+        public int warehouseIdx { get; set; }
+        public string reference { get; set; }
     }
 }

@@ -140,7 +140,46 @@ namespace SMSYSTEM.Controllers
             }
 
         }
+        public JsonResult DeleteBank(int? id)
+        {
+            try
+            {
+                if (id > 0)
+                {
 
+                    Bank_Property branchProperty = new Bank_Property();
+                    branchProperty.idx = int.Parse(id.ToString());
+                    objBanlBLL = new Bank_BLL(branchProperty);
+                    
+                    var flag1 = objBanlBLL.Delete(id);
+                    //if (flag1.Rows.Count > 0)
+                    //{
+
+                    //bool flag = objCustomerTypeBLL.Delete(id);
+                    return Json(new { data = "Deleted", success = flag1, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+
+                    //else
+                    //{
+                    //    return Json(new { data = "Mian Branch Cannot be Delete ", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                    //}
+
+                    //}
+                    // return Json(new { data = "Process Completed ", success = true, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+
+
+                }
+                else
+                {
+                    return Json(new { data = "Error Occur", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         #region Comapny Bank
         CompanyBank_BLL objcompanybankbll;
@@ -273,7 +312,46 @@ namespace SMSYSTEM.Controllers
             }
 
         }
+        public JsonResult DeleteCompanyBank(int? id)
+        {
+            try
+            {
+                if (id > 0)
+                {
 
+                    CompanyBank_Property branchProperty = new CompanyBank_Property();
+                    branchProperty.idx = int.Parse(id.ToString());
+                    objcompanybankbll = new CompanyBank_BLL(branchProperty);
+
+                    var flag1 = objcompanybankbll.Delete(id);
+                    //if (flag1.Rows.Count > 0)
+                    //{
+
+                    //bool flag = objCustomerTypeBLL.Delete(id);
+                    return Json(new { data = "Deleted", success = flag1, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+
+                    //else
+                    //{
+                    //    return Json(new { data = "Mian Branch Cannot be Delete ", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                    //}
+
+                    //}
+                    // return Json(new { data = "Process Completed ", success = true, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+
+
+                }
+                else
+                {
+                    return Json(new { data = "Error Occur", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
         #endregion
     }
 }

@@ -45,13 +45,13 @@
                 @Html.ValidationMessageFor(model => model.Invoicedate, "", new { @class = "text-danger" })
             </div>
             @*<div class="col-sm-3">
-                 text input 
-                <div class="form-group">
-                    <label>Exchange Rate*:</label>
-                    <input type="text" class="form-control" id="exchangerate" disabled>
-                </div>
-                @Html.ValidationMessageFor(model => model.purchaseDate, "", new { @class = "text-danger" })
-            </div>*@
+                     text input
+                    <div class="form-group">
+                        <label>Exchange Rate*:</label>
+                        <input type="text" class="form-control" id="exchangerate" disabled>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.purchaseDate, "", new { @class = "text-danger" })
+                </div>*@
         </div>
         <div class="row">
         </div>
@@ -84,35 +84,37 @@
                             <tbody class="" style="background:white;">
                                 <tr class="thead-dark">
 
-                                    <th>Item Name</th>
+                                    @*<th>Item Name</th>*@
                                     <th>Transfer Charges</th>
                                     <th>Freight</th>
                                     <th>Exise</th>
                                     <th>Delivery</th>
-                                   
+
                                     <th>KICT</th>
                                     <th>INF</th>
+                                    <th>LCBankCharges</th>
                                 </tr>
                                 <tr>
 
 
-                                    <td><select id="CIITems" class="form-control"></select></td>
+                                    @*<td><select id="CIITems" class="form-control"></select></td>*@
                                     <td>@Html.EditorFor(model => model.Transfer, new { htmlAttributes = new { @placeholder = "Transfer", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
-                                    
+
                                     <td>@Html.EditorFor(model => model.Freight, new { htmlAttributes = new { @placeholder = "Freight", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
                                     <td>@Html.EditorFor(model => model.Exise, new { htmlAttributes = new { @placeholder = "Exise", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
                                     <td>@Html.EditorFor(model => model.Delivery, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
 
                                     <td>@Html.EditorFor(model => model.KICT, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
                                     <td>@Html.EditorFor(model => model.INF, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
+                                    <td>@Html.EditorFor(model => model.LCBankCharges, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
 
 
                                 </tr>
                                 <tr class="thead-dark">
 
+
+
                                     
-                                    
-                                    <th>LCBankCharges</th>
                                     <th>Insurance</th>
                                     <th>CFKICT</th>
                                     <th>LULoading</th>
@@ -120,12 +122,13 @@
                                     <th>CustomEntry</th>
                                     <th>Appraisment</th>
                                     <th>Agency</th>
+
+                                    <th>Labour</th>
                                 </tr>
                                 <tr>
 
 
-                                    
-                                    <td>@Html.EditorFor(model => model.LCBankCharges, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
+
                                     <td>@Html.EditorFor(model => model.Insurance, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
 
                                     <td>@Html.EditorFor(model => model.CFKICT, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
@@ -134,15 +137,15 @@
                                     <td>@Html.EditorFor(model => model.CustomEntry, new { htmlAttributes = new { @placeholder = "CD percnt", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
                                     <td>@Html.EditorFor(model => model.Appraisment, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
                                     <td>@Html.EditorFor(model => model.Agency, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
+                                    <td>@Html.EditorFor(model => model.Labour, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
 
 
                                 </tr>
                                 <tr class="thead-dark">
 
-                                    
 
-                                    
-                                    <th>Labour</th>
+
+
 
                                     <th>TotalClearing</th>
                                     <th>Container</th>
@@ -150,12 +153,12 @@
                                     <th>Regulity</th>
                                     <th>SalesTax</th>
                                     <th>IncomeTax</th>
+                                    <th>Value Addition 1</th>
                                 </tr>
                                 <tr>
 
 
-                                    
-                                    <td>@Html.EditorFor(model => model.Labour, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
+
 
                                     <td>@Html.EditorFor(model => model.TotalClearing, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control", @readonly = true, @onchange = "calculateValueaddition1()" } })</td>
                                     <td>@Html.EditorFor(model => model.Container, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control" } })</td>
@@ -165,37 +168,39 @@
                                     <td>@Html.EditorFor(model => model.SalesTax, new { htmlAttributes = new { @placeholder = "SalesTax", @class = "form-control" } })</td>
                                     <td>@Html.EditorFor(model => model.IncomeTax, new { htmlAttributes = new { @placeholder = "IncomeTax", @class = "form-control" } })</td>
 
+                                    <td>@Html.EditorFor(model => model.ValueAddition1, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
 
                                 </tr>
                                 <tr class="thead-dark">
 
-                                    <th>Value Addition 1</th>
+                                    
 
                                     <th>Value Addition 2</th>
 
                                     <th>AdDSalesTax</th>
                                     <th>Fast Track</th>
-                                    <th>Total  Price</th>
-
-                                    <th>Action</th>
+                                    <th>Total Clearing Expense</th>
+                                    <th>Calculated Percentage</th>
+                                    @*<th>Action</th>*@
 
 
                                 </tr>
                                 <tr>
 
 
-                                    <td>@Html.EditorFor(model => model.ValueAddition1, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
                                     <td>@Html.EditorFor(model => model.ValueAddition2, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
                                     <td>@Html.EditorFor(model => model.AdDSalesTax, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
                                     <td>@Html.EditorFor(model => model.FastTrackProfit, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
+                                    <td>@Html.EditorFor(model => model.TotalClearingFinal, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
+                                    <td>@Html.EditorFor(model => model.CalculatedPercentage, new { htmlAttributes = new { @placeholder = "Landing", @class = "form-control", @onkeyup = "calculateLeftTotal()" } })</td>
 
 
-                                    <td><input type="button" value="Add To Grid" id="btnaddtogrid" class="btn btn-primary form-control" /></td>
+                                    @*<td><input type="button" value="Add To Grid" id="btnaddtogrid" class="btn btn-primary form-control" /></td>*@
                                 </tr>
                             </tbody>
                         </table>
 
-                        <div class="row" style="display:block; overflow:scroll" id="milestones">
+                        @*<div class="row" style="display:block; overflow:scroll" id="milestones">
                             <div class="col-md-12">
                                 <div class="card card-primary">
 
@@ -274,7 +279,7 @@
                                 <!-- /.card -->
                             </div>
 
-                        </div>
+                        </div>*@
 
                     </div>
                 </div>
@@ -298,7 +303,7 @@
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group">
-                    <label for="inputName">Total Amount</label>
+                    <label for="inputName">Calculated Percentage</label>
                     @Html.EditorFor(model => model.CalculatedPercentage, new { htmlAttributes = new { @placeholder = "Total Percentage", @class = "form-control", @readonly = true } })
                 </div>
                 @Html.ValidationMessageFor(model => model.CalculatedPercentage, "", new { @class = "text-danger" })
@@ -691,76 +696,100 @@
         });
 
         $("#btnAddPO").click(function (e) {
-
+            console.log(PIData);
             e.preventDefault();
             var datatosend = {
                 objpurchase: {
                     idx: $('#idx').val(),
-                    poNumber: $('#poNumber').val(),
-                    PINO: $("#PINO option:selected").val(),
-                    exchangerate: $('#exchangerate').val(),
-                    purchaseDate: $('#purchaseDate').val(),
-                    description: $('#description').val(),
-                    totalAmount: $('#totalAmount').val(),
+                    InvoiceNo: $('#InvoiceNo').val(),
+                    ParentDocumentId: $("#ParentDocumentId option:selected").val(),
+                    //exchangerate: $('#exchangerate').val(),
+                    Invoicedate: $('#Invoicedate').val(),
+                    Reference: $('#Reference').val(),
+                    CalculatedPercentage: $('#CalculatedPercentage').val(),
                     //ContainerNo: $('#ContainerNo').val(),
                     //DocumentNumber: $('#DocumentNumber').val(),
                     //ExchangeRate:$('#ExchangeRate').val(),
                     //description: $("#description").val(),
                     //DepartmentID: $("#DepartmentID option:selected").val(),
                     //PageList:[{ID:1},{ID:2},{ID:3}]
-                    CILIST: []
+                    ConsigmentDetails: [],
+                    CIDetailsPO:[]
                 }
 
             }
-            var table = $("#example2 tbody");
+            //var table = $("#example2 tbody");
 
-            var milestonearray = [];
-            var milestonedetails = {
-            };
+            for (var i = 0; i < PIData.length; i++)
+                console.log(PIData[i].ADVRate)
+            var ADVRate = PIData[i].ADVRate;
+            var ExchangeRate = PIData[i].ExchangeRate;
+            var ItemID = PIData[i].itemIdx1;
+            var purchaseIdx = PIData[i].PurchaseIdxCI;
+            var TDTax = PIData[i].TDTax;
+            var TotalLanding = PIData[i].TotalLanding;
+            var qty = PIData[i].qty;
+
+            var AVValue = (Number(ADVRate) * Number(ExchangeRate));
+
+                var clearingPercnt=$('#CalculatedPercentage').val();
+                var cleaningExpense= Number(percentage(AVValue, clearingPercnt));
+
+                datatosend.objpurchase.CIDetailsPO.push({
+                    itemidx: ItemID,
+                //TotalAmount: (Number(PIData[i].ADVRate) * Number(PIData[i].ExchangeRate))*(),
+                    purchaseIdx: purchaseIdx,
+                CleaningPrice:cleaningExpense,
+                TotalAmount: (Number(TDTax) + Number(TotalLanding) + (Number(ADVRate) * Number(ExchangeRate))) / qty
+            })
             var pomasternetamount = 0;
-            table.find('tr').each(function (i) {
-                var $tds = $(this).find('td'),
-                    productid = $tds.eq(0).text(),
-                    qty = $tds.eq(2).text(),
-                    unitprice = $tds.eq(3).text(),
-                    DVRate = $tds.eq(3).text(),
-                    TDVRate = $tds.eq(4).text(),
-                    ADVRate = $tds.eq(5).text();
-                datatosend.objpurchase.CILIST.push({
-                    itemIdx: productid,
-                    qty: qty,
-                    unitprice: unitprice,
-                    productTypeIdx: 1,
-                    amount: qty * unitprice,
-                    DVRate: $tds.eq(3).text(),
-                    TDVRate: $tds.eq(4).text(),
-                    ADVRate: $tds.eq(5).text(),
-                    ItemDescription: $tds.eq(6).text(),
-                    ASSVCI: $tds.eq(7).text(),
-                    Landing: $tds.eq(8).text(),
-                    CDPercntage: $tds.eq(9).text(),
-                    RDPercentage: $tds.eq(10).text(),
-                    ACDPercentage: $tds.eq(11).text(),
-                    STPercentage: $tds.eq(12).text(),
-                    ASTPercentage: $tds.eq(13).text(),
-                    ITPercentage: $tds.eq(14).text(),
-                    TDTax: $tds.eq(15).text(),
-                    CleaningPrice: $tds.eq(16).text(),
-                    TotalAmount: $tds.eq(17).text(),
+            //table.find('tr').each(function (i) {
+            //    var $tds = $(this).find('td'),
+            //        productid = $tds.eq(0).text(),
+            //        qty = $tds.eq(2).text(),
+            //        unitprice = $tds.eq(3).text(),
+            //        DVRate = $tds.eq(3).text(),
+            //        TDVRate = $tds.eq(4).text(),
+            //        ADVRate = $tds.eq(5).text();
+            datatosend.objpurchase.ConsigmentDetails.push({
+                    Productidx: 1,
+                    Transfer: $('#Transfer').val(),
+                    Custom: $('#Custom').val(),
+                    Regulity: $('#Regulity').val(),
+                    SalesTax: $('#SalesTax').val(),
+                    IncomeTax: $('#IncomeTax').val(),
+                    Freight: $('#Freight').val(),
+                    Exise: $('#Exise').val(),
+                    Delivery: $('#Delivery').val(),
+                    Cotainer: $('#Cotainer').val(),
+                    KICT: $('#KICT').val(),
+                    INF: $('#INF').val(),
+                    LCBankCharges: $('#LCBankCharges').val(),
+                    Insurance: $('#Insurance').val(),
+                    CFKICT: $('#CFKICT').val(),
+                    LULoading: $('#LULoading').val(),
+                    CustomEntry: $('#CustomEntry').val(),
+                    Appraisment: $('#Appraisment').val(),
+                    Agency: $('#Agency').val(),
+                    Labour: $('#Labour').val(),
 
-                    TotalASSVSCI: $tds.eq(18).text(),
-                    TotalLanding: $tds.eq(19).text(),
-                    TotalCDValue: $tds.eq(20).text(),
-                    TotalRDValue: $tds.eq(21).text(),
-                    TotalACDValue: $tds.eq(22).text(),
-                    TotalASTValue: $tds.eq(23).text(),
-                    TotalITValue: $tds.eq(24).text(),
-                    TotalSTValue: $tds.eq(25).text()
+                    TotalClearing: $('#TotalClearing').val(),
+                    AdDSalesTax: $('#AdDSalesTax').val(),
+                    FastTrackProfit: $('#FastTrackProfit').val(),
+                    ValueAddition1: $('#ValueAddition1').val(),
+                    ValueAddition2: $('#ValueAddition2').val(),
+                    CalculatedPercentage: $('#CalculatedPercentage').val(),
+                    TotalClearingFinal: $('#TotalClearingFinal').val()
+                    //TotalRDValue: $tds.eq(21).text(),
+                    //TotalACDValue: $tds.eq(22).text(),
+                    //TotalASTValue: $tds.eq(23).text(),
+                    //TotalITValue: $tds.eq(24).text(),
+                    //TotalSTValue: $tds.eq(25).text()
 
                 })
                 ;
 
-            });
+          //  });
 
 
 
@@ -772,7 +801,7 @@
             if (true) {
                 $.ajax({
                     type: "POST",
-                    url: "/Commercial/AddUpdateCI",
+                    url: "/Commercial/AddUpdateConsigment",
                     data: JSON.stringify(datatosend),// JSON.stringify(milestonearray),// $(form).serialize(),
                     contentType: 'application/json',
                     dataType: 'json',
@@ -952,21 +981,29 @@
             console.log('totalADVRATE');
             console.log(totalADVRATE);
             totalADVRATE = totalADVRATE * PIData[0].ExchangeRate
-            var valueadd1 = (totalADVRATE + TDTax + TotalClearing).toFixed(2);
+            var valueadd1 = (Number(totalADVRATE) + Number(TDTax) + Number(TotalClearing)).toFixed(2);
             $('#ValueAddition1').val(valueadd1);
 
             var valueadd2percntage = Number(percentage(valueadd1, 30));
-            var valueadd2 =Number((valueadd1 + valueadd2percntage)).toFixed(2);
+            var valueadd2 = Number((Number(valueadd1) + Number(valueadd2percntage))).toFixed(2);
             $('#ValueAddition2').val(valueadd2);
 
-            var AdDSalesTaxPercentage = Number(percentage(valueadd1, 3));
-            var AdDSalesTax = Number((valueadd1 + AdDSalesTaxPercentage)).toFixed(2);
-            $('#AdDSalesTax').val(valueadd2);
+            var AdDSalesTaxPercentage = Number(percentage(TotalClearing, 3));
+            console.log('iiii')
+            console.log(AdDSalesTaxPercentage)
+            var AdDSalesTax = Number(AdDSalesTaxPercentage); //Number((Number(valueadd1) + Number(AdDSalesTaxPercentage))).toFixed(2);
+            $('#AdDSalesTax').val(AdDSalesTax);
 
-            var FastTrackProfitPercentage = Number(percentage(valueadd1, 3));
-            var AdDSalesTax = Number((valueadd1 + AdDSalesTaxPercentage)).toFixed(2);
-            $('#AdDSalesTax').val(valueadd2);
+            var FastTrackProfitPercentage = Number(valueadd1) + Number(AdDSalesTax);
+            var FastTrackProfit = (Number(percentage(FastTrackProfitPercentage, 10))).toFixed(2);
+            $('#FastTrackProfit').val(FastTrackProfit);
 
+            var TotalClearingFinal = Number(TotalClearing) + Number(AdDSalesTax) + Number(FastTrackProfit);
+            $('#TotalClearingFinal').val(TotalClearingFinal.toFixed(2));
+
+
+            var CalculatedPercentage = Number(((TotalClearingFinal * 100) / totalADVRATE))
+            $('#CalculatedPercentage').val(CalculatedPercentage.toFixed(2));
         }
     </script>
 }

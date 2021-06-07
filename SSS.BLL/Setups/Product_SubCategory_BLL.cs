@@ -31,7 +31,7 @@ namespace SSS.BLL.Setups
         public DataTable ViewAllCategories()
         {
             objProductSubCategory_DAL = new Product_SubCategory_DAL(objProductSubCategoryProperty);
-            return objProductSubCategory_DAL.SelectAll();
+            return objProductSubCategory_DAL.SelectAllCategories();
         }
         public DataTable GetById(int? id)
         {
@@ -52,6 +52,16 @@ namespace SSS.BLL.Setups
         {
             objProductSubCategory_DAL = new Product_SubCategory_DAL(objProductSubCategoryProperty);
             return objProductSubCategory_DAL.Delete(id);
+        }
+        public DataTable CheckForInsert()
+        {
+            objProductSubCategory_DAL = new Product_SubCategory_DAL(objProductSubCategoryProperty);
+            return objProductSubCategory_DAL.checkForInsert();
+        }
+        public DataTable CheckForUpdate()
+        {
+            objProductSubCategory_DAL = new Product_SubCategory_DAL(objProductSubCategoryProperty);
+            return objProductSubCategory_DAL.checkForUpdate();
         }
     }
 }

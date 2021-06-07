@@ -3,54 +3,68 @@
     ViewBag.Title = "FinsihProducts";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="card-body">
     <h3>Finish Product</h3>
     <br />
     <form role="form" id="purchaseform">
 
 
-
-
         <div class="row">
-       
+
             <div class="col-sm-4">
                 <!-- text input -->
-
                 <div class="form-group">
                     <label>Order#:</label>
-
                     @Html.DropDownListFor(model => model.orderIdx, new SelectList(Model.salesOrderLST, "idx", "soNumber"), "Select Order", new { @Class = "form-control font-weight-bold" })
-
                 </div>
                 @Html.ValidationMessageFor(model => model.orderIdx, "", new { @class = "text-danger" })
             </div>
             <div class="col-sm-3">
                 <!-- text input -->
+                <div class="form-group">
+                    <label>Branch*:</label>
+                    @Html.DropDownListFor(model => model.branchIdx, new SelectList(Model.BranchList, "idx", "branchName"), "Select Branch", new { @Class = "form-control font-weight-bold" })
+                </div>
+                @Html.ValidationMessageFor(model => model.branchIdx, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>From WareHouse*:</label>
+                    <select id="FromWareHouseId" class="form-control font-weight-bold">
+                        @{
+                            <option value="0" data-hscode="0">Select WareHouse</option>
 
+                            foreach (var item in Model.WareHouseList)
+                            {
+                                <option value="@item.Idx" data-val="@item.BranchIdx">@item.WareHouseName</option>
+                            }
+
+                        }
+                    </select>
+                </div>
+                @Html.ValidationMessageFor(model => model.warehouseIdx, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3">
+                <!-- text input -->
                 <div class="form-group">
                     <label>Total Amount:</label>
-
-                    <input type="text" id="totalAmount" readonly="readonly" class="form-control"  />
-
+                    <input type="text" id="totalAmount" readonly="readonly" class="form-control" />
                 </div>
                 @*@Html.ValidationMessageFor(model => model.orderIdx, "", new { @class = "text-danger" })*@
             </div>
-           
-        </div>
 
+        </div>
         <div class="row" id="PurchaseDetails">
             <div class="row">
                 <div class="card card-primary">
                     @*<div class="card-header" style="background-color:black;color:white">
-                        <h5>+Add Product</h5>
-                        <div class="card-tools">
+                            <h5>+Add Product</h5>
+                            <div class="card-tools">
 
-                        </div>
-                    </div>*@
+                            </div>
+                        </div>*@
                     <div class="">
-
-
 
                         <table id="example2" class="table table-striped table-bordered  table-hover table-active">
                             <thead class="thead-dark">
@@ -58,14 +72,12 @@
                                     <th style="display:none"></th>
                                     <th>Product Name</th>
                                     <th>Ordered QTY</th>
-
                                     <th>Unit Price</th>
                                     <th>Sub Amount</th>
                                     <th>Additional Cost</th>
                                 </tr>
                             </thead>
                             <tbody class="" style="background:white;">
-
                                 @{
                                     if (Model.ActivityLST != null && Model.ActivityLST.Count > 0)
                                     {
@@ -87,9 +99,7 @@
                                                     }
                                                     <td>@Productname</td>
                                                 }
-
                                                 <td>@items.qty</td>
-
                                                 <td>@items.activityPrice</td>
                                                 <td>@items.</td>
                                             </tr>
@@ -105,13 +115,9 @@
             </div>
 
 
-
-
         </div>
 
-
         <hr />
- 
 
 
         <br />
@@ -124,24 +130,41 @@
                 </div>
             </div>*@
 
-
-
         <div class="row">
             <div class="modal-footer">
-                
 
                 <button type="button" class="btn btn-success" id="btnsubmit">Submit</button>
-
 
                 <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </form>
 
-
 </div>
 @section MyScripts {
     <script type="text/javascript">
+        $('#branchIdx').change(function () {
+
+            $('#FromWareHouseId').attr('display', 'block')
+            // get optios of second dropdown and cache it
+            var $options = $('#FromWareHouseId')
+                // update the dropdown value if necessary
+                .val('')
+                // get options
+                .find('option')
+                // show all of the initially
+                .show();
+            console.log($options);
+            // check current value is not 0
+            if (this.value != '0')
+                $options
+                    // filter out options which is not corresponds to the first option
+                    .not('[data-val="' + this.value + '"],[data-val=""]')
+                    // hide them
+                    .hide();
+        })
+
+        // Submit Button
         $("#btnsubmit").click(function (e) {
             //console.log("here");
             e.preventDefault();
@@ -153,23 +176,27 @@
                     idx: $('#idx').val(),
                     orderIdx: $('#orderIdx').val(),
                     TotalAmount: $('#totalAmount').val(),
+                    branchIdx: $('#branchIdx').val(),
+                    warehouseIdx: $('#FromWareHouseId').val(),
+                    
                     InventoryDetails: []
                 }
 
             }
-           
+
 
             var table = $("#example2 tbody");
             table.find('tr').each(function (i) {
-                var orderIdx =$("#orderIdx option:selected").val();
+                var orderIdx = $("#orderIdx option:selected").val();
                 var $tds = $(this).find('td'),
                     productIdx = $tds.eq(0).text(),
-                    stock = $tds.eq(2).text();
-                unitPrice = $tds.eq(3).text(),
-                totalAmount = Number($tds.eq(4).text()) //+ Number($tds.eq(5).eq(0).val())
+                    stock = $tds.eq(2).text(),
+                    unitPrice = $tds.eq(3).text(),
+                    additionalAmount = $tds.eq(5).find('#additionalAmount').val(),
+                    totalAmount = Number($tds.eq(4).text()); //+ Number($tds.eq(5).eq(0).val())
                 // $tds.eq(4).text(),
-                
-                ;
+
+
 
                 datatosend.objPI.InventoryDetails.push({
                     productIdx: $tds.eq(0).text(),
@@ -178,8 +205,9 @@
                     totalAmount: stock * unitPrice,
                     TransactionTypeID: 1,
                     MasterID: orderIdx,
-                  
-                })
+                    additionalAmount: additionalAmount
+
+                });
 
 
             });
@@ -199,47 +227,13 @@
                     success: function (res) {
                         console.log(res);
                         if (res.success) {
-                            //Command: toastr["success"]("", "Added Successfuly")
 
-                            //toastr.options = {
-                            //    "closeButton": false,
-                            //    "debug": false,
-                            //    "newestOnTop": false,
-                            //    "progressBar": true,
-                            //    "positionClass": "toast-top-center",
-                            //    "preventDuplicates": false,
-                            //    "onclick": null,
-                            //    "showDuration": "300",
-                            //    "hideDuration": "1000",
-                            //    "timeOut": "5000",
-                            //    "extendedTimeOut": "1000",
-                            //    "showEasing": "swing",
-                            //    "hideEasing": "linear",
-                            //    "showMethod": "fadeIn",
-                            //    "hideMethod": "fadeOut"
-                            //}
                             window.location.href = "/Activity/FinsihProducts"
                         }
                         else if (res.success == false && res.msg == 'Failed') {
-                            //    Command: toastr["error"]("Invalid ", " Failed")
 
-                            //toastr.options = {
-                            //    "closeButton": false,
-                            //    "debug": false,
-                            //    "newestOnTop": false,
-                            //    "progressBar": true,
-                            //    "positionClass": "toast-top-center",
-                            //    "preventDuplicates": false,
-                            //    "onclick": null,
-                            //    "showDuration": "300",
-                            //    "hideDuration": "1000",
-                            //    "timeOut": "5000",
-                            //    "extendedTimeOut": "1000",
-                            //    "showEasing": "swing",
-                            //    "hideEasing": "linear",
-                            //    "showMethod": "fadeIn",
-                            //    "hideMethod": "fadeOut"
-                            //}
+
+
                         }
                     },
                     failure: function (res) {
@@ -259,13 +253,9 @@
         // Add To grid
         $("#orderIdx").on('change', function () {
             var ddvaue = $("#orderIdx option:selected").val();
+
             if (ddvaue > 0) {
-                //$.ajax({
-                //    url: "/Activity/GetAllAcitvityBYOrderId?id=" +ddvaue,
-                //    success: function (data) {
-                //        bindCustomersInDataTable(data);
-                //    }
-                //});
+
                 $.ajax({
                     url: "/Activity/GetAllAcitvityBYOrderId",
                     data: { id: ddvaue },
@@ -313,11 +303,10 @@
             }
 
         });
-        
-        function calculate(o)
-        {
+
+        function calculate(o) {
             var $row = $(this).closest("tr"),        // Finds the closest row <tr>
-                                                                         $tds = $row.find("td:nth-child(2)");
+                $tds = $row.find("td:nth-child(2)");
             //console.log($tds);
 
 
@@ -413,12 +402,12 @@
         });
 
 
-        
-        
+
+
         function SomeDeleteRowFunction(o) {
             //alert(id);
             var $row = $(this).closest("tr"),        // Finds the closest row <tr>
-                 $tds = $row.find("td:nth-child(2)");
+                $tds = $row.find("td:nth-child(2)");
             //console.log($tds);
 
             $.each($tds, function () {                // Visits every single <td> element
@@ -442,7 +431,7 @@
         function changeinunitprice(o) {
             //alert(id);
             var $row = $(this).closest("tr"),        // Finds the closest row <tr>
-                 $tds = $row.find("td:nth-child(2)");
+                $tds = $row.find("td:nth-child(2)");
             //console.log($tds);
 
 
@@ -649,7 +638,5 @@
             }
         });
     </script>
-
 }
-
 

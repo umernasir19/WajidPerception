@@ -34,7 +34,12 @@ namespace SSS.Property.Transactions
             get { return _itemIdx; }
             set { _itemIdx = value; }
         }
-
+        private int _gridVendorIdx;
+        public int gridVendorIdx //Added By Arsalan 5-04-21
+        {
+            get { return _gridVendorIdx; }
+            set { _gridVendorIdx = value; }
+        }
         private decimal _unitPrice;
         public decimal unitPrice
         {
@@ -131,6 +136,12 @@ namespace SSS.Property.Transactions
         {
             get { return _ADVRate; }
             set { _ADVRate = value; }
+        }
+        private decimal _TADVRate;
+        public decimal TADVRate //Added By Arsalan 5-04-21
+        {
+            get { return _TADVRate; }
+            set { _TADVRate = value; }
         }
     }
 }

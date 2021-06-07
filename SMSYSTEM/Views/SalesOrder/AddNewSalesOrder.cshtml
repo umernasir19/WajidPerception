@@ -12,7 +12,18 @@
     <form role="form" id="purchaseform">
         @Html.HiddenFor(model => model.idx, new { id = "idx", value = 0 })
 
-
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Sales Type#:</label>
+                    <select id="salesTypeIdx" Class = "form-control font-weight-bold">
+                        <option value="1">Standard</option>
+                        <option value="2">Sales Order</option>
+                    </select>
+                </div>
+                @Html.ValidationMessageFor(model => model.qsIdx, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <div class="row">
 
             @{
@@ -96,7 +107,7 @@
                             @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>
                 </div>
-            <div class="col-3">
+            @*<div class="col-3">
                 <div class="form-group">
                     <label></label>
                     
@@ -104,7 +115,7 @@
                     
 
                 </div>
-            </div>
+            </div>*@
         </div>
         <hr />
         <div class="row" id="PurchaseDetails">
@@ -213,7 +224,7 @@
 
 
 
-        </div>
+        
 
 
         <div class="row">
@@ -230,7 +241,7 @@
         <div class="row form-control-lg" id="checkboxdiv">
 
         </div>
-        </br>
+        <br />
         <div class="row">
             <div class="col-sm-12">
                 <div class="form-group">
@@ -310,6 +321,7 @@
                         <option value="1">Cash</option>
                         <option value="3">Bank</option>
                         <option value="2">Cheque</option>
+                        <option value="4">Customer Payment</option>
                     </select>
                 </div>
             </div>
@@ -329,6 +341,20 @@
                     <label for="inputName">Cheque</label>
                     @Html.EditorFor(model => model.accorChequeNumber, new { htmlAttributes = new { @placeholder = "Acc /Cheque", @class = "form-control" } })
                 </div>
+            </div>
+     
+            <div class="col-sm-4" id="customerBanks">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Customer Banks*:</label>
+                    @*            @Html.DropDownListFor(model => model.vendorIdx, new SelectList(Model.vendorLST, "idx", "vendorName"), "Select Category", new { @Class = "form-control font-weight-bold" })*@
+                    @Html.DropDownListFor(m => m.customerBankIdx,
+       new SelectList(Enumerable.Empty<SelectListItem>(), "idx", "customerBank"),
+              "Select Banks",
+              new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.customerBankIdx, "", new { @class = "text-danger" })
+                </div>
+                @*@Html.ValidationMessageFor(model => model.vendorIdx, "", new { @class = "text-danger" })*@
             </div>
 
         </div>
@@ -398,7 +424,78 @@
 
 
     });
-    
+
+    $("#customerIdx").on('change', function () {
+        var ddlvalue = $("#customerIdx option:selected").val();
+
+        if (Number(ddlvalue)>0 ) {
+
+            $.ajax({
+                url: '/SalesOrder/SearchCustomerBanks',
+                type: "GET",
+                dataType: "JSON",
+                data: {
+                    id: ddlvalue
+                },
+                success: function (data) {
+                    $("#customerBankIdx").empty();
+                    $("#customerBanks").show();
+                    console.log(data.data.length);
+                    $('#customerBankIdx').append($('<option>',
+                         {
+                             value: "",
+                             text: "Select Bank"
+                         }));
+                    for (var i = 0; i < data.data.length; i++) {
+                      
+                        $('#customerBankIdx').append($('<option>',
+                                {
+                                    value: data.data[i].idx,
+                                    text: data.data[i].accountTitle
+                                }));
+
+                    }
+
+                }
+            });
+            @*$.getJSON("@Url.Action("SearchCustomerBanks", "SalesOrder")", null,
+                      function (data) {
+
+                          $("#bankIdx").empty();
+                          $("#customerBanks").show();
+                          $('#bankIdx').append($('<option>',
+                               {
+                                   value: "",
+                                   text: "Select Bank"
+                               }));
+                          for (var i = 0; i < data.data.length; i++) {
+
+                              $('#bankIdx').append($('<option>',
+                                      {
+                                          value: data.data[i].idx,
+                                          text: data.data[i].customerBank
+                                      }));
+
+                          }
+
+
+
+
+                      });*@
+
+        }
+        else {
+
+            $('#paymntmethodoptions').hide();
+            $('#divTxtPaid').hide();
+            $('#paidAmount').val('0.00');
+            calculation();
+        }
+        //}
+
+
+    });
+
     $("#itemIdx").on('change', function () {
         var ddvaue = $("#itemIdx option:selected").val();
         if (ddvaue > 0) {
@@ -414,19 +511,19 @@
 
                 }
                 ,err: function (data) {
-                    
+
                     $('#stock').val('0.00');
                     $('#costPrice').val('0.00');
 
 
                 }
-            });       
+            });
         }
         else
         {
             $('#stock').val('0.00');
             $('#costPrice').val('0.00');
-            
+
         }
 
     });
@@ -485,7 +582,7 @@
             $('#checkboxdiv').empty();
             $('#checkboxdiv').hide();
             calculation();
-            
+
         }
 
     });
@@ -507,11 +604,11 @@
                 var balanceAmount = POData[0].balanceAmount;
                 var taxData = JSON.parse(data.taxdat);
                 //Adding in  to dropDown and TextBoxes
-               
+
 
                 $("#ddlTax").val('1');
                 if(taxData!=null)
-                {  
+                {
                     $("#ddlTax").val('1');
                     //$("#ddlTax option:selected").val()
                     RemoveCheckBox(taxlist)
@@ -520,7 +617,7 @@
                     for(var i=0 ;i< Number(taxData.length);i++){
 
                         var taxIdx = taxData[i].taxIdx;
-                        
+
                         check.each(function(){
                             var taxid = $(this).attr('data-id');
                             if(taxIdx==taxid)
@@ -528,11 +625,40 @@
                                 $(this).attr('checked', true)
                             }
                         });
-                    } 
-                    console.log(check); 
-                   
-                }
+                    }
+                    console.log(check);
 
+                }
+                if(Number(customerId)>0)
+                {
+                       $.ajax({
+                url: '/SalesOrder/SearchCustomerBanks',
+                type: "GET",
+                dataType: "JSON",
+                data: {
+                    id: customerId
+                },
+                success: function (data) {
+                    $("#customerBankIdx").empty();
+                    $("#customerBanks").show();
+                    $('#bankIdx').append($('<option>',
+                         {
+                             value: "",
+                             text: "Select Bank"
+                         }));
+                    for (var i = 0; i < data.data.length; i++) {
+
+                        $('#bankIdx').append($('<option>',
+                                {
+                                    value: data.data[i].idx,
+                                    text: data.data[i].customerBank
+                                }));
+
+                    }
+
+                }
+            });
+                }
                 $("#example2 tbody").empty();
                 $('#milestones').show();
                 var markup;
@@ -540,17 +666,17 @@
                     var actualSalePrice   = POData[i].salePrice;
                     var actualQty   =POData[i].qty;
                     console.log(data[i]);
-                   
+
                     var closbutton ='<button id="deleterow" onclick="SomeDeleteRowFunction(this)"  class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button>';
-                   
-                   
-                    
-                    var Qty = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualQty+'"  id="qty" class="form-control" />';      
+
+
+
+                    var Qty = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualQty+'"  id="qty" class="form-control" />';
                     //onkeyup="changeinunitprice(this)"
                     var salePrice = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualSalePrice+'"  id="salePrice" class="form-control" />';
                     var productname = POData[i].itemName; //$("#itemIdx option:selected").text();
                     var ProductID = POData[i].itemIdx;// $("#itemIdx option:selected").val();
-                    
+
                     var totalamount = (parseFloat(actualQty) * parseFloat(actualSalePrice)).toFixed(2);
                     //var duedate = $("#DueDate").val();
                     markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td>" + salePrice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + closbutton + "</td></tr>";
@@ -591,14 +717,14 @@
         calculation();
     }
     $("#discount").keyup(function () {
-        
+
         calculation();
     });
     $("#shippingCost").keyup(function () {
-        
+
         calculation();
     });
-   
+
 
     $("#qty").keyup(function () {
         var qtyval = $(this).val();
@@ -635,7 +761,7 @@
                          // '</button>'
         var productname = $("#itemIdx option:selected").text();
         var ProductID = $("#itemIdx option:selected").val();
-        var Qty = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualQty+'"  id="qty" class="form-control" />';      
+        var Qty = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualQty+'"  id="qty" class="form-control" />';
         //onkeyup="changeinunitprice(this)"
         var salePrice = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualSalePrice+'"  id="salePrice" class="form-control" />';
         //$('#salePrice').text(actualSalePrice);
@@ -795,8 +921,8 @@
 
             //console.log(itemamount);
             // itemamount = itemamount + itemamount;
-            
-            
+
+
             tamnt = Number(tamnt) + (Number(itemamount))
             grossAmountinInvoice = Number(grossAmountinInvoice) + (Number(itemamount))
 
@@ -804,7 +930,7 @@
         $('#netAmount').val(grossAmountinInvoice);//Gross Amount Filled
         $('#totalAmount').val(grossAmountinInvoice);
         var result = $('input[name="tax"]:checked');
-       
+
         if (result.length > 0) {
             result.each(function () {
                 var amount = parseFloat(parseFloat(calculateNetAmount).toFixed(2));
@@ -826,7 +952,7 @@
         {
             $('#taxAount').val('0');
         }
-      
+
         var totalAmount =$('#totalAmount').val();
         var shippingCost = $('#shippingCost').val();
         var discount = $('#discount').val();
@@ -860,8 +986,8 @@
 
             //console.log(itemamount);
             // itemamount = itemamount + itemamount;
-            
-            
+
+
             tamnt = Number(tamnt) + (Number(itemamount))
             grossAmountinInvoice = Number(grossAmountinInvoice) + (Number(itemamount))
 
@@ -869,7 +995,7 @@
         $('#netAmount').val(grossAmountinInvoice);//Gross Amount Filled
         $('#totalAmount').val(grossAmountinInvoice);
         var result = $('input[name="tax"]:checked');
-       
+
         if (result.length > 0) {
             result.each(function () {
                 var amount = parseFloat(parseFloat(calculateNetAmount).toFixed(2));
@@ -891,7 +1017,7 @@
         {
             $('#taxAount').val('0');
         }
-      
+
         var totalAmount =$('#totalAmount').val();
         var shippingCost = $('#shippingCost').val();
         var discount = $('#discount').val();
@@ -916,7 +1042,7 @@
 
     $("#btnAddSale").click(function (e) {
 
-       
+
 
         var datatosend = {
             objSalesOrder: {
@@ -938,8 +1064,9 @@
                 salespersonIdx:$('#salespersonIdx').val(),
                 wareHouseIdx:$('#wareHouseIdx option:selected').val(),
                 paymentModeIdx:$('#paymenttype').val(),
-                bankIdx:$('#bankIdx option:selected').val(),               
+                bankIdx:$('#bankIdx option:selected').val(),
                 accorChequeNumber:$('#accorChequeNumber').val(),
+                salesTypeIdx:$('#salesTypeIdx').val(),
 
                 //PageList:[{ID:1},{ID:2},{ID:3}]
                 SalesOrderDetailLST: [],
@@ -1055,12 +1182,24 @@
         if ($('#paymenttype option:selected').val() == 2) {
             $('#paymntmethodoptions').show();
             $('#cheqno').hide();
+            $('#customerBanks').hide();
             $('#divTxtPaid').show();
         }
 
         if ($('#paymenttype option:selected').val() == 3) {
             $('#paymntmethodoptions').show();
             $('#cheqno').show();
+            $('#customerBanks').hide();
+            $('#divTxtPaid').show();
+        }
+        if ($('#paymenttype option:selected').val() == 4) {
+            $('#paymntmethodoptions').show();
+            $('#customerIdx').trigger("change");
+            $('#customerBanks').show();
+            
+            $('#cheqno').hide();
+            $('#banks').hide()
+            $("#bankIdx").prop('selectedIndex', 0);
             $('#divTxtPaid').show();
         }
     });
@@ -1068,7 +1207,7 @@
     {
         $('#divTxtPaid').hide();
         $('#paidAmount').val('0.00');
-    }  
+    }
     $('#paidAmount').on('keyup', function (){
         var paidAmount = Number($('#paidAmount').val());
         var balanceAmount = Number($('#balanceAmount').val());
@@ -1085,15 +1224,18 @@
                 var remaingAmount = totalAmount-paidAmount;
                 $('#balanceAmount').val(remaingAmount)
             }
-            
+
         }
-        
+
         else
         {   $('#balanceAmount').val(totalAmount);
             alert("Please Enter a Valid Number");
         }
-        
+
     });
+
+
+
 </script>
     }
 

@@ -590,3 +590,48 @@ E:\Visual Studio Projects\MangoTechProjects\WAJID\Updated (1)\Updated\SSS.BLL\bi
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Updated (1)\Updated\SSS.BLL\obj\Debug\SSS.BLL.csprojResolveAssemblyReference.cache
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Updated (1)\Updated\SSS.BLL\obj\Debug\SSS.BLL.dll
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Updated (1)\Updated\SSS.BLL\obj\Debug\SSS.BLL.pdb
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.BLL\bin\Debug\SSS.BLL.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.BLL\bin\Debug\SSS.BLL.pdb
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.BLL\bin\Debug\SSS.DAL.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.BLL\bin\Debug\SSS.Property.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.BLL\bin\Debug\SSS.DAL.pdb
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.BLL\bin\Debug\SSS.Property.pdb
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.BLL\obj\Debug\SSS.BLL.csprojResolveAssemblyReference.cache
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.BLL\obj\Debug\SSS.BLL.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.BLL\obj\Debug\SSS.BLL.pdb
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\bin\Debug\SSS.BLL.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\bin\Debug\SSS.BLL.pdb
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\bin\Debug\SSS.DAL.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\bin\Debug\SSS.Property.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\bin\Debug\SSS.DAL.pdb
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\bin\Debug\SSS.Property.pdb
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\obj\Debug\SSS.BLL.csprojResolveAssemblyReference.cache
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\obj\Debug\SSS.BLL.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\obj\Debug\SSS.BLL.pdb
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\bin\Debug\SSS.Utility.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\bin\Debug\AjaxControlToolkit.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.BLL\bin\Debug\SSS.Utility.pdb
+D:\Ahsan\WajidPerception-master\SSS.BLL\bin\Debug\SSS.BLL.dll
+D:\Ahsan\WajidPerception-master\SSS.BLL\bin\Debug\SSS.BLL.pdb
+D:\Ahsan\WajidPerception-master\SSS.BLL\bin\Debug\SSS.DAL.dll
+D:\Ahsan\WajidPerception-master\SSS.BLL\bin\Debug\SSS.Property.dll
+D:\Ahsan\WajidPerception-master\SSS.BLL\bin\Debug\SSS.Utility.dll
+D:\Ahsan\WajidPerception-master\SSS.BLL\bin\Debug\AjaxControlToolkit.dll
+D:\Ahsan\WajidPerception-master\SSS.BLL\bin\Debug\SSS.DAL.pdb
+D:\Ahsan\WajidPerception-master\SSS.BLL\bin\Debug\SSS.Property.pdb
+D:\Ahsan\WajidPerception-master\SSS.BLL\bin\Debug\SSS.Utility.pdb
+D:\Ahsan\WajidPerception-master\SSS.BLL\obj\Debug\SSS.BLL.csprojResolveAssemblyReference.cache
+D:\Ahsan\WajidPerception-master\SSS.BLL\obj\Debug\SSS.BLL.dll
+D:\Ahsan\WajidPerception-master\SSS.BLL\obj\Debug\SSS.BLL.pdb
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Debug\SSS.BLL.dll
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Debug\SSS.BLL.pdb
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Debug\SSS.DAL.dll
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Debug\SSS.Property.dll
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Debug\SSS.Utility.dll
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Debug\AjaxControlToolkit.dll
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Debug\SSS.DAL.pdb
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Debug\SSS.Property.pdb
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Debug\SSS.Utility.pdb
+E:\Perception BP\WajidPerception-master\SSS.BLL\obj\Debug\SSS.BLL.csprojResolveAssemblyReference.cache
+E:\Perception BP\WajidPerception-master\SSS.BLL\obj\Debug\SSS.BLL.dll
+E:\Perception BP\WajidPerception-master\SSS.BLL\obj\Debug\SSS.BLL.pdb

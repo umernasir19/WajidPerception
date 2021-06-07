@@ -14,6 +14,10 @@ namespace SSS.BLL.Setups
         private Vendor_Category_Property objVendorCategoryProperty;
 
         private int? id;
+        public Vendor_Category_BLL()
+        {
+
+        }
         public Vendor_Category_BLL(Vendor_Category_Property objVendorCategory_Property)
         {
             objVendorCategoryProperty = objVendorCategory_Property;

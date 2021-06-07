@@ -49,11 +49,11 @@ namespace SSS.DAL.Setups
             SqlCommand cmdToExecute = new SqlCommand();
             cmdToExecute.CommandText = @"INSERT INTO TAXES
 (
-taxName,taxPercent,createdByUserIdx,IsClaimble
+taxName,taxPercent,createdByUserIdx,IsClaimble,shortName
 )
 values
 (
-@taxName,@taxPercent,@createdByUserIdx,@IsClaimble
+@taxName,@taxPercent,@createdByUserIdx,@IsClaimble,@shortName
 )";
             //cmdToExecute.CommandType = CommandType.StoredProcedure;
 
@@ -63,6 +63,7 @@ values
             try
             {
                 cmdToExecute.Parameters.Add(new SqlParameter("@taxName", SqlDbType.NVarChar, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objTaxesProperty.taxName));
+                cmdToExecute.Parameters.Add(new SqlParameter("@shortName", SqlDbType.NVarChar, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objTaxesProperty.shortName));
                 cmdToExecute.Parameters.Add(new SqlParameter("@taxPercent", SqlDbType.Decimal, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objTaxesProperty.taxPercent));
                 cmdToExecute.Parameters.Add(new SqlParameter("@createdByUserIdx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objTaxesProperty.createdByUserIdx));
                 cmdToExecute.Parameters.Add(new SqlParameter("@IsClaimble", SqlDbType.Bit, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objTaxesProperty.IsClaimble));
@@ -149,7 +150,7 @@ values
         {
             SqlCommand cmdToExecute = new SqlCommand();
             cmdToExecute.CommandText = @"update Taxes set taxName=@taxName,IsClaimble=@IsClaimble,taxPercent=@taxPercent,lastModifiedByUserIdx=@lastModifiedByUserIdx,
-              lastModificationDate=@lastModificationDate where idx=@idx";
+              lastModificationDate=@lastModificationDate,shortName=@shortName where idx=@idx";
             //cmdToExecute.CommandType = CommandType.StoredProcedure;
 
             // Use base class' connection object
@@ -159,6 +160,7 @@ values
             {
                 cmdToExecute.Parameters.Add(new SqlParameter("@idx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objTaxesProperty.idx));
                 cmdToExecute.Parameters.Add(new SqlParameter("@taxName", SqlDbType.NVarChar, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objTaxesProperty.taxName));
+                cmdToExecute.Parameters.Add(new SqlParameter("@shortName", SqlDbType.NVarChar, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objTaxesProperty.shortName));
                 cmdToExecute.Parameters.Add(new SqlParameter("@taxPercent", SqlDbType.Decimal, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objTaxesProperty.taxPercent));
                 cmdToExecute.Parameters.Add(new SqlParameter("@lastModifiedByUserIdx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objTaxesProperty.lastModifiedByUserIdx));
                 cmdToExecute.Parameters.Add(new SqlParameter("@lastModificationDate", SqlDbType.NVarChar, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objTaxesProperty.lastModificationDate));

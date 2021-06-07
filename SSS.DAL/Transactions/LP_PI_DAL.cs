@@ -76,16 +76,16 @@ namespace SSS.DAL.Transactions
 
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.InputOutput, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.idx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@DepartmentID", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.DepartmentID));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@reference", SqlDbType.NVarChar, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.reference));
 
                 }
                 else
                 {
                     cmdToExecute.Parameters.Add(new SqlParameter("@poNumber", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.poNumber));
                     cmdToExecute.Parameters.Add(new SqlParameter("@vendorIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.vendorIdx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@purchasetypeidx", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.purchaseTypeIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@warehouseIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.warehouseIdx));
                     cmdToExecute.Parameters.Add(new SqlParameter("@purchasedate", SqlDbType.DateTime, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.purchaseDate));
-
+                    cmdToExecute.Parameters.Add(new SqlParameter("@reference", SqlDbType.NVarChar, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.reference));
                     cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.description));
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalamount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.totalAmount));
                     cmdToExecute.Parameters.Add(new SqlParameter("@netamount", SqlDbType.Decimal, 9, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.netAmount));
@@ -100,11 +100,13 @@ namespace SSS.DAL.Transactions
 
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.idx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@DepartmentID", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.DepartmentID));
+                    //cmdToExecute.Parameters.Add(new SqlParameter("@DepartmentID", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.DepartmentID));
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@DocumentNumber", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.DocumentNumber));
                     cmdToExecute.Parameters.Add(new SqlParameter("@ContainerNo", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.ContainerNo));
                     cmdToExecute.Parameters.Add(new SqlParameter("@ExchangeRate", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.ExchangeRate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@grandTotalAVPKR", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.grandTotalAVPKR));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@numberOfProducts", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.numberOfProducts));
                 }
 
                 if (_mainConnectionIsCreatedLocal)
@@ -142,6 +144,7 @@ namespace SSS.DAL.Transactions
                     //sbc.ColumnMappings.Add(2, 1);
                     sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
                     sbc.ColumnMappings.Add("itemIdx", "itemIdx");
+                    sbc.ColumnMappings.Add("gridVendorIdx", "gridVendorIdx");
                     sbc.ColumnMappings.Add("unitPrice", "unitPrice");
                     sbc.ColumnMappings.Add("qty", "qty");
                     sbc.ColumnMappings.Add("amount", "amount");
@@ -150,6 +153,7 @@ namespace SSS.DAL.Transactions
                     sbc.ColumnMappings.Add("unitPrice", "DVRate");
                     sbc.ColumnMappings.Add("amount", "TDVRate");
                     sbc.ColumnMappings.Add("ADVRate", "ADVRate");
+                    sbc.ColumnMappings.Add("TADVRate", "TADVRate");
                     //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
                     //sbc.ColumnMappings.Add("Product", "Product_Name");
                     //sbc.ColumnMappings.Add("Status", "Status");
@@ -465,7 +469,7 @@ namespace SSS.DAL.Transactions
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objCIMaster.description));
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalamount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.totalAmount));
-
+                    cmdToExecute.Parameters.Add(new SqlParameter("@totalTD", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.totalTD));//Added By Arsalan 12-04-21
                     cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.creationDate));
                     cmdToExecute.Parameters.Add(new SqlParameter("@lastModificationDate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.creationDate));
 
@@ -480,20 +484,28 @@ namespace SSS.DAL.Transactions
                 }
                 else
                 {
+                    // Insert into inventory
+                    cmdToExecute.Parameters.Add(new SqlParameter("@productIdx", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.productIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@stock", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.stock));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@unitPrice", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.unitPrice));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@totalAmountInv", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.totalAmount));
+
+                    // Insert into CIPO
                     cmdToExecute.Parameters.Add(new SqlParameter("@poNumber", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.poNumber));
                     cmdToExecute.Parameters.Add(new SqlParameter("@PINO", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.PINO));
                     cmdToExecute.Parameters.Add(new SqlParameter("@purchaseDate", SqlDbType.DateTime, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.purchaseDate));
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objCIMaster.description));
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalamount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.totalAmount));
-
+                    cmdToExecute.Parameters.Add(new SqlParameter("@totalTD", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.totalTD));//Added By Arsalan 12-04-21
                     cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.creationDate.ToString("yyyy-MM-ddTHH:mm:ss.fff")));
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@createdByUserIdx", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objCIMaster.createdByUserIdx));
                     cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.visible));
                     cmdToExecute.Parameters.Add(new SqlParameter("@status", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.status));
-
-
+                    cmdToExecute.Parameters.Add(new SqlParameter("@numberOfProducts", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.numberOfProducts));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@grandTotalAVPKR", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.grandTotalAVPKR));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ExchangeRate", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.ExchangeRate));
                     cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.InputOutput, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.idx));
                     //cmdToExecute.Parameters.Add(new SqlParameter("@purchaseDate", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.DepartmentID));
 

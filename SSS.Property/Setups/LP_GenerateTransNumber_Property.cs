@@ -11,5 +11,6 @@ namespace SSS.Property.Setups
 
         public string Identityfieldname { get; set; }
         public string userid { get; set; }
+        public string tranTypeIdx { get; set; }
     }
 }

@@ -24,16 +24,30 @@ namespace SSS.BLL.Transactions
             objvoucherproperty = _objvoucherproperty;
         }
 
-        public bool Insert()
+        public bool InsertReceipt()
         {
             objDAL = new LP_Voucher_DAL(objvoucherproperty);
-            return objDAL.Insert();
+            return objDAL.InsertReceipt();
         }
-
+        public bool InsertPayment()
+        {
+            objDAL = new LP_Voucher_DAL(objvoucherproperty);
+            return objDAL.InsertPayment();
+        }
         public DataTable SelectAll()
         {
             objDAL = new LP_Voucher_DAL();
             return objDAL.SelectAll();
+        }
+        public DataTable SelectAllPaymentVoucher()
+        {
+            objDAL = new LP_Voucher_DAL();
+            return objDAL.SelectAllPaymentVoucher();
+        }
+        public DataTable SelectAllReceiptVoucher()
+        {
+            objDAL = new LP_Voucher_DAL();
+            return objDAL.SelectAllReceiptVoucher();
         }
         public DataTable SelectOne()
         {
@@ -50,9 +64,17 @@ namespace SSS.BLL.Transactions
             if (dt.Rows.Count > 0)
             {
                 foreach (DataRow dr in dt.Rows)
-                {
-                    TransactionNumber = dr["TransNumber"].ToString();
-                    TransactionNumber = "VR-00" + TransactionNumber + "-" + objtransno.userid;
+                {   if (objtransno.tranTypeIdx == "5")
+                    {
+                        TransactionNumber = dr["TransNumber"].ToString();
+                        TransactionNumber = "REC-00" + TransactionNumber + "-" + objtransno.userid;
+                    }
+                    else
+                    {
+                        TransactionNumber = dr["TransNumber"].ToString();
+                        TransactionNumber = "PAY-00" + TransactionNumber + "-" + objtransno.userid;
+                    }
+                    
 
 
                 }
@@ -66,6 +88,27 @@ namespace SSS.BLL.Transactions
                 return TransactionNumber;
             }
             //return _objMRNDAL.GenerateMRNNo(objtransno);
+        }
+
+        public DataTable getcashBalance()
+        {
+            objDAL = new LP_Voucher_DAL();
+            return objDAL.getCashBalance();
+        }
+        public DataTable getcustomerPaymentBalance()
+        {
+            objDAL = new LP_Voucher_DAL();
+            return objDAL.getCustomerPaymentBalance();
+        }
+        public DataTable getvendorBalance(int id)
+        {
+            objDAL = new LP_Voucher_DAL();
+            return objDAL.getvendorBalance(id);
+        }
+        public DataTable getcustomerInvoices(int id)
+        {
+            objDAL = new LP_Voucher_DAL();
+            return objDAL.getcustomerInvoices(id);
         }
     }
 }

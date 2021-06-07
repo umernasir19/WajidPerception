@@ -10,6 +10,7 @@ using SSS.Utility;
 using SSS.BLL.Transactions;
 using Newtonsoft.Json;
 using System.Data;
+using SSS.Property.Setups.Accounts;
 
 namespace SMSYSTEM.Controllers
 {
@@ -31,7 +32,22 @@ namespace SMSYSTEM.Controllers
             }
         }
 
+        public JsonResult GetAllPaymentVoucher()
+        {
+            try
+            {
+                objvouchermaster = new LP_Voucher_Property();
+                objVoucherBll = new LP_Voucher_BLL(objvouchermaster);
 
+                var Data = JsonConvert.SerializeObject(objVoucherBll.SelectAllPaymentVoucher());
+                return Json(new { data = Data, success = true, statuscode = 200, count = Data.Length }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         #region Add Voucher
         public ActionResult AddVoucher(int? id)
@@ -49,13 +65,16 @@ namespace SMSYSTEM.Controllers
                     objvoucherVM.vouchertypelist = Helper.ConvertDataTable<LP_Transaction_Type_Property>(GetAllTransactionType());
                     objvoucherVM.voucher_amount = 0.00m;
                     objvoucherVM.description = "";
-                    objvoucherVM.banklist = Helper.ConvertDataTable<Company_Bank_Property>(GetAllCompanyBanks());
+                    //objvoucherVM.BankList = Helper.ConvertDataTable<Company_Bank_Property>(GetAllCompanyBanks());
                     objvoucherVM.vendorlist = Helper.ConvertDataTable<Vendors_Property>(GetAllVendors());
-
+                    objvoucherVM.explist = Helper.ConvertDataTable<fourthTier_Property>(GetChildAccountsByheadIdx(4)); //All Expenses
+                    objvoucherVM.BankList = Helper.ConvertDataTable<Company_Bank_Property>(GetAllCompanyBanks()); //Added
+                    //objvoucherVM.CustomerBankList = Helper.ConvertDataTable<LP_CustomerBanks_Property>(GetAllCompanyBanks()); //Added
                     LP_GenerateTransNumber_Property objtransnumber = new LP_GenerateTransNumber_Property();
                     objtransnumber.TableName= "Voucher";
                     objtransnumber.Identityfieldname = "idx";
                     objtransnumber.userid = Session["UID"].ToString();
+                    objtransnumber.tranTypeIdx ="6";
                     objVoucherBll = new LP_Voucher_BLL();
                     objvoucherVM.voucher_no= objVoucherBll.GenerateTransNo(objtransnumber);
 
@@ -79,7 +98,7 @@ namespace SMSYSTEM.Controllers
                 objvouchermaster.voucher_no = objVoucher.voucher_no;
                 objvouchermaster.vendor_id = objVoucher.vendor_id;
                 objvouchermaster.voucher_type = objVoucher.voucher_type;
-                objvouchermaster.date_created =objVoucher.date_created;
+                objvouchermaster.date_created =objVoucher.date_created.ToString("yyyy-MM-dd");
                 if (objVoucher.description != null)
                 {
                     objvouchermaster.description = objVoucher.description;
@@ -92,7 +111,7 @@ namespace SMSYSTEM.Controllers
 
                 //  objMRNProperty.paidDate = ;// objMRN.paidDate;
 
-                objvouchermaster.DetailData = Helper.ToDataTable<LP_Voucher_Details>(objVoucher.VoucherDetails);
+               
                 if (objVoucher.idx > 0)
                 {
                     ////objMRNProperty.creationDate = DateTime.Now;
@@ -113,16 +132,16 @@ namespace SMSYSTEM.Controllers
                     //add
                    
                     objvouchermaster.status = 0;
-                    objvouchermaster.account_cheque_no = objVoucher.account_cheque_no;
-                    objvouchermaster.bank_id = objVoucher.bank_id;
-                    objvouchermaster.payment_type = objVoucher.payment_type;
-                    objvouchermaster.voucher_amount = objVoucher.voucher_amount;
-
+                    objvouchermaster.accorChequeNumber = objVoucher.accorChequeNumber;
+                    objvouchermaster.bankIdx = objVoucher.bankIdx;
+                    objvouchermaster.paymentModeIdx = objVoucher.paymentModeIdx;
+                    objvouchermaster.voucher_amount = decimal.Parse(objVoucher.voucher_amount.ToString());
+                    objvouchermaster.DetailData = Helper.ToDataTable<AccountGJ>(objVoucher.AccountGJLST);
                     objvouchermaster.u_id = Convert.ToInt16(Session["UID"].ToString());
 
                     objvouchermaster.TableName = "VoucherDetails";
                     objVoucherBll = new LP_Voucher_BLL(objvouchermaster);
-                    flag = objVoucherBll.Insert();
+                    flag = objVoucherBll.InsertPayment();
 
                 }
                 return Json(new { data = "", success = flag, msg = flag == true ? "Successfull" : "Failed", statuscode = flag == true ? 200 : 401 }, JsonRequestBehavior.AllowGet);
@@ -153,6 +172,58 @@ namespace SMSYSTEM.Controllers
             else
             {
                 return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        public JsonResult getCashBalance()
+        {
+            try
+            {
+                objvoucherVM = new LP_Voucher_ViewModel();
+                LP_Voucher_BLL objBLL= new LP_Voucher_BLL();
+                var Data = JsonConvert.SerializeObject(objBLL.getcashBalance());
+                return Json(new { data = Data, success = true, statuscode = 200, count = Data.Length }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult getCustomerPaymentBalance()
+        {
+            try
+            {
+                objvoucherVM = new LP_Voucher_ViewModel();
+                LP_Voucher_BLL objBLL = new LP_Voucher_BLL();
+                var Data = JsonConvert.SerializeObject(objBLL.getcustomerPaymentBalance());
+                return Json(new { data = Data, success = true, statuscode = 200, count = Data.Length }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult getVendorBalance(int? id)
+        {
+            try
+            {  if (id != null)
+                {
+                    objvoucherVM = new LP_Voucher_ViewModel();
+                    LP_Voucher_BLL objBLL = new LP_Voucher_BLL();
+                    var Data = JsonConvert.SerializeObject(objBLL.getvendorBalance(int.Parse(id.ToString())));
+                    return Json(new { data = Data, success = true, statuscode = 200, count = Data.Length }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "ID null", success = false, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
             }
         }
         #endregion

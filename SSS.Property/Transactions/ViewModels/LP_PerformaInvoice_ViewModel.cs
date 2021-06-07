@@ -12,6 +12,7 @@ namespace SSS.Property.Transactions.ViewModels
         public int idx { get; set; }
         public string poNumber { get; set; }
         public int vendorIdx { get; set; }
+        public int gridVendorIdx { get; set; }//Added By Arsalan 05-04-21
         public int purchaseTypeIdx { get; set; }
         [DataType(DataType.Date)]
         public DateTime purchaseDate { get; set; }
@@ -40,22 +41,24 @@ namespace SSS.Property.Transactions.ViewModels
         public int DepartmentID { get; set; }
         public string ContainerNo { get; set; }
         public string DocumentNumber { get; set; }
-
         public decimal unitPrice { get; set; }
         public decimal qty { get; set; }
         public decimal amount { get; set; }
         public decimal DVAmount { get; set; }
         public decimal ADVAmount { get; set; }
+        public decimal TotalADVAmount { get; set; } //Added By Arsalan 05-04-21
         public decimal TDVAmount { get; set; }
         public string ItemDescription { get; set; }
         public decimal ExchangeRate { get; set; }
-        
+        public decimal grandTotalAVPKR { get; set; }
         public string HSCode { get; set; }
         public List<Vendors_Property> VendorLST { get; set; }
-        public List<LP_Purchase_Type> PurchaseType_List { get; set; }
+        public int numberOfProducts { get; set; }//Added By Arsalan 10-04-21
+        public string reference { get; set; } // Added By Arsalan 03-04-21
         public List<Product_Property> ProductList { get; set; }
-
-        public List<Departments_property> DepartmentList { get; set; }
+        public int warehouseIdx { get; set; }
+        //public List<Departments_property> DepartmentList { get; set; }
+        public List<WareHouse_Property> WarehouseList { get; set; }
         public List<PaymentMode_Property> Paymentmodelist { get; set; }//important to be Added
         public List<Company_Bank_Property> BankList { get; set; }
         public List<LP_Performa_Invoice_Details_Property> CommercialDetailList { get; set; }

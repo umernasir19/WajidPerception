@@ -247,5 +247,7 @@ namespace SSS.Property.Transactions
 
         public int BankCOAIDX { get; set; }
         public int CustomerCoaidx { get; set; }
+
+        public int salesTypeIdx { get; set; }
     }
 }

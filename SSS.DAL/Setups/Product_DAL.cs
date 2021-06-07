@@ -10,6 +10,7 @@ using System.Net.Mail;
 using FluentValidation;
 using SNDDAL;
 using SSS.Property.Setups;
+using SSS.Utility;
 
 namespace SSS.DAL.Setups
 {
@@ -147,7 +148,7 @@ where pr.visible =1 and pr.HSCODE!=''";
         public  DataTable ddlCategory()
         {
             SqlCommand cmdToExecute = new SqlCommand();
-            cmdToExecute.CommandText = @"select idx,category from product_category where visible=1";
+            cmdToExecute.CommandText = @"select HSCodeCat,idx,category from product_category where visible=1";
             //cmdToExecute.CommandType = CommandType.StoredProcedure;
             DataTable toReturn = new DataTable("Product");
             SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
@@ -203,7 +204,7 @@ where pr.visible =1 and pr.HSCODE!=''";
         public DataTable ddlSubCategory()
         {
             SqlCommand cmdToExecute = new SqlCommand();
-            cmdToExecute.CommandText = @"select idx,subCategory from Product_SubCategory where visible=1";
+            cmdToExecute.CommandText = @"select HS_CodeSub,idx,subCategory from Product_SubCategory where visible=1";
             //cmdToExecute.CommandType = CommandType.StoredProcedure;
             DataTable toReturn = new DataTable("Product");
             SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
@@ -374,6 +375,33 @@ where pr.visible =1 and pr.HSCODE!=''";
                     sbc.WriteToServer(objProduct.DetailData);
 
                 }
+
+                if (objProduct.ProductPictureList.Count>0)
+                {
+                    DataTable dt;
+                    //add product id in list
+                    for(int i=0;i< objProduct.ProductPictureList.Count; i++)
+                    {
+                        objProduct.ProductPictureList[i].ProductID = Convert.ToInt32(cmdToExecute.Parameters["@ID"].Value.ToString());
+                    }
+                    dt = new DataTable();
+
+                    dt = Helper.ToDataTable<LP_Products_Picture>(objProduct.ProductPictureList);
+                    dt.AcceptChanges();
+
+                    SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                    dt.TableName = "products_Picture";
+
+                    sbc.ColumnMappings.Clear();
+                    sbc.ColumnMappings.Add("ProductID", "ProductID");
+                    sbc.ColumnMappings.Add("PicturePath", "PicturePath");
+                    sbc.DestinationTableName = dt.TableName;
+                    sbc.WriteToServer(dt);
+
+                }
+
+
+
                 if (_errorCode != (int)LLBLError.AllOk)
                 {
                     // Throw error.
@@ -440,6 +468,29 @@ where pr.visible =1 and pr.HSCODE!=''";
                 _rowsAffected = cmdToExecute.ExecuteNonQuery();
                 // _iD = (Int32)cmdToExecute.Parameters["@iID"].Value;
                 // _errorCode = (Int32)cmdToExecute.Parameters["@iErrorCode"].Value;
+                if (objProduct.ProductPictureList.Count > 0)
+                {
+                    DataTable dt;
+                    //add product id in list
+                    for (int i = 0; i < objProduct.ProductPictureList.Count; i++)
+                    {
+                        objProduct.ProductPictureList[i].ProductID = objProduct.idx;
+                    }
+                    dt = new DataTable();
+
+                    dt = Helper.ToDataTable<LP_Products_Picture>(objProduct.ProductPictureList);
+                    dt.AcceptChanges();
+
+                    SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                    dt.TableName = "products_Picture";
+
+                    sbc.ColumnMappings.Clear();
+                    sbc.ColumnMappings.Add("ProductID", "ProductID");
+                    sbc.ColumnMappings.Add("PicturePath", "PicturePath");
+                    sbc.DestinationTableName = dt.TableName;
+                    sbc.WriteToServer(dt);
+
+                }
 
                 if (_errorCode != (int)LLBLError.AllOk)
                 {
@@ -600,6 +651,156 @@ where pr.visible =1 and pr.HSCODE!=''";
             }
         }
 
+
+        public DataTable SelectPictureById(int? id)
+        {
+            SqlCommand cmdToExecute = new SqlCommand();
+            cmdToExecute.CommandText = "select * from products_Picture where ProductID="+id;
+            //cmdToExecute.CommandType = CommandType.StoredProcedure;
+            DataTable toReturn = new DataTable("Product");
+            SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
+
+            // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection;
+
+            try
+            {
+                //cmdToExecute.Parameters.Add(new SqlParameter("@idx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, id));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@branchIdx", SqlDbType.Int, 500, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objUserProperty.branchIdx));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Company_Code", SqlDbType.VarChar, 20, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Company_Code));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Name", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Name));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Short_Description", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Short_Description));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Long_Description", SqlDbType.NVarChar, 1500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Long_Description));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Address", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Address));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Phone_Number1", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Phone_Number1));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Phone_Number2", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Phone_Number2));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Fax_Number", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Fax_Number));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Email", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Email));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Website", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Website));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Status", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Status));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@PageNum", SqlDbType.Int, 32, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.PageNum));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@PageSize", SqlDbType.Int, 32, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.PageSize));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@sortColumn", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.SortColumn));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@TotalRowsNum", SqlDbType.Int, 32, ParameterDirection.Output, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.TotalRowsNum));
+
+
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Open connection.
+                    _mainConnection.Open();
+                }
+                else
+                {
+                    if (_mainConnectionProvider.IsTransactionPending)
+                    {
+                        cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    }
+                }
+
+                // Execute query.
+                adapter.Fill(toReturn);
+                // _errorCode = (Int32)cmdToExecute.Parameters["@iErrorCode"].Value;
+                // objCompanyProperty.TotalRowsNum = Convert.ToInt32(cmdToExecute.Parameters["@TotalRowsNum"].Value);
+                if (_errorCode != (int)LLBLError.AllOk)
+                {
+                    // Throw error.
+                    throw new Exception("Stored Procedure 'sp_selectAll_branch' reported the ErrorCode: " + _errorCode);
+                }
+
+                return toReturn;
+            }
+            catch (Exception ex)
+            {
+                // some error occured. Bubble it to caller and encapsulate Exception object
+                throw new Exception("Branch::SelectAll::Error occured.", ex);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Close connection.
+                    _mainConnection.Close();
+                }
+                cmdToExecute.Dispose();
+                adapter.Dispose();
+            }
+        }
+
+        public DataTable SelectByTypeId(int id)
+        {
+            SqlCommand cmdToExecute = new SqlCommand();
+            cmdToExecute.CommandText = @"select Concat(us.firstName,'',us.lastName) as userName,pc.* from products pc
+                                        left join users us on pc.CreatedByUserIdx=us.idx
+                                        where pc.productTypeIdx=@idx and pc.visible=1";
+            //cmdToExecute.CommandType = CommandType.StoredProcedure;
+            DataTable toReturn = new DataTable("Product");
+            SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
+
+            // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection;
+
+            try
+            {
+                cmdToExecute.Parameters.Add(new SqlParameter("@idx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, id));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@branchIdx", SqlDbType.Int, 500, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objUserProperty.branchIdx));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Company_Code", SqlDbType.VarChar, 20, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Company_Code));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Name", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Name));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Short_Description", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Short_Description));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Long_Description", SqlDbType.NVarChar, 1500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Long_Description));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Address", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Address));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Phone_Number1", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Phone_Number1));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Phone_Number2", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Phone_Number2));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Fax_Number", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Fax_Number));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Email", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Email));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Website", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Website));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@Status", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Status));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@PageNum", SqlDbType.Int, 32, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.PageNum));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@PageSize", SqlDbType.Int, 32, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.PageSize));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@sortColumn", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.SortColumn));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@TotalRowsNum", SqlDbType.Int, 32, ParameterDirection.Output, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.TotalRowsNum));
+
+
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Open connection.
+                    _mainConnection.Open();
+                }
+                else
+                {
+                    if (_mainConnectionProvider.IsTransactionPending)
+                    {
+                        cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    }
+                }
+
+                // Execute query.
+                adapter.Fill(toReturn);
+                // _errorCode = (Int32)cmdToExecute.Parameters["@iErrorCode"].Value;
+                // objCompanyProperty.TotalRowsNum = Convert.ToInt32(cmdToExecute.Parameters["@TotalRowsNum"].Value);
+                if (_errorCode != (int)LLBLError.AllOk)
+                {
+                    // Throw error.
+                    throw new Exception("Stored Procedure 'sp_selectAll_branch' reported the ErrorCode: " + _errorCode);
+                }
+
+                return toReturn;
+            }
+            catch (Exception ex)
+            {
+                // some error occured. Bubble it to caller and encapsulate Exception object
+                throw new Exception("Branch::SelectAll::Error occured.", ex);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Close connection.
+                    _mainConnection.Close();
+                }
+                cmdToExecute.Dispose();
+                adapter.Dispose();
+            }
+        }
         public DataTable GenerateProductCode(LP_GenerateTransNumber_Property objTranNo)
         {
             SqlCommand cmdToExecute = new SqlCommand();

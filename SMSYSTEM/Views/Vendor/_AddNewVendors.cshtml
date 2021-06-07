@@ -19,7 +19,7 @@
             </div>
             @Html.ValidationMessageFor(model => model.vendorTypeIdx, "", new { @class = "text-danger" })
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4" id="vendorCategory">
             <!-- text input -->
             <div class="form-group">
                 <label>Category *:</label>
@@ -31,7 +31,7 @@
         <div class="col-sm-4">
             <div class="form-group">
                 <label>Vendor Code#</label>
-                @Html.EditorFor(model => model.vendorCode, new { htmlAttributes = new { @placeholder = "Vendor-Code", @class = "form-control" } })
+                @Html.EditorFor(model => model.vendorCode, new { htmlAttributes = new { @placeholder = "Vendor-Code", @class = "form-control",@readOnly="true" } })
             </div>
             @Html.ValidationMessageFor(model => model.vendorCode, "", new { @class = "text-danger" })
         </div>
@@ -64,4 +64,47 @@
         </div>
 
     </div>
+    <div class="row" id="txtPrice">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>Price</label>
+                @Html.EditorFor(model => model.price, new { htmlAttributes = new { @placeholder = "Price", @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+        </div>
+    </div>
 </form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#price").val("");
+        $("#txtPrice").hide();
+        //$("#vendorCatIdx option:selected").val("");
+        $("#vendorCatIdx").prop('selectedIndex', 0);
+        $("#vendorCategory").hide();
+    });
+    $('#vendorTypeIdx').on('change', function (e) {
+        var optionSelected = $("option:selected", this);
+        var valueSelected = this.value;
+        if (valueSelected == 0) {
+            $("#price").val("");
+            $('#txtPrice').hide();
+            //$("#vendorCatIdx option:selected").val(0);
+            $("#vendorCatIdx").prop('selectedIndex', 0);
+            $("#vendorCategory").hide();
+        }
+        else if (valueSelected == 1) {
+            $('#txtPrice').show();
+            $("#vendorCategory").show();
+        }
+        else {
+
+            $("#price").val("");
+            $('#txtPrice').hide();
+            //$("#vendorCatIdx option:selected").val(0);
+            $("#vendorCatIdx").prop('selectedIndex', 0);
+            $("#vendorCategory").hide();
+        }
+
+    });
+</script>

@@ -105,17 +105,6 @@ namespace SMSYSTEM.Controllers
             try
             {
                 bool flag = false;
-                //objGRNProperty = new LP_GRN_Master_Property();
-                //objGRNProperty.Doc_No = objGRN.Doc_No;
-                //objGRNProperty.Parent_DocID = objGRN.Parent_DocID;
-
-                //objGRNProperty.Date_Created = objGRN.Date_Created;
-                //objGRNProperty.Narration = objGRN.Narration;
-                //objGRNProperty.Total_Amount = objGRN.Total_Amount;
-                //objGRNProperty.User_ID = Convert.ToInt16(Session["UID"].ToString());
-                ////  objGRNProperty.paidDate = ;// objGRN.paidDate;
-
-                //objGRNProperty.DetailData = Helper.ToDataTable<LP_GRN_Detail_Property>(objGRN.GRNDeatilList);
                 if (objPI.idx > 0)
                 {
                     //update

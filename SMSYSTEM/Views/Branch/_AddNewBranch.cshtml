@@ -20,7 +20,7 @@
         </div>
         <div class="col-sm-6">
             <div class="form-group">
-                <label>Contact Name</label>
+                <label>Contact Number</label>
                 @Html.EditorFor(model => model.contactNumber, new { htmlAttributes = new { @placeholder = "Contact Number", @class = "form-control" } })
             </div>
             @Html.ValidationMessageFor(model => model.contactNumber, "", new { @class = "text-danger" })

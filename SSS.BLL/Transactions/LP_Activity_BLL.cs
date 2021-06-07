@@ -2,6 +2,7 @@
 using SSS.Property.Transactions;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -16,6 +17,10 @@ namespace SSS.BLL.Transactions
         {
 
         }
+        public LP_Activity_BLL(int id)
+        {
+
+        }
         public LP_Activity_BLL(LP_Activity_Property objACTMasterProperty)
         {
             _objACTMasterProperty = objACTMasterProperty;
@@ -25,6 +30,24 @@ namespace SSS.BLL.Transactions
             _objACTDAL = new LP_Activity_DAL(_objACTMasterProperty);
             return _objACTDAL.Insert();
         }
+        public bool DeleteAndInsert()
+        {
+            _objACTDAL = new LP_Activity_DAL(_objACTMasterProperty);
+            return _objACTDAL.DeleteAndInsert();
+        }
+
+        public DataTable getVendorPrice(int id)
+        {
+            _objACTDAL = new LP_Activity_DAL(_objACTMasterProperty);
+            return _objACTDAL.selectVendorPrice(id);
+        }
+        public DataTable SelectAll()
+        {
+            _objACTDAL = new LP_Activity_DAL(_objACTMasterProperty);
+            return _objACTDAL.SelectAll();
+        }
+
+        
 
     }
 }

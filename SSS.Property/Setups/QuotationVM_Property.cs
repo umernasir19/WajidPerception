@@ -16,6 +16,7 @@ namespace SSS.Property.Setups
         [Required(ErrorMessage = "Please Select Customer")]
 
         public int customerIdx { get; set; }
+       
         //public int MRNIdx { get; set; }
         public int QOIdx { get; set; }
         //public int purchaseTypeIdx { get; set; }

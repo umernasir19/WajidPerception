@@ -10,6 +10,8 @@ namespace SSS.Property.Setups
 {
     public class SalesOrderVM_Property
     {
+        [Required]
+        public int salesTypeIdx { get; set; }
         public int? qsIdx { get; set; }
         public List<LP_Quotation_Master_Property> QSList { get; set; }
         public int idx { get; set; }
@@ -18,7 +20,7 @@ namespace SSS.Property.Setups
 
         public int customerIdx { get; set; }
         //public int MRNIdx { get; set; }
-       
+        public int customerBankIdx { get; set; }
         //public int purchaseTypeIdx { get; set; }
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Please Select Date")]

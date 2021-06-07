@@ -18,12 +18,12 @@
             <div class="col-sm-3">
                 <!-- text input -->
                 <div class="form-group">
-                    <label>Purchase Type*:</label>
+                    <label>Reference*:</label>
 
-                    @Html.DropDownListFor(model => model.purchaseTypeIdx, new SelectList(Model.PurchaseType_List, "idx", "purchaseType"), "Select Purchase Type", new { @Class = "form-control font-weight-bold" })
+                    @Html.EditorFor(model => model.reference, new { htmlAttributes = new { @placeholder = "Reference*:", @class = "form-control" } })
 
                 </div>
-                @Html.ValidationMessageFor(model => model.purchaseTypeIdx, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.reference, "", new { @class = "text-danger" })
             </div>
             <div class="col-sm-3">
                 <!-- text input -->
@@ -57,10 +57,10 @@
         <div class="row">
             <div class="col-sm-3">
                 <div class="form-group">
-                    <label>Select Department*:</label>
-                    @Html.DropDownListFor(model => model.DepartmentID, new SelectList(Model.DepartmentList, "idx", "Department"), "Select Department", new { @Class = "form-control font-weight-bold" })
+                    <label>Warehouse*:</label>
+                    @Html.DropDownListFor(model => model.warehouseIdx, new SelectList(Model.WarehouseList, "idx", "WareHouseName"), "Select WareHouse", new { @Class = "form-control font-weight-bold" })
                 </div>
-                @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.warehouseIdx, "", new { @class = "text-danger" })
             </div>
             <div class="col-sm-3">
                 <!-- text input -->
@@ -90,6 +90,7 @@
                 @Html.ValidationMessageFor(model => model.ExchangeRate, "", new { @class = "text-danger" })
             </div>
         </div>
+    
         <hr />
 
         <div class="row" id="PurchaseDetails">
@@ -102,21 +103,33 @@
                         </div>
                     </div>
                     <div class="">
-                        <table class="table table-striped table-bordered table-condensed table-hover table-active">
+
+
+
+
+                        <table  class="table table-striped table-bordered table-condensed table-hover table-active">
                             <thead class="thead-dark">
-                                <tr>
+                                @*<tr>
+
+                    <th>Item Name</th>
+                    <th>QTY</th>
+                    <th>(Unit/DV) Price(KG)/Qty</th>
+                    <th>Total (DV)Price</th>
+                    <th>Actual DV Price</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>*@
+                            </thead>
+                            <tbody class="" style="background:white;">
+                                <tr class="thead-dark">
                                     <th>HS Code</th>
                                     <th>Item Name</th>
+                                    <th>Item Vendor</th>
                                     <th colspan="1">QTY</th>
                                     <th>(Unit/DV) Price(KG)/Qty</th>
                                     <th>Total (DV)Price</th>
-                                    <th>Actual DV Price</th>
-                                    <th>Description</th>
-                                    <th>Action</th>
+                                    
                                 </tr>
-
-                            </thead>
-                            <tbody class="" style="background:white;">
                                 <tr>
                                     <td> @Html.DropDownListFor(model => model.HSCode, new SelectList(Model.ProductList, "HSCODE", "HSCODE"), "Select HSCODE", new { @Class = "form-control font-weight-bold" })</td>
 
@@ -135,11 +148,21 @@
 
                                     </td>
 
-
+                                    <td>@Html.DropDownListFor(model => model.gridVendorIdx, new SelectList(Model.VendorLST, "idx", "vendorName"), "Select Vendor", new { @Class = "form-control font-weight-bold" })</td>
                                     <td>@Html.EditorFor(model => model.qty, new { htmlAttributes = new { @placeholder = "Qty", @class = "form-control" } })</td>
                                     <td>@Html.EditorFor(model => model.unitPrice, new { htmlAttributes = new { @placeholder = "Unit Price", @class = "form-control" } })</td>
                                     <td>@Html.EditorFor(model => model.amount, new { htmlAttributes = new { @placeholder = "Sub Amount", @class = "form-control", @readonly = true } })</td>
+                                </tr>
+                                <tr class="thead-dark">
+                                    <th>Actual Price</th>
+                                    <th>Total Actual Value</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
+                                </tr>
+                                <tr>
+
                                     <td>@Html.EditorFor(model => model.ADVAmount, new { htmlAttributes = new { @placeholder = "ADV", @class = "form-control" } })</td>
+                                    <td>@Html.EditorFor(model => model.TotalADVAmount, new { htmlAttributes = new { @placeholder = "totalAC", @class = "form-control", @readonly = true } })</td>
                                     <td>@Html.EditorFor(model => model.ItemDescription, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control" } })</td>
 
                                     <td>
@@ -149,10 +172,72 @@
 
                                     </td>
 
-                                </tr>
+                      
 
+                                </tr>
+                     
                             </tbody>
                         </table>
+
+
+
+
+
+
+
+
+                                                @*<table class="table table-striped table-bordered table-condensed table-hover table-active">
+            <thead class="thead-dark">
+                <tr>
+                    <th>HS Code</th>
+                    <th>Item Name</th>
+                    <th>Vendor</th>
+                    <th colspan="1">QTY</th>
+                    <th>(Unit/DV) Price(KG)/Qty</th>
+                    <th>Total (DV)Price</th>
+                    <th>Actual DV Price</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+            <tbody class="" style="background:white;">
+                <tr>
+                    <td> @Html.DropDownListFor(model => model.HSCode, new SelectList(Model.ProductList, "HSCODE", "HSCODE"), "Select HSCODE", new { @Class = "form-control font-weight-bold" })</td>
+
+                    <td>
+                        <select id="itemIdx" class="form-control font-weight-bold">
+                            @{
+                                <option value="0" data-hscode="0">Select Product</option>
+
+                                foreach (var item in Model.ProductList)
+                                {
+                                    <option value="@item.idx" data-val="@item.HSCODE">@item.itemName</option>
+                                }
+
+                            }
+                        </select>
+
+                    </td>
+
+                    <td>@Html.DropDownListFor(model => model.gridVendorIdx, new SelectList(Model.VendorLST, "idx", "vendorName"), "Select Vendor", new { @Class = "form-control font-weight-bold" })</td>
+                    <td>@Html.EditorFor(model => model.qty, new { htmlAttributes = new { @placeholder = "Qty", @class = "form-control" } })</td>
+                    <td>@Html.EditorFor(model => model.unitPrice, new { htmlAttributes = new { @placeholder = "Unit Price", @class = "form-control" } })</td>
+                    <td>@Html.EditorFor(model => model.amount, new { htmlAttributes = new { @placeholder = "Sub Amount", @class = "form-control", @readonly = true } })</td>
+                    <td>@Html.EditorFor(model => model.ADVAmount, new { htmlAttributes = new { @placeholder = "ADV", @class = "form-control" } })</td>
+                    <td>@Html.EditorFor(model => model.ItemDescription, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control" } })</td>
+
+                    <td>
+
+
+                        <input type="button" value="+" id="btnaddtogrid" class="btn btn-outline-primary" style="font-size: 20px " />
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>*@
 
                         <div class="row" style="display:block; overflow:scroll" id="milestones">
                             <div class="col-md-12">
@@ -164,10 +249,12 @@
                                                 <tr>
                                                     
                                                     <th>Item Name</th>
+                                                    <th>Item Vendor</th>
                                                     <th colspan="1">QTY</th>
                                                     <th>(Unit/DV) Price(KG)/Qty</th>
                                                     <th>Total (DV)Price</th>
-                                                    <th>Actual DV Price</th>
+                                                    <th>Actual Price</th>
+                                                    <th>Total Actual Price</th>
                                                     <th>Description</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -186,9 +273,9 @@
                                                             <tr>
                                                                 <td style="display:none">@items.itemIdx</td>
                                                                 <td>@items.itemName</td>
+                                                                <td>@items.gridVendorIdx</td>
                                                                 <td>@items.qty</td>
                                                                 <td><input type="text" placeholder="Enter Unit Price" onkeyup="changeinunitprice(this)" value="@items.unitPrice" id="unitprice" class="form-control" /></td>
-
                                                                 <td>@items.amount</td>
                                                                 <td><button id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button></td>
                                                             </tr>
@@ -235,12 +322,21 @@
                 </div>
                 @Html.ValidationMessageFor(model => model.totalAmount, "", new { @class = "text-danger" })
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-4">
                 <div class="form-group">
-                    <label for="inputName"></label>
-                    @*<input type="button" class="btn btn-primary form-control" step="display:none;" id="calculate" value="Calculate Total" />*@
+                    <label for="inputName">Total Actual Value PKR</label>
+                    @Html.EditorFor(model => model.grandTotalAVPKR, new { htmlAttributes = new { @placeholder = "Total ACPKR", @class = "form-control", @readonly = true } })
                 </div>
+                @Html.ValidationMessageFor(model => model.grandTotalAVPKR, "", new { @class = "text-danger" })
             </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="inputName">Product Count</label>
+                    @Html.EditorFor(model => model.numberOfProducts, new { htmlAttributes = new { @placeholder = "Total ACPKR", @class = "form-control", @readonly = true } })
+                </div>
+                @Html.ValidationMessageFor(model => model.numberOfProducts, "", new { @class = "text-danger" })
+            </div>
+          
         </div>
         <div class="row">
             <div class="modal-footer">
@@ -320,15 +416,28 @@
     $("#qty").keyup(function () {
         var qtyval = $(this).val();
         var unitpriceval = $("#unitPrice").val();
+        var actualPrice = $("#ADVAmount").val();//Added By Arsalan 5-04-21
         var totalamount = qtyval * unitpriceval;
-
+        var totalActualValue = qtyval * actualPrice;//Added By Arsalan 5-04-21
         $("#amount").val(totalamount);
+        $("#TotalADVAmount").val(totalActualValue);//Added By Arsalan 5-04-21
     });
     $("#unitPrice").keyup(function () {
         var unitpriceval = $(this).val();
         var qtyval = $("#qty").val();
         var totalamount = qtyval * unitpriceval;
         $("#amount").val(totalamount);
+    });
+    
+    $("#ExchangeRate").keyup(function () {
+        calculation();
+    });
+  //This keyUp function is for calculating total ac on front end
+    $("#ADVAmount").keyup(function () {
+        var actualPrice = $(this).val();
+        var qtyval = $("#qty").val();
+        var totalActualAmmount = qtyval * actualPrice;
+        $("#TotalADVAmount").val(totalActualAmmount);//Added By Arsalan 5-04-21
     });
 
 
@@ -348,28 +457,30 @@
                          // '</button>'
         var productname = $("#itemIdx option:selected").text();
         var ProductID = $("#itemIdx option:selected").val();
+        var vendorname = $("#gridVendorIdx option:selected").text();
+        var vendorID = $("#gridVendorIdx option:selected").val();
         var Qty = $("#qty").val();
         var unitprice = $("#unitPrice").val();
         var totalamount = $("#amount").val();
         var adv = $("#ADVAmount").val();
+        var tadv = $("#TotalADVAmount").val();
         var itemdescription = $("#ItemDescription").val();
         //var duedate = $("#DueDate").val();
-        var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td id='unitprice'>" + unitprice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + adv + "</td><td>" + itemdescription + "</td><td>" + closebutton + "</td></tr>";
+        var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td style='display:none;'>" + vendorID + "</td><td>" + vendorname + "</td><td>" + Qty + "</td><td id='unitprice'>" + unitprice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + adv + "</td><td>" + tadv + "</td><td>" + itemdescription + "</td><td>" + closebutton + "</td></tr>";
         //if (milestone == "") {
         //    alert("Enter milestone");
         //    return;
         //} else {
 
         $("#example2 tbody").append(markup);
-        var tamount = 0;
-        //var labourcost = $("#tax").val();
-        //var transportcost = $("#taxAount").val();
-        var ExchangeValue = $('#ExchangeRate').val();
-       var tamount =parseFloat( $("#totalAmount").val());
-       tamount = parseFloat(tamount) + parseFloat(totalamount);//+ parseFloat(labourcost) + parseFloat(transportcost);
-        $("#totalAmount").val(tamount);
-
-
+       // var tamount = 0;
+       // var ExchangeValue = $('#ExchangeRate').val();
+       //var tamount =parseFloat( $("#totalAmount").val());
+       //tamount = parseFloat(tamount) + parseFloat(totalamount);//+ parseFloat(labourcost) + parseFloat(transportcost);
+       // $("#totalAmount").val(tamount);
+        
+        //$('#ExchangeRate').attr('disabled', true);
+        calculation();
 
     });
     $('#purchaseDate').change(function () {
@@ -388,26 +499,14 @@
         }
     });
     function SomeDeleteRowFunction(o) {
-        //alert(id);
-        var $row = $(this).closest("tr"),        // Finds the closest row <tr>
+        
+        var $row = $(this).closest("tr"),       
              $tds = $row.find("td:nth-child(2)");
-        //console.log($tds);
-
-        $.each($tds, function () {                // Visits every single <td> element
-           // console.log($(this).text());         // Prints out the text within the <td>
-        });
-        var itmmant = o.parentNode.parentNode.children[4].innerText;
-        var tmnt = $('#totalAmount').val();
-
-        tmnt = tmnt - itmmant;
-        $('#totalAmount').val(tmnt);
-
-       // $('#balanceAmount').val(tmnt);
         var p = o.parentNode.parentNode;
 
         p.parentNode.removeChild(p);
         $(this).closest('tr').remove();
-
+        calculation();
 
     };
 
@@ -456,9 +555,22 @@
                 errmsg.push("Product Already exist");
             }
         })
+        if (!($.isNumeric($('#qty').val()) && $.isNumeric($('#unitPrice').val()) && $.isNumeric($('#ADVAmount').val()) && $.isNumeric($('#ExchangeRate').val()))) {
+            rtrn = false;
+            errmsg.push("Declared Value,Quantity,Actual Value and Exchange Rate Should be a number!");
+        }
+        if (Number($('#ExchangeRate').val()) <= 0)
+        {
+            rtrn = false;
+            errmsg.push("Exchange Rate Should Be Greater Than 0 !");
+        }
         if ($('#itemIdx option:selected').val() =='') {
             rtrn = false;
             errmsg.push("Select Product");
+        }
+        if ($('#gridVendorIdx option:selected').val() == '') {
+            rtrn = false;
+            errmsg.push("Select Vendor");
         }
         if ($('#qty').val() <= 0) {
             rtrn = false;
@@ -468,25 +580,7 @@
             rtrn = false;
             errmsg.push("unit value is zero");
         }
-        //if ($('#DueDate').val() < 0) {
-        //    rtrn = false;
-        //    errmsg.push("DUE date is Invalid");
-        //}
-        //var dat = $('#DueDate').val()
-        //console.log(moment((new Date())).format("DD-MM-YYYY"));
-        //var today = moment((new Date())).format("DD-MM-YYYY");
-        //var slctddte = moment(dat).format("DD-MM-YYYY");
 
-        //if ((new Date($('#DueDate').val())) == 'Invalid Date') {
-        //    rtrn = false;
-        //    errmsg.push("DUE date is invalid ");
-        //    // alert(errorarray.length);
-        //}
-        //if (slctddte < today) {
-        //    rtrn = false;
-        //    errmsg.push("DUE date is INVALID /Should be greater than current date");
-        //    // alert(errorarray.length);
-        //}
         return rtrn;
     }
 
@@ -513,25 +607,54 @@
         }
     }
 
-    function calculate() {
-        var ExchangeValue = $('#ExchangeRate').val();
-        var tmnt = $('#totalAmount').val('0');
+    function calculation() {
+      
         var table = $("#example2 tbody");
+        var calcualteACPKR = Number('0');
+        var tamnt = $('#totalAmount').val('0');
+        var rowCount = 0;
+        var ExchangeRate = $('#ExchangeRate').val();
+        if (Number(ExchangeRate) <= 0)
+        {
+            ExchangeRate = 1;
+            $('#ExchangeRate').val(ExchangeRate);
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-center",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            Command: toastr["error"]("Exchange Rate cannot be less than or Equals to 0 !", "")
+        }
+        var grossAmountinInvoice = Number('0');
+        
         table.find('tr').each(function (i) {
             var $tds = $(this).find('td'),
-              itemamount = $tds.eq(4).text();
-
-            console.log(itemamount);
-            // itemamount = itemamount + itemamount;
-
-            var tamnt = $('#totalAmount').val();
+              itemamount = $tds.eq(4).text(),
+              totalACPKR = $tds.eq(8).text(),
+              count = i+1;            
+            calcualteACPKR = Number(Number(calcualteACPKR) + (Number(totalACPKR))) ;
             tamnt = Number(tamnt) + (Number(itemamount))
-            tamnt = tamnt * ExchangeValue;
-            $('#totalAmount').val(tamnt)
+            grossAmountinInvoice = Number(grossAmountinInvoice) + (Number(itemamount))
+            rowCount = Number(count);
 
         });
+        var grandAVPKR = Number(calcualteACPKR) * Number(ExchangeRate);
+        $('#totalAmount').val(grossAmountinInvoice);//Gross Amount Filled
+        $('#grandTotalAVPKR').val(grandAVPKR);
+        $('#numberOfProducts').val(rowCount);
     }
-
 
     $("#calculate").click(function (e) {
 
@@ -554,7 +677,9 @@
                 idx: $('#idx').val(),
                 poNumber: $('#poNumber').val(),
                 purchaseTypeIdx: $("#purchaseTypeIdx option:selected").val(),
-                vendorIdx: $('#vendorIdx').val(),
+                vendorIdx: $('#vendorIdx option:selected').val(),
+                warehouseIdx: $('#warehouseIdx option:selected').val(),
+                reference: $('#reference').val(),
                 purchaseDate: $('#purchaseDate').val(),
                 description: $('#description').val(),
                 totalAmount: $('#totalAmount').val(),
@@ -563,6 +688,8 @@
                 ExchangeRate:$('#ExchangeRate').val(),
                 description: $("#description").val(),
                 DepartmentID: $("#DepartmentID option:selected").val(),
+                grandTotalAVPKR: $("#grandTotalAVPKR").val(),
+                numberOfProducts: $("#numberOfProducts").val(),
                 //PageList:[{ID:1},{ID:2},{ID:3}]
                 CommercialDetailList: []
             }
@@ -577,21 +704,25 @@
         table.find('tr').each(function (i) {
             var $tds = $(this).find('td'),
                 productid = $tds.eq(0).text(),
-                qty = $tds.eq(2).text(),
-                unitprice = $tds.eq(3).text(),
-                DVRate = $tds.eq(3).text(),
-                TDVRate = $tds.eq(4).text(),
-                ADVRate = $tds.eq(5).text();
+                vendorid = $tds.eq(2).text(),
+                qty = $tds.eq(4).text(),
+                unitprice = $tds.eq(5).text(),
+                DVRate = $tds.eq(5).text(),
+                TDVRate = $tds.eq(6).text(),
+                ADVRate = $tds.eq(7).text();
+                TADVRate = $tds.eq(8).text();
             datatosend.objpurchase.CommercialDetailList.push({
                 itemIdx: productid,
+                gridVendorIdx: vendorid,
                 qty: qty,
                 unitprice: unitprice,
                 productTypeIdx: 1,
                 amount: qty * unitprice,
-                DVRate : $tds.eq(3).text(),
-                TDVRate : $tds.eq(4).text(),
-                ADVRate: $tds.eq(5).text(),
-                ItemDescription: $tds.eq(6).text()
+                DVRate: $tds.eq(5).text(),
+                TDVRate : $tds.eq(6).text(),
+                ADVRate: $tds.eq(7).text(),
+                TADVRate: $tds.eq(8).text(),
+                ItemDescription: $tds.eq(9).text()
             })
             ;
 

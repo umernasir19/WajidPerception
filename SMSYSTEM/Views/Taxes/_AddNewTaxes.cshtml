@@ -30,6 +30,16 @@
         <div class="col-sm-6">
             <!-- text input -->
             <div class="form-group">
+                <label>Short Name</label>
+                @Html.EditorFor(model => model.shortName, new { htmlAttributes = new { @placeholder = "Shor Name", @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.shortName, "", new { @class = "text-danger" })
+        </div>
+        <br />
+        <div class="col-sm-6">
+            <!-- text input -->
+            <div class="form-group">
+                <br />
                 <label>Tax Type</label>
                 @Html.CheckBoxFor(model => model.IsClaimble, new { htmlAttributes = new { @placeholder = "Tax Name", @class = "form-control" } })
             </div>

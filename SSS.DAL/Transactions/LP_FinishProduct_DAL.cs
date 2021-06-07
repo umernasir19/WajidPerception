@@ -24,11 +24,19 @@ namespace SSS.DAL.Transactions
         public override bool Insert()
         {
             SqlCommand cmdToExecute = new SqlCommand();
+
+
             if (_objACTasterProperty.orderIdx > 0)
             {
                 //sp_PurchaseUpdate
                 cmdToExecute.CommandText = @"update Activity set status=1 where orderIdx=@idx";
             }
+            if (_objACTasterProperty.productIdx > 0)
+            {
+                cmdToExecute.CommandText = "[dbo].[sp_insert_inventory]";
+                cmdToExecute.CommandType = CommandType.StoredProcedure;
+            }
+            
             else
             {
                 cmdToExecute.CommandText = "dbo.[sp_SalesOrderInsert]";
@@ -41,10 +49,22 @@ namespace SSS.DAL.Transactions
 
             try
             {
+
                 if (_objACTasterProperty.orderIdx > 0)
                 {
                     cmdToExecute.Parameters.Add(new SqlParameter("@idx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.orderIdx));
                 }
+                if (_objACTasterProperty.productIdx > 0)
+                {
+                    cmdToExecute.Parameters.Add(new SqlParameter("@productIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.productIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@stock", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.stock));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@unitPrice", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.unitPrice));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@totalAmount", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.totalAmount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@warehouseIdx", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.warehouseIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@branchidx", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.branchIdx));
+
+                }
+
                 else
                 {
                    
@@ -82,6 +102,25 @@ namespace SSS.DAL.Transactions
                     _objACTasterProperty.DetailData.AcceptChanges();
 
                     SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+
+                    // Inventory Condition
+                    
+                    //_objACTasterProperty.DetailData.TableName = "inventory";
+
+                    //sbc.ColumnMappings.Clear();
+                    
+                    //sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
+                    //sbc.ColumnMappings.Add("productIdx", "productIdx");
+                    //sbc.ColumnMappings.Add("stock", "stock");
+                    //sbc.ColumnMappings.Add("unitPrice", "unitPrice");
+                    //sbc.ColumnMappings.Add("totalAmount", "totalAmount");
+                    //sbc.ColumnMappings.Add("creationDate", "creationDate");
+                  
+
+                    //sbc.DestinationTableName = _objACTasterProperty.DetailData.TableName;
+                    //sbc.WriteToServer(_objACTasterProperty.DetailData);
+
+
                     _objACTasterProperty.DetailData.TableName = "inventory_logs";
 
                     sbc.ColumnMappings.Clear();
@@ -130,8 +169,11 @@ namespace SSS.DAL.Transactions
         public override DataTable SelectAll()
         {
             SqlCommand cmdToExecute = new SqlCommand();
-            cmdToExecute.CommandText = @"select distinct so.soNumber,ac.orderIdx as idx from Activity ac
-inner join salesOrder so on ac.orderIdx=so.idx
+            cmdToExecute.CommandText = @"select distinct ac.orderIdx as idx,case when ac.typeIdx=1 then so.soNumber 
+when ac.typeIdx=2 then do.doNumber end soNumber
+from Activity ac
+left join displayOrder do on (ac.orderIdx=do.idx and ac.typeIdx=2) 
+left join salesOrder so on (ac.orderIdx=so.idx and ac.typeIdx=1) 
 where ac.status=0";
             //cmdToExecute.CommandType = CommandType.StoredProcedure;
             DataTable toReturn = new DataTable("Banks");

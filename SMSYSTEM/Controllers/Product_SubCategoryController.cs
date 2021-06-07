@@ -111,33 +111,40 @@ namespace SMSYSTEM.Controllers
             if (Session["LOGGEDIN"] != null)
             {
                 try
-            {
+            {   
                 if (objProductCategory.idx > 0)
-                {
+                    {
+                        objProductSubCategoryBLL = new Product_SubCategory_BLL(objProductCategory);
+                        if (objProductSubCategoryBLL.CheckForUpdate().Rows.Count > 0)
+                        {
+                            return Json(new { data = "Already Exist ", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                            //show error
+                        }
+                        else
+                        {
+                            objProductSubCategoryBLL = new Product_SubCategory_BLL(objProductCategory);
 
-                    //objProductCategory.lastModifiedByUserIdx = 1;
-                    //objProductCategory.lastModificationDate = DateTime.Now.ToString("dd/MM/yyyy");
-                    objProductSubCategoryBLL = new Product_SubCategory_BLL(objProductCategory);
-
-                    bool flag = objProductSubCategoryBLL.Update();
-                    return Json(new { data = "Updated", success = flag, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                            bool flag = objProductSubCategoryBLL.Update();
+                            return Json(new { data = "Updated", success = flag, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                        }
+                       
                 }
                 else
                 {
                     //objProductCategory.companyIdx = 1;
                     objProductCategory.CreatedByUserIdx = Convert.ToInt32(Session["UID"].ToString());
                         objProductSubCategoryBLL = new Product_SubCategory_BLL(objProductCategory);
-                    //if (objProductCategory.isMainBranch == 1)
-                    //{
-                    //    var check = objProductCategory.MainBranch();
-                    //    if (check.Rows.Count > 0)
-                    //    {
-                    //        return Json(new { data = "Main Branch Already Exist", success = false, statuscode = 500 }, JsonRequestBehavior.AllowGet);
-                    //    }
-                    //}
-
-                    bool flag = objProductSubCategoryBLL.Insert();
-                    return Json(new { data = "Inserted", success = flag, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                        if (objProductSubCategoryBLL.CheckForInsert().Rows.Count > 0)
+                        {
+                            return Json(new { data = "Already Exist ", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                            //show error
+                        }
+                        else
+                        {
+                            bool flag = objProductSubCategoryBLL.Insert();
+                            return Json(new { data = "Inserted", success = flag, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                        }
+                       
                 }
 
 

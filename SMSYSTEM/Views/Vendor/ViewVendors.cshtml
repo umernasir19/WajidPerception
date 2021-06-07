@@ -67,7 +67,8 @@
 @section MyScripts {
     <script type="text/javascript">
         $(document).ready(function () {
-
+            $("#price").val("");
+            $("#txtPrice").hide();
             $.ajax({
                 url: "/Vendor/GetAllVendors",
                 success: function (data) {
@@ -123,7 +124,7 @@
                                     "showMethod": "fadeIn",
                                     "hideMethod": "fadeOut"
                                 }
-                                window.location.href = "/client/Viewclient"
+                                window.location.href = "/Vendor/ViewVendors"
                             }
                             else if (res.success == false && res.msg == 'Failed') {
                                     Command: toastr["error"]("Invalid ", " Failed")
@@ -199,6 +200,25 @@
 
 
         });
+        debugger
+        $('#vendorTypeIdx').on('change', function (e) {
+            var optionSelected = $("option:selected", this);
+            var valueSelected = this.value;
+            if (valueSelected == 0)
+            {
+                $("#price").val("");
+                $('#txtPrice').hide();
+            }
+            else if (valueSelected == 1) {
+                $("#price").val("");
+                $('#txtPrice').hide();
+            }
+            else
+            {
+                $('#txtPrice').show();
+            }
+            
+        });
 
         function ShowCustomer(CustomerID) {
 
@@ -210,7 +230,7 @@
                 var id = $('#CustomerID').val();
                 if (id > 0) {
                     $('#btnaddnewclient').html("update ");
-
+                   
                 }
                 $("#exampleModal").modal("show");
             });
@@ -227,19 +247,19 @@
                 dataType: 'JSON',
                 success: function (res) {
                     if (res.success) {
-                        swalWithBootstrapButtons.fire(
-                            'Done!',
-                            'Blocked',
-                            'success'
-                            )
-                        window.location.href = "/Client/ViewClient"
+                        //swalWithBootstrapButtons.fire(
+                        //    'Done!',
+                        //    'Blocked',
+                        //    'success'
+                        //    )
+                        window.location.href = "/Vendor/ViewVendors"
                     }
                     else {
-                        swalWithBootstrapButtons.fire(
-                            'Error!',
-                            'Failes',
-                            'success'
-                            )
+                        //swalWithBootstrapButtons.fire(
+                        //    'Error!',
+                        //    'Failes',
+                        //    'success'
+                        //    )
                     }
                 },
                 failure: function (res) {

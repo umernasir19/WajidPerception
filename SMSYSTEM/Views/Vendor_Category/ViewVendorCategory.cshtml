@@ -117,7 +117,7 @@
                                     "showMethod": "fadeIn",
                                     "hideMethod": "fadeOut"
                                 }
-                                window.location.href = "/client/Viewclient"
+                                window.location.href = "/Vendor_Category/ViewVendorCategory"
                             }
                             else if (res.success == false && res.msg == 'Failed') {
                                     Command: toastr["error"]("Invalid ", " Failed")
@@ -234,19 +234,19 @@
                 dataType: 'JSON',
                 success: function (res) {
                     if (res.success) {
-                        swalWithBootstrapButtons.fire(
-                            'Done!',
-                            'Blocked',
-                            'success'
-                            )
-                        window.location.href = "/Client/ViewClient"
+                        //swalWithBootstrapButtons.fire(
+                        //    'Done!',
+                        //    'Blocked',
+                        //    'success'
+                        //    )
+                        window.location.href = "/Vendor_Category/ViewVendorCategory"
                     }
                     else {
-                        swalWithBootstrapButtons.fire(
-                            'Error!',
-                            'Failes',
-                            'success'
-                            )
+                        //swalWithBootstrapButtons.fire(
+                        //    'Error!',
+                        //    'Failes',
+                        //    'success'
+                        //    )
                     }
                 },
                 failure: function (res) {

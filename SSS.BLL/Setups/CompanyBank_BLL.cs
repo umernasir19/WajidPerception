@@ -42,6 +42,11 @@ namespace SSS.BLL.Setups
             objcompanybankDAl = new CompanyBank_DAL(objcompanybank);
             return objcompanybankDAl.SelectOne();
         }
-        
+        public bool Delete(int? id)
+        {
+            objcompanybankDAl = new CompanyBank_DAL(objcompanybank);
+            return objcompanybankDAl.Delete(id);
+        }
+
     }
 }

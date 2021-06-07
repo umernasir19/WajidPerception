@@ -244,23 +244,15 @@
         function ConfirmDelete(CustomerID) {
             $.ajax({
                 type: 'GET',
-                url: '/Customer/Delete?id=' + CustomerID,
+                url: '/Bank/DeleteBank?id=' + CustomerID,
                 dataType: 'JSON',
                 success: function (res) {
                     if (res.success) {
-                        swalWithBootstrapButtons.fire(
-                            'Done!',
-                            'Blocked',
-                            'success'
-                            )
-                        window.location.href = "/Client/ViewClient"
+                       
+                        window.location.href = "/Bank/ViewBanks"
                     }
                     else {
-                        swalWithBootstrapButtons.fire(
-                            'Error!',
-                            'Failes',
-                            'success'
-                            )
+                        window.location.href = "/Bank/ViewBanks"
                     }
                 },
                 failure: function (res) {

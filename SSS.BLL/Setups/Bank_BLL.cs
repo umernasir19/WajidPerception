@@ -46,5 +46,10 @@ namespace SSS.BLL.Setups
             objbankDAl = new Bank_DAL(objbank);
             return objbankDAl.CheckNoOfRecords();
         }
+        public bool Delete(int? id)
+        {
+            objbankDAl = new Bank_DAL(objbank);
+            return objbankDAl.Delete(id);
+        }
     }
 }

@@ -61,6 +61,7 @@
     <Compile Include="Role_DAL.cs" />
     <Compile Include="Setups\Accounts\firstTier_DAL.cs" />
     <Compile Include="Setups\Accounts\fourthTier_DAL.cs" />
+    <Compile Include="Setups\Accounts\LP_GeneralVoucher_DAL.cs" />
     <Compile Include="Setups\Accounts\thirdTier_DAL.cs" />
     <Compile Include="Setups\AchivementDetail_DAL..cs" />
     <Compile Include="Setups\AchivementMaster_DAL.cs" />
@@ -82,14 +83,18 @@
     <Compile Include="Setups\CustomerType_DAL.cs" />
     <Compile Include="Setups\Departments_DAL.cs" />
     <Compile Include="Setups\Department_DAL.cs" />
+    <Compile Include="Setups\Invoice_DAL.cs" />
     <Compile Include="Setups\itemUnit_DAL.cs" />
+    <Compile Include="Setups\LP_CustomerBanks_DAL.cs" />
     <Compile Include="Setups\LP_Purchase_Type_DAL.cs" />
+    <Compile Include="Setups\LP_VendorBanks_DAL.cs" />
     <Compile Include="Setups\Payment_Term_DAL.cs" />
     <Compile Include="Setups\Product_Category_DAL.cs" />
     <Compile Include="Setups\Product_SubCategory_DAL.cs" />
     <Compile Include="Setups\PuchaseVM_DAL.cs" />
     <Compile Include="Setups\PurchaseOrder_DAL.cs" />
     <Compile Include="Setups\PurchaseRequisition_DAL.cs" />
+    <Compile Include="Setups\Reporting_DAL.cs" />
     <Compile Include="Setups\Supplier_DAL.cs" />
     <Compile Include="Setups\Taxes_DAL.cs" />
     <Compile Include="Setups\User_Region_DAL.cs" />
@@ -178,6 +183,7 @@
     <Compile Include="Setups\User_Role_DAL.cs" />
     <Compile Include="Setups\VehicleSharing_DAL.cs" />
     <Compile Include="Setups\Vehicle_DAL.cs" />
+    <Compile Include="Setups\VendorProcess_DAL.cs" />
     <Compile Include="Setups\Vendors_DAL.cs" />
     <Compile Include="Setups\VendorType_DAL.cs" />
     <Compile Include="Setups\Vendor_Category_DAL.cs" />
@@ -188,9 +194,13 @@
     <Compile Include="Transactions\Collection_Master_DAL.cs" />
     <Compile Include="Transactions\DCR_DAL.cs" />
     <Compile Include="Transactions\DSRAdjustment_DAL.cs" />
+    <Compile Include="Transactions\GDN_DAL\LP_GDN_DAL.cs" />
+    <Compile Include="Transactions\Inventory_DAL.cs" />
     <Compile Include="Transactions\LP_Activity_DAL.cs" />
+    <Compile Include="Transactions\LP_DisplayOrder_DAL.cs" />
     <Compile Include="Transactions\LP_FinishProduct_DAL.cs" />
     <Compile Include="Transactions\LP_GRN_DAL.cs" />
+    <Compile Include="Transactions\LP_ImportedExpense_DAL.cs" />
     <Compile Include="Transactions\LP_MRN_DAL.cs" />
     <Compile Include="Transactions\LP_PI_DAL.cs" />
     <Compile Include="Transactions\LP_Purchase_DAL.cs" />
@@ -220,6 +230,10 @@
     <ProjectReference Include="..\SSS.Property\SSS.Property.csproj">
       <Project>{8A15CB57-FF17-429C-B014-671625167421}</Project>
       <Name>SSS.Property</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SSS.Utility\SSS.Utility.csproj">
+      <Project>{BA84E779-D245-4CA1-A6EC-2B78DE356EB2}</Project>
+      <Name>SSS.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

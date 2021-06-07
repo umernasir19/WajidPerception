@@ -2,6 +2,7 @@
 using SSS.BLL.Setups;
 using SSS.BLL.Transactions;
 using SSS.Property.Setups;
+using SSS.Property.Setups.Accounts;
 using SSS.Property.Transactions;
 using SSS.Property.Transactions.ViewModels;
 using SSS.Utility;
@@ -68,10 +69,10 @@ namespace SMSYSTEM.Controllers
                 Vendors_BLL objvendorbll = new Vendors_BLL();
                 Product_BLL objProductbll = new Product_BLL();
                 LP_MRN_BLL objMRNbll = new LP_MRN_BLL();
-               
-                objPurchaseVM_Property.VendorLST = Helper.ConvertDataTable<Vendors_Property>(objvendorbll.ViewAll());
-                objPurchaseVM_Property.DepartmentList = Helper.ConvertDataTable<Departments_property>(GetAllDepartments());
-                objPurchaseVM_Property.PurchaseType_List = Helper.ConvertDataTable<LP_Purchase_Type>(GetAllPurchaseType());
+                WareHouse_BLL objWareHouse = new WareHouse_BLL();
+                objPurchaseVM_Property.VendorLST = Helper.ConvertDataTable<Vendors_Property>(objvendorbll.ViewAllVendorByType(2));
+                objPurchaseVM_Property.WarehouseList = Helper.ConvertDataTable<WareHouse_Property>(objWareHouse.SelectAll());
+                //objPurchaseVM_Property.PurchaseType_List = Helper.ConvertDataTable<LP_Purchase_Type>(GetAllPurchaseType());
                 objPurchaseVM_Property.ProductList = Helper.ConvertDataTable<Product_Property>(objProductbll.ViewAll());
                 objPurchaseVM_Property.purchaseDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
                 //objPurchaseVM_Property.poNumber = "Po-001";
@@ -93,6 +94,7 @@ namespace SMSYSTEM.Controllers
                     string pdate = (dt.Rows[0]["purchaseDate"].ToString()).ToString();
                     string ndate = DateTime.Parse(pdate).ToString("yyyy-MM-dd");
                     objPurchaseVM_Property.purchaseDate = Convert.ToDateTime(ndate);// DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
+                    objPurchaseVM_Property.purchaseDate = Convert.ToDateTime(ndate);
                     //DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
                     //foreach(DataRow dr in dt.Rows)
                     //{
@@ -139,7 +141,7 @@ namespace SMSYSTEM.Controllers
                 objPurchaseProperty = new LP_Performa_Invoice_Property();
                 objPurchaseProperty.poNumber = objpurchase.poNumber;
                 objPurchaseProperty.vendorIdx = objpurchase.vendorIdx;
-                objPurchaseProperty.purchaseTypeIdx = objpurchase.purchaseTypeIdx;
+                objPurchaseProperty.reference = objpurchase.reference;
                 objPurchaseProperty.purchaseDate = objpurchase.purchaseDate;
                 objPurchaseProperty.description = objpurchase.description;
                 objPurchaseProperty.totalAmount = objpurchase.totalAmount;
@@ -149,7 +151,9 @@ namespace SMSYSTEM.Controllers
                 objPurchaseProperty.DocumentNumber = objpurchase.DocumentNumber;
                 objPurchaseProperty.ContainerNo = objpurchase.ContainerNo;
                 objPurchaseProperty.ExchangeRate = objpurchase.ExchangeRate;
-                objPurchaseProperty.DepartmentID = objpurchase.DepartmentID;
+                objPurchaseProperty.warehouseIdx = objpurchase.warehouseIdx;
+                objPurchaseProperty.grandTotalAVPKR = objpurchase.grandTotalAVPKR;
+                objPurchaseProperty.numberOfProducts = objpurchase.numberOfProducts;
                 //  objPurchaseProperty.paidDate = ;// objpurchase.paidDate;
 
                 objPurchaseProperty.DetailData = Helper.ToDataTable<LP_Performa_Invoice_Details_Property>(objpurchase.CommercialDetailList);
@@ -192,7 +196,7 @@ namespace SMSYSTEM.Controllers
 
 
         #region Commercial Invoice Work
-
+        
         public ActionResult ViewCommercialInvoice()
         {
             if (Session["LOGGEDIN"] != null)
@@ -227,6 +231,7 @@ namespace SMSYSTEM.Controllers
             return Json(new { data = Data, success = true, statuscode = 200, count = Data.Length }, JsonRequestBehavior.AllowGet);
 
         }
+
         public ActionResult AddNewCIPO(int? id)
         {
             if (Session["LOGGEDIN"] != null)
@@ -309,6 +314,7 @@ namespace SMSYSTEM.Controllers
             }
 
         }
+
         [HttpPost]
         public JsonResult AddUpdateCI(LP_CI_ViewModel objpurchase)
         {
@@ -327,10 +333,14 @@ namespace SMSYSTEM.Controllers
                 _objCIMaster.netAmount = objpurchase.netAmount;
                 _objCIMaster.paidAmount = objpurchase.paidAmount;
                 _objCIMaster.balanceAmount = objpurchase.balanceAmount;
-               // _objCIMaster.DocumentNumber = objpurchase.DocumentNumber;
-               // _objCIMaster.ContainerNo = objpurchase.ContainerNo;
-               // _objCIMaster.ExchangeRate = objpurchase.ExchangeRate;
-               // _objCIMaster.DepartmentID = objpurchase.DepartmentID;
+                _objCIMaster.totalTD = objpurchase.totalTD;
+                _objCIMaster.numberOfProducts = objpurchase.numberOfProducts;
+                _objCIMaster.grandTotalAVPKR = objpurchase.grandTotalAVPKR;
+                _objCIMaster.ExchangeRate = objpurchase.ExchangeRate;
+                // _objCIMaster.DocumentNumber = objpurchase.DocumentNumber;
+                // _objCIMaster.ContainerNo = objpurchase.ContainerNo;
+                // _objCIMaster.ExchangeRate = objpurchase.ExchangeRate;
+                // _objCIMaster.DepartmentID = objpurchase.DepartmentID;
                 //  _objCIMaster.paidDate = ;// objpurchase.paidDate;
 
                 _objCIMaster.DetailData = Helper.ToDataTable<LP_CI_PurchaseDetails_Property>(objpurchase.CILIST);
@@ -349,7 +359,13 @@ namespace SMSYSTEM.Controllers
                 }
                 else
                 {
-                    //add
+                    // Add into inventory
+                    _objCIMaster.productIdx = objpurchase.CILIST[0].itemIdx;
+                    _objCIMaster.stock = objpurchase.CILIST[0].qty;
+                    _objCIMaster.unitPrice = objpurchase.CILIST[0].unitPrice;
+                    _objCIMaster.totalAmount = objpurchase.CILIST[0].TotalAmount;
+
+                    //add Into CIPO
                     _objCIMaster.creationDate = DateTime.Now;
                     _objCIMaster.visible = 1;
                     _objCIMaster.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
@@ -554,6 +570,160 @@ namespace SMSYSTEM.Controllers
             }
         }
 
+        #endregion
+
+
+
+        #region Imported Expense
+        ImportedExpenseVM objImportedExpenseVM;
+        LP_ImportedExpense_Master_Property objDOProperty;
+        LP_ImportedExpense_BLL objDOBll;
+        public ActionResult ViewImportedExpense()
+        {
+            if (Session["LOGGEDIN"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+        public JsonResult GetAllImportedExpense()
+        {
+            try
+            {
+                objImportedExpenseVM = new ImportedExpenseVM();
+                objDOBll = new LP_ImportedExpense_BLL(objDOProperty);
+                var Data = JsonConvert.SerializeObject(objDOBll.SelectAll());
+                return Json(new { data = Data, success = true, statuscode = 200, count = Data.Length }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult AddNewImportedExpense(int? id)
+        {
+            if (Session["LOGGEDIN"] != null)
+            {
+                objImportedExpenseVM = new ImportedExpenseVM();
+                Vendors_BLL objVendorbll = new Vendors_BLL();
+                objpurchaseBll = new LP_PI_BLL();
+                objImportedExpenseVM.VendorList = Helper.ConvertDataTable<Vendors_Property>(objVendorbll.ViewAllVendorByType(2));//only international
+                objImportedExpenseVM.childList = Helper.ConvertDataTable<fourthTier_Property>(GetChildAccountsBySubheadIdx(13));//only imported expense
+                objImportedExpenseVM.CIPO = Helper.ConvertDataTable<LP_CI_PurchaseOrder_Property>(objpurchaseBll.SelectAllCIPO());
+                objImportedExpenseVM.valueAdditionPercent = 30.00m;
+                objImportedExpenseVM.additionalSalesTaxPercent = 3.00m;
+                objImportedExpenseVM.profitPercent = 10.00m;
+                if (id > 0)
+                {
+                    LP_ImportedExpense_Details_Property objDODetails;
+                    objDOProperty = new LP_ImportedExpense_Master_Property();
+                    objDOProperty.idx = Convert.ToInt16(id);
+
+                    objDOBll = new LP_ImportedExpense_BLL(objDOProperty);
+                    DataTable dt = objDOBll.SelectOne();
+                    objImportedExpenseVM.idx = Convert.ToInt16(dt.Rows[0]["idx"].ToString());
+
+                    objImportedExpenseVM.ieNumber = dt.Rows[0]["ieNumber"].ToString();                  
+                    objImportedExpenseVM.totalExpense = Convert.ToDecimal(dt.Rows[0]["totalExpense"].ToString());
+                    string pdate = (dt.Rows[0]["orderDate"].ToString()).ToString();
+                    string ndate = DateTime.Parse(pdate).ToString("yyyy-MM-dd");
+                    objImportedExpenseVM.date = Convert.ToDateTime(ndate);// DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
+                    //DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
+                    //foreach(DataRow dr in dt.Rows)
+                    //{
+                    //    objmrndetail
+
+                    //}
+                    ViewBag.DetailData = Helper.ConvertDataTable<ImportedExpenseVM>(dt);
+                   
+                    //update
+                    return View("AddNewImportedExpense", objImportedExpenseVM);//objImportedExpenseVM
+                }
+                else
+                {
+                    objImportedExpenseVM.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
+                    objDOBll = new LP_ImportedExpense_BLL();
+                    LP_GenerateTransNumber_Property objtrans = new LP_GenerateTransNumber_Property();
+                    objtrans.TableName = "importedExpense";
+                    objtrans.Identityfieldname = "idx";
+                    objtrans.userid = Session["UID"].ToString();
+                    objImportedExpenseVM.ieNumber = objDOBll.GeneratePO(objtrans);
+
+                    return View("AddNewImportedExpense", objImportedExpenseVM);//, objImportedExpenseVM
+
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+        }
+        [HttpPost]
+        public JsonResult AddUpdateImportedExpense(ImportedExpenseVM objImportedExpense)
+        {
+            try
+            {
+                bool flag = false;
+
+                objDOProperty = new LP_ImportedExpense_Master_Property();
+                objDOProperty.ieNumber = objImportedExpense.ieNumber;
+                objDOProperty.date = objImportedExpense.date.ToString("yyyy-MM-dd");               
+                objDOProperty.reference = objImportedExpense.reference;
+                objDOProperty.commercialIdx = objImportedExpense.commercialIdx;
+                objDOProperty.totalExpense = objImportedExpense.totalExpense;
+                //objDOProperty.totalTD = objImportedExpense.totalExpense;
+                //objDOProperty.grandTotalAVPKR = objImportedExpense.totalExpense;
+                objDOProperty.totalCost = objImportedExpense.totalExpense;
+                objDOProperty.valueAdditionPercent = objImportedExpense.totalExpense;
+                objDOProperty.valueAddition = objImportedExpense.totalExpense;
+                objDOProperty.additionalSalesTaxPercent = objImportedExpense.totalExpense;
+                objDOProperty.additionalSalesTax = objImportedExpense.totalExpense;
+                objDOProperty.profitPercent = objImportedExpense.totalExpense;
+                objDOProperty.profit = objImportedExpense.totalExpense;
+                objDOProperty.grandTotalExpense = objImportedExpense.totalExpense;
+                objDOProperty.finalPercentage = objImportedExpense.totalExpense;
+                objDOProperty.DetailData = Helper.ToDataTable<LP_ImportedExpense_Details_Property>(objImportedExpense.ImportedExpenseDetailLST);
+                if (objImportedExpense.idx > 0)
+                {
+                    objDOProperty.idx = objImportedExpense.idx;
+                    objDOProperty.creationDate = DateTime.Now.ToString("yyyy-MM-dd");
+                    objDOProperty.visible = 1;
+                    objDOProperty.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
+                    objDOProperty.visible = 1;
+                    objDOProperty.status = 0;
+                    objDOProperty.TableName = "importedExpenseDetails";
+                    objDOBll = new LP_ImportedExpense_BLL(objDOProperty);
+                    flag = objDOBll.Insert();
+                    //update
+                }
+                else
+                {
+                    //add
+                    objDOProperty.idx = objImportedExpense.idx;
+                    objDOProperty.creationDate = DateTime.Now.ToString("yyyy-MM-dd");
+                    objDOProperty.visible = 1;
+                    objDOProperty.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
+                    objDOProperty.visible = 1;
+                    objDOProperty.status = 0;
+                    objDOProperty.TableName = "importedExpenseDetails";
+                    objDOBll = new LP_ImportedExpense_BLL(objDOProperty);
+                    flag = objDOBll.Insert();
+
+                }
+                return Json(new { data = "", success = flag, msg = flag == true ? "Successfull" : "Failed", statuscode = flag == true ? 200 : 401 }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
         #endregion
 
     }

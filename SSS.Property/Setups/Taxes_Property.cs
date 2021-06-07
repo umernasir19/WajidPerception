@@ -20,6 +20,12 @@ namespace SSS.Property.Setups
             get { return _taxName; }
             set { _taxName = value; }
         }
+        private string _shortName;
+        public string shortName //Added BY Arsalan 05-04-21
+        {
+            get { return _shortName; }
+            set { _shortName = value; }
+        }
 
         private decimal _taxPercent;
         public decimal taxPercent

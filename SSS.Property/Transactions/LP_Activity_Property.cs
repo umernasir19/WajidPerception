@@ -2,16 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
 using System.Text;
 
 namespace SSS.Property.Transactions
 {
     public class LP_Activity_Property
-    {
-        
+    {   [Required]
+        public int typeIdx { get; set; }
         public int idx { get; set; }
-        public int orderIdx { get; set; }
+        public int orderIdx { get; set; }//salesOrderIdx or DisplayOrder
         public int productTypeIdx { get; set; }
         public int vendorCatIdx { get; set; }
         public int vendorIdx { get; set; }
@@ -21,6 +22,7 @@ namespace SSS.Property.Transactions
         public string activityDate { get; set; }
         public decimal exchangeRate { get; set; }
         public decimal activityPrice { get; set; }
+        public decimal totalAmount { get; set; }
         public decimal subAmount { get; set; }
         public string description { get; set; }
         public string creationDate { get; set; }
@@ -32,6 +34,35 @@ namespace SSS.Property.Transactions
         public List<Product_Property> productLST { get; set; }
         public List<Product_Type_Property> productTypeLST { get; set; }
         public List<LP_SalesOrder_Master_Property> salesOrderLST { get; set; }
+        public List<LP_DisplayOrder_Master_Property> displayOrderLST { get; set; }//Added By Arsalan 07-04-21
         public List<Vendor_Category_Property> vendorCatLST { get; set; }
+        public string reference { get; set; }
+        public List<LP_Activity_Property> ActivityDetailLST { get; set; }
+
+
+        private DataTable _detail_data;
+        public DataTable DetailData
+        {
+            get
+            {
+                return _detail_data;
+            }
+            set
+            {
+                _detail_data = value;
+            }
+        }
+        private string _tableName;
+        public String TableName
+        {
+            get
+            {
+                return _tableName;
+            }
+            set
+            {
+                _tableName = value;
+            }
+        }
     }
 }

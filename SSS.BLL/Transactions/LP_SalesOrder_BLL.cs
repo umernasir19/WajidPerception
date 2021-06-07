@@ -48,6 +48,11 @@ namespace SSS.BLL.Transactions
             _objPurchaseDAL = new LP_SalesOrder_DAL();
             return _objPurchaseDAL.SelectAll();
         }
+        public DataTable SelectAllForDDL()
+        {
+            _objPurchaseDAL = new LP_SalesOrder_DAL();
+            return _objPurchaseDAL.SelectForDropDown();
+        }
         public DataTable SelectOne()
         {
             _objPurchaseDAL = new LP_SalesOrder_DAL(_objSOMasterProperty);

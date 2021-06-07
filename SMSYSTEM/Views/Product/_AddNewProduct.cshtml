@@ -1,12 +1,10 @@
 ﻿
-
 @model SSS.Property.Setups.Product_Property
 @{
     ViewBag.Title = "";
     Layout = null;
 }
-
-<form id="addnewform">
+<form action="/Product/AddUpdate" id="addnewform" enctype="multipart/form-data">
     @Html.HiddenFor(model => model.idx, new { id = "natureOfVisitField", value = 0 })
     <div class="row">
         <div class="col-sm-4">
@@ -41,7 +39,7 @@
         <div class="col-sm-4">
             <div class="form-group">
                 <label>HS-CODE*:</label>
-                @Html.EditorFor(model => model.HSCODE, new { htmlAttributes = new { @placeholder = "HS-Code", @class = "form-control" ,@readonly="true"} })
+                @Html.EditorFor(model => model.HSCODE, new { htmlAttributes = new { @placeholder = "HS-Code", @class = "form-control", @readonly = "true" } })
             </div>
             @Html.ValidationMessageFor(model => model.HSCODE, "", new { @class = "text-danger" })
         </div>
@@ -77,7 +75,7 @@
             </div>
             @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
         </div>
-        
+
     </div>
     <div class="row">
         <div class="col-sm-4">
@@ -102,21 +100,120 @@
             @Html.ValidationMessageFor(model => model.productTax, "", new { @class = "text-danger" })
         </div>
     </div>
-</form>
+    <div class="input-images">
 
+    </div>
+
+
+</form>
 <script type="text/javascript">
-    var cattext, subcattext;
-    $("#productCatIdx").change(function () {
-       cattext = $("#productCatIdx option:selected").text();
-       GenerateHSCode();
-    })
-    $("#productSubCatIdx").change(function () {
-        subcattext = $("#productSubCatIdx option:selected").text();
+    var cattext,catValue;
+    var subcattext,subcatValue;
+    var prdctpic=@Html.Raw(Json.Encode(ViewBag.ProductPics));
+    console.log(prdctpic);
+    $('.input-images').imageUploader();
+
+
+        if(prdctpic.length!=null){
+
+
+            console.log("HELLO")
+            console.log(prdctpic)
+            let preloaded = [];
+            for(var i=0;i<prdctpic.length;i++){
+                var j=i;
+                preloaded.push(
+                    {
+                        id:i,
+                        src:prdctpic[i].PicturePath
+                    }
+                )
+            }
+
+            $('.input-images').imageUploader({
+                preloaded: preloaded,
+                imagesInputName: 'photos',
+                preloadedInputName: 'old',
+                maxSize: 2 * 1024 * 1024,
+                maxFiles: 10
+            });
+
+
+        }
+
+
+    //var imagefiles = document.getElementsByName("images")
+    //console.log(imagefiles);
+    //for (var i = 0; i < imagefiles.files.length; i++) {
+    //    alert("HEllo");
+    //}
+    @*$("#productCatIdx").change(function () {
+        cattext = $("#productCatIdx option:selected").val();
+        if (Number(cattext) > 0)
+        {
+            var CatList =@Html.Raw(ViewBag.catLST);
+
+            for (var i = 0; i < CatList.hasOwnProperty.length; i++) {
+                console.log[CatList[i]];
+            }
+        }
         GenerateHSCode();
-    })
+    });*@
+
+
+    $("#productCatIdx").change(function () {
+
+
+        catValue = $("#productCatIdx option:selected").val();
+        if(Number(catValue)>0)
+        {
+            GenerateHSCode();
+        }
+        else
+        {
+            catValue=Number(0);
+        }
+
+
+    });
+    $("#productSubCatIdx").change(function () {
+        subcatValue = $("#productSubCatIdx option:selected").val();
+        if(Number(subcatValue)>0)
+        {
+            GenerateHSCode();
+        }
+        else
+        {
+            subcatValue = Number('0');
+        }
+    });
 
     function GenerateHSCode() {
+        var catData = @Html.Raw(ViewBag.categoryLST);
+        for (var i = 0; i < catData.length; i++) {
+            if(Number(catData[i].idx)==Number(catValue))
+            {
+                cattext = catData[i].HSCodeCat;
+                break;
+            }
+            else
+            {
+                cattext = '';
+            }
+        }
+        var subcatData = @Html.Raw(ViewBag.subcategoryLST);
+        for (var i = 0; i < subcatData.length; i++) {
+            if(Number(subcatData[i].idx)==Number(subcatValue))
+            {
+                subcattext = subcatData[i].HS_CodeSub;
+                break;
+            }
+            else
+            {
+                subcattext = '';
+            }
+        }
 
-        $("#HSCODE").val(cattext+"-"+subcattext);
+        $("#HSCODE").val(cattext + "-" + subcattext);
     }
 </script>

@@ -86,7 +86,7 @@
                        "data": "idx",
                        "render": function (idx, type, full, meta) {
 
-                           return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a> <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a>'
+                           return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a> <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a> <a href="#" class="btn btn-secondary" onclick="GenerateReport(' + idx + ')"><i class="fa fa-file"></i></a>'
                            //<a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + ID + ')"><i class="fa fa-trash"></i></a>
 
                        },
@@ -160,7 +160,18 @@
 
 
         }
+        function GenerateReport(CustomerID) {
 
+            console.log(CustomerID);
+            var reportname = "SaleOrderReport";
+            // window.location.href = '/MRN/AddNewMRN?id=' + CustomerID;
+            $.ajax({
+                url: "/Base/GenerateReport?id=" + CustomerID + '&query=' + 2 + '&ReportName=' + reportname,
+                success: function (res) {
+                    window.location.href = res.data;
+                }
+            });
+        }
        
     </script>
 }

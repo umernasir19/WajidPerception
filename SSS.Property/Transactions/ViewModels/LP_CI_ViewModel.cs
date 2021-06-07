@@ -27,8 +27,10 @@ namespace SSS.Property.Transactions.ViewModels
         public int visible { get; set; }
         public int paymentStatus { get; set; }
         public string status { get; set; }
-
-
+        public decimal grandTotalAVPKR { get; set; } //Added By Arsalan 10-04-21 For Imported Expense 
+        public int numberOfProducts { get; set; } //Added By Arsalan 10-04-21
+        public decimal totalTD { get; set; }//Added By Arsalan 10-04-21
+        public decimal ExchangeRate { get; set; }//Added By Arsalan 10-04-21
         public int itemIdx { get; set; }
         public decimal unitPrice { get; set; }
         public decimal qty { get; set; }
@@ -50,10 +52,12 @@ namespace SSS.Property.Transactions.ViewModels
         public decimal ASTPercentage { get; set; }
 
         public decimal ITPercentage { get; set; }
-
+        
         public decimal TDTax { get; set; }
         public decimal CleaningPrice { get; set; }
         public decimal TotalPrice { get; set; }
+        public int productIdx { get; set; }
+        public decimal stock { get; set; }
         public List<Product_Property> ProductList{ get; set; }
         public List<LP_Performa_Invoice_Property> PerformaLISt { get; set; }
         public List<LP_Performa_Invoice_Details_Property> PerformaDTLLISt { get; set; }

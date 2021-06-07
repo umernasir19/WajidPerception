@@ -23,13 +23,15 @@ namespace SSS.DAL.Setups
         {
             SqlCommand cmdToExecute = new SqlCommand();
             cmdToExecute.CommandText = @"INSERT INTO [dbo].[Product_Category]
-           ([ProductCategory]
-            ,[HSCodeCat]
-           ,[CreatedByUserIdx])
+           ([Category],
+            [HSCodeCat],
+           [CreatedByUserIdx],
+           [visible])
            VALUES
            (@category,
-           ,@HSCodeCat
-           @CreatedByUserIdx
+            @HSCodeCat,
+           @CreatedByUserIdx,
+           @visible
            )";
             //cmdToExecute.CommandType = CommandType.StoredProcedure;
 
@@ -41,6 +43,7 @@ namespace SSS.DAL.Setups
                 cmdToExecute.Parameters.Add(new SqlParameter("@Category", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objProductCategory.Category));
                 cmdToExecute.Parameters.Add(new SqlParameter("@HSCodeCat", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objProductCategory.HSCodeCat));
                 cmdToExecute.Parameters.Add(new SqlParameter("@CreatedByUserIdx", SqlDbType.NVarChar,500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objProductCategory.CreatedByUserIdx));
+                cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 1));
                 //cmdToExecute.Parameters.Add(new SqlParameter("@lastName", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.lastName));
                 //cmdToExecute.Parameters.Add(new SqlParameter("@CNIC", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.CNIC));
                 //cmdToExecute.Parameters.Add(new SqlParameter("@cellNumber", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.cellNumber));
@@ -250,7 +253,123 @@ where [idx]=@idx
                 adapter.Dispose();
             }
         }
-        
+
+        public  DataTable checkForInsert()
+        {
+            SqlCommand cmdToExecute = new SqlCommand();
+            cmdToExecute.CommandText = "sp_checkForInsertProductCat";
+            cmdToExecute.CommandType = CommandType.StoredProcedure;
+            DataTable toReturn = new DataTable("Product_Category");
+            SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
+
+            // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection;
+
+            try
+            {
+                cmdToExecute.Parameters.Add(new SqlParameter("@Category", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objProductCategory.Category));
+                
+
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Open connection.
+                    _mainConnection.Open();
+                }
+                else
+                {
+                    if (_mainConnectionProvider.IsTransactionPending)
+                    {
+                        cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    }
+                }
+
+                // Execute query.
+                adapter.Fill(toReturn);
+                // _errorCode = (Int32)cmdToExecute.Parameters["@iErrorCode"].Value;
+                // objCompanyProperty.TotalRowsNum = Convert.ToInt32(cmdToExecute.Parameters["@TotalRowsNum"].Value);
+                if (_errorCode != (int)LLBLError.AllOk)
+                {
+                    // Throw error.
+                    throw new Exception("Stored Procedure 'sp_selectAll_branch' reported the ErrorCode: " + _errorCode);
+                }
+
+                return toReturn;
+            }
+            catch (Exception ex)
+            {
+                // some error occured. Bubble it to caller and encapsulate Exception object
+                throw new Exception("Branch::SelectAll::Error occured.", ex);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Close connection.
+                    _mainConnection.Close();
+                }
+                cmdToExecute.Dispose();
+                adapter.Dispose();
+            }
+        }
+        public DataTable checkForUpdate()
+        {
+            SqlCommand cmdToExecute = new SqlCommand();
+            cmdToExecute.CommandText = "sp_checkForUpdateProductCat";
+            cmdToExecute.CommandType = CommandType.StoredProcedure;
+            DataTable toReturn = new DataTable("Product_Category");
+            SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
+
+            // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection;
+
+            try
+            {
+                cmdToExecute.Parameters.Add(new SqlParameter("@idx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objProductCategory.idx));
+                cmdToExecute.Parameters.Add(new SqlParameter("@Category", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objProductCategory.Category));
+
+
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Open connection.
+                    _mainConnection.Open();
+                }
+                else
+                {
+                    if (_mainConnectionProvider.IsTransactionPending)
+                    {
+                        cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    }
+                }
+
+                // Execute query.
+                adapter.Fill(toReturn);
+                // _errorCode = (Int32)cmdToExecute.Parameters["@iErrorCode"].Value;
+                // objCompanyProperty.TotalRowsNum = Convert.ToInt32(cmdToExecute.Parameters["@TotalRowsNum"].Value);
+                if (_errorCode != (int)LLBLError.AllOk)
+                {
+                    // Throw error.
+                    throw new Exception("Stored Procedure 'sp_selectAll_branch' reported the ErrorCode: " + _errorCode);
+                }
+
+                return toReturn;
+            }
+            catch (Exception ex)
+            {
+                // some error occured. Bubble it to caller and encapsulate Exception object
+                throw new Exception("Branch::SelectAll::Error occured.", ex);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Close connection.
+                    _mainConnection.Close();
+                }
+                cmdToExecute.Dispose();
+                adapter.Dispose();
+            }
+        }
+
         public   DataTable SelectById(int? id)
         {
             SqlCommand cmdToExecute = new SqlCommand();

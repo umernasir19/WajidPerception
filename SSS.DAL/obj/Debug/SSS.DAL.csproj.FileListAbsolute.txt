@@ -554,3 +554,44 @@ E:\Visual Studio Projects\MangoTechProjects\WAJID\Updated (1)\Updated\SSS.DAL\bi
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Updated (1)\Updated\SSS.DAL\obj\Debug\SSS.DAL.csprojResolveAssemblyReference.cache
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Updated (1)\Updated\SSS.DAL\obj\Debug\SSS.DAL.dll
 E:\Visual Studio Projects\MangoTechProjects\WAJID\Updated (1)\Updated\SSS.DAL\obj\Debug\SSS.DAL.pdb
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.DAL\bin\Debug\SSS.DAL.dll.config
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.DAL\bin\Debug\SSS.DAL.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.DAL\bin\Debug\SSS.DAL.pdb
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.DAL\bin\Debug\SSS.Property.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.DAL\bin\Debug\SSS.Property.pdb
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.DAL\obj\Debug\SSS.DAL.csprojResolveAssemblyReference.cache
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.DAL\obj\Debug\SSS.DAL.dll
+D:\WajidUpdated\UmerUpdated\WajidPerception-main\SSS.DAL\obj\Debug\SSS.DAL.pdb
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\bin\Debug\SSS.DAL.dll.config
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\bin\Debug\SSS.DAL.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\bin\Debug\SSS.DAL.pdb
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\bin\Debug\SSS.Property.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\bin\Debug\SSS.Property.pdb
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\obj\Debug\SSS.DAL.csprojResolveAssemblyReference.cache
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\obj\Debug\SSS.DAL.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\obj\Debug\SSS.DAL.pdb
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\bin\Debug\SSS.Utility.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\bin\Debug\AjaxControlToolkit.dll
+E:\Visual Studio Projects\MangoTechProjects\WAJID\Project\WajidPerception-main\SSS.DAL\bin\Debug\SSS.Utility.pdb
+D:\Ahsan\WajidPerception-master\SSS.DAL\bin\Debug\SSS.DAL.dll.config
+D:\Ahsan\WajidPerception-master\SSS.DAL\bin\Debug\SSS.DAL.dll
+D:\Ahsan\WajidPerception-master\SSS.DAL\bin\Debug\SSS.DAL.pdb
+D:\Ahsan\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Property.dll
+D:\Ahsan\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Utility.dll
+D:\Ahsan\WajidPerception-master\SSS.DAL\bin\Debug\AjaxControlToolkit.dll
+D:\Ahsan\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Property.pdb
+D:\Ahsan\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Utility.pdb
+D:\Ahsan\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.csprojResolveAssemblyReference.cache
+D:\Ahsan\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.dll
+D:\Ahsan\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.pdb
+E:\Perception BP\WajidPerception-master\SSS.DAL\bin\Debug\SSS.DAL.dll.config
+E:\Perception BP\WajidPerception-master\SSS.DAL\bin\Debug\SSS.DAL.dll
+E:\Perception BP\WajidPerception-master\SSS.DAL\bin\Debug\SSS.DAL.pdb
+E:\Perception BP\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Property.dll
+E:\Perception BP\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Utility.dll
+E:\Perception BP\WajidPerception-master\SSS.DAL\bin\Debug\AjaxControlToolkit.dll
+E:\Perception BP\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Property.pdb
+E:\Perception BP\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Utility.pdb
+E:\Perception BP\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.csprojResolveAssemblyReference.cache
+E:\Perception BP\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.dll
+E:\Perception BP\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.pdb

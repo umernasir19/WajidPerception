@@ -65,10 +65,22 @@ namespace SMSYSTEM.Controllers
                 objCustomerProperty.customerCode = (dt.Rows[0]["customerCode"].ToString());
                 objCustomerProperty.customerName = (dt.Rows[0]["customerName"].ToString());
                 objCustomerProperty.address = (dt.Rows[0]["address"].ToString());
+                return View(objCustomerProperty);
+            }
+            else
+            {
+                objCustomerProperty.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
+                objCustomer = new Customers_BLL();
+                LP_GenerateTransNumber_Property objtrans = new LP_GenerateTransNumber_Property();
+                objtrans.TableName = "customers";
+                objtrans.Identityfieldname = "idx";
+                objtrans.userid = Session["UID"].ToString();
 
+                objCustomerProperty.customerCode = objCustomer.GenerateSO(objtrans);
+                return View(objCustomerProperty);
             }
 
-            return View(objCustomerProperty);
+            
         }
 
         [HttpPost]

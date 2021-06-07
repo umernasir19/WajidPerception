@@ -30,6 +30,16 @@ namespace SSS.BLL.Setups.Accounts
             objfourthTierDAL = new fourthTier_DAL(objfourthTierProperty);
             return objfourthTierDAL.SelectById();
         }
+        public DataTable GetfourthTierBySubheadIdx()
+        {
+            objfourthTierDAL = new fourthTier_DAL(objfourthTierProperty);
+            return objfourthTierDAL.SelectBySubheadIdx();
+        }
+        public DataTable GetfourthTierByheadIdx()
+        {
+            objfourthTierDAL = new fourthTier_DAL(objfourthTierProperty);
+            return objfourthTierDAL.SelectByheadIdx();
+        }
         public bool Insert()
         {
             objfourthTierDAL = new fourthTier_DAL(objfourthTierProperty);

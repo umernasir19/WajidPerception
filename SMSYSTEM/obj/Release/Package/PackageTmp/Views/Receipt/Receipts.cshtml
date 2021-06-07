@@ -19,11 +19,10 @@
                         <thead>
                             <tr>
                                 <th>Date</th>
-                                <th>Trans-Number</th>
-
-                                <th>Description</th>
-
-                                <th>Status</th>
+                                <th>Voucher Number</th>
+                                <th>Customer</th>
+                                <th>Amount</th>
+                                <th>Created By</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -65,12 +64,12 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            //$.ajax({
-            //    url: "/MRN/GetAllMRN",
-            //    success: function (data) {
-            //        bindCustomersInDataTable(data);
-            //    }
-            //});
+            $.ajax({
+                url: "/Receipt/GetAllReceiptVoucher",
+                success: function (data) {
+                    bindCustomersInDataTable(data);
+                }
+            });
 
             //show popup
             $("#btnaddnew").click(function () {
@@ -205,18 +204,20 @@
                     data: JSON.parse(data.data),
                     columns: [
                         //{ data: 'voucher_no' },
-                        { data: 'date_created' },
+                        { data: 'dated' },
 
-                        { data: 'vendorName' },
+                        { data: 'invoiceNoIdx' },
 
 
-                         { data: 'description' },
+                         { data: 'customerName' },
+                         { data: 'paidAmount' },
+                         { data: 'userName' },
 
                    {
                        "data": "idx",
                        "render": function (idx, type, full, meta) {
-
-                           return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a>'// <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a>'
+                           return '';
+                           //return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a>'// <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a>'
                            //<a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + ID + ')"><i class="fa fa-trash"></i></a>
 
                        },

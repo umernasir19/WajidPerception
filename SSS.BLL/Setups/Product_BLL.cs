@@ -60,6 +60,11 @@ namespace SSS.BLL.Setups
             objProduct_DAL = new Product_DAL(objProductProperty);
             return objProduct_DAL.SelectById(id);
         }
+        public DataTable GetByTypeId(int id)
+        {
+            objProduct_DAL = new Product_DAL(objProductProperty);
+            return objProduct_DAL.SelectByTypeId(id);
+        }
         public bool Insert()
         {
             objProduct_DAL = new Product_DAL(objProductProperty);
@@ -99,6 +104,12 @@ namespace SSS.BLL.Setups
                 return TransactionNumber;
             }
             //return _objMRNDAL.GenerateMRNNo(objtransno);
+        }
+
+        public DataTable GetPicturesById(int? id)
+        {
+            objProduct_DAL = new Product_DAL(objProductProperty);
+            return objProduct_DAL.SelectPictureById(id);
         }
     }
 }

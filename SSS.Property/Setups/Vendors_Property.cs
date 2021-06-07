@@ -153,5 +153,12 @@ namespace SSS.Property.Setups
             get { return _coaIdx; }
             set { _coaIdx = value; }
         }
+
+        private decimal? _price;
+        public decimal? price
+        {
+            get { return _price; }
+            set { _price = value; }
+        }
     }
 }

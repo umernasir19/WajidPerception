@@ -72,5 +72,29 @@ namespace SSS.BLL.Setups
             ObjCustomerDAL = new Customers_DAL(ObjCustomerProperty);
             return ObjCustomerDAL.Delete(id);
         }
+        public string GenerateSO(LP_GenerateTransNumber_Property objtransno)
+        {
+            string TransactionNumber = "";
+            ObjCustomerDAL = new Customers_DAL(ObjCustomerProperty);
+            DataTable dt = ObjCustomerDAL.GenerateSONo(objtransno);
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    TransactionNumber = dr["TransNumber"].ToString();
+                    TransactionNumber = "C-00" + (int.Parse(TransactionNumber) + 1) + "-" + objtransno.userid;
+
+
+                }
+                return TransactionNumber;
+            }
+            else
+            {
+
+                TransactionNumber = "C-001-" + objtransno.userid;
+
+                return TransactionNumber;
+            }
+        }
     }
 }

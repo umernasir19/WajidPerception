@@ -127,8 +127,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Dist\css\icon.css" />
     <Content Include="Dist\css\style.css" />
     <Content Include="Dist\fonts\Roboto\LICENSE.txt" />
+    <Content Include="Dist\image-uploader.min.css" />
+    <Content Include="Dist\image-uploader.min.js" />
+    <Content Include="Dist\images\default.png" />
     <Content Include="Dist\images\favicon.png" />
     <Content Include="Dist\images\lightbox\play-button.png" />
     <Content Include="Dist\images\logo-mini.svg" />
@@ -224,6 +228,7 @@
     <Content Include="Dist\js\x-editable.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Reports\Error.txt" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\bootstrap.js" />
@@ -265,15 +270,20 @@
     <Compile Include="Controllers\CommercialController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\companyCurrencyController.cs" />
+    <Compile Include="Controllers\CustomerBanksController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\CustomerTypeController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
+    <Compile Include="Controllers\DisplayOrderController.cs" />
     <Compile Include="Controllers\ExpenseController.cs" />
+    <Compile Include="Controllers\FinanceController.cs" />
     <Compile Include="Controllers\FirstTierController.cs" />
     <Compile Include="Controllers\FourthTierController.cs" />
+    <Compile Include="Controllers\GDNController.cs" />
     <Compile Include="Controllers\GRNController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\itemUnitController.cs" />
     <Compile Include="Controllers\MRNController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
@@ -286,11 +296,13 @@
     <Compile Include="Controllers\QuotationController.cs" />
     <Compile Include="Controllers\ReceiptController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\ReportingController.cs" />
     <Compile Include="Controllers\SaleController.cs" />
     <Compile Include="Controllers\SalesOrderController.cs" />
     <Compile Include="Controllers\TaxesController.cs" />
     <Compile Include="Controllers\ThirdTierController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\VendorBanksController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Controllers\Vendor_CategoryController.cs" />
     <Compile Include="Controllers\WareHouseController.cs" />
@@ -298,12 +310,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reprts\Test.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Test.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -369,7 +375,6 @@
     <Content Include="Views\Payment\Vouchers.cshtml" />
     <Content Include="Views\Payment\AddVoucher.cshtml" />
     <Content Include="Views\SalesOrder\ViewSalesOrder.cshtml" />
-    <Content Include="Views\SalesOrder\_AddNewSalesOrder.cshtml" />
     <Content Include="Views\Receipt\Receipts.cshtml" />
     <Content Include="Views\Receipt\AddReceipt.cshtml" />
     <Content Include="Views\Purchase\AddNewPurchase.cshtml" />
@@ -388,6 +393,21 @@
     <Content Include="Views\Commercial\AddNewConsigment.cshtml" />
     <Content Include="Views\Activity\Activity.cshtml" />
     <Content Include="Views\Activity\FinsihProducts.cshtml" />
+    <Content Include="Views\Finance\GeneralVoucher.cshtml" />
+    <Content Include="Views\CustomerBanks\AddNewCustomerBank.cshtml" />
+    <Content Include="Views\CustomerBanks\ViewCustomerBanks.cshtml" />
+    <Content Include="Views\DisplayOrder\ViewDisplayOrder.cshtml" />
+    <Content Include="Views\DisplayOrder\AddNewDisplayOrder.cshtml" />
+    <Content Include="Views\Commercial\ViewImportedExpense.cshtml" />
+    <Content Include="Views\Commercial\AddNewImportedExpense.cshtml" />
+    <Content Include="Views\Inventory\InventoryMovement.cshtml" />
+    <Content Include="Views\Inventory\ViewInventory.cshtml" />
+    <Content Include="Views\Activity\ViewActivity.cshtml" />
+    <Content Include="Views\Reporting\ViewReports.cshtml" />
+    <Content Include="Views\GDN\ViewGDN.cshtml" />
+    <Content Include="Views\GDN\AddNewGDN.cshtml" />
+    <Content Include="Views\Vendor\VendorProcess.cshtml" />
+    <Content Include="Views\Vendor\ViewVendorProcess.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -399,6 +419,7 @@
     <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Product_Picture\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\companyCurrency\" />
     <Folder Include="Views\CustomerType\" />
@@ -406,6 +427,7 @@
     <Folder Include="Views\FirstTier\" />
     <Folder Include="Views\Performa\" />
     <Folder Include="Views\Report\" />
+    <Folder Include="Views\VendorBanks\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SSS.BLL\SSS.BLL.csproj">
@@ -420,12 +442,6 @@
       <Project>{ba84e779-d245-4ca1-a6ec-2b78de356eb2}</Project>
       <Name>SSS.Utility</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Reprts\Test.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Test.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />

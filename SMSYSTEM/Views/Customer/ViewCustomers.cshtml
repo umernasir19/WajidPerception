@@ -123,7 +123,7 @@
                                     "showMethod": "fadeIn",
                                     "hideMethod": "fadeOut"
                                 }
-                                window.location.href = "/client/Viewclient"
+                                window.location.href = "/Customer/ViewCustomers"
                             }
                             else if (res.success == false && res.msg == 'Failed') {
                                     Command: toastr["error"]("Invalid ", " Failed")
@@ -233,19 +233,11 @@
                 dataType: 'JSON',
                 success: function (res) {
                     if (res.success) {
-                        swalWithBootstrapButtons.fire(
-                            'Done!',
-                            'Blocked',
-                            'success'
-                            )
-                        window.location.href = "/Client/ViewClient"
+                  
+                        window.location.href = "/Customer/ViewCustomers"
                     }
                     else {
-                        swalWithBootstrapButtons.fire(
-                            'Error!',
-                            'Failes',
-                            'success'
-                            )
+                        window.location.href = "/Customer/ViewCustomers"
                     }
                 },
                 failure: function (res) {

@@ -236,19 +236,11 @@
                 dataType: 'JSON',
                 success: function (res) {
                     if (res.success) {
-                        swalWithBootstrapButtons.fire(
-                            'Done!',
-                            'Blocked',
-                            'success'
-                            )
-                        window.location.href = "/Client/ViewClient"
+                        
+                        window.location.href = "/ThirdTier/ViewThirdTiers"
                     }
                     else {
-                        swalWithBootstrapButtons.fire(
-                            'Error!',
-                            'Failes',
-                            'success'
-                            )
+                        window.location.href = "/ThirdTier/ViewThirdTiers"
                     }
                 },
                 failure: function (res) {

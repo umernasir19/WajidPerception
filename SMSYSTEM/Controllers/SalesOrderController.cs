@@ -16,6 +16,7 @@ namespace SMSYSTEM.Controllers
     public class SalesOrderController : BaseController
     {
         // GET: SalesOrder
+       
         SalesOrderVM_Property objSalesOrderVM_Property;
         LP_SalesOrder_Master_Property objSalesOrderProperty;
         LP_SalesOrder_BLL objSalesOrderBll;
@@ -35,7 +36,7 @@ namespace SMSYSTEM.Controllers
         {
             try
             {
-                objSalesOrderVM_Property = new SalesOrderVM_Property();
+                objSalesOrderVM_Property  = new SalesOrderVM_Property();
                 objSalesOrderBll = new LP_SalesOrder_BLL(objSalesOrderProperty);
                 var Data = JsonConvert.SerializeObject(objSalesOrderBll.SelectAll());
                 return Json(new { data = Data, success = true, statuscode = 200, count = Data.Length }, JsonRequestBehavior.AllowGet);
@@ -126,85 +127,196 @@ namespace SMSYSTEM.Controllers
         [HttpPost]
         public JsonResult AddUpdate(SalesOrderVM_Property objSalesOrder)
 
+        {   if (objSalesOrder.salesTypeIdx == 1)
+            {
+                try
+                {
+                    var BankList = Helper.ConvertDataTable<Company_Bank_Property>(GetCompanyBankById(objSalesOrder.bankIdx));
+                    var CustomerData = Helper.ConvertDataTable<Customers_Property>(GetCustomerByID(objSalesOrder.customerIdx));
+
+                    bool flag = false;
+                    int qsIdx;
+                    int.TryParse(objSalesOrder.qsIdx.ToString(), out qsIdx);
+                    objSalesOrderProperty = new LP_SalesOrder_Master_Property();
+                    objSalesOrderProperty.soNumber = objSalesOrder.soNumber;
+                    objSalesOrderProperty.customerIdx = objSalesOrder.customerIdx;
+                    //objSalesOrderProperty.SalesOrderTypeIdx = objSalesOrder.SalesOrderTypeIdx;
+                    objSalesOrderProperty.salesorderDate = objSalesOrder.salesorderDate;
+                    objSalesOrderProperty.description = objSalesOrder.description;
+                    objSalesOrderProperty.totalAmount = objSalesOrder.totalAmount;
+                    objSalesOrderProperty.netAmount = objSalesOrder.netAmount;
+                    objSalesOrderProperty.paidAmount = objSalesOrder.paidAmount;
+                    objSalesOrderProperty.balanceAmount = objSalesOrder.balanceAmount;
+                    objSalesOrderProperty.reference = objSalesOrder.reference;
+                    objSalesOrderProperty.taxAount = objSalesOrder.taxAount;
+                    objSalesOrderProperty.shippingCost = objSalesOrder.shippingCost;
+                    objSalesOrderProperty.discount = objSalesOrder.discount;
+                    objSalesOrderProperty.paymentModeIdx = objSalesOrder.paymentModeIdx;
+                    objSalesOrderProperty.bankIdx = objSalesOrder.bankIdx;
+                    objSalesOrderProperty.accorChequeNumber = objSalesOrder.accorChequeNumber;
+                    objSalesOrderProperty.wareHouseIdx = objSalesOrder.wareHouseIdx;
+                    objSalesOrderProperty.salespersonIdx = objSalesOrder.salespersonIdx;
+                    objSalesOrderProperty.qsIdx = qsIdx;
+                    objSalesOrderProperty.salesTypeIdx = objSalesOrder.salesTypeIdx;
+                    if (objSalesOrderProperty.bankIdx > 0)
+                    {
+                        objSalesOrderProperty.BankCOAIDX = BankList[0].coaidx;
+                    }
+
+                    objSalesOrderProperty.CustomerCoaidx = CustomerData[0].coaIdx;
+                    //  objSalesOrderProperty.paidDate = ;// objSalesOrder.paidDate;
+
+                    objSalesOrderProperty.DetailData = Helper.ToDataTable<SalesOrdersDetails_Property>(objSalesOrder.SalesOrderDetailLST);
+                    objSalesOrderProperty.SalesTaxData = Helper.ToDataTable<LP_salesTaxes_Property>(objSalesOrder.salesTaxesLST);
+                    if (objSalesOrder.idx > 0)
+                    {
+                        objSalesOrderProperty.idx = objSalesOrder.idx;
+                        objSalesOrderProperty.creationDate = DateTime.Now;
+                        objSalesOrderProperty.visible = 1;
+                        objSalesOrderProperty.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
+                        objSalesOrderProperty.visible = 1;
+                        objSalesOrderProperty.status = "0";
+                        objSalesOrderProperty.TableName = "SalesOrderDetails";
+                        objSalesOrderBll = new LP_SalesOrder_BLL(objSalesOrderProperty);
+                        flag = objSalesOrderBll.Insert();
+                        //update
+                    }
+                    else
+                    {
+
+                        //add
+                        objSalesOrderProperty.creationDate = DateTime.Now;
+                        objSalesOrderProperty.visible = 1;
+                        objSalesOrderProperty.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
+                        objSalesOrderProperty.visible = 1;
+                        objSalesOrderProperty.status = "0";
+                        objSalesOrderProperty.TableName = "SalesOrderDetails";
+                        objSalesOrderBll = new LP_SalesOrder_BLL(objSalesOrderProperty);
+                        flag = objSalesOrderBll.Insert();
+                        var inventory = objSalesOrderBll.ProcessSalesInvoice();
+
+                    }
+
+
+                    return Json(new { data = "", success = true, msg = true == true ? "Successfull" : "Failed", statuscode = true == true ? 200 : 401 }, JsonRequestBehavior.AllowGet);
+
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                try
+                {
+                    var BankList = Helper.ConvertDataTable<Company_Bank_Property>(GetCompanyBankById(objSalesOrder.bankIdx));
+                    var CustomerData = Helper.ConvertDataTable<Customers_Property>(GetCustomerByID(objSalesOrder.customerIdx));
+
+                    bool flag = false;
+                    int qsIdx;
+                    int.TryParse(objSalesOrder.qsIdx.ToString(), out qsIdx);
+                    objSalesOrderProperty = new LP_SalesOrder_Master_Property();
+                    objSalesOrderProperty.soNumber = objSalesOrder.soNumber;
+                    objSalesOrderProperty.customerIdx = objSalesOrder.customerIdx;
+                    //objSalesOrderProperty.SalesOrderTypeIdx = objSalesOrder.SalesOrderTypeIdx;
+                    objSalesOrderProperty.salesorderDate = objSalesOrder.salesorderDate;
+                    objSalesOrderProperty.description = objSalesOrder.description;
+                    objSalesOrderProperty.totalAmount = objSalesOrder.totalAmount;
+                    objSalesOrderProperty.netAmount = objSalesOrder.netAmount;
+                    objSalesOrderProperty.paidAmount = objSalesOrder.paidAmount;
+                    objSalesOrderProperty.balanceAmount = objSalesOrder.balanceAmount;
+                    objSalesOrderProperty.reference = objSalesOrder.reference;
+                    objSalesOrderProperty.taxAount = objSalesOrder.taxAount;
+                    objSalesOrderProperty.shippingCost = objSalesOrder.shippingCost;
+                    objSalesOrderProperty.discount = objSalesOrder.discount;
+                    objSalesOrderProperty.paymentModeIdx = objSalesOrder.paymentModeIdx;
+                    objSalesOrderProperty.bankIdx = objSalesOrder.bankIdx;
+                    objSalesOrderProperty.accorChequeNumber = objSalesOrder.accorChequeNumber;
+                    objSalesOrderProperty.wareHouseIdx = objSalesOrder.wareHouseIdx;
+                    objSalesOrderProperty.salespersonIdx = objSalesOrder.salespersonIdx;
+                    objSalesOrderProperty.qsIdx = qsIdx;
+                    objSalesOrderProperty.salesTypeIdx = objSalesOrder.salesTypeIdx;
+                    if (objSalesOrderProperty.bankIdx > 0)
+                    {
+                        objSalesOrderProperty.BankCOAIDX = BankList[0].coaidx;
+                    }
+
+                    objSalesOrderProperty.CustomerCoaidx = CustomerData[0].coaIdx;
+                    //  objSalesOrderProperty.paidDate = ;// objSalesOrder.paidDate;
+
+                    objSalesOrderProperty.DetailData = Helper.ToDataTable<SalesOrdersDetails_Property>(objSalesOrder.SalesOrderDetailLST);
+                    objSalesOrderProperty.SalesTaxData = Helper.ToDataTable<LP_salesTaxes_Property>(objSalesOrder.salesTaxesLST);
+                    if (objSalesOrder.idx > 0)
+                    {
+                        objSalesOrderProperty.idx = objSalesOrder.idx;
+                        objSalesOrderProperty.creationDate = DateTime.Now;
+                        objSalesOrderProperty.visible = 1;
+                        objSalesOrderProperty.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
+                        objSalesOrderProperty.visible = 1;
+                        objSalesOrderProperty.status = "0";
+                        objSalesOrderProperty.TableName = "SalesOrderDetails";
+                        objSalesOrderBll = new LP_SalesOrder_BLL(objSalesOrderProperty);
+                        flag = objSalesOrderBll.Insert();
+                        //update
+                    }
+                    else
+                    {
+
+                        //add
+                        objSalesOrderProperty.creationDate = DateTime.Now;
+                        objSalesOrderProperty.visible = 1;
+                        objSalesOrderProperty.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
+                        objSalesOrderProperty.visible = 1;
+                        objSalesOrderProperty.status = "0";
+                        objSalesOrderProperty.TableName = "SalesOrderDetails";
+                        objSalesOrderBll = new LP_SalesOrder_BLL(objSalesOrderProperty);
+                        flag = objSalesOrderBll.Insert();
+                        var inventory = objSalesOrderBll.ProcessSalesInvoice();
+
+                    }
+
+
+                    return Json(new { data = "", success = true, msg = true == true ? "Successfull" : "Failed", statuscode = true == true ? 200 : 401 }, JsonRequestBehavior.AllowGet);
+
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+          
+        }
+
+        [HttpGet]
+        public JsonResult SearchCustomerBanks(int id)
         {
             try
             {
-                var BankList = Helper.ConvertDataTable<Company_Bank_Property>(GetCompanyBankById(objSalesOrder.bankIdx));
-                var CustomerData = Helper.ConvertDataTable<Customers_Property>(GetCustomerByID(objSalesOrder.customerIdx));
-
-                bool flag = false;
-                int qsIdx;
-                int.TryParse(objSalesOrder.qsIdx.ToString(), out qsIdx);
-                objSalesOrderProperty = new LP_SalesOrder_Master_Property();
-                objSalesOrderProperty.soNumber = objSalesOrder.soNumber;
-                objSalesOrderProperty.customerIdx = objSalesOrder.customerIdx;
-                //objSalesOrderProperty.SalesOrderTypeIdx = objSalesOrder.SalesOrderTypeIdx;
-                objSalesOrderProperty.salesorderDate = objSalesOrder.salesorderDate;
-                objSalesOrderProperty.description = objSalesOrder.description;
-                objSalesOrderProperty.totalAmount = objSalesOrder.totalAmount;
-                objSalesOrderProperty.netAmount = objSalesOrder.netAmount;
-                objSalesOrderProperty.paidAmount = objSalesOrder.paidAmount;
-                objSalesOrderProperty.balanceAmount = objSalesOrder.balanceAmount;
-                objSalesOrderProperty.reference = objSalesOrder.reference;
-                objSalesOrderProperty.taxAount = objSalesOrder.taxAount;
-                objSalesOrderProperty.shippingCost = objSalesOrder.shippingCost;
-                objSalesOrderProperty.discount = objSalesOrder.discount;
-                objSalesOrderProperty.paymentModeIdx = objSalesOrder.paymentModeIdx;
-                objSalesOrderProperty.bankIdx = objSalesOrder.bankIdx;
-                objSalesOrderProperty.accorChequeNumber = objSalesOrder.accorChequeNumber;
-                objSalesOrderProperty.wareHouseIdx = objSalesOrder.wareHouseIdx;
-                objSalesOrderProperty.salespersonIdx = objSalesOrder.salespersonIdx;
-                objSalesOrderProperty.qsIdx = qsIdx;
-                if (objSalesOrderProperty.bankIdx > 0)
+                LP_CustomerBanks_Property customerBankProperty = new LP_CustomerBanks_Property();
+                customerBankProperty.customerIdx = id;
+                LP_CustomerBanks_BLL objbll = new LP_CustomerBanks_BLL(customerBankProperty);
+                //DataTable tblFiltered;
+                if (id != 0)
                 {
-                    objSalesOrderProperty.BankCOAIDX = BankList[0].coaidx;
-                }
-                
-                objSalesOrderProperty.CustomerCoaidx = CustomerData[0].coaIdx;
-                //  objSalesOrderProperty.paidDate = ;// objSalesOrder.paidDate;
 
-                objSalesOrderProperty.DetailData = Helper.ToDataTable<SalesOrdersDetails_Property>(objSalesOrder.SalesOrderDetailLST);
-                objSalesOrderProperty.SalesTaxData = Helper.ToDataTable<LP_salesTaxes_Property>(objSalesOrder.salesTaxesLST);
-                if (objSalesOrder.idx > 0)
-                {
-                    objSalesOrderProperty.idx = objSalesOrder.idx;
-                    objSalesOrderProperty.creationDate = DateTime.Now;
-                    objSalesOrderProperty.visible = 1;
-                    objSalesOrderProperty.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
-                    objSalesOrderProperty.visible = 1;
-                    objSalesOrderProperty.status = "0";
-                    objSalesOrderProperty.TableName = "SalesOrderDetails";
-                    objSalesOrderBll = new LP_SalesOrder_BLL(objSalesOrderProperty);
-                    flag = objSalesOrderBll.Insert();
-                    //update
+
+
+                    var Data = Helper.ConvertDataTable<LP_CustomerBanks_Property>(objbll.SelectByCustomerIdx());//JsonConvert.SerializeObject(GetAllPIByDate(objsearchPI));
+                    return Json(new { data = Data, success = true, statuscode = 200 }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-
-                    //add
-                    objSalesOrderProperty.creationDate = DateTime.Now;
-                    objSalesOrderProperty.visible = 1;
-                    objSalesOrderProperty.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
-                    objSalesOrderProperty.visible = 1;
-                    objSalesOrderProperty.status = "0";
-                    objSalesOrderProperty.TableName = "SalesOrderDetails";
-                    objSalesOrderBll = new LP_SalesOrder_BLL(objSalesOrderProperty);
-                    flag = objSalesOrderBll.Insert();
-                    var inventory = objSalesOrderBll.ProcessSalesInvoice();
-
+                    return Json(new { data = "Error Occured", success = false, statuscode = 500 }, JsonRequestBehavior.AllowGet);
                 }
-
-
-                return Json(new { data = "", success = true, msg = true == true ? "Successfull" : "Failed", statuscode = true == true ? 200 : 401 }, JsonRequestBehavior.AllowGet);
-
             }
             catch (Exception ex)
             {
-                return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+
+                return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
             }
+
         }
-
-
         public JsonResult SelectSOById(int id)
         {
             if (Session["LOGGEDIN"] != null)

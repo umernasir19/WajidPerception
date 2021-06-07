@@ -19,7 +19,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label>Code#*:</label>
-                @Html.EditorFor(model => model.customerCode, new { htmlAttributes = new { @placeholder = "Customer-Code", @class = "form-control" } })
+                @Html.EditorFor(model => model.customerCode, new { htmlAttributes = new { @placeholder = "Customer-Code", @class = "form-control",@readOnly="true" } })
             </div>
             @Html.ValidationMessageFor(model => model.customerCode, "", new { @class = "text-danger" })
         </div>
