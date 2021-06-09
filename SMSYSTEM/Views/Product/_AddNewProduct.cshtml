@@ -110,11 +110,14 @@
     var cattext,catValue;
     var subcattext,subcatValue;
     var prdctpic=@Html.Raw(Json.Encode(ViewBag.ProductPics));
-    console.log(prdctpic);
-    $('.input-images').imageUploader();
+    console.log(prdctpic.length);
+    if(prdctpic.length<=0){
+        $('.input-images').imageUploader();
+    }
+   
 
 
-        if(prdctpic.length!=null){
+        if(prdctpic.length>0){
 
 
             console.log("HELLO")

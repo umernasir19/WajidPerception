@@ -101,10 +101,31 @@
                 var form = $("#addnewform")[0];
                 var imagelist = $("#addnewform")
                 var formdata = new FormData(form);
+                var pid=$('#natureOfVisitField').val();
                 // formdata = $('#addnewform')[0];;
-                var imagefiles = document.getElementsByName("images")
+                var imagefiles;
+                let $inputImages;
+                if (pid > 0) {
+                    //update
+                     imagefiles = document.getElementsByName("photos")
+                }
+                else {
+                    //add
+                     imagefiles = document.getElementsByName("images")
+                }
+                //var imagefiles = document.getElementsByName("images")
                 console.log(imagefiles)
-                let $inputImages = imagelist.find('input[name^="images"]');
+                console.log(imagefiles)
+
+                if (pid > 0) {
+                    //update
+                    $inputImages = imagelist.find('input[name^="photos"]');
+                }
+                else {
+                    //add
+                    $inputImages = imagelist.find('input[name^="images"]');
+                }
+               
                 if ($inputImages[0].files.length > 0) {
                     for (var i = 0; i < $inputImages[0].files.length ; i++) {
                         formdata.append("PicturePath", $inputImages[0].files[i]);
