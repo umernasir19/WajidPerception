@@ -27,6 +27,12 @@ namespace SSS.BLL.Transactions
             _objPODetailProperty = objPODetailProperty;
         }
 
+        public bool Delete()
+        {
+            _objPurchaseDAL = new LP_Quotation_DAL(_objPOMasterProperty);
+            return _objPurchaseDAL.Delete();
+        }
+
         public bool Insert()
         {
             _objPurchaseDAL = new LP_Quotation_DAL(_objPOMasterProperty);

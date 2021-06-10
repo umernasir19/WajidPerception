@@ -15,9 +15,12 @@ namespace SSS.Property.Transactions
         public string ieNumber { get; set; }
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Please Select Date")]
-        public DateTime date { get; set; }
+        //public DateTime date { get; set; }
+        public string date { get; set; }
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
-        public DateTime creationDate { get; set; }
+        //public DateTime creationDate { get; set; }
+        public string creationDate { get; set; }
+
         public int createdByUserIdx { get; set; }
         public string lastModificationDate { get; set; }
         public int lastModifiedByUserIdx { get; set; }

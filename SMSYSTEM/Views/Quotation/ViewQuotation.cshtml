@@ -107,25 +107,33 @@
 
 
         });
-
+        // Show Data to be updated
         function ShowCustomer(CustomerID) {
 
             console.log(CustomerID);
-            //$("#isMainBranch").attr("disabled", true);
 
-            var url = "/Quotation/AddNewQuotation?Id=" + CustomerID;
-            $("#modelbody").load(url, function (e) {
-                //var id = $('#CustomerID').val();
-                //if (id > 0) {
-                //    $('#btnaddnewclient').html("update ");
-
-                //}
-                $("#exampleModal").modal("show");
-            });
-            // window.location.href = url;
-
+            window.location.href = '/Quotation/AddQuotaion?ID=' + CustomerID;
 
         }
+
+        //function ShowCustomer(CustomerID) {
+
+        //    console.log(CustomerID);
+        //    //$("#isMainBranch").attr("disabled", true);
+
+        //    var url = "/Quotation/AddNewQuotation?Id=" + CustomerID;
+        //    $("#modelbody").load(url, function (e) {
+        //        //var id = $('#CustomerID').val();
+        //        //if (id > 0) {
+        //        //    $('#btnaddnewclient').html("update ");
+
+        //        //}
+        //        $("#exampleModal").modal("show");
+        //    });
+        //    // window.location.href = url;
+
+
+        //}
 
         function ConfirmDelete(CustomerID) {
 
@@ -140,7 +148,7 @@
                             'Blocked',
                             'success'
                             )
-                        window.location.href = "/Client/ViewClient"
+                        window.location.href = "/Quotation/ViewQuotation/"
                     }
                     else {
                         swalWithBootstrapButtons.fire(

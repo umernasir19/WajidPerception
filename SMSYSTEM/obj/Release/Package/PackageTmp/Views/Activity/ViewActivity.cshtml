@@ -46,6 +46,7 @@
             $.ajax({
                 url: "/Activity/GetAllActivity",
                 success: function (data) {
+                    console.log(data);
                     bindCustomersInDataTable(data);
                 }
             });
@@ -53,9 +54,7 @@
             //show popup
 
 
-            //add customer button event
-
-
+            // Bind customers in datatable
             function bindCustomersInDataTable(data) {
                 console.log(data);
                 console.log(JSON.parse(data.data));
@@ -94,6 +93,7 @@
 
         });
 
+        //show customer
         function ShowCustomer(CustomerID) {
 
             console.log(CustomerID);
@@ -111,9 +111,9 @@
             //});
             // window.location.href = url;
 
-
         }
 
+        // Delete
         function ConfirmDelete(CustomerID) {
 
             $.ajax({

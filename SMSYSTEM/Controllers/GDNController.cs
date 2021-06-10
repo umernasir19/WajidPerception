@@ -147,6 +147,38 @@ namespace SMSYSTEM.Controllers
             }
         }
 
+        public JsonResult Delete(int? id)
+        {
+            if (Session["LOGGEDIN"] != null)
+            {
+                try
+                {
+                    objGDNProperty = new LP_GDNMaster_Property();
+                    objGDNProperty.ID = int.Parse(id.ToString());
+
+                    LP_GDN_BLL objBll = new LP_GDN_BLL(objGDNProperty);
+                    var flag1 = objBll.Delete();
+                    if (flag1)
+                    {
+                        return Json(new { data = "Deleted", success = flag1, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { data = "Error", success = flag1, statuscode = 200 }, JsonRequestBehavior.DenyGet);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public JsonResult GetAllGDN()
         {
 

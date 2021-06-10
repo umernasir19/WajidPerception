@@ -22,6 +22,32 @@
             <div class="col-sm-3">
                 <!-- text input -->
                 <div class="form-group">
+                    <label>Branch*:</label>
+                    @Html.DropDownListFor(model => model.branchIdx, new SelectList(Model.BranchList, "idx", "branchName"), "Select Branch", new { @Class = "form-control font-weight-bold" })
+                </div>
+                @Html.ValidationMessageFor(model => model.branchIdx, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>From WareHouse*:</label>
+                    <select id="FromWareHouseId" class="form-control font-weight-bold">
+                        @{
+                            <option value="0" data-hscode="0">Select WareHouse</option>
+
+                            foreach (var item in Model.WareHouseList)
+                            {
+                                <option value="@item.Idx" data-val="@item.BranchIdx">@item.WareHouseName</option>
+                            }
+
+                        }
+                    </select>
+                </div>
+                @Html.ValidationMessageFor(model => model.warehouseIdx, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3">
+                <!-- text input -->
+                <div class="form-group">
                     <label>Total Amount:</label>
                     <input type="text" id="totalAmount" readonly="readonly" class="form-control" />
                 </div>
@@ -117,6 +143,28 @@
 </div>
 @section MyScripts {
     <script type="text/javascript">
+        $('#branchIdx').change(function () {
+
+            $('#FromWareHouseId').attr('display', 'block')
+            // get optios of second dropdown and cache it
+            var $options = $('#FromWareHouseId')
+                // update the dropdown value if necessary
+                .val('')
+                // get options
+                .find('option')
+                // show all of the initially
+                .show();
+            console.log($options);
+            // check current value is not 0
+            if (this.value != '0')
+                $options
+                    // filter out options which is not corresponds to the first option
+                    .not('[data-val="' + this.value + '"],[data-val=""]')
+                    // hide them
+                    .hide();
+        })
+
+        // Submit Button
         $("#btnsubmit").click(function (e) {
             //console.log("here");
             e.preventDefault();
@@ -128,6 +176,9 @@
                     idx: $('#idx').val(),
                     orderIdx: $('#orderIdx').val(),
                     TotalAmount: $('#totalAmount').val(),
+                    branchIdx: $('#branchIdx').val(),
+                    warehouseIdx: $('#FromWareHouseId').val(),
+                    
                     InventoryDetails: []
                 }
 
@@ -255,7 +306,7 @@
 
         function calculate(o) {
             var $row = $(this).closest("tr"),        // Finds the closest row <tr>
-                                                                         $tds = $row.find("td:nth-child(2)");
+                $tds = $row.find("td:nth-child(2)");
             //console.log($tds);
 
 
@@ -356,7 +407,7 @@
         function SomeDeleteRowFunction(o) {
             //alert(id);
             var $row = $(this).closest("tr"),        // Finds the closest row <tr>
-                 $tds = $row.find("td:nth-child(2)");
+                $tds = $row.find("td:nth-child(2)");
             //console.log($tds);
 
             $.each($tds, function () {                // Visits every single <td> element
@@ -380,7 +431,7 @@
         function changeinunitprice(o) {
             //alert(id);
             var $row = $(this).closest("tr"),        // Finds the closest row <tr>
-                 $tds = $row.find("td:nth-child(2)");
+                $tds = $row.find("td:nth-child(2)");
             //console.log($tds);
 
 

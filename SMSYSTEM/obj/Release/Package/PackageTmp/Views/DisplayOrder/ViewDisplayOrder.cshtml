@@ -83,8 +83,9 @@
                    {
                        "data": "idx",
                        "render": function (idx, type, full, meta) {
+                           return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a> <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a>'
 
-                           return '' //'<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a> <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a>'
+                           //return '' //'<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a> <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a>'
                            //<a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + ID + ')"><i class="fa fa-trash"></i></a>
 
                        },
@@ -101,24 +102,34 @@
 
         });
 
+        //function ShowCustomer(CustomerID) {
+
+        //    console.log(CustomerID);
+        //    //$("#isMainBranch").attr("disabled", true);
+
+        //    var url = "/DisplayOrder/AddNewDisplayOrder?Id=" + CustomerID;
+        //    $("#modelbody").load(url, function (e) {
+        //        //var id = $('#CustomerID').val();
+        //        //if (id > 0) {
+        //        //    $('#btnaddnewclient').html("update ");
+
+        //        //}
+        //        $("#exampleModal").modal("show");
+        //    });
+        //    // window.location.href = url;
+
+
+        //}
+
+        // Show Data to be updated
         function ShowCustomer(CustomerID) {
 
             console.log(CustomerID);
-            //$("#isMainBranch").attr("disabled", true);
 
-            var url = "/DisplayOrder/AddNewDisplayOrder?Id=" + CustomerID;
-            $("#modelbody").load(url, function (e) {
-                //var id = $('#CustomerID').val();
-                //if (id > 0) {
-                //    $('#btnaddnewclient').html("update ");
-
-                //}
-                $("#exampleModal").modal("show");
-            });
-            // window.location.href = url;
-
+            window.location.href = "/DisplayOrder/AddNewDisplayOrder?Id=" + CustomerID;
 
         }
+
 
         function ConfirmDelete(CustomerID) {
 

@@ -10,6 +10,8 @@ namespace SSS.Property.Transactions
         public int idx { get; set; }
         public int productIdx { get; set; }
         public decimal stock { get; set; }
+        public decimal qty { get; set; }
+        public decimal amount { get; set; }
         public int productTypeIdx { get; set; }
         public decimal unitPrice { get; set; }
         public decimal totalAmount { get; set; }

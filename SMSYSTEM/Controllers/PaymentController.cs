@@ -66,7 +66,7 @@ namespace SMSYSTEM.Controllers
                     objvoucherVM.voucher_amount = 0.00m;
                     objvoucherVM.description = "";
                     //objvoucherVM.BankList = Helper.ConvertDataTable<Company_Bank_Property>(GetAllCompanyBanks());
-                    objvoucherVM.vendorlist = Helper.ConvertDataTable<Vendors_Property>(GetAllVendors());
+                    objvoucherVM.vendorlist = Helper.ConvertDataTable<Vendors_Property>(Getvendors());
                     objvoucherVM.explist = Helper.ConvertDataTable<fourthTier_Property>(GetChildAccountsByheadIdx(4)); //All Expenses
                     objvoucherVM.BankList = Helper.ConvertDataTable<Company_Bank_Property>(GetAllCompanyBanks()); //Added
                     //objvoucherVM.CustomerBankList = Helper.ConvertDataTable<LP_CustomerBanks_Property>(GetAllCompanyBanks()); //Added

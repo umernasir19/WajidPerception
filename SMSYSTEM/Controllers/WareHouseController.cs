@@ -87,7 +87,11 @@ namespace SMSYSTEM.Controllers
             {
                 objwarehouse = new WareHouse_Property();
                 objwarehouse = objwarehousepropert;
-                objwarehouse.CreationDate = DateTime.Now;
+                objwarehouse.CreationDate = DateTime.Now.ToString("yyyy MMMM dd");
+
+                // Added by Ahsan 6/9/2021
+                objwarehouse.LastModificationDate = DateTime.Now.ToString("yyyy MMMM dd");
+
                 objwarehouse.CompanyIdx = Convert.ToInt16(Session["COMPANYID"]);
                 objwarehouse.createdByUserIdx= Convert.ToInt16(Session["UID"]);
                 objwarehouse.IsActive = true;//

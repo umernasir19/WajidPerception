@@ -100,7 +100,7 @@
         function ShowCustomer(CustomerID) {
 
             console.log(CustomerID);
-            window.location.href = '/Purchase/AddNewPurchase?id='+CustomerID;
+            window.location.href = '/Commercial/AddNewCI?id=' + CustomerID;
             //$("#isMainBranch").attr("disabled", true);
 
             //var url = "/Purchase/AddNewPurchase?Id=" + CustomerID;
@@ -121,7 +121,7 @@
 
             $.ajax({
                 type: 'GET',
-                url: '/Purchase/Delete?id=' + CustomerID,
+                url: '/Commercial/DeletePI?id=' + CustomerID,
                 dataType: 'JSON',
                 success: function (res) {
                     if (res.success) {

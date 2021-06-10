@@ -38,6 +38,22 @@ namespace SSS.BLL.Transactions
             return _objIEDAL.Insert();
 
         }
+
+        // Insert Inventory
+        public bool Insertinventory()
+        {
+            _objIEDAL = new LP_ImportedExpense_DAL(_objIEMasterProperty);
+            return _objIEDAL.Insertinventory();
+
+        }
+
+        // Delete
+        public bool DeleteIE()
+        {
+            _objIEDAL = new LP_ImportedExpense_DAL(_objIEMasterProperty);
+            return _objIEDAL.DeleteIE();
+        }
+
         public DataTable SelectQS()
         {
             _objIEDAL = new LP_ImportedExpense_DAL();
@@ -54,6 +70,15 @@ namespace SSS.BLL.Transactions
             _objIEDAL = new LP_ImportedExpense_DAL(_objIEMasterProperty);
             return _objIEDAL.SelectOne();
         }
+
+        //Added By Ahsan
+        public DataTable SelectItemsData()
+        {
+            _objIEDAL = new LP_ImportedExpense_DAL(_objIEMasterProperty);
+            return _objIEDAL.SelectItemData();
+        }
+
+
         public DataTable SelectTax()
         {
             _objIEDAL = new LP_ImportedExpense_DAL(_objIEMasterProperty);

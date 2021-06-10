@@ -137,7 +137,7 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
                     cmdToExecute.Parameters.Add(new SqlParameter("@profit", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.profit));
                     cmdToExecute.Parameters.Add(new SqlParameter("@grandTotalExpense", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.grandTotalExpense));
                     cmdToExecute.Parameters.Add(new SqlParameter("@finalPercentage", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.finalPercentage));
-     
+
                 }
 
                 if (_mainConnectionIsCreatedLocal)
@@ -181,6 +181,38 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
                 }
 
 
+                // Added By Ahsan
+                //if (_objIEMasterProperty.DetailDataInventory_logs != null)
+                //{
+                //    foreach (DataRow row in _objIEMasterProperty.DetailDataInventory_logs.Rows)
+                //    {
+                //        row["TransactionTypeID"] = "1";
+                //        row["creationDate"] = DateTime.Now.ToString("yyyy-MM-dd");
+                //    }
+
+                //    _objIEMasterProperty.DetailDataInventory_logs.AcceptChanges();
+
+                //    SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+
+                //    _objIEMasterProperty.DetailDataInventory_logs.TableName = "inventory_logs";
+
+                //    sbc.ColumnMappings.Clear();
+                //    sbc.ColumnMappings.Add("TransactionTypeID", "TransactionTypeID");
+                //    //sbc.ColumnMappings.Add(2, 1);
+                //    //sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
+                //    sbc.ColumnMappings.Add("itemIdx", "productIdx");
+                //    sbc.ColumnMappings.Add("qty", "stock");
+                //    sbc.ColumnMappings.Add("unitPrice", "unitPrice");
+                //    sbc.ColumnMappings.Add("amount", "totalAmount");
+                //    sbc.ColumnMappings.Add("creationDate", "creationDate");
+
+
+                //    sbc.DestinationTableName = _objIEMasterProperty.DetailDataInventory_logs.TableName;
+                //    sbc.WriteToServer(_objIEMasterProperty.DetailDataInventory_logs);
+
+                //}
+
+
                 this.Commit();
                 if (_errorCode != (int)LLBLError.AllOk)
                 {
@@ -205,6 +237,131 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
                     //// Close connection.
                     //_mainConnection.Close();
                     CloseConnection();
+                }
+                cmdToExecute.Dispose();
+            }
+        }
+
+        // Insert into inventory
+        public  bool Insertinventory()
+        {
+            SqlCommand cmdToExecute = new SqlCommand();
+           
+            cmdToExecute.CommandText = "dbo.[sp_insert_inventoryIE]";
+            
+
+            cmdToExecute.CommandType = CommandType.StoredProcedure;
+
+            // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection;
+
+            try
+            {
+                    //Added By Ahsan
+                    cmdToExecute.Parameters.Add(new SqlParameter("@productIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.ItemIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@stock", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.qty));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@unitPrice", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.unitPrice));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@totalAmount", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.amount));
+                
+
+                if (_mainConnectionIsCreatedLocal)
+                {
+
+                    OpenConnection();
+                }
+                else
+                {
+                    if (_mainConnectionProvider.IsTransactionPending)
+                    {
+                        cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    }
+                }
+
+                this.StartTransaction();
+                cmdToExecute.Transaction = this.Transaction;
+                // Execute query.
+                _rowsAffected = cmdToExecute.ExecuteNonQuery();
+                
+
+                this.Commit();
+                if (_errorCode != (int)LLBLError.AllOk)
+                {
+                    // Throw error.
+                    this.RollBack();
+                    throw new Exception("Stored Procedure 'sp_TRANSACTION_MASTER_Insert' reported the ErrorCode: " + _errorCode);
+
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                this.RollBack();
+                // some error occured. Bubble it to caller and encapsulate Exception object
+                throw new Exception("TRANSACTION_MASTER::Insert::Error occured.", ex);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    //// Close connection.
+                    //_mainConnection.Close();
+                    CloseConnection();
+                }
+                cmdToExecute.Dispose();
+            }
+        }
+        // Delete Imported Expense 
+        public bool DeleteIE()
+        {
+            SqlCommand cmdToExecute = new SqlCommand();
+            cmdToExecute.CommandText = @"update importedExpense SET visible=0 where idx=@ID";
+            //cmdToExecute.CommandType = CommandType.StoredProcedure;
+
+            // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection;
+
+            try
+            {
+                //cmdToExecute.Parameters.Add(new SqlParameter("@companyIdx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.companyIdx));
+                cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.idx));
+
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Open connection.
+                    _mainConnection.Open();
+                }
+                else
+                {
+                    if (_mainConnectionProvider.IsTransactionPending)
+                    {
+                        cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    }
+                }
+
+                // Execute query.
+                _rowsAffected = cmdToExecute.ExecuteNonQuery();
+                // _errorCode = (Int32)cmdToExecute.Parameters["@iErrorCode"].Value;
+
+                if (_errorCode != (int)LLBLError.AllOk)
+                {
+                    // Throw error.
+                    throw new Exception("Stored Procedure 'sp_upate_branch' reported the ErrorCode: " + _errorCode);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // some error occured. Bubble it to caller and encapsulate Exception object
+                throw new Exception("Branch::Update::Error occured.", ex);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Close connection.
+                    _mainConnection.Close();
                 }
                 cmdToExecute.Dispose();
             }
@@ -268,9 +425,9 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
         public override DataTable SelectOne()
         {
             SqlCommand cmdToExecute = new SqlCommand();
-            cmdToExecute.CommandText = "dbo.[sp_SelectQSByid]";
+            cmdToExecute.CommandText = "dbo.[sp_SelectIEByID]";
             cmdToExecute.CommandType = CommandType.StoredProcedure;
-            DataTable toReturn = new DataTable("Bank Setup");
+            DataTable toReturn = new DataTable("Select one IE");
             SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
 
             // Use base class' connection object
@@ -278,7 +435,7 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
 
             try
             {
-                cmdToExecute.Parameters.Add(new SqlParameter("@qsid", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.idx));
+                cmdToExecute.Parameters.Add(new SqlParameter("@id", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.idx));
 
                 if (_mainConnectionIsCreatedLocal)
                 {
@@ -335,6 +492,79 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
                 adapter.Dispose();
             }
         }
+
+        // Added By Ahsan
+        public  DataTable SelectItemData()
+        {
+            SqlCommand cmdToExecute = new SqlCommand();
+            cmdToExecute.CommandText = "dbo.[sp_selectItemData]";
+            cmdToExecute.CommandType = CommandType.StoredProcedure;
+            DataTable toReturn = new DataTable("Select Item Data");
+            SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
+
+            // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection;
+
+            try
+            {
+                cmdToExecute.Parameters.Add(new SqlParameter("@id", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.commercialIdx));
+
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Open connection.
+                    _mainConnection.Open();
+                }
+                else
+                {
+                    if (_mainConnectionProvider.IsTransactionPending)
+                    {
+                        cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    }
+                }
+
+                // Execute query.
+                adapter.Fill(toReturn);
+
+
+                if (toReturn.Rows.Count > 0)
+                {
+                    //ObjDepartmentProperty.Department_Id = (Int32)toReturn.Rows[0]["ID"];
+                    //ObjDepartmentProperty.DepartmentName = (string)toReturn.Rows[0]["DepartmentName"];
+                    //objBankProperty.idx = Convert.ToInt32(toReturn.Rows[0]["idx"]);// == System.DBNull.Value ? SqlInt32.Null : (Int32)toReturn.Rows[0]["idx"]);
+                    //objBankProperty.bankName = (toReturn.Rows[0]["bankName"].ToString());// == System.DBNull.Value ? SqlString.Null : (string)toReturn.Rows[0]["bankName"]).ToString();
+                    //objBankProperty.creationDate = Convert.ToDateTime((toReturn.Rows[0]["creationDate"]));// == System.DBNull.Value ? SqlString.Null : (string)toReturn.Rows[0]["creationDate"]));
+
+                    //objBankProperty.visible = (int)toReturn.Rows[0]["visible"];
+                    //objBankProperty.createdByUserIdx = (int)toReturn.Rows[0]["createdByUserIdx"];
+
+                    // ObjDepartmentProperty.ISActive = (bool)toReturn.Rows[0]["IsActive"];
+                    // //toReturn.Rows[0]["Product_Form_ID"] == System.DBNull.Value ? SqlInt32.Null : (Int32)toReturn.Rows[0]["Product_Form_ID"];
+                    // ObjDepartmentProperty.UserId = (int)toReturn.Rows[0]["UserID"];
+                    //string a= (toReturn.Rows[0]["bankName"] == System.DBNull.Value ? SqlString.Null : (string)toReturn.Rows[0]["bankName"]).ToString();
+                    // ObjDepartmentProperty.CreatedDate = (DateTime)toReturn.Rows[0]["DateCreated"];
+                    //   ObjDepartmentProperty.CustomerAddress = (string)toReturn.Rows[0]["Address"];
+                    //  toReturn.Rows[0]["Product_Parent_Code"] == System.DBNull.Value ? SqlInt32.Null : (Int32)toReturn.Rows[0]["Product_Parent_Code"];
+
+                }
+                return toReturn;
+            }
+            catch (Exception ex)
+            {
+                // some error occured. Bubble it to caller and encapsulate Exception object
+                throw new Exception("PRODUCT_SETUP::SelectOne::Error occured.", ex);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Close connection.
+                    _mainConnection.Close();
+                }
+                cmdToExecute.Dispose();
+                adapter.Dispose();
+            }
+        }
+
         public DataTable SelectTaxOnQS()
         {
             SqlCommand cmdToExecute = new SqlCommand();

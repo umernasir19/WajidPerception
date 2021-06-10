@@ -71,6 +71,67 @@ namespace SSS.DAL.Setups
                 adapter.Dispose();
             }
         }
+        // For Main Vendors Listings
+        public  DataTable SelectAllVendors()
+        {
+            SqlCommand cmdToExecute = new SqlCommand();
+            cmdToExecute.CommandText = @"select v.idx, concat(us.firstName,'',us.lastName) as userName,vt.vendorType,vc.vendorCategory,v.* from vendors v 
+left join Vendor_Category vc on v.vendorCatIdx=vc.idx
+left join VendorType vt on v.vendorTypeIdx=vt.idx
+left join users us on us.idx=v.createdByUserIdx
+where v.visible=1";
+            //cmdToExecute.CommandType = CommandType.StoredProcedure;
+            DataTable toReturn = new DataTable("Vendors");
+            SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
+
+            // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection;
+
+            try
+            {
+                cmdToExecute.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, false, 10, 0, "", DataRowVersion.Proposed, _errorCode));
+
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Open connection.
+                    _mainConnection.Open();
+                }
+                else
+                {
+                    if (_mainConnectionProvider.IsTransactionPending)
+                    {
+                        cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    }
+                }
+
+                // Execute query.
+                adapter.Fill(toReturn);
+                _errorCode = (SqlInt32)cmdToExecute.Parameters["@iErrorCode"].Value;
+
+                if (_errorCode != (int)LLBLError.AllOk)
+                {
+                    // Throw error.
+                    throw new Exception("Stored Procedure 'sp_Vendors_SelectAll' reported the ErrorCode: " + _errorCode);
+                }
+
+                return toReturn;
+            }
+            catch (Exception ex)
+            {
+                // some error occured. Bubble it to caller and encapsulate Exception object
+                throw new Exception("Vendors::SelectAll::Error occured.", ex);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Close connection.
+                    _mainConnection.Close();
+                }
+                cmdToExecute.Dispose();
+                adapter.Dispose();
+            }
+        }
 
         public override DataTable SelectAll()
         {

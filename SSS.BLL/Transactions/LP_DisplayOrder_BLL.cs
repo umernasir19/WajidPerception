@@ -31,6 +31,13 @@ namespace SSS.BLL.Transactions
             _objDODAL = new LP_DisplayOrder_DAL();
             return _objDODAL.SelectForDropDown();
         }
+
+        public bool Delete()
+        {
+            _objDODAL = new LP_DisplayOrder_DAL(_objDOMasterProperty);
+            return _objDODAL.Delete();
+        }
+
         public bool Insert()
         {
             _objDODAL = new LP_DisplayOrder_DAL(_objDOMasterProperty);

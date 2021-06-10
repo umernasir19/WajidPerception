@@ -82,19 +82,25 @@ namespace SMSYSTEM.Controllers
                     objPurchaseProperty = new LP_Performa_Invoice_Property();
                     objPurchaseProperty.idx = Convert.ToInt16(id);
 
-                    objpurchaseBll = new LP_PI_BLL();
+                    objpurchaseBll = new LP_PI_BLL(objPurchaseProperty);
                     DataTable dt = objpurchaseBll.SelectOne();
-                    objPurchaseVM_Property.idx = Convert.ToInt16(dt.Rows[0]["purchaseIdx"].ToString());
+                    //objPurchaseVM_Property.idx = Convert.ToInt16(dt.Rows[0]["purchaseIdx"].ToString());
+                    objPurchaseVM_Property.idx = Convert.ToInt16(dt.Rows[0]["idx"].ToString());
+
                     objPurchaseVM_Property.vendorIdx = Convert.ToInt16(dt.Rows[0]["vendorIdx"].ToString());
                     objPurchaseVM_Property.poNumber = dt.Rows[0]["poNumber"].ToString();
                     objPurchaseVM_Property.description = dt.Rows[0]["description"].ToString();
                    
-                    objPurchaseVM_Property.DepartmentID = Convert.ToInt16(dt.Rows[0]["DepartmentID"].ToString());
+                    //objPurchaseVM_Property.DepartmentID = Convert.ToInt16(dt.Rows[0]["DepartmentID"].ToString());
                     objPurchaseVM_Property.totalAmount = Convert.ToDecimal(dt.Rows[0]["totalAmount"].ToString());
                     string pdate = (dt.Rows[0]["purchaseDate"].ToString()).ToString();
                     string ndate = DateTime.Parse(pdate).ToString("yyyy-MM-dd");
                     objPurchaseVM_Property.purchaseDate = Convert.ToDateTime(ndate);// DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
                     objPurchaseVM_Property.purchaseDate = Convert.ToDateTime(ndate);
+
+                    // Added by Ahsan 6/8/2021, Error Not found in view
+                    objPurchaseVM_Property.gridVendorIdx = Convert.ToInt16(dt.Rows[0]["vendorIdx"].ToString());
+
                     //DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
                     //foreach(DataRow dr in dt.Rows)
                     //{
@@ -192,11 +198,44 @@ namespace SMSYSTEM.Controllers
             }
         }
 
+        // Delete function
+        public JsonResult DeletePI(int? id)
+        {
+            if (Session["LOGGEDIN"] != null)
+            {
+                try
+                {
+                    objPurchaseProperty = new LP_Performa_Invoice_Property();
+                    objPurchaseProperty.idx = int.Parse(id.ToString());
+
+                    LP_PI_BLL objBll = new LP_PI_BLL(objPurchaseProperty);
+                    var flag1 = objBll.Delete();
+                    if (flag1)
+                    {
+                        return Json(new { data = "Deleted", success = flag1, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { data = "Error", success = flag1, statuscode = 200 }, JsonRequestBehavior.DenyGet);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         #endregion
 
 
         #region Commercial Invoice Work
-        
+
         public ActionResult ViewCommercialInvoice()
         {
             if (Session["LOGGEDIN"] != null)
@@ -385,6 +424,37 @@ namespace SMSYSTEM.Controllers
             }
         }
 
+        public JsonResult DeleteCI(int? id)
+        {
+            if (Session["LOGGEDIN"] != null)
+            {
+                try
+                {
+                    _objCIMaster = new LP_CI_PurchaseOrder_Property();
+                    _objCIMaster.idx = int.Parse(id.ToString());
+
+                    LP_PI_BLL objBll = new LP_PI_BLL(_objCIMaster);
+                    var flag1 = objBll.DeleteCI();
+                    if (flag1)
+                    {
+                        return Json(new { data = "Deleted", success = flag1, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { data = "Error", success = flag1, statuscode = 200 }, JsonRequestBehavior.DenyGet);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
 
         #endregion
@@ -630,9 +700,13 @@ namespace SMSYSTEM.Controllers
 
                     objImportedExpenseVM.ieNumber = dt.Rows[0]["ieNumber"].ToString();                  
                     objImportedExpenseVM.totalExpense = Convert.ToDecimal(dt.Rows[0]["totalExpense"].ToString());
-                    string pdate = (dt.Rows[0]["orderDate"].ToString()).ToString();
-                    string ndate = DateTime.Parse(pdate).ToString("yyyy-MM-dd");
-                    objImportedExpenseVM.date = Convert.ToDateTime(ndate);// DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
+
+                    // Generating error since orderDate is not in Table from sp
+                    //string pdate = (dt.Rows[0]["orderDate"].ToString()).ToString();
+                    //string ndate = DateTime.Parse(pdate).ToString("yyyy-MM-dd");
+                    //objImportedExpenseVM.date = Convert.ToDateTime(ndate);// DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
+                    objImportedExpenseVM.date = DateTime.Now.ToString("yy-MM-dd");
+                    objImportedExpenseVM.status = dt.Rows[0]["status"].ToString();
                     //DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
                     //foreach(DataRow dr in dt.Rows)
                     //{
@@ -664,6 +738,7 @@ namespace SMSYSTEM.Controllers
             }
 
         }
+
         [HttpPost]
         public JsonResult AddUpdateImportedExpense(ImportedExpenseVM objImportedExpense)
         {
@@ -673,7 +748,7 @@ namespace SMSYSTEM.Controllers
 
                 objDOProperty = new LP_ImportedExpense_Master_Property();
                 objDOProperty.ieNumber = objImportedExpense.ieNumber;
-                objDOProperty.date = objImportedExpense.date.ToString("yyyy-MM-dd");               
+                objDOProperty.date = objImportedExpense.date;               
                 objDOProperty.reference = objImportedExpense.reference;
                 objDOProperty.commercialIdx = objImportedExpense.commercialIdx;
                 objDOProperty.totalExpense = objImportedExpense.totalExpense;
@@ -704,6 +779,25 @@ namespace SMSYSTEM.Controllers
                 }
                 else
                 {
+                    // Added By Ahsan
+                  
+                    objDOBll = new LP_ImportedExpense_BLL(objDOProperty);
+                    
+                   
+                    objDOProperty.tempList = Helper.ConvertDataTable<LP_ImportedExpense_Master_Property>(objDOBll.SelectItemsData());
+
+                    for (int i = 0; i < objDOProperty.tempList.Count; i++)
+                    {
+                        objDOProperty.ItemIdx = objDOProperty.tempList[i].idx;
+                        objDOProperty.qty = objDOProperty.tempList[i].qty;
+                        objDOProperty.unitPrice = objDOProperty.tempList[i].unitPrice;
+                        objDOProperty.amount = objDOProperty.tempList[i].amount;
+
+                        objDOBll = new LP_ImportedExpense_BLL(objDOProperty);
+                        flag = objDOBll.Insertinventory();
+                    }
+                    
+
                     //add
                     objDOProperty.idx = objImportedExpense.idx;
                     objDOProperty.creationDate = DateTime.Now.ToString("yyyy-MM-dd");
@@ -712,6 +806,7 @@ namespace SMSYSTEM.Controllers
                     objDOProperty.visible = 1;
                     objDOProperty.status = 0;
                     objDOProperty.TableName = "importedExpenseDetails";
+
                     objDOBll = new LP_ImportedExpense_BLL(objDOProperty);
                     flag = objDOBll.Insert();
 
@@ -722,6 +817,39 @@ namespace SMSYSTEM.Controllers
             catch (Exception ex)
             {
                 return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // Delete Imported Expense
+        public JsonResult DeleteIE(int? id)
+        {
+            if (Session["LOGGEDIN"] != null)
+            {
+                try
+                {
+                    objDOProperty = new LP_ImportedExpense_Master_Property();
+                    objDOProperty.idx = int.Parse(id.ToString());
+
+                    objDOBll = new LP_ImportedExpense_BLL(objDOProperty);
+                    var flag1 = objDOBll.DeleteIE();
+                    if (flag1)
+                    {
+                        return Json(new { data = "Deleted", success = flag1, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { data = "Error", success = flag1, statuscode = 200 }, JsonRequestBehavior.DenyGet);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
             }
         }
         #endregion

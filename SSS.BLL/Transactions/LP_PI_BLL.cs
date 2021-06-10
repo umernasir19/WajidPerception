@@ -11,6 +11,8 @@ namespace SSS.BLL.Transactions
 {
     public class LP_PI_BLL
     {
+        private LP_ImportedExpense_Master_Property _objIEMaster; 
+
         private LP_Performa_Invoice_Property _objPerformaMaster;
         private LP_Performa_Invoice_Details_Property _objPerformaDetail;
 
@@ -32,6 +34,11 @@ namespace SSS.BLL.Transactions
             _objCIMaster = objci;
         }
 
+        public LP_PI_BLL(LP_ImportedExpense_Master_Property objie)
+        {
+            _objIEMaster = objie;
+        }
+
 
         public LP_PI_BLL(LP_Consigment_Property objConsigment)
         {
@@ -47,7 +54,22 @@ namespace SSS.BLL.Transactions
             _objPIDAL = new LP_PI_DAL(_objPerformaMaster);
             return _objPIDAL.Insert();
         }
-        
+
+        // Delete Performa Invoice
+        public bool Delete()
+        {
+            _objPIDAL = new LP_PI_DAL(_objPerformaMaster);
+            return _objPIDAL.Delete();
+        }
+
+        // Delete Commercial Invoice
+        public bool DeleteCI()
+        {
+            _objPIDAL = new LP_PI_DAL(_objCIMaster);
+            return _objPIDAL.DeleteCI();
+        }
+
+      
         public DataTable SelectAll()
         {
             _objPIDAL = new LP_PI_DAL();

@@ -35,7 +35,7 @@ namespace SMSYSTEM.Controllers
                 objVendorsProperty = new Vendors_Property();
                 //objVendorsProperty.branchIdx = 1;//user logged in session branchIdx
                 objVendorsBLL = new Vendors_BLL(objVendorsProperty);
-                var Data = JsonConvert.SerializeObject(objVendorsBLL.ViewAll());
+                var Data = JsonConvert.SerializeObject(objVendorsBLL.ViewAllVendors());
                 return Json(new { data = Data, success = true, statuscode = 200, count = Data.Length }, JsonRequestBehavior.AllowGet);
 
             }

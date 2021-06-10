@@ -29,6 +29,12 @@ namespace SSS.BLL.Transactions.GDN
             return _objGDNDAL.Insert();
         }
 
+        public bool Delete()
+        {
+            _objGDNDAL = new LP_GDN_DAL(_objGDNProperty);
+            return _objGDNDAL.Delete();
+        }
+
         public DataTable SelectAll()
         {
             _objGDNDAL = new LP_GDN_DAL();

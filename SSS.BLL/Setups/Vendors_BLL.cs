@@ -35,6 +35,13 @@ namespace SSS.BLL.Setups
             objVendors_DAL = new Vendors_DAL(objVendorsProperty);
             return objVendors_DAL.SelectAll();
         }
+        // For Main Listings
+        public DataTable ViewAllVendors()
+        {
+            objVendors_DAL = new Vendors_DAL(objVendorsProperty);
+            return objVendors_DAL.SelectAllVendors();
+        }
+
         public DataTable ViewAllVendorByType(int id) //if send id is one then local and if 2 then internation hardcoded
         {
             objVendors_DAL = new Vendors_DAL(objVendorsProperty);

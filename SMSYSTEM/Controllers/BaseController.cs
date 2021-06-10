@@ -343,7 +343,8 @@ namespace SMSYSTEM.Controllers
                 return new DataTable();
             }
         }
-        public DataTable GetAllVendors()
+
+        public DataTable Getvendors()
         {
             if (Session["LOGGEDIN"] != null)
             {

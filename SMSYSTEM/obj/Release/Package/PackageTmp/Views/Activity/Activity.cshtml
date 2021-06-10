@@ -224,6 +224,7 @@
         
         });
 
+        // Check Update
         function checkUpdate(){
             var update=@Html.Raw(Json.Encode(ViewBag.update));
             if(update==true){
@@ -248,6 +249,7 @@
                 console.log(@Model.ActivityDetailLST.Count);*@
 
         }
+        // Price 
         $("#vendorIdx").on('change', function () {
             var vendorValue = $('#vendorIdx').val();
             if (Number(vendorValue)>0) {
@@ -818,7 +820,7 @@
 
 
 
-
+        // Add to Grid Button
         $("#btnaddtogrid").click(function (e) {
             if (!(gridValidation($("#productIdx option:selected").val(), $('#vendorCatIdx').val()))) {
 
@@ -905,7 +907,7 @@
         };
 
 
-
+        // Grid Validations
         function gridValidation(Id,processId) {
             errmsg = [];
             var myTab = $("#example2 tbody");

@@ -44,7 +44,7 @@ namespace SMSYSTEM.Controllers
 
                 objPInvoiceVM.POLIST = Helper.ConvertDataTable<LP_Purchase_Master_Property>(objPurchaseBLL.SelectAll());
                 objPInvoiceVM.TaxesList = Helper.ConvertDataTable<Taxes_Property>(GetAllTaxes());
-                objPInvoiceVM.VendorList = Helper.ConvertDataTable<Vendors_Property>(GetAllVendors());
+                objPInvoiceVM.VendorList = Helper.ConvertDataTable<Vendors_Property>(Getvendors());
                 objPInvoiceVM.ProductList = Helper.ConvertDataTable<Product_Property>(ViewAllProducts());
                 objPInvoiceVM.BankList = Helper.ConvertDataTable<Company_Bank_Property>(GetAllCompanyBanks());
                 //objGRNVM_Property.Doc_No = "GRN-001";

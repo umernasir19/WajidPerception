@@ -8,6 +8,20 @@ namespace SSS.Property.Transactions
 {
     public class LP_ImportedExpense_Master_Property
     {
+        // Added By Ahsan
+        public decimal qty { get; set; }
+        public decimal amount { get; set; }
+        public decimal unitPrice { get; set; }
+        public int ItemIdx { get; set; }
+        public List<LP_InventoryLogs_Property> inventory_logs_list { get; set; }
+        public List<LP_ImportedExpense_Master_Property> tempList { get; set; }
+     
+        public int TransactionTypeID { get; set; }
+        public int MasterID { get; set; }
+        public int FullReturn { get; set; }
+        public int BRANCHID { get; set; }
+
+
         public int idx { get; set; }
         public string ieNumber { get; set; }
         public int commercialIdx { get; set; }
@@ -32,6 +46,20 @@ namespace SSS.Property.Transactions
                 _detail_data = value;
             }
         }
+
+        // Added By Ahsan
+        public DataTable DetailDataInventory_logs
+        {
+            get
+            {
+                return _detail_data;
+            }
+            set
+            {
+                _detail_data = value;
+            }
+        }
+
         private string _tableName;
         public String TableName
         {

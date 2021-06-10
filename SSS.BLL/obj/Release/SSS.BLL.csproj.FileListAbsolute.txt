@@ -184,3 +184,16 @@ D:\Ahsan\WajidPerception-master\SSS.BLL\bin\Release\SSS.Utility.pdb
 D:\Ahsan\WajidPerception-master\SSS.BLL\obj\Release\SSS.BLL.csprojResolveAssemblyReference.cache
 D:\Ahsan\WajidPerception-master\SSS.BLL\obj\Release\SSS.BLL.dll
 D:\Ahsan\WajidPerception-master\SSS.BLL\obj\Release\SSS.BLL.pdb
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Release\SSS.BLL.dll
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Release\SSS.BLL.pdb
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Release\FluentValidation.dll
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Release\SSS.DAL.dll
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Release\SSS.Property.dll
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Release\SSS.Utility.dll
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Release\AjaxControlToolkit.dll
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Release\SSS.DAL.pdb
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Release\SSS.Property.pdb
+E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Release\SSS.Utility.pdb
+E:\Perception BP\WajidPerception-master\SSS.BLL\obj\Release\SSS.BLL.csprojResolveAssemblyReference.cache
+E:\Perception BP\WajidPerception-master\SSS.BLL\obj\Release\SSS.BLL.dll
+E:\Perception BP\WajidPerception-master\SSS.BLL\obj\Release\SSS.BLL.pdb

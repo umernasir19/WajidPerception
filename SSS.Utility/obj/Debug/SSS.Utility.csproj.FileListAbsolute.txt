@@ -282,6 +282,11 @@ D:\Ahsan\WajidPerception-master\SSS.Utility\obj\Debug\SSS.Utility.dll
 D:\Ahsan\WajidPerception-master\SSS.Utility\obj\Debug\SSS.Utility.pdb
 E:\Perception BP\WajidPerception-master\SSS.Utility\bin\Debug\SSS.Utility.dll
 E:\Perception BP\WajidPerception-master\SSS.Utility\bin\Debug\SSS.Utility.pdb
-E:\Perception BP\WajidPerception-master\SSS.Utility\obj\Debug\SSS.Utility.csprojResolveAssemblyReference.cache
 E:\Perception BP\WajidPerception-master\SSS.Utility\obj\Debug\SSS.Utility.dll
 E:\Perception BP\WajidPerception-master\SSS.Utility\obj\Debug\SSS.Utility.pdb
+E:\Perception BP\WajidPerception-master\SSS.Utility\obj\Debug\SSS.Utility.csprojResolveAssemblyReference.cache
+E:\Perception BP\new\WajidPerception\SSS.Utility\bin\Debug\SSS.Utility.dll
+E:\Perception BP\new\WajidPerception\SSS.Utility\bin\Debug\SSS.Utility.pdb
+E:\Perception BP\new\WajidPerception\SSS.Utility\obj\Debug\SSS.Utility.csprojResolveAssemblyReference.cache
+E:\Perception BP\new\WajidPerception\SSS.Utility\obj\Debug\SSS.Utility.dll
+E:\Perception BP\new\WajidPerception\SSS.Utility\obj\Debug\SSS.Utility.pdb

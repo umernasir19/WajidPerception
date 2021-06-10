@@ -68,12 +68,15 @@ namespace SMSYSTEM.Controllers
 
                     objDOBll = new LP_DisplayOrder_BLL(objDOProperty);
                     DataTable dt = objDOBll.SelectOne();
-                    objDisplayOrderVM.idx = Convert.ToInt16(dt.Rows[0]["doIdx"].ToString());
-                    
+                    //objDisplayOrderVM.idx = Convert.ToInt16(dt.Rows[0]["doIdx"].ToString());
+                    objDisplayOrderVM.idx = Convert.ToInt16(dt.Rows[0]["idx"].ToString());
+
                     objDisplayOrderVM.doNumber = dt.Rows[0]["doNumber"].ToString();
                     objDisplayOrderVM.description = dt.Rows[0]["description"].ToString();
 
-                    objDisplayOrderVM.totalAmount = Convert.ToDecimal(dt.Rows[0]["totalAmount"].ToString());
+                    // We Don't have Total Amount in view
+                    //objDisplayOrderVM.totalAmount = Convert.ToDecimal(dt.Rows[0]["totalAmount"].ToString());
+
                     string pdate = (dt.Rows[0]["orderDate"].ToString()).ToString();
                     string ndate = DateTime.Parse(pdate).ToString("yyyy-MM-dd");
                     objDisplayOrderVM.orderDate = Convert.ToDateTime(ndate);// DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
@@ -161,6 +164,39 @@ namespace SMSYSTEM.Controllers
             catch (Exception ex)
             {
                 return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // Delete
+        public JsonResult Delete(int? id)
+        {
+            if (Session["LOGGEDIN"] != null)
+            {
+                try
+                {
+                    objDOProperty = new LP_DisplayOrder_Master_Property();
+                    objDOProperty.idx = int.Parse(id.ToString());
+
+                    LP_DisplayOrder_BLL objBll = new LP_DisplayOrder_BLL(objDOProperty);
+                    var flag1 = objBll.Delete();
+                    if (flag1)
+                    {
+                        return Json(new { data = "Deleted", success = flag1, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { data = "Error", success = flag1, statuscode = 200 }, JsonRequestBehavior.DenyGet);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
             }
         }
     }

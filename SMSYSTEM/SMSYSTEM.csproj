@@ -247,6 +247,7 @@
     <Content Include="Dist\fonts\Roboto\Roboto-Thin.ttf" />
     <Content Include="Dist\fonts\Roboto\Roboto-ThinItalic.ttf" />
     <Content Include="Dist\images\.DS_Store" />
+    <None Include="Properties\PublishProfiles\Ahsan.pubxml" />
     <None Include="Properties\PublishProfiles\CHECK.pubxml" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\jquery-1.10.2.js" />

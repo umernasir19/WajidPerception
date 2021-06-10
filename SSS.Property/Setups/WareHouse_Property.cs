@@ -36,8 +36,8 @@ namespace SSS.Property.Setups
             set { _WareHouseName = value; }
         }
 
-        private DateTime _CreationDate;
-        public DateTime CreationDate
+        private string _CreationDate;
+        public string CreationDate
         {
             get { return _CreationDate; }
             set { _CreationDate = value; }
@@ -57,8 +57,8 @@ namespace SSS.Property.Setups
             set { _lastModifiedByUserIdx = value; }
         }
 
-        private DateTime _LastModificationDate;
-        public DateTime LastModificationDate
+        private string _LastModificationDate;
+        public string LastModificationDate
         {
             get { return _LastModificationDate; }
             set { _LastModificationDate = value; }

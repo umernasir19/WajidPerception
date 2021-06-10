@@ -11,7 +11,7 @@
     </div>
     <div class="card-body">
 
-        <h4 class="card-title">Comeercial Invoice List</h4>
+        <h4 class="card-title">Commercial Invoice List</h4>
 
         <div class="row">
             <div class="col-12">
@@ -100,7 +100,7 @@
         function ShowCustomer(CustomerID) {
 
             console.log(CustomerID);
-            window.location.href = '/Purchase/AddNewPurchase?id='+CustomerID;
+            window.location.href = '/Commercial/AddNewCIPO?id=' + CustomerID;
             //$("#isMainBranch").attr("disabled", true);
 
             //var url = "/Purchase/AddNewPurchase?Id=" + CustomerID;
@@ -121,7 +121,7 @@
 
             $.ajax({
                 type: 'GET',
-                url: '/Purchase/Delete?id=' + CustomerID,
+                url: '/Commercial/DeleteCI?id=' + CustomerID,
                 dataType: 'JSON',
                 success: function (res) {
                     if (res.success) {
@@ -130,7 +130,7 @@
                             'Blocked',
                             'success'
                             )
-                        window.location.href = "/Client/ViewClient"
+                        window.location.href = "/Commercial/ViewCommercialInvoice"
                     }
                     else {
                         swalWithBootstrapButtons.fire(
