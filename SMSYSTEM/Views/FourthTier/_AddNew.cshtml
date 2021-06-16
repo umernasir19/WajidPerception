@@ -12,7 +12,7 @@
         <div class="col-sm-6">
             <!-- text input -->
             <div class="form-group">
-                <label>Head Name*:</label>
+                <label>Sub Head*:</label>
                 @Html.DropDownListFor(model => model.subHeadIdx, new SelectList(Model.headLST, "idx", "subHeadName"), "Select Sub-Head", new { @Class = "form-control font-weight-bold" })
                 @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>

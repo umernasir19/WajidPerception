@@ -595,14 +595,25 @@ E:\Perception BP\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Utility.pdb
 E:\Perception BP\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.csprojResolveAssemblyReference.cache
 E:\Perception BP\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.dll
 E:\Perception BP\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.pdb
-E:\Perception BP\new\WajidPerception\SSS.DAL\bin\Debug\SSS.DAL.dll.config
-E:\Perception BP\new\WajidPerception\SSS.DAL\bin\Debug\SSS.DAL.dll
-E:\Perception BP\new\WajidPerception\SSS.DAL\bin\Debug\SSS.DAL.pdb
-E:\Perception BP\new\WajidPerception\SSS.DAL\bin\Debug\SSS.Property.dll
-E:\Perception BP\new\WajidPerception\SSS.DAL\bin\Debug\SSS.Utility.dll
-E:\Perception BP\new\WajidPerception\SSS.DAL\bin\Debug\AjaxControlToolkit.dll
-E:\Perception BP\new\WajidPerception\SSS.DAL\bin\Debug\SSS.Property.pdb
-E:\Perception BP\new\WajidPerception\SSS.DAL\bin\Debug\SSS.Utility.pdb
-E:\Perception BP\new\WajidPerception\SSS.DAL\obj\Debug\SSS.DAL.csprojResolveAssemblyReference.cache
-E:\Perception BP\new\WajidPerception\SSS.DAL\obj\Debug\SSS.DAL.dll
-E:\Perception BP\new\WajidPerception\SSS.DAL\obj\Debug\SSS.DAL.pdb
+D:\AhsanPerc10-06-21\WajidPerception-master\SSS.DAL\bin\Debug\SSS.DAL.dll.config
+D:\AhsanPerc10-06-21\WajidPerception-master\SSS.DAL\bin\Debug\SSS.DAL.dll
+D:\AhsanPerc10-06-21\WajidPerception-master\SSS.DAL\bin\Debug\SSS.DAL.pdb
+D:\AhsanPerc10-06-21\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Property.dll
+D:\AhsanPerc10-06-21\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Utility.dll
+D:\AhsanPerc10-06-21\WajidPerception-master\SSS.DAL\bin\Debug\AjaxControlToolkit.dll
+D:\AhsanPerc10-06-21\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Property.pdb
+D:\AhsanPerc10-06-21\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Utility.pdb
+D:\AhsanPerc10-06-21\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.csprojResolveAssemblyReference.cache
+D:\AhsanPerc10-06-21\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.dll
+D:\AhsanPerc10-06-21\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.pdb
+E:\Perception BP\11-6-21\WajidPerception-master\SSS.DAL\bin\Debug\SSS.DAL.dll.config
+E:\Perception BP\11-6-21\WajidPerception-master\SSS.DAL\bin\Debug\SSS.DAL.dll
+E:\Perception BP\11-6-21\WajidPerception-master\SSS.DAL\bin\Debug\SSS.DAL.pdb
+E:\Perception BP\11-6-21\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Property.dll
+E:\Perception BP\11-6-21\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Utility.dll
+E:\Perception BP\11-6-21\WajidPerception-master\SSS.DAL\bin\Debug\AjaxControlToolkit.dll
+E:\Perception BP\11-6-21\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Property.pdb
+E:\Perception BP\11-6-21\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Utility.pdb
+E:\Perception BP\11-6-21\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.csprojResolveAssemblyReference.cache
+E:\Perception BP\11-6-21\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.dll
+E:\Perception BP\11-6-21\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.pdb

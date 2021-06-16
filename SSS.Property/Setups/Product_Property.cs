@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using FluentValidation;
@@ -22,17 +23,24 @@ namespace SSS.Property.Setups
         public int productCatIdx { get; set; }
         public int productSubCatIdx { get; set; }
         public string HSCODE { get; set; }
+
+        [Required]
         public string itemName { get; set; }
         public string itemCode { get; set; }
         public int unitIdx { get; set; }
+        [Required]
         public string description { get; set; }
         public DateTime creationDate { get; set; }
         public int createdByUserIdx { get; set; }
         public string lastModificationDate { get; set; }
         public int lastModifiedByUserIdx { get; set; }
         public int visible { get; set; }
+
+        [Required(ErrorMessage = "Cost Price is Required")]
         public decimal costPrice { get; set; }
+        [Required]
         public decimal salePrice { get; set; }
+        [Required]
         public decimal productTax { get; set; }
         public int productIdx { get; set; }
         public List<Product_Property> ProductLST { get; set; }

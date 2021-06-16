@@ -12,8 +12,8 @@
         <div class="col-sm-6">
             <!-- text input -->
             <div class="form-group">
-                <label>Head Name*:</label>
-                @Html.DropDownListFor(model => model.headIdx, new SelectList(Model.headLST, "idx", "accountName"), "Select Bank", new { @Class = "form-control font-weight-bold" })
+                <label>CAO Name*:</label>
+                @Html.DropDownListFor(model => model.headIdx, new SelectList(Model.headLST, "idx", "accountName"), "Select coa name", new { @Class = "form-control font-weight-bold" })
                 @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>
             @Html.ValidationMessageFor(model => model.headIdx, "", new { @class = "text-danger" })

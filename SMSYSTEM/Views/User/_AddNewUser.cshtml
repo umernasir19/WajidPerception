@@ -35,7 +35,6 @@
             @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
         </div>
     </div>
-
     <div class="row">
         <div class="col-sm-4">
             <!-- text input -->
@@ -66,11 +65,31 @@
             <div class="form-group">
                 <label>Password</label>
                 @Html.EditorFor(model => model.password, new { htmlAttributes = new { @placeholder = "Address", @class = "form-control" } })
+                Show Password: <input type="checkbox" id="showPass" class="checkbox"/>
             </div>
             @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
         </div>
     </div>
-
- 
+    @*<button id="show_password" class="btn btn-primary" type="button">  
+        <span class="fa fa-eye-slash icon"></span>  
+    </button>*@ 
 
 </form>
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $("#showPass").change(function () {
+            var checked = $(this).is(":checked");
+            if (checked) {
+                $("#password").attr("type", "text");
+            } else {
+                $("#password").attr("type", "password");
+            }
+        });
+
+    });
+
+  
+</script>

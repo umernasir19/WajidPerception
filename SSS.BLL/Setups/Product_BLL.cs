@@ -60,10 +60,10 @@ namespace SSS.BLL.Setups
             objProduct_DAL = new Product_DAL(objProductProperty);
             return objProduct_DAL.SelectById(id);
         }
-        public DataTable GetByTypeId(int id)
+        public DataTable GetByTypeId()
         {
             objProduct_DAL = new Product_DAL(objProductProperty);
-            return objProduct_DAL.SelectByTypeId(id);
+            return objProduct_DAL.SelectByTypeId();
         }
         public bool Insert()
         {

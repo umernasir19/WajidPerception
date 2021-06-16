@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SSS.Property.Setups
 {
-    [Serializable()]
+    //[Serializable()]
    public class WareHouse_Property
     {
         private int _Idx;

@@ -58,7 +58,7 @@ namespace SMSYSTEM.Controllers
               
                 Product_BLL objProductbll = new Product_BLL();
                 
-                objDisplayOrderVM.ProductList = Helper.ConvertDataTable<Product_Property>(objProductbll.GetByTypeId(1));//only local products
+                objDisplayOrderVM.ProductList = Helper.ConvertDataTable<Product_Property>(objProductbll.GetByTypeId());//only local products
                 Taxes_Property obj = new Taxes_Property();
                 if (id > 0)
                 {

@@ -37,13 +37,14 @@
         </div>
         <br />
         <div class="col-sm-6">
-            <!-- text input -->
             <div class="form-group">
-                <br />
-                <label>Tax Type</label>
-                @Html.CheckBoxFor(model => model.IsClaimble, new { htmlAttributes = new { @placeholder = "Tax Name", @class = "form-control" } })
+                <label for="inputName">tax type</label>
+                <select id="IsClaimble" class="form-control" name="IsClaimble">
+                    <option value="true">tax input</option>
+                    <option value="false">tax output</option>
+                    
+                </select>
             </div>
-            @Html.ValidationMessageFor(model => model.IsClaimble, "", new { @class = "text-danger" })
         </div>
       
     </div>

@@ -167,6 +167,8 @@
                 console.log(JSON.parse(data.data));
                 var status = "Blocked".toString();
                 var table = $('#example1').DataTable({
+                    "order": [[1, "desc"]],
+                
                     data: JSON.parse(data.data),
                     columns: [
                         { data: 'customerType' },

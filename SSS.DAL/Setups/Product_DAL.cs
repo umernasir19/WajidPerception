@@ -726,12 +726,12 @@ where pr.visible =1 and pr.HSCODE!=''";
             }
         }
 
-        public DataTable SelectByTypeId(int id)
+        public DataTable SelectByTypeId()
         {
             SqlCommand cmdToExecute = new SqlCommand();
             cmdToExecute.CommandText = @"select Concat(us.firstName,'',us.lastName) as userName,pc.* from products pc
                                         left join users us on pc.CreatedByUserIdx=us.idx
-                                        where pc.productTypeIdx=@idx and pc.visible=1";
+                                        where  pc.visible=1";
             //cmdToExecute.CommandType = CommandType.StoredProcedure;
             DataTable toReturn = new DataTable("Product");
             SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
@@ -741,7 +741,7 @@ where pr.visible =1 and pr.HSCODE!=''";
 
             try
             {
-                cmdToExecute.Parameters.Add(new SqlParameter("@idx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, id));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@idx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, id));
                 //cmdToExecute.Parameters.Add(new SqlParameter("@branchIdx", SqlDbType.Int, 500, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objUserProperty.branchIdx));
                 //cmdToExecute.Parameters.Add(new SqlParameter("@Company_Code", SqlDbType.VarChar, 20, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Company_Code));
                 //cmdToExecute.Parameters.Add(new SqlParameter("@Name", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Name));

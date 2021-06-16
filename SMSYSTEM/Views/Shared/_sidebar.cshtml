@@ -1,4 +1,16 @@
-﻿
+﻿<style>
+    hr.new3 {
+        content: '';
+        display: block;
+        margin-top: 2px;
+        border-top: 1px solid #8c8b8b;
+        border-bottom: 1px solid #fff;
+       
+    }
+
+     
+</style>
+
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-profile">
@@ -23,6 +35,7 @@
                 <span class="menu-title">Dashboard</span>
                 <span class="badge badge-success">New</span>
             </a>
+          
         </li>
         
         <li class="nav-item">
@@ -33,7 +46,7 @@
             </a>
             <div class="collapse" id="page-layouts">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/Company/ViewCompany/">Company</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/Company/ViewCompany/">Company</a><hr class="new3"></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/Branch/ViewBranch/">Branch</a></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/User/ViewUser/">User</a></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/firstTier/ViewfirstTier/">Chart Of Account</a></li>
@@ -49,9 +62,9 @@
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/Taxes/ViewTaxes">Tax </a></li> 
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/Vendor_Category/ViewVendorCategory/">Vendor Category</a></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/Vendor/ViewVEndors">Vendor </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="/Bank/ViewBanks/">View Banks</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/Bank/ViewBanks/">Bank List</a></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/Bank/ViewCompanyBanks/">Company Banks</a></li>
-                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/companyCurrency/ViewcompanyCurrency/">Company Currency</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/companyCurrency/ViewcompanyCurrency/">Currency</a></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/Departments/ViewDepartments/">Departments</a></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/CustomerBanks/ViewCustomerBanks/">Customer Bank </a></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/VendorBanks/ViewVendorBanks/">Vendor Bank</a></li>
@@ -59,7 +72,11 @@
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/Vendor/ViewVendorProcess/">Vendor Process</a></li>
                 </ul>
             </div>
+           
         </li>
+        
+        
+
         <li class="nav-item d-none d-lg-block">
             <a class="nav-link" data-toggle="collapse" href="#sidebar-layouts" aria-expanded="false" aria-controls="sidebar-layouts">
                 <i class="icon-basket-loaded menu-icon"></i>
@@ -71,6 +88,7 @@
                     <li class="nav-item"> <a class="nav-link" href="/Activity/ViewActivity/"> Local Purchase</a></li>
                     <li class="nav-item"> <a class="nav-link" href="/Activity/FinsihProducts/"> Finish Product</a></li>
                     <li class="nav-item"> <a class="nav-link" href="/DisplayOrder/ViewDisplayOrder/"> Display Order</a></li>
+                    
                     <li class="nav-item"> <a class="nav-link" href="/Commercial/ViewCI/">Performa Invoice</a></li>
                     <li class="nav-item"> <a class="nav-link" href="/Commercial/ViewCommercialInvoice/">Commercial Invoice</a></li>
                     @*<li class="nav-item"> <a class="nav-link" href="/Commercial/ViewConsigment/">Consigment</a></li>*@
@@ -82,7 +100,11 @@
 
                 </ul>
             </div>
+         
         </li>
+
+     
+
         <li class="nav-item d-none d-lg-block">
             <a class="nav-link" data-toggle="collapse" href="#sidebar_Layout1" aria-expanded="false" aria-controls="sidebar-layouts">
                 <i class="icon-share-alt menu-icon"></i>
@@ -97,7 +119,10 @@
                     <li class="nav-item"> <a class="nav-link" href="/Inventory/InventoryMovement/">Inventory Transfer</a></li>
                 </ul>
             </div>
+      
         </li>
+    
+
         <li class="nav-item d-none d-lg-block">
             <a class="nav-link" data-toggle="collapse" href="#sidebar_Layout" aria-expanded="false" aria-controls="sidebar-layouts">
                 <i class="icon-share-alt menu-icon"></i>
@@ -113,7 +138,9 @@
                     <li class="nav-item"> <a class="nav-link" href="/Receipt/Receipts/">Receipt</a></li>
                 </ul>
             </div>
+          
         </li>
+        
         @*<li class="nav-item d-none d-lg-block">
             <a class="nav-link" data-toggle="collapse" href="#sidebar_Layout1" aria-expanded="false" aria-controls="sidebar-layouts">
                 <i class="icon-share-alt menu-icon"></i>
@@ -143,7 +170,9 @@
 
                 </ul>
             </div>
+        
         </li>
+        
         <li class="nav-item d-none d-lg-block">
             <a class="nav-link" data-toggle="collapse" href="#report" aria-expanded="false" aria-controls="sidebar-layouts">
                 <i class="icon-share-alt menu-icon"></i>
@@ -157,6 +186,8 @@
 
                 </ul>
             </div>
+            
         </li>
+       
     </ul>
 </nav>

@@ -143,5 +143,11 @@ namespace SSS.Property.Transactions
             get { return _TADVRate; }
             set { _TADVRate = value; }
         }
+        private decimal _grandTotalAVPKR;
+        public decimal grandTotalAVPKR //Added By Arsalan 10-06-21
+        {
+            get { return _grandTotalAVPKR; }
+            set { _grandTotalAVPKR = value; }
+        }
     }
 }

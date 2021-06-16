@@ -89,6 +89,7 @@ namespace SMSYSTEM.Controllers
             {
                 try
                 {
+                   
                     if (objbranch.idx > 0)
                     {
 
@@ -109,7 +110,8 @@ namespace SMSYSTEM.Controllers
                             var check = objBranch.MainBranch();
                             if (check.Rows.Count > 0)
                             {
-                                return Json(new { data = "Main Branch Already Exist", success = false, statuscode = 500 }, JsonRequestBehavior.AllowGet);
+
+                                return Json(new { data = "Main Branch Already Exist", success = false, msg="failed", statuscode = 500 }, JsonRequestBehavior.AllowGet);
                             }
                         }
 

@@ -133,7 +133,11 @@ namespace SSS.DAL.Transactions
                 if (_objPerformaMaster.DetailData != null)
                 {
                     foreach (DataRow row in _objPerformaMaster.DetailData.Rows)
+                    {
                         row["purchaseIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+                        row["grandTotalAVPKR"] = (decimal.Parse(row["TADVRate"].ToString()) * (_objPerformaMaster.ExchangeRate)).ToString();
+                    }
+                    
 
                     _objPerformaMaster.DetailData.AcceptChanges();
 
@@ -155,6 +159,7 @@ namespace SSS.DAL.Transactions
                     sbc.ColumnMappings.Add("amount", "TDVRate");
                     sbc.ColumnMappings.Add("ADVRate", "ADVRate");
                     sbc.ColumnMappings.Add("TADVRate", "TADVRate");
+                    sbc.ColumnMappings.Add("grandTotalAVPKR", "grandTotalAVPKR");
                     //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
                     //sbc.ColumnMappings.Add("Product", "Product_Name");
                     //sbc.ColumnMappings.Add("Status", "Status");

@@ -200,6 +200,7 @@
                 console.log(JSON.parse(data.data));
                 var status = "Blocked".toString();
                 var table = $('#example1').DataTable({
+                    "order": [[4, "desc"]],
                     data: JSON.parse(data.data),
                     columns: [
 
@@ -270,19 +271,28 @@
 
         }
 
-        function ConfirmDelete(CustomerID) {
 
+        function ConfirmDelete(CustomerID) {
             $.ajax({
                 type: 'GET',
                 url: '/Product/Delete?id=' + CustomerID,
                 dataType: 'JSON',
                 success: function (res) {
                     if (res.success) {
-                      
+                        alert("Done");
+                        swalWithBootstrapButtons.fire(
+                            'Done!',
+                            'Blocked',
+                            'success'
+                        )
                         window.location.href = "/Product/ViewProduct/"
                     }
                     else {
-                        window.location.href = "/Product/ViewProduct/"
+                        swalWithBootstrapButtons.fire(
+                            'Error!',
+                            'Failes',
+                            'success'
+                        )
                     }
                 },
                 failure: function (res) {
@@ -293,42 +303,10 @@
                 }
             })
 
-            //const swalWithBootstrapButtons = Swal.mixin({
-            //    customClass: {
-            //        confirmButton: 'btn btn-success',
-            //        cancelButton: 'btn btn-danger'
-            //    },
-            //    buttonsStyling: false
-            //})
-
-            //swalWithBootstrapButtons.fire({
-            //    title: 'Are you sure?',
-            //    text: "",
-            //    type: 'warning',
-            //    showCancelButton: true,
-            //    confirmButtonText: 'Yes, Block!',
-            //    cancelButtonText: 'No, cancel!',
-            //    reverseButtons: true
-            //}).then((result) => {
-            //    if (result.value) {
-
-
-
-
-            //    } else if (
-            //        /* Read more about handling dismissals below */
-            //      result.dismiss === Swal.DismissReason.cancel
-            //    ) {
-            //        swalWithBootstrapButtons.fire(
-            //          'Cancelled',
-            //          '',
-            //          'error'
-            //        )
-            //    }
-            //})
-
         }
 
+
+      
 
 
        

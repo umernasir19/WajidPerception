@@ -487,7 +487,9 @@ namespace SSS.DAL
         public DataTable SelectByBranchId()
         {
             SqlCommand cmdToExecute = new SqlCommand();
-            cmdToExecute.CommandText = @"select idx,branchName from branch where idx=@idx ";
+//            cmdToExecute.CommandText = @"select idx,branchName from branch where idx=@idx ";
+            cmdToExecute.CommandText = @"select idx,branchName from branch where visible=1 ";
+
             /*mdToExecute.CommandText = CommandType.StoredProcedure;*/
             DataTable toReturn = new DataTable("Branch");
             SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
@@ -497,7 +499,7 @@ namespace SSS.DAL
             cmdToExecute.CommandTimeout = 0;
             try
             {
-                cmdToExecute.Parameters.Add(new SqlParameter("@idx", SqlDbType.Int, 100, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objUserProperty.branchIdx));
+               // cmdToExecute.Parameters.Add(new SqlParameter("@idx", SqlDbType.Int, 100, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objUserProperty.branchIdx));
 
                 if (_mainConnectionIsCreatedLocal)
                 {

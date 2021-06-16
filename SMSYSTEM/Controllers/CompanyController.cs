@@ -17,7 +17,7 @@ namespace SMSYSTEM.Controllers
         Company_Property objCompanyProperty;
         public ActionResult ViewCompany()
         {
-            if (Session["LOGGEDIN"] != null)
+            if (Session["LOGGEDIN"] != null && Session["ISADMIN"] != null)
             {
                 return View();
             }

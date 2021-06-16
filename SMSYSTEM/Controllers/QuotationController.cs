@@ -135,6 +135,7 @@ namespace SMSYSTEM.Controllers
                 //  objPurchaseProperty.paidDate = ;// objpurchase.paidDate;
 
                 objQuotationProperty.DetailData = Helper.ToDataTable<QuotationDetails_Property>(objquotation.QuotationDetailLST);
+
                 objQuotationProperty.SalesTaxData = Helper.ToDataTable<LP_salesTaxes_Property>(objquotation.salesTaxesLST);
                 if (objquotation.idx > 0)
                 {

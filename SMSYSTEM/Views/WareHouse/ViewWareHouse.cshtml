@@ -188,10 +188,10 @@
                             //    }
 
                               //  return data.Status + "<br/>" + data.Name;
-                            "data": "Idx",
+                            "data": "idx",
                             "render": function (idx, type, full, meta) {
 
-                                return ''//'<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a> <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a>'
+                                return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a> <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a>'
 
                         },
                             "orderable": true,
@@ -207,15 +207,15 @@
 
         });
 
-        function ShowCustomer(CustomerID) {
+        function ShowCustomer(idx) {
 
-            console.log(CustomerID);
+            console.log(idx);
 
-            var url = "/Customer/AddNewCustomer?Id=" + CustomerID;
-           // window.location.href = url;
+            var url = "/WareHouse/AddNewWareHouse?id=" + idx;
+            // window.location.href = url;
 
             $("#modelbody").load(url, function (e) {
-                var id = $('#Customer_Id').val();
+                var id = $('#idx').val();
                 if (id > 0) {
                     $('#btnaddnewclient').html("update ");
                 }
@@ -223,10 +223,10 @@
             });
         }
 
-        function ConfirmDelete(CustomerID) {
+        function ConfirmDelete(idx) {
             $.ajax({
                 type: 'GET',
-                url: '/Customer/Delete?id=' + CustomerID,
+                url: '/Warehouse/Delete?id=' + idx,
                 dataType: 'JSON',
                 success: function (res) {
                     if (res.success) {
@@ -235,7 +235,7 @@
                             'Blocked',
                             'success'
                             )
-                        window.location.href = "/Client/ViewClient"
+                        window.location.href = "/Warehouse/ViewWareHouse"
                     }
                     else {
                         swalWithBootstrapButtons.fire(

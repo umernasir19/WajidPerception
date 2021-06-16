@@ -27,6 +27,14 @@ namespace SSS.BLL.Setups
             objwarehousedal = new WareHouse_DAL(objwarehouse);
             return objwarehousedal.Insert();
         }
+
+        // Delete
+        public bool Delete()
+        {
+            objwarehousedal = new WareHouse_DAL(objwarehouse);
+            return objwarehousedal.Delete();
+        }
+
         public DataTable SelectAll()
         {
             objwarehousedal = new WareHouse_DAL(objwarehouse);

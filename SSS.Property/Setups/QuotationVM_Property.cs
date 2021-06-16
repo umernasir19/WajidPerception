@@ -9,6 +9,13 @@ namespace SSS.Property.Setups
 {
     public class QuotationVM_Property
     {
+        // Added By Ahsan 
+        public int taxType { get; set; } //Added By Arsalan
+        public int quotationIdx { get; set; } //Added By Arsalan
+        public int taxIdx { get; set; }
+        public int saleIdx { get; set; }
+        public decimal taxPercent { get; set; }
+
         //public int? MRNIdx { get; set; }
         //public List<LP_MRN_Master_Property> MRList { get; set; }
         public int idx { get; set; }

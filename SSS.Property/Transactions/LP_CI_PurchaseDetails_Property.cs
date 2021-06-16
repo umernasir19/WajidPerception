@@ -267,6 +267,8 @@ namespace SSS.Property.Transactions
         }
 
         public decimal clearingpercentage { get; set; }
+        public decimal clearingExpensePerProduct { get; set; } //Added By Arsalan 11-06-21
+        public decimal pricePerProduct { get; set; } //Added By Arsalan 11-06-21
 
     }
 }

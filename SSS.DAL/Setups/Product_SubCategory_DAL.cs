@@ -183,7 +183,7 @@ where [idx]=@idx
         public override DataTable SelectAll()
         {
             SqlCommand cmdToExecute = new SqlCommand();
-            cmdToExecute.CommandText = @"select ppc.Category,pc.HS_CodeSub as HSCODE, Concat(us.firstName,'',us.lastName) as userName,pc.* from Product_SubCategory pc
+            cmdToExecute.CommandText = @"select ppc.Category, concat(ppc.HSCodeCat,'-',pc.HS_CodeSub) as HSCODE, Concat(us.firstName,'',us.lastName) as userName,pc.* from Product_SubCategory pc
                                         left join users us on pc.CreatedByUserIdx=us.idx
                                         left join Product_Category ppc on pc.product_catIdx=ppc.idx
                                         where pc.visible=1";
