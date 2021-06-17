@@ -12,7 +12,7 @@ namespace SSS.Property.Transactions
         public decimal qty { get; set; }
         public decimal amount { get; set; }
         public decimal unitPrice { get; set; }
-        public int ItemIdx { get; set; }
+        public int itemIdx { get; set; }
         public List<LP_InventoryLogs_Property> inventory_logs_list { get; set; }
         public List<LP_ImportedExpense_Master_Property> tempList { get; set; }
      

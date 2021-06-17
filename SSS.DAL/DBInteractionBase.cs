@@ -33,7 +33,8 @@ namespace  SNDDAL
 		bool		Update();
 		bool		Delete();
 		DataTable	SelectOne();
-		DataTable	SelectAll();
+        DataTable SelectItemsData();
+        DataTable	SelectAll();
 	}
 
 
@@ -186,12 +187,21 @@ namespace  SNDDAL
 			throw new NotImplementedException();
 		}
 
+        public virtual DataTable SelectAll()
+        {
 
-		/// <summary>
-		/// Purpose: Implements the ICommonDBAccess.SelectAll() method.
-		/// </summary>
+            // Convert from row to property list
+
+
+            // No implementation, throw exception
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Purpose: Implements the ICommonDBAccess.SelectAll() method.
+        /// </summary>
         /// return List<propertyBaseclass>
-		public virtual  DataTable SelectAll()
+        public virtual  DataTable SelectItemsData()
 		{
 
             // Convert from row to property list

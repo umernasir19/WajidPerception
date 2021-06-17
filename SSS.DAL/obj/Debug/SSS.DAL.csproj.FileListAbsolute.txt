@@ -617,3 +617,14 @@ E:\Perception BP\11-6-21\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Utility.pd
 E:\Perception BP\11-6-21\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.csprojResolveAssemblyReference.cache
 E:\Perception BP\11-6-21\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.dll
 E:\Perception BP\11-6-21\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.pdb
+E:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.DAL\bin\Debug\SSS.DAL.dll.config
+E:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.DAL\bin\Debug\SSS.DAL.dll
+E:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.DAL\bin\Debug\SSS.DAL.pdb
+E:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Property.dll
+E:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Utility.dll
+E:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.DAL\bin\Debug\AjaxControlToolkit.dll
+E:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Property.pdb
+E:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.DAL\bin\Debug\SSS.Utility.pdb
+E:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.csprojResolveAssemblyReference.cache
+E:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.dll
+E:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.DAL\obj\Debug\SSS.DAL.pdb

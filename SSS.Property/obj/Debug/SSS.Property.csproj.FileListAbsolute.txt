@@ -356,3 +356,8 @@ E:\Perception BP\11-6-21\WajidPerception-master\SSS.Property\bin\Debug\SSS.Prope
 E:\Perception BP\11-6-21\WajidPerception-master\SSS.Property\obj\Debug\SSS.Property.csprojResolveAssemblyReference.cache
 E:\Perception BP\11-6-21\WajidPerception-master\SSS.Property\obj\Debug\SSS.Property.dll
 E:\Perception BP\11-6-21\WajidPerception-master\SSS.Property\obj\Debug\SSS.Property.pdb
+E:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.Property\bin\Debug\SSS.Property.dll
+E:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.Property\bin\Debug\SSS.Property.pdb
+E:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.Property\obj\Debug\SSS.Property.csprojResolveAssemblyReference.cache
+E:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.Property\obj\Debug\SSS.Property.dll
+E:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.Property\obj\Debug\SSS.Property.pdb

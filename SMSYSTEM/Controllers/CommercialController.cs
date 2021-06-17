@@ -780,15 +780,15 @@ namespace SMSYSTEM.Controllers
                 else
                 {
                     // Added By Ahsan
-                  
+
                     objDOBll = new LP_ImportedExpense_BLL(objDOProperty);
-                    
-                   
+
+
                     objDOProperty.tempList = Helper.ConvertDataTable<LP_ImportedExpense_Master_Property>(objDOBll.SelectItemsData());
 
                     for (int i = 0; i < objDOProperty.tempList.Count; i++)
                     {
-                        objDOProperty.ItemIdx = objDOProperty.tempList[i].idx;
+                        objDOProperty.itemIdx = objDOProperty.tempList[i].itemIdx;
                         objDOProperty.qty = objDOProperty.tempList[i].qty;
                         objDOProperty.unitPrice = objDOProperty.tempList[i].unitPrice;
                         objDOProperty.amount = objDOProperty.tempList[i].amount;
@@ -796,7 +796,7 @@ namespace SMSYSTEM.Controllers
                         objDOBll = new LP_ImportedExpense_BLL(objDOProperty);
                         flag = objDOBll.Insertinventory();
                     }
-                    
+
 
                     //add
                     objDOProperty.idx = objImportedExpense.idx;

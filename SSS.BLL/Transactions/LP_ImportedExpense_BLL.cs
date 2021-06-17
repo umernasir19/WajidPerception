@@ -75,7 +75,7 @@ namespace SSS.BLL.Transactions
         public DataTable SelectItemsData()
         {
             _objIEDAL = new LP_ImportedExpense_DAL(_objIEMasterProperty);
-            return _objIEDAL.SelectItemData();
+            return _objIEDAL.SelectOneItem();
         }
 
 

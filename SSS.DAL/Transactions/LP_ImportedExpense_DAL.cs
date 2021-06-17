@@ -216,16 +216,22 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
                 //    sbc.WriteToServer(_objIEMasterProperty.DetailDataInventory_logs);
 
                 //}
-                cmdToExecute = new SqlCommand();
-                cmdToExecute.CommandText = "dbo.[sp_selectCommercialItemData]";
-                cmdToExecute.CommandType = CommandType.StoredProcedure;
-                DataSet toReturn = new DataSet("Select Item Data");
-                SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
-                cmdToExecute.Parameters.Add(new SqlParameter("@id", SqlDbType.Int, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.commercialIdx));
-                cmdToExecute.Parameters.Add(new SqlParameter("@ieIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, decimal.Parse(ieIdx)));
-                adapter.Fill(toReturn);
-                cmdToExecute.Transaction = this.Transaction;
-                _rowsAffected = cmdToExecute.ExecuteNonQuery();
+
+
+                // Commented by Ahsan
+                //cmdToExecute = new SqlCommand();
+                //cmdToExecute.CommandText = "dbo.[sp_selectCommercialItemData]";
+                //cmdToExecute.CommandType = CommandType.StoredProcedure;
+                //DataSet toReturn = new DataSet("Select Item Data");
+                //SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
+                //cmdToExecute.Parameters.Add(new SqlParameter("@id", SqlDbType.Int, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.commercialIdx));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@ieIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, decimal.Parse(ieIdx)));
+                //adapter.Fill(toReturn);
+                //cmdToExecute.Transaction = this.Transaction;
+                //_rowsAffected = cmdToExecute.ExecuteNonQuery();
+                
+                
+                
                 //cmdToExecute = new SqlCommand();
                 //// cmdToExecute.CommandType = CommandType.StoredProcedure;
                 //cmdToExecute.CommandType = CommandType.StoredProcedure;
@@ -461,7 +467,7 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
             try
             {
                     //Added By Ahsan
-                    cmdToExecute.Parameters.Add(new SqlParameter("@productIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.ItemIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@productIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.itemIdx));
                     cmdToExecute.Parameters.Add(new SqlParameter("@stock", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.qty));
                     cmdToExecute.Parameters.Add(new SqlParameter("@unitPrice", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.unitPrice));
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalAmount", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.amount));
@@ -697,7 +703,8 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
         }
 
         // Added By Ahsan
-        public  DataTable SelectItemData()
+
+        public DataTable SelectOneItem()
         {
             SqlCommand cmdToExecute = new SqlCommand();
             cmdToExecute.CommandText = "dbo.[sp_selectItemData]";
@@ -767,6 +774,79 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
                 adapter.Dispose();
             }
         }
+
+
+
+        //public override DataTable SelectItemsData()
+        //{
+        //    SqlCommand cmdToExecute = new SqlCommand();
+        //    cmdToExecute.CommandText = "dbo.[sp_selectItemData]";
+        //    cmdToExecute.CommandType = CommandType.StoredProcedure;
+        //    DataTable toReturn = new DataTable("Select Item Data");
+        //    SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
+
+        //    // Use base class' connection object
+        //    cmdToExecute.Connection = _mainConnection;
+
+        //    try
+        //    {
+        //        cmdToExecute.Parameters.Add(new SqlParameter("@id", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.commercialIdx));
+
+        //        if (_mainConnectionIsCreatedLocal)
+        //        {
+        //            // Open connection.
+        //            _mainConnection.Open();
+        //        }
+        //        else
+        //        {
+        //            if (_mainConnectionProvider.IsTransactionPending)
+        //            {
+        //                cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+        //            }
+        //        }
+
+        //        // Execute query.
+        //        adapter.Fill(toReturn);
+
+
+        //        if (toReturn.Rows.Count > 0)
+        //        {
+        //            //ObjDepartmentProperty.Department_Id = (Int32)toReturn.Rows[0]["ID"];
+        //            //ObjDepartmentProperty.DepartmentName = (string)toReturn.Rows[0]["DepartmentName"];
+        //            //objBankProperty.idx = Convert.ToInt32(toReturn.Rows[0]["idx"]);// == System.DBNull.Value ? SqlInt32.Null : (Int32)toReturn.Rows[0]["idx"]);
+        //            //objBankProperty.bankName = (toReturn.Rows[0]["bankName"].ToString());// == System.DBNull.Value ? SqlString.Null : (string)toReturn.Rows[0]["bankName"]).ToString();
+        //            //objBankProperty.creationDate = Convert.ToDateTime((toReturn.Rows[0]["creationDate"]));// == System.DBNull.Value ? SqlString.Null : (string)toReturn.Rows[0]["creationDate"]));
+
+        //            //objBankProperty.visible = (int)toReturn.Rows[0]["visible"];
+        //            //objBankProperty.createdByUserIdx = (int)toReturn.Rows[0]["createdByUserIdx"];
+
+        //            // ObjDepartmentProperty.ISActive = (bool)toReturn.Rows[0]["IsActive"];
+        //            // //toReturn.Rows[0]["Product_Form_ID"] == System.DBNull.Value ? SqlInt32.Null : (Int32)toReturn.Rows[0]["Product_Form_ID"];
+        //            // ObjDepartmentProperty.UserId = (int)toReturn.Rows[0]["UserID"];
+        //            //string a= (toReturn.Rows[0]["bankName"] == System.DBNull.Value ? SqlString.Null : (string)toReturn.Rows[0]["bankName"]).ToString();
+        //            // ObjDepartmentProperty.CreatedDate = (DateTime)toReturn.Rows[0]["DateCreated"];
+        //            //   ObjDepartmentProperty.CustomerAddress = (string)toReturn.Rows[0]["Address"];
+        //            //  toReturn.Rows[0]["Product_Parent_Code"] == System.DBNull.Value ? SqlInt32.Null : (Int32)toReturn.Rows[0]["Product_Parent_Code"];
+
+        //        }
+        //        return toReturn;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // some error occured. Bubble it to caller and encapsulate Exception object
+        //        throw new Exception("PRODUCT_SETUP::SelectOne::Error occured.", ex);
+        //    }
+        //    finally
+        //    {
+        //        if (_mainConnectionIsCreatedLocal)
+        //        {
+        //            // Close connection.
+        //            _mainConnection.Close();
+        //        }
+        //        cmdToExecute.Dispose();
+        //        adapter.Dispose();
+        //    }
+        //}
         public DataSet SelectCommercialInvoiceDetailData(int MasterIdx,decimal ieIdx)
         {
             SqlCommand cmdToExecute = new SqlCommand();
