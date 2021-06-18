@@ -123,6 +123,7 @@ namespace SMSYSTEM.Controllers
 
 
                     objGDNProperty.TableName = "GDN_Detail";
+                    objGDNProperty.Status = "Active";
                     objGDNBLL = new LP_GDN_BLL(objGDNProperty);
                     flag = objGDNBLL.Insert();
                 }

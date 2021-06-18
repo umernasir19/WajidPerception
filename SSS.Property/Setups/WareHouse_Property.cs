@@ -36,8 +36,8 @@ namespace SSS.Property.Setups
             set { _WareHouseName = value; }
         }
 
-        private string _CreationDate;
-        public string CreationDate
+        private DateTime _CreationDate;
+        public DateTime CreationDate
         {
             get { return _CreationDate; }
             set { _CreationDate = value; }

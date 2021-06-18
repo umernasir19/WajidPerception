@@ -355,7 +355,9 @@ namespace SMSYSTEM.Controllers
 
                 //List<LP_FinsihProduct_Property> objlistfinishprdct = new List<LP_FinsihProduct_Property>();
                  obj.orderIdx = objPI.orderIdx;
-                 
+                 obj.typeIdx = objPI.typeIdx;
+
+
                 if (objPI.InventoryDetails.Count > 0)
                 {
 

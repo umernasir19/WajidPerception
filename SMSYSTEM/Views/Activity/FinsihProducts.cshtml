@@ -7,18 +7,61 @@
     <h3>Finish Product</h3>
     <br />
     <form role="form" id="purchaseform">
+        
+       @* Added By Ahsan*@
+       <div class="row">
+           <div class="col-sm-3">
+               <!-- text input -->
+               <div class="form-group">
+                   <label>Reference:</label>
+                   @{
+                       
+                           @Html.DropDownListFor(model => model.typeIdx, new List<SelectListItem>
+                           {
+                               new SelectListItem {Text="Select Type",Value="0" },
+                               new SelectListItem {Text=" Sales Order",Value="1" },
+                               new SelectListItem {Text="Display Order",Value="2" }
+                           }, new { @class = "form-control" })
+                       
+                       
+                   }
+                   
+               </div>
+               @Html.ValidationMessageFor(model => model.typeIdx, "", new { @class = "text-danger" })
+           </div>
+       </div>
+       
+       <div class="col-sm-3 " id="ddlOrder">
+           <!-- text input -->
+           <div class="form-group">
+               <label>Order#:</label>
+
+               @Html.DropDownListFor(m => m.orderIdx,
+                   new SelectList(Enumerable.Empty<SelectListItem>(), "idx", "soNumber"),
+                   "Select Order",
+                   new { @class = "form-control" })
 
 
-        <div class="row">
 
-            <div class="col-sm-4">
+               @Html.ValidationMessageFor(m => m.orderIdx, "", new { @class = "text-danger" })
+           </div>
+
+       </div>
+       
+
+        
+
+
+       <div class="row">
+
+            @*<div class="col-sm-4">*@
                 <!-- text input -->
-                <div class="form-group">
-                    <label>Order#:</label>
-                    @Html.DropDownListFor(model => model.orderIdx, new SelectList(Model.salesOrderLST, "idx", "soNumber"), "Select Order", new { @Class = "form-control font-weight-bold" })
-                </div>
-                @Html.ValidationMessageFor(model => model.orderIdx, "", new { @class = "text-danger" })
-            </div>
+                @*<div class="form-group">*@
+                  @*  <label>Order#:</label>*@
+                 @*   @Html.DropDownListFor(model => model.orderIdx, new SelectList(Model.salesOrderLST, "idx", "soNumber"), "Select Order", new { @Class = "form-control font-weight-bold" })*@
+             @*</div>*@
+              @*  @Html.ValidationMessageFor(model => model.orderIdx, "", new { @class = "text-danger" })*@
+            @*</div>*@
             <div class="col-sm-3">
                 <!-- text input -->
                 <div class="form-group">
@@ -151,6 +194,83 @@
         //    }
         //});
        
+        // Added By Ahsan
+        $("#typeIdx").on('change', function () {
+            var value = $("#typeIdx option:selected").val();
+            if (value == 1)
+            {
+                $.getJSON("@Url.Action("getSalesOrders", "Activity")", null,
+                       function (data) {
+
+                           $("#orderIdx").empty();
+                           $("#ddlOrder").show();
+                           $('#orderIdx').append($('<option>',
+                                {
+                                    value: "",
+                                    text: "Select Order"
+                                }));
+                           for (var i = 0; i < data.data.length; i++) {
+
+                            
+
+
+                               // }else{
+                               $('#orderIdx').append($('<option>',
+                                       {
+                                           value: data.data[i].idx,
+                                           text: data.data[i].soNumber
+                                       }));
+                               //}
+
+                           }
+
+
+
+
+                       });
+            }
+            else if (value == 2) {
+                $.getJSON("@Url.Action("getDisplayOrder", "Activity")", null,
+                       function (data) {
+
+                           $("#orderIdx").empty();
+                           $("#ddlOrder").show();
+                           $('#orderIdx').append($('<option>',
+                                {
+                                    value: "",
+                                    text: "Select Order"
+                                }));
+                           for (var i = 0; i < data.data.length; i++) {
+                               
+                               
+                               // }
+                               // else{
+                           $('#orderIdx').append($('<option>',
+                                   {
+                                       value: data.data[i].idx,
+                                       text: data.data[i].doNumber
+                                   }));
+                               //}
+                           }
+
+
+
+
+                       });
+            }
+            else
+            {
+                $("#orderIdx").html("");
+
+                $('#orderIdx').append($('<option>',
+                                {
+                                    value: "",
+                                    text: "Select Order"
+                                }));
+                $('#ddlOrder').hide();
+            }
+
+        });
 
         $('#branchIdx').change(function() {
 
@@ -183,6 +303,7 @@
                 objPI: {
                     idx: $('#idx').val(),
                     orderIdx: $('#orderIdx').val(),
+                    typeIdx: $('#typeIdx').val(),
                     TotalAmount: $('#totalAmount').val(),
                     branchIdx: $('#branchIdx').val(),
                     warehouseIdx: $('#FromWareHouseId').val(),
