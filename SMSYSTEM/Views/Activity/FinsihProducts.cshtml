@@ -333,7 +333,9 @@
                     totalAmount: stock * unitPrice,
                     TransactionTypeID: 1,
                     MasterID: orderIdx,
-                    additionalAmount: additionalAmount
+                    additionalAmount: additionalAmount,
+                    BRANCHID: $('#branchIdx').val(),
+                    wareHouseIdx: $('#FromWareHouseId').val()
 
                 });
 

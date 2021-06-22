@@ -68,7 +68,7 @@ namespace SMSYSTEM.Controllers
                     objBranchProperty.companyIdx = int.Parse(dt.Rows[0]["companyIdx"].ToString());
                     objBranchProperty.branchName = dt.Rows[0]["branchName"].ToString();
                     objBranchProperty.address = dt.Rows[0]["address"].ToString();
-                    objBranchProperty.contactNumber = int.Parse(dt.Rows[0]["contactNumber"].ToString());
+                    objBranchProperty.contactNumber = dt.Rows[0]["contactNumber"].ToString();
                     objBranchProperty.isMainBranch = int.Parse(dt.Rows[0]["isMainBranch"].ToString());
                     //objBranchProperty.address = dt.Rows[0]["address"].ToString();
                 }

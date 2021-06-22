@@ -42,8 +42,8 @@ namespace SSS.Property.Setups
             set { _address = value; }
         }
 
-        private int _contactNumber;
-        public int contactNumber
+        private string _contactNumber;
+        public string contactNumber
         {
             get { return _contactNumber; }
             set { _contactNumber = value; }

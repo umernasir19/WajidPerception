@@ -62,7 +62,7 @@ namespace SSS.DAL.Transactions
                     cmdToExecute.Parameters.Add(new SqlParameter("@unitPrice", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.unitPrice));
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalAmount", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.totalAmount));
                     cmdToExecute.Parameters.Add(new SqlParameter("@warehouseIdx", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.warehouseIdx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@branchidx", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.branchIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@branchIdx", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.branchIdx));
 
                 }
 
@@ -95,7 +95,7 @@ namespace SSS.DAL.Transactions
                 {
                     foreach (DataRow row in _objACTasterProperty.DetailData.Rows)
                     {
-                        row["MasterID"] = _objACTasterProperty.orderIdx.ToString();
+                        row["MasterID"] = _objACTasterProperty.orderIdx;
                         row["TransactionTypeID"] = "1";
                         row["creationDate"] = DateTime.Now.ToString("yyyy-MM-dd");
                     }
@@ -133,6 +133,9 @@ namespace SSS.DAL.Transactions
                     sbc.ColumnMappings.Add("unitPrice", "unitPrice");
                     sbc.ColumnMappings.Add("totalAmount", "totalAmount");
                     sbc.ColumnMappings.Add("creationDate", "creationDate");
+                    sbc.ColumnMappings.Add("BRANCHID", "BRANCHID");
+                    sbc.ColumnMappings.Add("wareHouseIdx", "wareHouseIdx");
+
                     //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
                     //sbc.ColumnMappings.Add("Product", "Product_Name");
                     //sbc.ColumnMappings.Add("Status", "Status");

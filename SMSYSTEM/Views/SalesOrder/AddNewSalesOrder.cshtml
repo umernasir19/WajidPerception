@@ -521,7 +521,7 @@
         else {
 
             $('#paymntmethodoptions').hide();
-            $('#divTxtPaid').hide();
+            $('#divTxtPaid').show();
             $('#paidAmount').val('0.00');
             calculation();
         }
@@ -1091,7 +1091,7 @@
                 balanceAmount:$('#balanceAmount').val(),
                 taxAount:$('#taxAount').val(),
                 discount:$('#discount').val(),
-                shippingCost:$('shippingCost').val(),
+                shippingCost:$('#shippingCost').val(),
                 qsIdx: $("#qsIdx option:selected").val(),
                 description: $("#description").val(),
                 reference : $('#reference').val(),
@@ -1205,7 +1205,7 @@
     $('#paymenttype').on('change', function () {
         if ( $('#paymenttype option:selected').val()==0) {
             $('#paymntmethodoptions').hide();
-            $('#divTxtPaid').hide();
+            $('#divTxtPaid').show();
             $('#paidAmount').val('0.00');
             calculation();
         }
@@ -1215,14 +1215,15 @@
         }
         if ($('#paymenttype option:selected').val() == 2) {
             $('#paymntmethodoptions').show();
-            $('#cheqno').hide();
+            $('#cheqno').show();
+            $('#banks').hide();
             $('#customerBanks').hide();
             $('#divTxtPaid').show();
         }
 
         if ($('#paymenttype option:selected').val() == 3) {
             $('#paymntmethodoptions').show();
-            $('#cheqno').show();
+            $('#cheqno').hide();
             $('#customerBanks').hide();
             $('#divTxtPaid').show();
         }
@@ -1239,7 +1240,7 @@
     });
     if($('#paymenttype').val()==0)
     {
-        $('#divTxtPaid').hide();
+        $('#divTxtPaid').show();
         $('#paidAmount').val('0.00');
     }
     $('#paidAmount').on('keyup', function (){
