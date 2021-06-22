@@ -64,6 +64,7 @@ namespace SSS.Property.Setups
         public List<Customers_Property> CustomerLST { get; set; }
 
         public List<Product_Property> ProductList { get; set; }
+        public List<SalesPerson_Property> SalesPersonList { get; set; }
 
         public List<PaymentMode_Property> Paymentmodelist { get; set; }//important to be Added
         public List<Company_Bank_Property> BankList { get; set; }

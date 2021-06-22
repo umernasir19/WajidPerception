@@ -113,6 +113,7 @@
     <Compile Include="Setups\Reports\LP_Report_Property.cs" />
     <Compile Include="Setups\SalesOrdersDetails_Property.cs" />
     <Compile Include="Setups\SalesOrderVM_Property.cs" />
+    <Compile Include="Setups\SalesPerson_Property.cs" />
     <Compile Include="Setups\Suppliers_Property.cs" />
     <Compile Include="Setups\Taxes_Property.cs" />
     <Compile Include="Setups\User_Property.cs" />

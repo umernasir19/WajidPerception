@@ -634,6 +634,8 @@
                     ExchangeRate: $('#exchangerate').val(),
                     grandTotalAVPKR: $("#grandTotalAVPKR").val(),
                     numberOfProducts: $("#numberOfProducts").val(),
+
+                    
                     //ContainerNo: $('#ContainerNo').val(),
                     //DocumentNumber: $('#DocumentNumber').val(),
                     //ExchangeRate:$('#ExchangeRate').val(),
@@ -650,14 +652,23 @@
             var milestonedetails = {
             };
             var pomasternetamount = 0;
+            var ExchangeRate = $('#exchangerate').val();
+
             table.find('tr').each(function (i) {
                 var $tds = $(this).find('td'),
                     productid = $tds.eq(0).text(),
                     qty = $tds.eq(2).text(),
                     unitprice = $tds.eq(3).text(),
+                    TotalACDvalue = $tds.eq(22).text(),
+                    Totallanding = $tds.eq(19).text(),
+                    landing = $tds.eq(8).text(),
+
+                    TDtax = $tds.eq(15).text(),
+
                     DVRate = $tds.eq(3).text(),
                     TDVRate = $tds.eq(4).text(),
                     ADVRate = $tds.eq(5).text();
+
                 datatosend.objpurchase.CILIST.push({
                     itemIdx: productid,
                     qty: qty,
@@ -687,8 +698,13 @@
                     TotalACDValue: $tds.eq(22).text(),
                     TotalASTValue: $tds.eq(23).text(),
                     TotalITValue: $tds.eq(24).text(),
-                    TotalSTValue: $tds.eq(25).text()
+                    TotalSTValue: $tds.eq(25).text(),
+                     
+                    // Added By Ahsan
+                    clearingExpensePerProduct: (TotalACDvalue * ExchangeRate) * 0.25,
 
+                    //                Actual Value PKR        TD-Tax   clearing expense                         qty
+                    pricePerProduct: (parseFloat(((landing * qty) * ExchangeRate)) + parseFloat(((TotalACDvalue * ExchangeRate) * 0.25)) + parseFloat((TDtax))) / qty
                 })
                 ;
 

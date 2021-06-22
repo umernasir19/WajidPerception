@@ -37,6 +37,13 @@ namespace SSS.BLL
             return objUserDAL.SelectByBranchId();
         }
 
+        //Added By Ahsan
+        public DataTable SelectBranchByID()
+        {
+            objUserDAL = new User_DAL(objUserProperty);
+            return objUserDAL.SelectByBranch();
+        }
+
         //public DataTable MainBranch()
         //{
         //    objUserDAL = new User_DAL(objUserProperty);

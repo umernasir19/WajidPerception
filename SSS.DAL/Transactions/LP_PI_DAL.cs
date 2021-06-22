@@ -761,7 +761,9 @@ namespace SSS.DAL.Transactions
                     sbc.ColumnMappings.Add("TotalASTValue", "TotalASTValue");
                     sbc.ColumnMappings.Add("TotalITValue", "TotalITValue");
                     sbc.ColumnMappings.Add("TotalSTValue", "TotalSTValue");
-
+                    // Added By Ahsan
+                    sbc.ColumnMappings.Add("clearingExpensePerProduct", "clearingExpensePerProduct");
+                    sbc.ColumnMappings.Add("pricePerProduct", "pricePerProduct");
 
 
                     sbc.DestinationTableName = _objCIMaster.DetailData.TableName;

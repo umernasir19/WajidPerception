@@ -376,6 +376,8 @@ namespace SMSYSTEM.Controllers
                 _objCIMaster.numberOfProducts = objpurchase.numberOfProducts;
                 _objCIMaster.grandTotalAVPKR = objpurchase.grandTotalAVPKR;
                 _objCIMaster.ExchangeRate = objpurchase.ExchangeRate;
+
+               
                 // _objCIMaster.DocumentNumber = objpurchase.DocumentNumber;
                 // _objCIMaster.ContainerNo = objpurchase.ContainerNo;
                 // _objCIMaster.ExchangeRate = objpurchase.ExchangeRate;
@@ -790,8 +792,8 @@ namespace SMSYSTEM.Controllers
                     {
                         objDOProperty.itemIdx = objDOProperty.tempList[i].itemIdx;
                         objDOProperty.qty = objDOProperty.tempList[i].qty;
-                        objDOProperty.unitPrice = objDOProperty.tempList[i].unitPrice;
-                        objDOProperty.amount = objDOProperty.tempList[i].amount;
+                        objDOProperty.unitPrice = objDOProperty.tempList[i].pricePerProduct;
+                        objDOProperty.amount = objDOProperty.qty * objDOProperty.unitPrice;
 
                         objDOBll = new LP_ImportedExpense_BLL(objDOProperty);
                         flag = objDOBll.Insertinventory();

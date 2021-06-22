@@ -136,7 +136,12 @@ namespace SMSYSTEM.Controllers
 
                 objQuotationProperty.DetailData = Helper.ToDataTable<QuotationDetails_Property>(objquotation.QuotationDetailLST);
 
-                objQuotationProperty.SalesTaxData = Helper.ToDataTable<LP_salesTaxes_Property>(objquotation.salesTaxesLST);
+                // Added By Ahsan
+                if (objquotation.salesTaxesLST != null)
+                {
+                    objQuotationProperty.SalesTaxData = Helper.ToDataTable<LP_salesTaxes_Property>(objquotation.salesTaxesLST);
+                }
+
                 if (objquotation.idx > 0)
                 {
                     objQuotationProperty.idx = objquotation.idx;

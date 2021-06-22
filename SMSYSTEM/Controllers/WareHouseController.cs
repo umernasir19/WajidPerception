@@ -35,7 +35,7 @@ namespace SMSYSTEM.Controllers
             {
                 objwarehouse = new WareHouse_Property();
                 objwarehouse.Idx = Convert.ToInt32(id);
-                objwarehouse.CreationDate = DateTime.Now;
+                objwarehouse.CreationDate = DateTime.Now.ToString("yy-MM-dd");
                 //objwarehousebll = new WareHouse_BLL(objwarehouse);
                 //DataTable dt = objwarehousebll.SelectOne();
                 //objwarehouse.WareHouseName = dt.Rows[0]["WareHouseName"].ToString();
@@ -100,7 +100,7 @@ namespace SMSYSTEM.Controllers
             {
                 objwarehouse = new WareHouse_Property();
                 objwarehouse = objwarehousepropert;
-                objwarehouse.CreationDate = DateTime.Now;
+                objwarehouse.CreationDate = DateTime.Now.ToString("yy-MM-dd");
 
                 // Added by Ahsan 6/9/2021
                 objwarehouse.LastModificationDate = DateTime.Now.ToString("yyyy MMMM dd");

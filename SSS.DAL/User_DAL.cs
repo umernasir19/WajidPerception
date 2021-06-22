@@ -483,7 +483,65 @@ namespace SSS.DAL
             }
         }
 
+        //Added By Ahsan
+        public DataTable SelectByBranch()
+        {
+            SqlCommand cmdToExecute = new SqlCommand();
+            cmdToExecute.CommandText = @"select idx,branchName from branch where idx=@idx ";
+           // cmdToExecute.CommandText = @"select idx,branchName from branch where visible=1 ";
 
+            /*mdToExecute.CommandText = CommandType.StoredProcedure;*/
+            DataTable toReturn = new DataTable("Branch");
+            SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
+
+            // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection;
+            cmdToExecute.CommandTimeout = 0;
+            try
+            {
+                 cmdToExecute.Parameters.Add(new SqlParameter("@idx", SqlDbType.Int, 100, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objUserProperty.branchIdx));
+
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Open connection.
+                    _mainConnection.Open();
+                }
+                else
+                {
+                    if (_mainConnectionProvider.IsTransactionPending)
+                    {
+                        cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    }
+                }
+
+                // Execute query.
+                adapter.Fill(toReturn);
+                // _errorCode = (Int32)cmdToExecute.Parameters["@iErrorCode"].Value;
+                //objCompanyProperty.TotalRowsNum = Convert.ToInt32(cmdToExecute.Parameters["@TotalRowsNum"].Value);
+                if (_errorCode != (int)LLBLError.AllOk)
+                {
+                    // Throw error.
+                    throw new Exception("Stored Procedure 'sp_Branch_SelectAll' reported the ErrorCode: " + _errorCode);
+                }
+
+                return toReturn;
+            }
+            catch (Exception ex)
+            {
+                // some error occured. Bubble it to caller and encapsulate Exception object
+                throw new Exception("Branch::SelectAll::Error occured.", ex);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Close connection.
+                    _mainConnection.Close();
+                }
+                cmdToExecute.Dispose();
+                adapter.Dispose();
+            }
+        }
         public DataTable SelectByBranchId()
         {
             SqlCommand cmdToExecute = new SqlCommand();

@@ -60,16 +60,34 @@ namespace SMSYSTEM.Controllers
                 objUserProperty.idx = Convert.ToInt32(id);
                 objUserProperty.branchIdx = 1;//It will have the value of session branchIdx
                 objUser = new User_BLL(objUserProperty);
-                DataTable dtt = objUser.SelectBranch();
-                List<Branch_Property> BranchList = new List<Branch_Property>();
-                foreach (DataRow dr in dtt.Rows)
+                if (Session["LOGGEDIN"] != null && Session["ISADMIN"] != null)
                 {
-                    Branch_Property objbranch = new Branch_Property();
-                    objbranch.branchName = dr["branchname"].ToString();
-                    objbranch.idx = Convert.ToInt32(dr["idx"].ToString());
-                    BranchList.Add(objbranch);
+                    DataTable dtt = objUser.SelectBranch();
+                    List<Branch_Property> BranchList = new List<Branch_Property>();
+                    foreach (DataRow dr in dtt.Rows)
+                    {
+                        Branch_Property objbranch = new Branch_Property();
+                        objbranch.branchName = dr["branchname"].ToString();
+                        objbranch.idx = Convert.ToInt32(dr["idx"].ToString());
+                        BranchList.Add(objbranch);
+                    }
+                    ViewBag.branchList = BranchList;
+
                 }
-                ViewBag.branchList = BranchList;
+                else
+                {
+                    DataTable dtt = objUser.SelectBranchByID();
+                    List<Branch_Property> BranchList = new List<Branch_Property>();
+                    foreach (DataRow dr in dtt.Rows)
+                    {
+                        Branch_Property objbranch = new Branch_Property();
+                        objbranch.branchName = dr["branchname"].ToString();
+                        objbranch.idx = Convert.ToInt32(dr["idx"].ToString());
+                        BranchList.Add(objbranch);
+                    }
+                    ViewBag.branchList = BranchList;
+
+                }
 
                 if (id != null && id != 0)
                 {

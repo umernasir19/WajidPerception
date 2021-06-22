@@ -60,9 +60,15 @@ namespace SMSYSTEM.Controllers
                 Product_BLL objProductbll = new Product_BLL();
                 LP_Quotation_BLL objQuotationbll = new LP_Quotation_BLL();
                 WareHouse_BLL objWareHouseBLL = new WareHouse_BLL();
+                // Added By Ahsan
+                SalesPerson_BLL objSalesPersonBll = new SalesPerson_BLL();
+
                 objSalesOrderVM_Property.QSList = Helper.ConvertDataTable<LP_Quotation_Master_Property>(objQuotationbll.SelectQS());
                 objSalesOrderVM_Property.CustomerLST = Helper.ConvertDataTable<Customers_Property>(objcustomerbll.ViewAllCustomers());
                 objSalesOrderVM_Property.ProductList = Helper.ConvertDataTable<Product_Property>(objProductbll.ViewAll());
+
+                // Added By Ahsan
+                objSalesOrderVM_Property.SalesPersonList = Helper.ConvertDataTable<SalesPerson_Property>(objSalesPersonBll.ViewAll());
                 objSalesOrderVM_Property.BankList = Helper.ConvertDataTable<Company_Bank_Property>(GetAllCompanyBanks());
                 objSalesOrderVM_Property.wareHouseList = Helper.ConvertDataTable<WareHouse_Property>(objWareHouseBLL.SelectAll());
 
@@ -167,7 +173,13 @@ namespace SMSYSTEM.Controllers
                     //  objSalesOrderProperty.paidDate = ;// objSalesOrder.paidDate;
 
                     objSalesOrderProperty.DetailData = Helper.ToDataTable<SalesOrdersDetails_Property>(objSalesOrder.SalesOrderDetailLST);
-                    objSalesOrderProperty.SalesTaxData = Helper.ToDataTable<LP_salesTaxes_Property>(objSalesOrder.salesTaxesLST);
+
+                    // Added By Ahsan
+                    if (objSalesOrder.salesTaxesLST != null)
+                    {
+                        objSalesOrderProperty.SalesTaxData = Helper.ToDataTable<LP_salesTaxes_Property>(objSalesOrder.salesTaxesLST);
+                    }
+
                     if (objSalesOrder.idx > 0)
                     {
                         objSalesOrderProperty.idx = objSalesOrder.idx;
@@ -246,7 +258,13 @@ namespace SMSYSTEM.Controllers
                     //  objSalesOrderProperty.paidDate = ;// objSalesOrder.paidDate;
 
                     objSalesOrderProperty.DetailData = Helper.ToDataTable<SalesOrdersDetails_Property>(objSalesOrder.SalesOrderDetailLST);
-                    objSalesOrderProperty.SalesTaxData = Helper.ToDataTable<LP_salesTaxes_Property>(objSalesOrder.salesTaxesLST);
+
+                    // Added By Ahsan
+                    if (objSalesOrder.salesTaxesLST != null)
+                    {
+                        objSalesOrderProperty.SalesTaxData = Helper.ToDataTable<LP_salesTaxes_Property>(objSalesOrder.salesTaxesLST);
+                    }
+
                     if (objSalesOrder.idx > 0)
                     {
                         objSalesOrderProperty.idx = objSalesOrder.idx;

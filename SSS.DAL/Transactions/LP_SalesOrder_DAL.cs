@@ -406,36 +406,41 @@ namespace SSS.DAL.Transactions
 
                 //TAX entries
                 #region Account Gj Tax Entries
-                for (int i = 0; i < _objSOMasterProperty.SalesTaxData.Rows.Count; i++)
+
+                if (_objSOMasterProperty.SalesTaxData != null)
                 {
+                    for (int i = 0; i < _objSOMasterProperty.SalesTaxData.Rows.Count; i++)
+                    {
 
-                    decimal taxpercntage = Convert.ToDecimal(_objSOMasterProperty.SalesTaxData.Rows[i]["taxPercent"].ToString());
-                    int taxid = Convert.ToInt32(_objSOMasterProperty.SalesTaxData.Rows[i]["taxIdx"].ToString());
-                    decimal taxamount = ((_objSOMasterProperty.netAmount / 100) * (taxpercntage));
-                    cmdToExecute = new SqlCommand();
-                    // cmdToExecute.CommandType = CommandType.StoredProcedure;
-                    cmdToExecute.CommandType = CommandType.StoredProcedure;
-                    cmdToExecute.CommandText = "sp_InsertAccountGj";
-                    cmdToExecute.Connection = _mainConnection;
-                    cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 112));
+                        decimal taxpercntage = Convert.ToDecimal(_objSOMasterProperty.SalesTaxData.Rows[i]["taxPercent"].ToString());
+                        int taxid = Convert.ToInt32(_objSOMasterProperty.SalesTaxData.Rows[i]["taxIdx"].ToString());
+                        decimal taxamount = ((_objSOMasterProperty.netAmount / 100) * (taxpercntage));
+                        cmdToExecute = new SqlCommand();
+                        // cmdToExecute.CommandType = CommandType.StoredProcedure;
+                        cmdToExecute.CommandType = CommandType.StoredProcedure;
+                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+                        cmdToExecute.Connection = _mainConnection;
+                        cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 112));
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.createdByUserIdx));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.createdByUserIdx));
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 25, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, taxid));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, taxamount));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.creationDate));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 25, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, taxid));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, taxamount));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.creationDate));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
 
-                    cmdToExecute.Transaction = this.Transaction;
-                    _rowsAffected = cmdToExecute.ExecuteNonQuery();
+                        cmdToExecute.Transaction = this.Transaction;
+                        _rowsAffected = cmdToExecute.ExecuteNonQuery();
+                    }
                 }
+               
                 #endregion
 
                 #region Full Payment

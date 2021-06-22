@@ -95,6 +95,7 @@
     <Compile Include="Setups\PurchaseOrder_DAL.cs" />
     <Compile Include="Setups\PurchaseRequisition_DAL.cs" />
     <Compile Include="Setups\Reporting_DAL.cs" />
+    <Compile Include="Setups\SalesPerson_DAL.cs" />
     <Compile Include="Setups\Supplier_DAL.cs" />
     <Compile Include="Setups\Taxes_DAL.cs" />
     <Compile Include="Setups\User_Region_DAL.cs" />

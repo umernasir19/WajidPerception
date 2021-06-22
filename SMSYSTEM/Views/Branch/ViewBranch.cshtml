@@ -132,7 +132,7 @@
                                 window.location.href = "/Branch/ViewBranch"
                             }
                             else if (res.success == false ) {
-                                Command: toastr["error"]("Invalid ", " Failed")
+                                Command: toastr["error"]("Main Branch Already Exist ", " Failed")
 
                                 toastr.options = {
                                     "closeButton": false,
@@ -244,10 +244,20 @@
                 dataType: 'JSON',
                 success: function (res) {
                     if (res.success) {
+                        swalWithBootstrapButtons.fire(
+                                'Done!',
+                                'Blocked',
+                                'success'
+                            )
                       
                         window.location.href = "/Branch/ViewBranch"
                     }
                     else {
+                        swalWithBootstrapButtons.fire(
+                            'Error!',
+                            'Failes',
+                            'success'
+                        )
                         window.location.href = "/Branch/ViewBranch"
                     }
                 },

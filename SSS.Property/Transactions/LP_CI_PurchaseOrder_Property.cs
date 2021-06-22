@@ -143,5 +143,9 @@ namespace SSS.Property.Transactions
         public int numberOfProducts { get; set; } //Added By Arsalan
         public decimal ExchangeRate { get; set; }//Added By Arsalan
 
+        // Added By Ahsan
+        public decimal clearingExpensePerProduct { get; set; }
+        public decimal pricePerProduct { get; set; }
+        
     }
 }

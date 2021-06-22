@@ -62,5 +62,10 @@ namespace SSS.Property.Transactions.ViewModels
         public List<LP_Performa_Invoice_Property> PerformaLISt { get; set; }
         public List<LP_Performa_Invoice_Details_Property> PerformaDTLLISt { get; set; }
         public List<LP_CI_PurchaseDetails_Property> CILIST { get; set; }
+
+        // Added By Ahsan
+        public decimal clearingExpensePerProduct { get; set; }
+        public decimal pricePerProduct { get; set; }
+        public decimal TotalAVPkr { get; set; }
     }
 }

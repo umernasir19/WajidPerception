@@ -214,10 +214,10 @@
                          { data: 'userName' },
 
                    {
-                       "data": "idx",
-                       "render": function (idx, type, full, meta) {
-                           return '';
-                           //return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a>'// <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a>'
+                       "data": "idxx",
+                       "render": function (idxx, type, full, meta) {
+                           
+                           return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idxx + ')"><i class="fa fa-eye"></i></a><a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idxx + ')"><i class="fa fa-trash"></i></a>'
                            //<a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + ID + ')"><i class="fa fa-trash"></i></a>
 
                        },
@@ -239,16 +239,17 @@
             console.log(CustomerID);
             //$("#isMainBranch").attr("disabled", true);
 
-            var url = "/MRN/AddNewMRN?id=" + CustomerID;
-            $("#modelbody").load(url, function (e) {
+            var url = "/Receipt/AddReceipt?id=" + CustomerID;
+           // $("#modelbody").load(url, function (e) {
                 //var id = $('#CustomerID').val();
                 //if (id > 0) {
                 //    $('#btnaddnewclient').html("update ");
 
                 //}
-                $("#exampleModal").modal("show");
-            });
-            // window.location.href = url;
+               // $("#exampleModal").modal("show");
+                window.location.href = url;
+            //});
+           
 
 
         }
@@ -257,7 +258,7 @@
 
             $.ajax({
                 type: 'GET',
-                url: '/Vendor/Delete?id=' + CustomerID,
+                url: '/Receipt/Delete?id=' + CustomerID,
                 dataType: 'JSON',
                 success: function (res) {
                     if (res.success) {
@@ -266,7 +267,7 @@
                             'Blocked',
                             'success'
                             )
-                        window.location.href = "/Client/ViewClient"
+                        window.location.href = "/Receipt/Receipts"
                     }
                     else {
                         swalWithBootstrapButtons.fire(
