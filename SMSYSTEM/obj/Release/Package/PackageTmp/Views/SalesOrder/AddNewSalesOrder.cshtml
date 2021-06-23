@@ -89,24 +89,33 @@
             </div>
             <div class="col-sm-3">
                 <!-- text input -->
-
                 <div class="form-group">
                     <label>Ware-House:</label>
-
                     @Html.DropDownListFor(model => model.wareHouseIdx, new SelectList(Model.wareHouseList, "idx", "WareHouseName"), "Select Warehouse", new { @Class = "form-control font-weight-bold" })
-
                 </div>
                 @Html.ValidationMessageFor(model => model.wareHouseIdx, "", new { @class = "text-danger" })
             </div>
             <div class="col-sm-3">
                 <!-- text input -->
-
                 <div class="form-group">
-                   <label>SalesPerson:</label>
-                            @Html.EditorFor(model => model.salespersonIdx, new { htmlAttributes = new { @placeholder = "SO Number*:", @class = "form-control", @readonly = true } })
-                            @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
-            </div>
+                    <label>Sales Person:</label>
+                    <select id="salespersonIdx" class="form-control font-weight-bold">
+                        @{
+                            <option value="0" data-hscode="0">Select Sales Person</option>
+
+                            foreach (var item in Model.SalesPersonList)
+                            {
+                                <option value="@item.idx" data-val="@item.warehouseIdx">@item.SalesPersonName</option>
+                            }
+
+                        }
+                    </select>
                 </div>
+                @Html.ValidationMessageFor(model => model.salespersonIdx, "", new { @class = "text-danger" })
+            </div>
+
+
+
             @*<div class="col-3">
                 <div class="form-group">
                     <label></label>
@@ -389,7 +398,32 @@
 </div>
 @section MyScripts
     {
-<script type="text/javascript">
+    <script type="text/javascript">
+
+    // Added By Ahsan
+    $('#wareHouseIdx').change(function() {
+
+        $('#salespersonIdx').attr('display', 'block')
+        // get optios of second dropdown and cache it
+        var $options = $('#salespersonIdx')
+            // update the dropdown value if necessary
+            .val('')
+            // get options
+            .find('option')
+            // show all of the initially
+            .show();
+        console.log($options);
+        // check current value is not 0
+        if (this.value != '0')
+            $options
+                // filter out options which is not corresponds to the first option
+                .not('[data-val="' + this.value + '"],[data-val=""]')
+                // hide them
+                .hide();
+    })
+
+
+
     $("#btnaddnew").click(function () {
         //$.post("/Customer/AddCustomer", function (data) {
         //    $("#modal-default").html(data);
@@ -487,7 +521,7 @@
         else {
 
             $('#paymntmethodoptions').hide();
-            $('#divTxtPaid').hide();
+            $('#divTxtPaid').show();
             $('#paidAmount').val('0.00');
             calculation();
         }
@@ -1057,7 +1091,7 @@
                 balanceAmount:$('#balanceAmount').val(),
                 taxAount:$('#taxAount').val(),
                 discount:$('#discount').val(),
-                shippingCost:$('shippingCost').val(),
+                shippingCost:$('#shippingCost').val(),
                 qsIdx: $("#qsIdx option:selected").val(),
                 description: $("#description").val(),
                 reference : $('#reference').val(),
@@ -1109,7 +1143,7 @@
         $(this).removeData("validator").removeData("unobtrusiveValidation");//remove the form validation
         $.validator.unobtrusive.parse($(this));//add the form validation
         //if ($(form).valid()) // using not operator for a time being
-        if (!$(form).valid())
+        if ($(form).valid())
         {
             $.ajax({
                 type : "POST",
@@ -1171,7 +1205,7 @@
     $('#paymenttype').on('change', function () {
         if ( $('#paymenttype option:selected').val()==0) {
             $('#paymntmethodoptions').hide();
-            $('#divTxtPaid').hide();
+            $('#divTxtPaid').show();
             $('#paidAmount').val('0.00');
             calculation();
         }
@@ -1181,14 +1215,15 @@
         }
         if ($('#paymenttype option:selected').val() == 2) {
             $('#paymntmethodoptions').show();
-            $('#cheqno').hide();
+            $('#cheqno').show();
+            $('#banks').hide();
             $('#customerBanks').hide();
             $('#divTxtPaid').show();
         }
 
         if ($('#paymenttype option:selected').val() == 3) {
             $('#paymntmethodoptions').show();
-            $('#cheqno').show();
+            $('#cheqno').hide();
             $('#customerBanks').hide();
             $('#divTxtPaid').show();
         }
@@ -1205,7 +1240,7 @@
     });
     if($('#paymenttype').val()==0)
     {
-        $('#divTxtPaid').hide();
+        $('#divTxtPaid').show();
         $('#paidAmount').val('0.00');
     }
     $('#paidAmount').on('keyup', function (){

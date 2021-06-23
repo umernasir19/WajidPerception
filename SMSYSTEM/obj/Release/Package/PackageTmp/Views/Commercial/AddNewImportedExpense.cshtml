@@ -250,7 +250,7 @@
                     @Html.EditorFor(model => model.finalPercentage, new { htmlAttributes = new { @placeholder = "Profit  *:", @class = "form-control", @readonly = true } })
                     @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
                 </div>
-                @Html.ValidationMessageFor(model => model.finalPercentage, "", new { @class = "text-danger" })
+              @Html.ValidationMessageFor(model => model.finalPercentage, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="row">

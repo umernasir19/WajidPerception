@@ -113,7 +113,7 @@
         <div class="row">
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" id="btnsubmit">Submit</button>
-                <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-light" id="btncancel" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </form>
@@ -258,6 +258,10 @@
         }
     });
 
+        // cancel button
+    $("#btncancel").click(function() {
+        window.location.href = "/GDN/ViewGDN"
+    });
     //add customer button event
     $("#btnsubmit").click(function (e) {
         console.log("here");

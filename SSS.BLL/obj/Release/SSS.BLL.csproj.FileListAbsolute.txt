@@ -197,3 +197,16 @@ E:\Perception BP\WajidPerception-master\SSS.BLL\bin\Release\SSS.Utility.pdb
 E:\Perception BP\WajidPerception-master\SSS.BLL\obj\Release\SSS.BLL.csprojResolveAssemblyReference.cache
 E:\Perception BP\WajidPerception-master\SSS.BLL\obj\Release\SSS.BLL.dll
 E:\Perception BP\WajidPerception-master\SSS.BLL\obj\Release\SSS.BLL.pdb
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.BLL\bin\Release\SSS.BLL.dll
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.BLL\bin\Release\SSS.BLL.pdb
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.BLL\bin\Release\FluentValidation.dll
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.BLL\bin\Release\SSS.DAL.dll
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.BLL\bin\Release\SSS.Property.dll
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.BLL\bin\Release\SSS.Utility.dll
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.BLL\bin\Release\AjaxControlToolkit.dll
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.BLL\bin\Release\SSS.DAL.pdb
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.BLL\bin\Release\SSS.Property.pdb
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.BLL\bin\Release\SSS.Utility.pdb
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.BLL\obj\Release\SSS.BLL.csprojResolveAssemblyReference.cache
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.BLL\obj\Release\SSS.BLL.dll
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.BLL\obj\Release\SSS.BLL.pdb

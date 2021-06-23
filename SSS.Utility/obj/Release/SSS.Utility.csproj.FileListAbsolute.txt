@@ -112,3 +112,9 @@ E:\Perception BP\WajidPerception-master\SSS.Utility\bin\Release\AjaxControlToolk
 E:\Perception BP\WajidPerception-master\SSS.Utility\obj\Release\SSS.Utility.csprojResolveAssemblyReference.cache
 E:\Perception BP\WajidPerception-master\SSS.Utility\obj\Release\SSS.Utility.dll
 E:\Perception BP\WajidPerception-master\SSS.Utility\obj\Release\SSS.Utility.pdb
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.Utility\bin\Release\SSS.Utility.dll
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.Utility\bin\Release\SSS.Utility.pdb
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.Utility\bin\Release\AjaxControlToolkit.dll
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.Utility\obj\Release\SSS.Utility.csprojResolveAssemblyReference.cache
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.Utility\obj\Release\SSS.Utility.dll
+H:\office\Perception BP\Updated Perception\WajidPerception-master\SSS.Utility\obj\Release\SSS.Utility.pdb

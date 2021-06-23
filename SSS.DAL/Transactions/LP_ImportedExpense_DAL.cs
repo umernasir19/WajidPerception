@@ -471,7 +471,9 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
                     cmdToExecute.Parameters.Add(new SqlParameter("@stock", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.qty));
                     cmdToExecute.Parameters.Add(new SqlParameter("@unitPrice", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.unitPrice));
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalAmount", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.amount));
-                
+                    cmdToExecute.Parameters.Add(new SqlParameter("@warehouseIdx", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.warehouseIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@branchIdx", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.BRANCHID));
+
 
                 if (_mainConnectionIsCreatedLocal)
                 {

@@ -20,7 +20,8 @@
                         @Html.DropDownListFor(model=>model.ReportID, new List<SelectListItem>
                    {
                        new SelectListItem {Text="Select Report",Value="0" },
-                         new SelectListItem {Text="Purchase",Value="1" }
+                         new SelectListItem {Text="Purchase",Value="1" },
+                       new SelectListItem {Text = "Imported Purchase", Value = "2"}
 
                    },new {@class= "form-control" })
 

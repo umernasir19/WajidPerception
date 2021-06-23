@@ -33,6 +33,12 @@ namespace SMSYSTEM.Controllers
                     objreport.ReportName = "Purchase_Report";
                 }
 
+                // Added By Ahsan
+                if (objreport.ReportID == 2)
+                {
+                    objreport.ReportName = "ImportedExpense_Report";
+                }
+
                 return SelectReportData(objreport);
             }
             catch (Exception ex)

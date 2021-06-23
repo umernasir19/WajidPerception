@@ -15,6 +15,8 @@ namespace SSS.Property.Transactions
         public decimal pricePerProduct { get; set; }
         public int itemIdx { get; set; }
         public decimal grandTotalAVPKR { get; set; }
+        public int warehouseIdx { get; set; }
+        public int branchIdx { get; set; }
         public List<LP_InventoryLogs_Property> inventory_logs_list { get; set; }
         public List<LP_ImportedExpense_Master_Property> tempList { get; set; }
      

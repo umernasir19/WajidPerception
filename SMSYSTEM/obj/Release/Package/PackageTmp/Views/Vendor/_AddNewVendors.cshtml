@@ -93,14 +93,19 @@
             $("#vendorCatIdx").prop('selectedIndex', 0);
             $("#vendorCategory").hide();
         }
-        else if (valueSelected == 1) {
+        else if (valueSelected == 2) {
             $('#txtPrice').show();
+            $("#vendorCategory").show();
+        }
+        else if (valueSelected == 1) {
+            //$('#txtPrice').show();
             $("#vendorCategory").show();
         }
         else {
 
             $("#price").val("");
             $('#txtPrice').hide();
+            $("#vendorCategory").show();
             //$("#vendorCatIdx option:selected").val(0);
             $("#vendorCatIdx").prop('selectedIndex', 0);
             $("#vendorCategory").hide();

@@ -794,7 +794,8 @@ namespace SMSYSTEM.Controllers
                         objDOProperty.qty = objDOProperty.tempList[i].qty;
                         objDOProperty.unitPrice = objDOProperty.tempList[i].pricePerProduct;
                         objDOProperty.amount = objDOProperty.qty * objDOProperty.unitPrice;
-
+                        objDOProperty.BRANCHID = 1;
+                        objDOProperty.warehouseIdx = objDOProperty.tempList[i].warehouseIdx;
                         objDOBll = new LP_ImportedExpense_BLL(objDOProperty);
                         flag = objDOBll.Insertinventory();
                     }

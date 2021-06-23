@@ -38,9 +38,9 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="form-group">
+            <div class="form-group checking">
                 <label class="form-check-label">
-                    <input id="isMainBranch" name="IsMainBranch" value="1" type="checkbox" />
+                    <input id="isMainBranch" class="check" name="IsMainBranch" value="1" type="checkbox" />
                     Main Branch
                 </label>
                 @*<label>Main Branch</label>
@@ -51,3 +51,27 @@
     </div>
     
 </form>
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#isMainBranch").change(function () {
+
+            var checked = $(this).is(":checked");
+            if (checked) {
+                var form = $('#addnewform').serialize();
+                console.log(form);
+
+                //alert("123");
+            } else {
+               alert("No");
+            }
+        });
+
+    });
+
+        
+
+    
+
+</script>

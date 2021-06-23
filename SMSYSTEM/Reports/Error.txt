@@ -891,3 +891,31 @@ System.TypeInitializationException: The type initializer for 'CrystalDecisions.C
    at CrystalDecisions.CrystalReports.Engine.ReportDocument..ctor()
    at SMSYSTEM.Controllers.BaseController.GenerateReport(Nullable`1 id, Nullable`1 query, String ReportName) in E:\Perception BP\WajidPerception-master\SMSYSTEM\Controllers\BaseController.cs:line 753
 6/7/2021 6:02:35 PM
+Exception at level Reporting Controller ADDUpdate Start23/06/2021 6:25:10 am
+Exception at level Reporting Controller ADDUpdate System.IO.FileNotFoundException: Could not load file or assembly 'CrystalDecisions.ReportAppServer.CommLayer, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304' or one of its dependencies. The system cannot find the file specified.
+File name: 'CrystalDecisions.ReportAppServer.CommLayer, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304'
+   at CrystalDecisions.CrystalReports.Engine.ReportDocument..cctor()
+
+=== Pre-bind state information ===
+LOG: DisplayName = CrystalDecisions.ReportAppServer.CommLayer, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304
+ (Fully-specified)
+LOG: Appbase = file:///H:/office/Perception BP/Updated Perception/WajidPerception-master/SMSYSTEM/
+LOG: Initial PrivatePath = H:\office\Perception BP\Updated Perception\WajidPerception-master\SMSYSTEM\bin
+Calling assembly : CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304.
+===
+LOG: This bind starts in default load context.
+LOG: Using application configuration file: H:\office\Perception BP\Updated Perception\WajidPerception-master\SMSYSTEM\web.config
+LOG: Using host configuration file: C:\Users\Ahsi\Documents\IISExpress\config\aspnet.config
+LOG: Using machine configuration file from C:\Windows\Microsoft.NET\Framework\v4.0.30319\config\machine.config.
+LOG: Post-policy reference: CrystalDecisions.ReportAppServer.CommLayer, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304
+LOG: Attempting download of new URL file:///C:/Users/Ahsi/AppData/Local/Temp/Temporary ASP.NET Files/root/7b5c12de/4868aa9c/CrystalDecisions.ReportAppServer.CommLayer.DLL.
+LOG: Attempting download of new URL file:///C:/Users/Ahsi/AppData/Local/Temp/Temporary ASP.NET Files/root/7b5c12de/4868aa9c/CrystalDecisions.ReportAppServer.CommLayer/CrystalDecisions.ReportAppServer.CommLayer.DLL.
+LOG: Attempting download of new URL file:///H:/office/Perception BP/Updated Perception/WajidPerception-master/SMSYSTEM/bin/CrystalDecisions.ReportAppServer.CommLayer.DLL.
+LOG: Attempting download of new URL file:///H:/office/Perception BP/Updated Perception/WajidPerception-master/SMSYSTEM/bin/CrystalDecisions.ReportAppServer.CommLayer/CrystalDecisions.ReportAppServer.CommLayer.DLL.
+LOG: Attempting download of new URL file:///C:/Users/Ahsi/AppData/Local/Temp/Temporary ASP.NET Files/root/7b5c12de/4868aa9c/CrystalDecisions.ReportAppServer.CommLayer.EXE.
+LOG: Attempting download of new URL file:///C:/Users/Ahsi/AppData/Local/Temp/Temporary ASP.NET Files/root/7b5c12de/4868aa9c/CrystalDecisions.ReportAppServer.CommLayer/CrystalDecisions.ReportAppServer.CommLayer.EXE.
+LOG: Attempting download of new URL file:///H:/office/Perception BP/Updated Perception/WajidPerception-master/SMSYSTEM/bin/CrystalDecisions.ReportAppServer.CommLayer.EXE.
+LOG: Attempting download of new URL file:///H:/office/Perception BP/Updated Perception/WajidPerception-master/SMSYSTEM/bin/CrystalDecisions.ReportAppServer.CommLayer/CrystalDecisions.ReportAppServer.CommLayer.EXE.
+23/06/2021 6:25:10 am
+Exception at level Reporting Controller ADDUpdate The type initializer for 'CrystalDecisions.CrystalReports.Engine.ReportDocument' threw an exception.23/06/2021 6:25:10 am
+Exception at level Reporting Controller ADDUpdate End23/06/2021 6:25:10 am

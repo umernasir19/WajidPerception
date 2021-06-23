@@ -748,7 +748,7 @@
 
         var result = $('input[name="tax"]:checked');
         console.log(result);
-        if (result.length > 0) {
+        if (result.length > 0 || result.length == 0) {
             result.each(function () {
 
                 var taxid = $(this).attr('data-id');
