@@ -105,5 +105,8 @@ namespace SSS.Property.Transactions
             set { _openItem = value; }
         }
         public string itemName { get; set; }
+
+        // Added By Ahsan
+        public string Description { get; set; }
     }
 }

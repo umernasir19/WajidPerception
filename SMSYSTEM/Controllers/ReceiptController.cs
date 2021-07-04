@@ -187,6 +187,23 @@ namespace SMSYSTEM.Controllers
                 return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        // Added By Ahsan
+        public JsonResult getCustomerPaidAmount(int id)
+        {
+            try
+            {
+                objvoucherVM = new LP_Voucher_ViewModel();
+                LP_Voucher_BLL objBLL = new LP_Voucher_BLL();
+                var Data = JsonConvert.SerializeObject(objBLL.getcustomerPaidAmount(id));
+                return Json(new { data = Data, success = true, statuscode = 200, count = Data.Length }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
         #endregion
     }
 }

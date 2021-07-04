@@ -42,6 +42,7 @@ namespace SSS.Property.Transactions
         public List<LP_DisplayOrder_Details_Property> DisplayOrderDetailLST { get; set; }//make a model for quotation Detail
         public string reference { get; set; }
         public string subject { get; set; }
-      
+        // Added By Ahsan
+        //public string Description { get; set; }
     }
 }

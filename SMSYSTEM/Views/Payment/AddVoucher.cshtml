@@ -30,7 +30,7 @@
                 <!-- text input -->
                 <div class="form-group">
                     <label>Voucher Type*:</label>
-                    @Html.DropDownListFor(model => model.voucher_type, new SelectList(Model.vouchertypelist, "idx", "Name"), "Select Product", new { @Class = "form-control font-weight-bold" })
+                    @Html.DropDownListFor(model => model.voucher_type, new SelectList(Model.vouchertypelist, "idx", "Name"), "Select Product", new { @Class = "select2 form-control font-weight-bold" })
                     @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
                 </div>
                 @Html.ValidationMessageFor(model => model.voucher_type, "", new { @class = "text-danger" })
@@ -43,7 +43,7 @@
                 <!-- text input -->
                 <div class="form-group">
                     <label>Vendor*:</label>
-                    @Html.DropDownListFor(model => model.vendor_id, new SelectList(Model.vendorlist, "idx", "vendorName"), "Select Vendor", new { @Class = "form-control font-weight-bold" })
+                    @Html.DropDownListFor(model => model.vendor_id, new SelectList(Model.vendorlist, "idx", "vendorName"), "Select Vendor", new { @Class = "select2 form-control font-weight-bold" })
                 </div>
                 @Html.ValidationMessageFor(model => model.vendor_id, "", new { @class = "text-danger" })
             </div>
@@ -177,7 +177,7 @@
             <div class="col-sm-4" id="banks">
                 <div class="form-group">
                     <label for="inputName">Bank</label>
-                    @Html.DropDownListFor(model => model.bank_id, new SelectList(Model.banklist, "idx", "accountTitle"), "Select Vendor", new { @Class = "form-control font-weight-bold" })
+                    @Html.DropDownListFor(model => model.bank_id, new SelectList(Model.banklist, "idx", "accountTitle"), "Select Vendor", new { @Class = "select2 form-control font-weight-bold" })
                 </div>
             </div>
             <div class="col-sm-4" id="cheqno">
@@ -194,7 +194,11 @@
 </div>
 
 <script type="text/javascript">
-
+    // Added By Ahsan
+   
+        $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true });
+ 
+    
     var errmsg;
     //Add Project Button Event start
     $("#qty").keyup(function () {

@@ -41,7 +41,7 @@
 
             $.ajax({
                 url: "/Vendor/GetAllVendorProcess",
-                success: function (data) {
+                success: function(data) {
                     console.log(data);
                     bindCustomersInDataTable(data);
                 }
@@ -53,14 +53,13 @@
                 console.log(JSON.parse(data.data));
                 var status = "Blocked".toString();
                 var table = $('#example1').DataTable({
-                    "order": [[ 1, "ASC" ]],
+                    "order": [[1, "ASC"]],
                     data: JSON.parse(data.data),
                     columns: [
                         { data: 'itemName' },
                         { data: 'vendorCategory' },
                         { data: 'vendorName' },
                         { data: 'activityPrice' },
-                        
                         {
                             "data": "ID",
                             "render": function(ID, type, full, meta) {
@@ -83,36 +82,52 @@
 
         // Delete Vendor Process
         function ConfirmDelete(ID) {
-            $.ajax({
-                type: 'GET',
-                url: '/Vendor/DeleteVendorProcess?ID=' + ID,
-                dataType: 'JSON',
-                success: function (res) {
-                    if (res.success) {
-                        alert("Done");
-                        swalWithBootstrapButtons.fire(
-                            'Done!',
-                            'Blocked',
-                            'success'
-                            )
-                        window.location.href = "/Vendor/ViewVendorProcess"
-                    }
-                    else {
-                        swalWithBootstrapButtons.fire(
-                            'Error!',
-                            'Failes',
-                            'success'
-                            )
-                    }
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
                 },
-                failure: function (res) {
-                    console.log(res);
-                },
-                err: function (res) {
-                    console.log(res);
+                buttonsStyling: false
+            })
+
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Vendor/DeleteVendorProcess?ID=' + ID,
+                        dataType: 'JSON',
+                        success: function(res) {
+                            if (res.success) {
+                                swalWithBootstrapButtons.fire(
+                                    'Done!',
+                                    'Blocked',
+                                    'success'
+                                )
+                                window.location.href = "/Vendor/ViewVendorProcess"
+                            }
+                        }
+                    })
+
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Your imaginary file is safe :)',
+                        'error'
+                    )
                 }
             })
-            
         }
 
         // Show Data to be updated

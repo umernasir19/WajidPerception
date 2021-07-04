@@ -73,7 +73,7 @@ namespace SMSYSTEM.Controllers
 
                     objDisplayOrderVM.doNumber = dt.Rows[0]["doNumber"].ToString();
                     objDisplayOrderVM.description = dt.Rows[0]["description"].ToString();
-
+                    objDisplayOrderVM.reference = dt.Rows[0]["reference"].ToString();
                     // We Don't have Total Amount in view
                     //objDisplayOrderVM.totalAmount = Convert.ToDecimal(dt.Rows[0]["totalAmount"].ToString());
 
@@ -86,7 +86,11 @@ namespace SMSYSTEM.Controllers
                     //    objmrndetail
 
                     //}
+
                     ViewBag.DetailData = Helper.ConvertDataTable<DisplayOrderVM>(dt);
+                   
+
+                    objDisplayOrderVM.DisplayOrderDetailLST = Helper.ConvertDataTable<LP_DisplayOrder_Details_Property>(dt);
                     //update
                     return View("AddNewDisplayOrder", objDisplayOrderVM);//objDisplayOrderVM
                 }

@@ -262,7 +262,10 @@ namespace SSS.DAL.Transactions
         public override DataTable SelectOne()
         {
             SqlCommand cmdToExecute = new SqlCommand();
-            cmdToExecute.CommandText = @"select * from CommercialInvoice where idx=@ID";
+            cmdToExecute.CommandText = @"select * from CommercialInvoice c 
+inner join CommercialDetails cd on cd.purchaseIdx = c.idx
+inner join products p on p.idx = cd.itemIdx
+where c.idx=@ID";
             //cmdToExecute.CommandType = CommandType.StoredProcedure;
             DataTable toReturn = new DataTable("Select one Commercial Invoice");
             SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);

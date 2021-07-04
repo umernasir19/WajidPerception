@@ -13,7 +13,7 @@
             <!-- text input -->
             <div class="form-group">
                 <label>CAO Name*:</label>
-                @Html.DropDownListFor(model => model.headIdx, new SelectList(Model.headLST, "idx", "accountName"), "Select coa name", new { @Class = "form-control font-weight-bold" })
+                @Html.DropDownListFor(model => model.headIdx, new SelectList(Model.headLST, "idx", "accountName"), "Select coa name", new { @Class = "select2 form-control font-weight-bold" })
                 @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>
             @Html.ValidationMessageFor(model => model.headIdx, "", new { @class = "text-danger" })
@@ -30,3 +30,10 @@
     
 
 </form>
+
+    <script type="text/javascript">
+        $(document).ajaxComplete(function() {
+            $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true, dropdownParent: $('#modelbody') });
+
+        });
+    </script>

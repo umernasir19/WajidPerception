@@ -120,6 +120,7 @@ namespace SMSYSTEM.Controllers
                     unitLST.Add(objProductCat);
                 }
                 ViewBag.unitLST = unitLST;
+                // Update
                 if (id != null && id != 0)
                 {
                     decimal cp, sp, pt;
@@ -144,7 +145,8 @@ namespace SMSYSTEM.Controllers
                     string productTax = (dt.Rows[0]["productTax"].ToString());
                     decimal.TryParse(productTax, out pt);
                     objProductVm.productTax = pt;
-
+                    // Added By Ahsan
+                    objProductVm.Reference = (dt.Rows[0]["Reference"].ToString());
 
 
                     foreach (DataRow dr in units.Rows)
@@ -216,7 +218,7 @@ namespace SMSYSTEM.Controllers
                         objproduct.lastModifiedByUserIdx = Convert.ToInt32(Session["UID"].ToString());
                         objproduct.lastModificationDate = DateTime.Now.ToString("dd/MM/yyyy");
                         //objProductProperty = JsonConvert.DeserializeObject<Product_Property>(JsonConvert.SerializeObject(objproduct)); 
-                        if(objproduct.ProductPicPath.Length > 0)
+                        if(/*objproduct.ProductPicPath.Length > 0 &&*/ objproduct.ProductPicPath != null)
                         {
                             picturepath = SavePicture(objproduct.PicturePath);
 

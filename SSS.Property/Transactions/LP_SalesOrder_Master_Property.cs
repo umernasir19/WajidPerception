@@ -249,5 +249,7 @@ namespace SSS.Property.Transactions
         public int CustomerCoaidx { get; set; }
 
         public int salesTypeIdx { get; set; }
+        // Added By Ahsan
+        public DateTime DeliveryDate { get; set; }
     }
 }

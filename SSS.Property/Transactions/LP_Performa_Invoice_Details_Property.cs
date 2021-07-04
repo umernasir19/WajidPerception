@@ -149,5 +149,7 @@ namespace SSS.Property.Transactions
             get { return _grandTotalAVPKR; }
             set { _grandTotalAVPKR = value; }
         }
+        // Added By Ahsan
+        public string itemName { get; set; }
     }
 }

@@ -11,7 +11,7 @@
             <!-- text input -->
             <div class="form-group">
                 <label>Type*:</label>
-                @Html.DropDownListFor(model => model.customerTypeIdx, new SelectList(ViewBag.CustomersLST, "idx", "customerType"), "Select Customer Type ", new { @Class = "form-control font-weight-bold" })
+                @Html.DropDownListFor(model => model.customerTypeIdx, new SelectList(ViewBag.CustomersLST, "idx", "customerType"), "Select Customer Type ", new { @Class = "select2 form-control font-weight-bold" })
                 @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>
             @Html.ValidationMessageFor(model => model.customerTypeIdx, "", new { @class = "text-danger" })
@@ -53,3 +53,7 @@
 
     </div>
 </form>
+<script>
+    $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true, dropdownParent: $('#modelbody') });
+
+</script>

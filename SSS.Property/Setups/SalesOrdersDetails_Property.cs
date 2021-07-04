@@ -97,5 +97,8 @@ namespace SSS.Property.Setups
             get { return _DueDate; }
             set { _DueDate = value; }
         }
+
+        // Added By Ahsan
+        public string Description { get; set; }
     }
 }

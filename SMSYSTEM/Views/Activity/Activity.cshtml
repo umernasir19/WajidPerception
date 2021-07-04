@@ -22,7 +22,7 @@
                    new SelectListItem {Text="Select Type",Value="0" },
                   new SelectListItem {Text=" Sales Order",Value="1" },
                   new SelectListItem {Text="Display Order",Value="2" }
-               }, new { @class = "form-control" })
+               }, new { @class = "select2 form-control", @id = "drp" })
                          
                         }
                         else
@@ -32,7 +32,7 @@
                    new SelectListItem {Text="Select Type",Value="0" },
                   new SelectListItem {Text=" Sales Order",Value="1" },
                   new SelectListItem {Text="Display Order",Value="2" }
-               }, new { @class = "form-control" })
+               }, new { @class = "select2 form-control" })
                         }
                     }
                    
@@ -50,7 +50,7 @@
                     @Html.DropDownListFor(m => m.orderIdx,
        new SelectList(Enumerable.Empty<SelectListItem>(), "idx", "soNumber"),
               "Select Order",
-              new { @class = "form-control" })
+              new { @class = "select2 form-control" })
 
 
 
@@ -65,7 +65,7 @@
                     @Html.DropDownListFor(m => m.productIdx,
        new SelectList(Enumerable.Empty<SelectListItem>(), "itemIdx", "itemName"),
               "Select Product",
-              new { @class = "form-control" })
+              new { @class = "select2 form-control" })
                     @Html.ValidationMessageFor(m => m.productIdx, "", new { @class = "text-danger" })
                 </div>
                 @*@Html.ValidationMessageFor(model => model.productIdx, "", new { @class = "text-danger" })*@
@@ -74,7 +74,7 @@
                 <!-- text input -->
                 <div class="form-group">
                     <label>Process*:</label>
-                    @Html.DropDownListFor(model => model.vendorCatIdx, new SelectList(Model.vendorCatLST, "idx", "VendorCategory"), "Select Category", new { @Class = "form-control font-weight-bold" })
+                    @Html.DropDownListFor(model => model.vendorCatIdx, new SelectList(Model.vendorCatLST, "idx", "VendorCategory"), "Select Category", new { @Class = "form-control select2 font-weight-bold" })
                 </div>
                 @Html.ValidationMessageFor(model => model.vendorCatIdx, "", new { @class = "text-danger" })
             </div>
@@ -85,7 +85,7 @@
                     @{
                         if (Model.ActivityDetailLST.Count > 0)
                         {
-                            @Html.DropDownListFor(model => model.vendorIdx, new SelectList(Model.vendorLST, "idx", "vendorName"), "Select Category", new { @Class = "form-control font-weight-bold" })
+                            @Html.DropDownListFor(model => model.vendorIdx, new SelectList(Model.vendorLST, "idx", "vendorName"), "Select Category", new { @Class = "form-control select2 font-weight-bold" })
 
                         }
                         else
@@ -93,7 +93,7 @@
                             @Html.DropDownListFor(m => m.vendorIdx,
        new SelectList(Enumerable.Empty<SelectListItem>(), "idx", "vendorName"),
               "Select Vendor",
-              new { @class = "form-control" })
+              new { @class = "select2 form-control" })
                         }
                     }
 
@@ -159,15 +159,18 @@
                     <div class="">
                         <table id="example2" class=" table table-dark table-bordered table-hover">
                             <thead class="thead-dark">
-                                <tr>
-                                    <th>Product Name</th>
-                                    <th>Reference</th>
-                                    <th>Size</th>
-                                    <th>Qty</th>
-                                    <th>Price</th>
-                                    <th>Description</th>
-                                    <th>Actions</th>
-                                </tr>
+                            <tr>
+                             
+                                <th>Product Name</th>
+                                <th>Reference</th>
+                                <th>Size</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Description</th>
+                                <th style="display: none">Process</th>
+                                <th style="display: none">Vendor</th>
+                                <th>Actions</th>
+                            </tr>
                             </thead>
                             <tbody style="background:white;color:black; ">
                                 @{
@@ -186,6 +189,8 @@
                                                 <td>@Model.ActivityDetailLST[i].qty</td>
                                                 <td>@Model.ActivityDetailLST[i].activityPrice</td>
                                                 <td>@Model.ActivityDetailLST[i].description</td>
+                                                <td style="display: none">@Model.ActivityDetailLST[i].vendorCatIdx</td>
+                                                <td style="display: none">@Model.ActivityDetailLST[i].vendorIdx</td>
                                                 <td><button id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button></td>
                                             </tr>
 
@@ -213,24 +218,29 @@
 </div>
 
 @section MyScripts
-    {
+{
+    
+    
+
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true});
+        $(document).ready(function() {
+          
             $('#ddlOrder').hide();
             $('#typeIdx').trigger("change");
             //alert(update);
             checkUpdate();
-            
-        
+
+
         });
 
         // Check Update
-        function checkUpdate(){
-            var update=@Html.Raw(Json.Encode(ViewBag.update));
-            if(update==true){
-                if(@Model.ActivityDetailLST.Count>0){
+        function checkUpdate() {
+            var update = @Html.Raw(Json.Encode(ViewBag.update));
+            if (update == true) {
+                if (@Model.ActivityDetailLST.Count > 0) {
 
-                   // alert(Model.ActivityDetailLST.Count);
+                    // alert(Model.ActivityDetailLST.Count);
                     @*document.getElementById('typeIdx').value=@Model.ActivityDetailLST[0].typeIdx;
                     $('#typeIdx').trigger("change");
                     document.getElementById('typeIdx').value=@Model.ActivityDetailLST[0].typeIdx;
@@ -242,55 +252,57 @@
 
 
                     // $('#orderIdx').trigger("change");
-                }}
+                }
+            }
 
             @*alert(@Model.ActivityDetailLST.Count);
             var c=@Model.ActivityDetailLST.Count
                 console.log(@Model.ActivityDetailLST.Count);*@
 
         }
+
         // Price 
-        $("#vendorIdx").on('change', function () {
-            var vendorValue = $('#vendorIdx').val();
-            if (Number(vendorValue)>0) {
-                $.ajax({
-                    url: '/Activity/SearchPrice',
-                    type: "GET",
-                    dataType: "JSON",
-                    data: {
-                        id: vendorValue
-                    },
-                    success: function (data) {
-                        //console.log(data.data[0].price)
-                        $("#activityPrice").val(data.data[0].price);
+        $("#vendorIdx").on('change',
+            function() {
+                var vendorValue = $('#vendorIdx').val();
+                if (Number(vendorValue) > 0) {
+                    $.ajax({
+                        url: '/Activity/SearchPrice',
+                        type: "GET",
+                        dataType: "JSON",
+                        data: {
+                            id: vendorValue
+                        },
+                        success: function(data) {
+                            //console.log(data.data[0].price)
+                            $("#activityPrice").val(data.data[0].price);
 
-                    }
-                });
-            }
-            else
-            {
-                $("#activityPrice").val("0.00");
-            }
+                        }
+                    });
+                } else {
+                    $("#activityPrice").val("0.00");
+                }
 
-        });
-        $("#typeIdx").on('change', function () {
-            var value = $("#typeIdx option:selected").val();
-            if (value == 1)
-            {
-                $.getJSON("@Url.Action("getSalesOrders", "Activity")", null,
-                       function (data) {
+            });
+        $("#typeIdx").on('change',
+            function() {
+                var value = $("#typeIdx option:selected").val();
+                if (value == 1) {
+                    $.getJSON("@Url.Action("getSalesOrders", "Activity")",
+                        null,
+                        function(data) {
 
-                           $("#orderIdx").empty();
-                           $("#ddlOrder").show();
-                           $('#orderIdx').append($('<option>',
+                            $("#orderIdx").empty();
+                            $("#ddlOrder").show();
+                            $('#orderIdx').append($('<option>',
                                 {
                                     value: "",
                                     text: "Select Order"
                                 }));
-                           for (var i = 0; i < data.data.length; i++) {
+                            for (var i = 0; i < data.data.length; i++) {
 
-                              // if(Model.ActivityDetailLST.Count>0){
-                                   @*var orderid=@Model.ActivityDetailLST[0].orderIdx;
+                                // if(Model.ActivityDetailLST.Count>0){
+                                @*var orderid=@Model.ActivityDetailLST[0].orderIdx;
                                    var select='';
                                    if(orderid==data.data[i].idx){
                                        $("#orderIdx").html("");
@@ -306,38 +318,36 @@
                                    }*@
 
 
-                              // }else{
-                                   $('#orderIdx').append($('<option>',
-                                           {
-                                               value: data.data[i].idx,
-                                               text: data.data[i].soNumber
-                                           }));
-                               //}
+                                // }else{
+                                $('#orderIdx').append($('<option>',
+                                    {
+                                        value: data.data[i].idx,
+                                        text: data.data[i].soNumber
+                                    }));
+                                //}
 
-                           }
-
-
+                            }
 
 
-                       });
-            }
-            else if (value == 2) {
-                $.getJSON("@Url.Action("getDisplayOrder", "Activity")", null,
-                       function (data) {
+                        });
+                } else if (value == 2) {
+                    $.getJSON("@Url.Action("getDisplayOrder", "Activity")",
+                        null,
+                        function(data) {
 
-                           $("#orderIdx").empty();
-                           $("#ddlOrder").show();
-                           $('#orderIdx').append($('<option>',
+                            $("#orderIdx").empty();
+                            $("#ddlOrder").show();
+                            $('#orderIdx').append($('<option>',
                                 {
                                     value: "",
                                     text: "Select Order"
                                 }));
-                           for (var i = 0; i < data.data.length; i++) {
-                               
-                              // if(@Model.ActivityDetailLST.Count>0)
-                              // {
+                            for (var i = 0; i < data.data.length; i++) {
 
-                                   @*var orderid=@Model.ActivityDetailLST[0].orderIdx;
+                                // if(@Model.ActivityDetailLST.Count>0)
+                                // {
+
+                                @*var orderid=@Model.ActivityDetailLST[0].orderIdx;
                                    var select='';
                                    if(orderid==data.data[i].idx){
                                        $("#orderIdx").html("");
@@ -353,128 +363,37 @@
                                    {
 
                                    }*@
-                              // }
-                      // else{
-                               $('#orderIdx').append($('<option>',
-                                       {
-                                           value: data.data[i].idx,
-                                           text: data.data[i].doNumber
-                                       }));
-                       //}
-                           }
+                                // }
+                                // else{
+                                $('#orderIdx').append($('<option>',
+                                    {
+                                        value: data.data[i].idx,
+                                        text: data.data[i].doNumber
+                                    }));
+                                //}
+                            }
 
 
+                        });
+                } else {
+                    $("#orderIdx").html("");
 
+                    $('#orderIdx').append($('<option>',
+                        {
+                            value: "",
+                            text: "Select Order"
+                        }));
+                    $('#ddlOrder').hide();
+                }
 
-                       });
-            }
-            else
-            {
-                $("#orderIdx").html("");
-
-                $('#orderIdx').append($('<option>',
-                                {
-                                    value: "",
-                                    text: "Select Order"
-                                }));
-                $('#ddlOrder').hide();
-            }
-
-        });
+            });
         var allInvoiceDetails = {};
 
-        function SearchProductsInDetail(orderid){
+        function SearchProductsInDetail(orderid) {
 
-                var orderId =orderid
-                var typeId = $("#typeIdx option:selected").val();
-                if (orderId > 0 && typeId==1) {
-                    $.ajax({
-                        url: '/Activity/SearchProductsInDetail',
-                        type: "GET",
-                        dataType: "JSON",
-                        data: {
-                            Id: orderId
-                        },
-                        success: function (data) {
-
-                            $("#productIdx").html(""); // clear before appending new list
-                            $('#productIdx').append($('<option>',
-                                            {
-                                                value: "",
-                                                text: "Select Products"
-                                            }));
-
-                            console.log(data.data);
-                            $.each(data.data, function (key, value) {
-                                $('#productIdx').append($('<option>',
-                                            {
-                                                value: value.itemIdx,
-                                                text: value.itemName
-                                            }));
-
-
-
-                            });
-
-
-                        }
-                    });
-                }
-                else if (orderId > 0 && typeId == 2)
-                {
-                    $.ajax({
-                        url: '/Activity/SearchProductsInDODetail',
-                        type: "GET",
-                        dataType: "JSON",
-                        data: {
-                            Id: orderId
-                        },
-                        success: function (data) {
-
-                            $("#productIdx").html(""); // clear before appending new list
-                            //var invoicData = JSON.parse(data.data)
-                            //allInvoice = { invoicData };
-
-                            $('#productIdx').append($('<option>',
-                                            {
-                                                value: "",
-                                                text: "Select Products"
-                                            }));
-
-                            console.log(data.data);
-                            $.each(data.data, function (key, value) {
-                                $('#productIdx').append($('<option>',
-                                            {
-                                                value: value.itemIdx,
-                                                text: value.itemName
-                                            }));
-
-
-
-                            });
-
-
-                        }
-                    });
-
-                }
-                else {
-
-                    $("#productIdx").empty();
-                    $("#productIdx").append($('<option>',
-                                            {
-                                                value: "",
-                                                text: "Select Product"
-                                            }));
-
-                }
-
-
-        }
-        $("#orderIdx").on('change', function () {
-            var orderId = $("#orderIdx option:selected").val();
+            var orderId = orderid
             var typeId = $("#typeIdx option:selected").val();
-            if (orderId > 0 && typeId==1) {
+            if (orderId > 0 && typeId == 1) {
                 $.ajax({
                     url: '/Activity/SearchProductsInDetail',
                     type: "GET",
@@ -482,33 +401,31 @@
                     data: {
                         Id: orderId
                     },
-                    success: function (data) {
+                    success: function(data) {
 
                         $("#productIdx").html(""); // clear before appending new list
                         $('#productIdx').append($('<option>',
-                                        {
-                                            value: "",
-                                            text: "Select Products"
-                                        }));
+                            {
+                                value: "",
+                                text: "Select Products"
+                            }));
 
                         console.log(data.data);
-                        $.each(data.data, function (key, value) {
-                            $('#productIdx').append($('<option>',
-                                        {
-                                            value: value.itemIdx,
-                                            text: value.itemName
-                                        }));
+                        $.each(data.data,
+                            function(key, value) {
+                                $('#productIdx').append($('<option>',
+                                    {
+                                        value: value.itemIdx,
+                                        text: value.itemName
+                                    }));
 
 
-
-                        });
+                            });
 
 
                     }
                 });
-            }
-            else if (orderId > 0 && typeId == 2)
-            {
+            } else if (orderId > 0 && typeId == 2) {
                 $.ajax({
                     url: '/Activity/SearchProductsInDODetail',
                     type: "GET",
@@ -516,52 +433,53 @@
                     data: {
                         Id: orderId
                     },
-                    success: function (data) {
+                    success: function(data) {
 
                         $("#productIdx").html(""); // clear before appending new list
                         //var invoicData = JSON.parse(data.data)
                         //allInvoice = { invoicData };
 
                         $('#productIdx').append($('<option>',
-                                        {
-                                            value: "",
-                                            text: "Select Products"
-                                        }));
+                            {
+                                value: "",
+                                text: "Select Products"
+                            }));
 
                         console.log(data.data);
-                        $.each(data.data, function (key, value) {
-                            $('#productIdx').append($('<option>',
-                                        {
-                                            value: value.itemIdx,
-                                            text: value.itemName
-                                        }));
+                        $.each(data.data,
+                            function(key, value) {
+                                $('#productIdx').append($('<option>',
+                                    {
+                                        value: value.itemIdx,
+                                        text: value.itemName
+                                    }));
 
 
-
-                        });
+                            });
 
 
                     }
                 });
 
-            }
-            else {
+            } else {
 
                 $("#productIdx").empty();
                 $("#productIdx").append($('<option>',
-                                        {
-                                            value: "",
-                                            text: "Select Product"
-                                        }));
+                    {
+                        value: "",
+                        text: "Select Product"
+                    }));
 
             }
 
-        });
-        function changeorderid(){
 
+        }
+
+        $("#orderIdx").on('change',
+            function() {
                 var orderId = $("#orderIdx option:selected").val();
                 var typeId = $("#typeIdx option:selected").val();
-                if (orderId > 0 && typeId==1) {
+                if (orderId > 0 && typeId == 1) {
                     $.ajax({
                         url: '/Activity/SearchProductsInDetail',
                         type: "GET",
@@ -569,33 +487,31 @@
                         data: {
                             Id: orderId
                         },
-                        success: function (data) {
+                        success: function(data) {
 
                             $("#productIdx").html(""); // clear before appending new list
                             $('#productIdx').append($('<option>',
-                                            {
-                                                value: "",
-                                                text: "Select Products"
-                                            }));
+                                {
+                                    value: "",
+                                    text: "Select Products"
+                                }));
 
                             console.log(data.data);
-                            $.each(data.data, function (key, value) {
-                                $('#productIdx').append($('<option>',
-                                            {
-                                                value: value.itemIdx,
-                                                text: value.itemName
-                                            }));
+                            $.each(data.data,
+                                function(key, value) {
+                                    $('#productIdx').append($('<option>',
+                                        {
+                                            value: value.itemIdx,
+                                            text: value.itemName
+                                        }));
 
 
-
-                            });
+                                });
 
 
                         }
                     });
-                }
-                else if (orderId > 0 && typeId == 2)
-                {
+                } else if (orderId > 0 && typeId == 2) {
                     $.ajax({
                         url: '/Activity/SearchProductsInDODetail',
                         type: "GET",
@@ -603,97 +519,181 @@
                         data: {
                             Id: orderId
                         },
-                        success: function (data) {
+                        success: function(data) {
 
                             $("#productIdx").html(""); // clear before appending new list
                             //var invoicData = JSON.parse(data.data)
                             //allInvoice = { invoicData };
 
                             $('#productIdx').append($('<option>',
-                                            {
-                                                value: "",
-                                                text: "Select Products"
-                                            }));
+                                {
+                                    value: "",
+                                    text: "Select Products"
+                                }));
 
                             console.log(data.data);
-                            $.each(data.data, function (key, value) {
-                                $('#productIdx').append($('<option>',
-                                            {
-                                                value: value.itemIdx,
-                                                text: value.itemName
-                                            }));
+                            $.each(data.data,
+                                function(key, value) {
+                                    $('#productIdx').append($('<option>',
+                                        {
+                                            value: value.itemIdx,
+                                            text: value.itemName
+                                        }));
 
 
-
-                            });
+                                });
 
 
                         }
                     });
 
-                }
-                else {
+                } else {
 
                     $("#productIdx").empty();
                     $("#productIdx").append($('<option>',
-                                            {
-                                                value: "",
-                                                text: "Select Product"
-                                            }));
+                        {
+                            value: "",
+                            text: "Select Product"
+                        }));
 
                 }
+
+            });
+
+        function changeorderid() {
+
+            var orderId = $("#orderIdx option:selected").val();
+            var typeId = $("#typeIdx option:selected").val();
+            if (orderId > 0 && typeId == 1) {
+                $.ajax({
+                    url: '/Activity/SearchProductsInDetail',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: {
+                        Id: orderId
+                    },
+                    success: function(data) {
+
+                        $("#productIdx").html(""); // clear before appending new list
+                        $('#productIdx').append($('<option>',
+                            {
+                                value: "",
+                                text: "Select Products"
+                            }));
+
+                        console.log(data.data);
+                        $.each(data.data,
+                            function(key, value) {
+                                $('#productIdx').append($('<option>',
+                                    {
+                                        value: value.itemIdx,
+                                        text: value.itemName
+                                    }));
+
+
+                            });
+
+
+                    }
+                });
+            } else if (orderId > 0 && typeId == 2) {
+                $.ajax({
+                    url: '/Activity/SearchProductsInDODetail',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: {
+                        Id: orderId
+                    },
+                    success: function(data) {
+
+                        $("#productIdx").html(""); // clear before appending new list
+                        //var invoicData = JSON.parse(data.data)
+                        //allInvoice = { invoicData };
+
+                        $('#productIdx').append($('<option>',
+                            {
+                                value: "",
+                                text: "Select Products"
+                            }));
+
+                        console.log(data.data);
+                        $.each(data.data,
+                            function(key, value) {
+                                $('#productIdx').append($('<option>',
+                                    {
+                                        value: value.itemIdx,
+                                        text: value.itemName
+                                    }));
+
+
+                            });
+
+
+                    }
+                });
+
+            } else {
+
+                $("#productIdx").empty();
+                $("#productIdx").append($('<option>',
+                    {
+                        value: "",
+                        text: "Select Product"
+                    }));
+
+            }
 
 
         }
 
-        $("#vendorCatIdx").on('change', function () {
-            var vendorId = $("#vendorCatIdx option:selected").val();
-            if (vendorId > 0) {
-                $.ajax({
-                    url: '/Activity/SearchVendorsOnCatIdx',
-                    type: "GET",
-                    dataType: "JSON",
-                    data: {
-                        Id: vendorId
-                    },
-                    success: function (data) {
+        $("#vendorCatIdx").on('change',
+            function() {
+                var vendorId = $("#vendorCatIdx option:selected").val();
+                if (vendorId > 0) {
+                    $.ajax({
+                        url: '/Activity/SearchVendorsOnCatIdx',
+                        type: "GET",
+                        dataType: "JSON",
+                        data: {
+                            Id: vendorId
+                        },
+                        success: function(data) {
 
-                        $("#vendorIdx").html(""); // clear before appending new list
+                            $("#vendorIdx").html(""); // clear before appending new list
 
 
-                        $('#vendorIdx').append($('<option>',
-                                        {
-                                            value: "",
-                                            text: "Select Vendor"
-                                        }));
-
-                        $.each(data.data, function (key, value) {
                             $('#vendorIdx').append($('<option>',
+                                {
+                                    value: "",
+                                    text: "Select Vendor"
+                                }));
+
+                            $.each(data.data,
+                                function(key, value) {
+                                    $('#vendorIdx').append($('<option>',
                                         {
                                             value: value.idx,
                                             text: value.vendorName
                                         }));
 
 
+                                });
 
-                        });
 
+                        }
+                    });
+                } else {
 
-                    }
-                });
-            }
-            else {
+                    $("#vendorIdx").empty();
+                    $("#vendorIdx").append($('<option>',
+                        {
+                            value: "",
+                            text: "Select Vendor"
+                        }));
 
-                $("#vendorIdx").empty();
-                $("#vendorIdx").append($('<option>',
-                                        {
-                                            value: "",
-                                            text: "Select Vendor"
-                                        }));
+                }
 
-            }
-
-        });
+            });
 
         function displayerror() {
             for (var i = 0; i < errmsg.length; i++) {
@@ -718,7 +718,7 @@
             }
         }
 
-        $("#btnAddSale").click(function (e) {
+        $("#btnAddSale").click(function(e) {
 
             e.preventDefault();
             var form = $("#purchaseform");
@@ -748,9 +748,9 @@
             var milestonedetails = {
             };
             var pomasternetamount = 0;
-            table.find('tr').each(function (i) {
+            table.find('tr').each(function(i) {
                 var $tds = $(this).find('td'),
-                     productid = $tds.eq(0).text(),
+                    productid = $tds.eq(0).text(),
                     reference = $tds.eq(2).text(),
                     size = $tds.eq(3).text(),
                     qty = $tds.eq(4).text(),
@@ -766,49 +766,46 @@
                     qty: qty,
                     activityPrice: activityPrice,
                     description: description,
-                    totalAmount, totalAmount
-                })
-                ;
+                    totalAmount,
+                    totalAmount
+                });
 
             });
 
             console.log(JSON.stringify(datatosend));
 
 
-
             var form = $("#purchaseform");
             console.log(datatosend)
-            $(this).removeData("validator").removeData("unobtrusiveValidation");//remove the form validation
-            $.validator.unobtrusive.parse($(this));//add the form validation
+            $(this).removeData("validator").removeData("unobtrusiveValidation"); //remove the form validation
+            $.validator.unobtrusive.parse($(this)); //add the form validation
             //$.validator.unobtrusive.parse(form);
             //if ($(form).valid()) // using not operator for a time being
             if ($(form).valid()) {
                 $.ajax({
                     type: "POST",
                     url: "/Activity/AddUpdate",
-                    data: JSON.stringify(datatosend),// JSON.stringify(milestonearray),// $(form).serialize(),
+                    data: JSON.stringify(datatosend), // JSON.stringify(milestonearray),// $(form).serialize(),
                     contentType: 'application/json',
                     dataType: 'json',
-                    success: function (res) {
+                    success: function(res) {
                         console.log(res);
                         if (res.success) {
 
                             window.location.href = "/Activity/Activity"
-                        }
-                        else if (res.success == false && res.msg == 'Failed') {
+                        } else if (res.success == false && res.msg == 'Failed') {
 
                         }
                     },
-                    failure: function (res) {
+                    failure: function(res) {
                         console.log(res);
                     },
-                    err: function (res) {
+                    err: function(res) {
                         console.log(res);
                     }
 
                 })
-            }
-            else {
+            } else {
                 return false;
             }
 
@@ -818,11 +815,9 @@
         //Add Project Button Event start
 
 
-
-
         // Add to Grid Button
-        $("#btnaddtogrid").click(function (e) {
-            if (!(gridValidation($("#productIdx option:selected").val(), $('#vendorCatIdx').val()))) {
+        $("#btnaddtogrid").click(function(e) {
+            if (!(gridValidation($("#productIdx option:selected").val(), $('#vendorIdx').val(), $('#vendorCatIdx').val()))) {
 
                 displayerror();
                 return;
@@ -839,27 +834,25 @@
             // '</button>'
             var productname = $("#productIdx option:selected").text();
             var ProductID = $("#productIdx option:selected").val();
+            var vendorCatIdx = $("#vendorCatIdx option:selected").val();
+            var vendorIdx = $("#vendorIdx option:selected").val();
             var reference = $('#reference').val();
             var size = $('#size').val();
             //var Qty = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="' + actualQty + '"  id="qty" class="form-control" />';
             var Qty = $('#qty').val();
             var activityPrice = $('#activityPrice').val();
             var description = $('#description').val();
-            var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + reference + "</td><td>" + size + "</td><td>" + Qty + "</td><td>" + activityPrice + "</td><td>" + description + "</td><td>" + closebutton + "</td></tr>";
+            var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + reference + "</td><td>" + size + "</td><td>" + Qty + "</td><td>" + activityPrice + "</td><td>" + description + "</td><td style=display: none>" + vendorCatIdx + "</td><td style=display: none>" + vendorIdx + "</td><td>" + closebutton + "</td></tr>";
 
             $("#example2 tbody").append(markup);
             $("#typeIdx").prop('disabled', true); //disable
             $("#orderIdx").prop('disabled', true); //disable
-            $("#vendorCatIdx").prop('disabled', true); //disable
-            $("#vendorIdx").prop('disabled', true); //disable
-
-
-
-
+            $("#vendorCatIdx").prop('disabled', false); //disable
+            $("#vendorIdx").prop('disabled', false); //disable
 
 
         });
-        $('#orderDate').change(function () {
+        $('#orderDate').change(function() {
             var date = $(this).val();
             console.log(date, 'change')
             var GivenDate = date;
@@ -874,15 +867,17 @@
                 // alert('Given date is not greater than the current date.');
             }
         });
+
         function SomeDeleteRowFunction(o) {
             //alert(id);
-            var $row = $(this).closest("tr"),        // Finds the closest row <tr>
-                 $tds = $row.find("td:nth-child(2)");
+            var $row = $(this).closest("tr"), // Finds the closest row <tr>
+                $tds = $row.find("td:nth-child(2)");
             //console.log($tds);
 
-            $.each($tds, function () {                // Visits every single <td> element
-                // console.log($(this).text());         // Prints out the text within the <td>
-            });
+            $.each($tds,
+                function() { // Visits every single <td> element
+                    // console.log($(this).text());         // Prints out the text within the <td>
+                });
             var itmmant = o.parentNode.parentNode.children[4].innerText;
             var tmnt = $('#totalAmount').val();
 
@@ -896,8 +891,7 @@
             $(this).closest('tr').remove();
             var rowCount = $('#example2 tr').length;
 
-            if (Number(rowCount - 1) == 0)
-            {
+            if (Number(rowCount - 1) == 0) {
                 $("#typeIdx").prop('disabled', false); //enable
                 $("#orderIdx").prop('disabled', false); //enable
                 $("#vendorCatIdx").prop('disabled', false); //enable
@@ -908,20 +902,22 @@
 
 
         // Grid Validations
-        function gridValidation(Id,processId) {
+        function gridValidation(Id, vendorId, processId) {
             errmsg = [];
             var myTab = $("#example2 tbody");
             var rtrn = true;
 
             // LOOP THROUGH EACH ROW OF THE TABLE AFTER HEADER.
-            myTab.find('tr').each(function (i) {
-                var processIdx = $('#vendorCatIdx').val();
+            myTab.find('tr').each(function(i) {
+                //var processIdx = $('#vendorCatIdx').val();
+                //var vendorIdx = $('#vendorIdx').val();
                 var $tds = $(this).find('td'),
                     productid = $tds.eq(0).text();
-
-                if (Id == productid && processId == processIdx) {
+                processIdx = $tds.eq(7).text();
+                vendorIdx = $tds.eq(8).text();
+                if (Id == productid && processId == processIdx && vendorId == vendorIdx) {
                     rtrn = false;
-                    errmsg.push("Product With Same Process Already exist");
+                    errmsg.push("Product With Same Process and Vendor Already exist");
                 }
             })
             if ($('#productIdx option:selected').val() == '') {
@@ -938,10 +934,8 @@
             }
 
 
-
             return rtrn;
         }
-
 
 
     </script>

@@ -110,5 +110,12 @@ namespace SSS.BLL.Transactions
             objDAL = new LP_Voucher_DAL();
             return objDAL.getcustomerInvoices(id);
         }
+
+        // Added By Ahsan
+        public DataTable getcustomerPaidAmount(int id)
+        {
+            objDAL = new LP_Voucher_DAL();
+            return objDAL.getcustomerPaidAmount(id);
+        }
     }
 }

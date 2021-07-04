@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <label>Vendor*:</label>
 
-                    @Html.DropDownListFor(model => model.vendorIdx, new SelectList(Model.VendorLST, "idx", "vendorName"), "Select Vendor", new { @Class = "form-control font-weight-bold" })
+                    @Html.DropDownListFor(model => model.vendorIdx, new SelectList(Model.VendorLST, "idx", "vendorName"), "Select Vendor", new { @Class = "select2 form-control font-weight-bold" })
 
                 </div>
                 @Html.ValidationMessageFor(model => model.vendorIdx, "", new { @class = "text-danger" })
@@ -58,7 +58,7 @@
             <div class="col-sm-3">
                 <div class="form-group">
                     <label>Warehouse*:</label>
-                    @Html.DropDownListFor(model => model.warehouseIdx, new SelectList(Model.WarehouseList, "idx", "WareHouseName"), "Select WareHouse", new { @Class = "form-control font-weight-bold" })
+                    @Html.DropDownListFor(model => model.warehouseIdx, new SelectList(Model.WarehouseList, "idx", "WareHouseName"), "Select WareHouse", new { @Class = "select2 form-control font-weight-bold" })
                 </div>
                 @Html.ValidationMessageFor(model => model.warehouseIdx, "", new { @class = "text-danger" })
             </div>
@@ -131,10 +131,10 @@
                                     
                                 </tr>
                                 <tr>
-                                    <td> @Html.DropDownListFor(model => model.HSCode, new SelectList(Model.ProductList, "HSCODE", "HSCODE"), "Select HSCODE", new { @Class = "form-control font-weight-bold" })</td>
+                                    <td> @Html.DropDownListFor(model => model.HSCode, new SelectList(Model.ProductList, "HSCODE", "HSCODE"), "Select HSCODE", new { @Class = "form-control select2 font-weight-bold" })</td>
 
                                     <td>
-                                        <select id="itemIdx" class="form-control font-weight-bold">
+                                        <select id="itemIdx" class=" form-control font-weight-bold">
                                             @{
                                                 <option value="0" data-hscode="0">Select Product</option>
 
@@ -148,7 +148,7 @@
 
                                     </td>
 
-                                    <td>@Html.DropDownListFor(model => model.gridVendorIdx, new SelectList(Model.VendorLST, "idx", "vendorName"), "Select Vendor", new { @Class = "form-control font-weight-bold" })</td>
+                                    <td>@Html.DropDownListFor(model => model.gridVendorIdx, new SelectList(Model.VendorLST, "idx", "vendorName"), "Select Vendor", new { @Class = "form-control select2 font-weight-bold" })</td>
                                     <td>@Html.EditorFor(model => model.qty, new { htmlAttributes = new { @placeholder = "Qty", @class = "form-control" } })</td>
                                     <td>@Html.EditorFor(model => model.unitPrice, new { htmlAttributes = new { @placeholder = "Unit Price", @class = "form-control" } })</td>
                                     <td>@Html.EditorFor(model => model.amount, new { htmlAttributes = new { @placeholder = "Sub Amount", @class = "form-control", @readonly = true } })</td>
@@ -349,6 +349,7 @@
 @section MyScripts
     {
     <script type="text/javascript">
+        $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true });
 
     // Add To grid
     $("#MRNIdx").on('change', function () {

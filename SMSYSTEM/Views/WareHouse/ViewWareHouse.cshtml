@@ -188,10 +188,10 @@
                             //    }
 
                               //  return data.Status + "<br/>" + data.Name;
-                            "data": "idx",
-                            "render": function (idx, type, full, meta) {
+                            "data": "Idx",
+                            "render": function (Idx, type, full, meta) {
 
-                                return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a> <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a>'
+                                return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + Idx + ')"><i class="fa fa-eye"></i></a> <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + Idx + ')"><i class="fa fa-trash"></i></a>'
 
                         },
                             "orderable": true,
@@ -207,11 +207,11 @@
 
         });
 
-        function ShowCustomer(idx) {
+        function ShowCustomer(Idx) {
 
-            console.log(idx);
+            console.log(Idx);
 
-            var url = "/WareHouse/AddNewWareHouse?id=" + idx;
+            var url = "/WareHouse/AddNewWareHouse?id=" + Idx;
             // window.location.href = url;
 
             $("#modelbody").load(url, function (e) {
@@ -223,72 +223,58 @@
             });
         }
 
-        function ConfirmDelete(idx) {
-            $.ajax({
-                type: 'GET',
-                url: '/Warehouse/Delete?id=' + idx,
-                dataType: 'JSON',
-                success: function (res) {
-                    if (res.success) {
-                        swalWithBootstrapButtons.fire(
-                            'Done!',
-                            'Blocked',
-                            'success'
-                            )
-                        window.location.href = "/Warehouse/ViewWareHouse"
-                    }
-                    else {
-                        swalWithBootstrapButtons.fire(
-                            'Error!',
-                            'Failes',
-                            'success'
-                            )
-                    }
+        function ConfirmDelete(Idx) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
                 },
-                failure: function (res) {
-                    console.log(res);
-                },
-                err: function (res) {
-                    console.log(res);
+                buttonsStyling: false
+            })
+
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Warehouse/Delete?id=' + Idx,
+
+
+                        dataType: 'JSON',
+                        success: function (res) {
+                            if (res.success) {
+                                swalWithBootstrapButtons.fire(
+                                    'Done!',
+                                    'Blocked',
+                                    'success'
+                                )
+                                window.location.href = "/Warehouse/ViewWareHouse"
+                            }
+                        }
+                    })
+
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Your imaginary file is safe :)',
+                        'error'
+                    )
                 }
             })
-            //const swalWithBootstrapButtons = Swal.mixin({
-            //    customClass: {
-            //        confirmButton: 'btn btn-success',
-            //        cancelButton: 'btn btn-danger'
-            //    },
-            //    buttonsStyling: false
-            //})
-
-            //swalWithBootstrapButtons.fire({
-            //    title: 'Are you sure?',
-            //    text: "",
-            //    type: 'warning',
-            //    showCancelButton: true,
-            //    confirmButtonText: 'Yes, Block!',
-            //    cancelButtonText: 'No, cancel!',
-            //    reverseButtons: true
-            //}).then((result) => {
-            //    if (result.value) {
-
-
-
-
-
-            //    } else if (
-            //        /* Read more about handling dismissals below */
-            //      result.dismiss === Swal.DismissReason.cancel
-            //    ) {
-            //        swalWithBootstrapButtons.fire(
-            //          'Cancelled',
-            //          '',
-            //          'error'
-            //        )
-            //    }
-            //})
-
         }
 
+ 
     </script>
 }
 

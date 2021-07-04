@@ -10,6 +10,12 @@ namespace SSS.Property.Setups
 {
     public class SalesOrderVM_Property
     {
+        // Added By Ahsan
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Please Select Date")]
+        public DateTime DeliveryDate { get; set; }
+        public string Description { get; set; }
+
         [Required]
         public int salesTypeIdx { get; set; }
         public int? qsIdx { get; set; }
@@ -68,6 +74,7 @@ namespace SSS.Property.Setups
 
         public List<PaymentMode_Property> Paymentmodelist { get; set; }//important to be Added
         public List<Company_Bank_Property> BankList { get; set; }
+
         public List<SalesOrdersDetails_Property> SalesOrderDetailLST { get; set; }//make a model for quotation Detail
         public List<Taxes_Property> TaxList { get; set; }
         public List<LP_salesTaxes_Property> salesTaxesLST { get; set; }

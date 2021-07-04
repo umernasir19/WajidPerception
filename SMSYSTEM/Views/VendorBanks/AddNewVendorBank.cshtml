@@ -14,7 +14,7 @@
             <!-- text input -->
             <div class="form-group">
                 <label>Bank*:</label>
-                @Html.DropDownListFor(model => model.bankIdx, new SelectList(Model.BankList, "idx", "bankName"), "Select Bank", new { @Class = "form-control font-weight-bold" })
+                @Html.DropDownListFor(model => model.bankIdx, new SelectList(Model.BankList, "idx", "bankName"), "Select Bank", new { @Class = "select2 form-control font-weight-bold" })
                 @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>
             @Html.ValidationMessageFor(model => model.bankIdx, "", new { @class = "text-danger" })
@@ -23,7 +23,7 @@
             <!-- text input -->
             <div class="form-group">
                 <label>Vendor*:</label>
-                @Html.DropDownListFor(model => model.vendorIdx, new SelectList(Model.VendorList, "idx", "vendorName"), "Select Vendor", new { @Class = "form-control font-weight-bold" })
+                @Html.DropDownListFor(model => model.vendorIdx, new SelectList(Model.VendorList, "idx", "vendorName"), "Select Vendor", new { @Class = "select2 form-control font-weight-bold" })
                 @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>
             @Html.ValidationMessageFor(model => model.vendorIdx, "", new { @class = "text-danger" })
@@ -55,3 +55,7 @@
 
 
 </form>
+
+<script>
+           $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true, dropdownParent: $('#modelbody') });
+</script>

@@ -13,7 +13,7 @@
             <!-- text input -->
             <div class="form-group">
                 <label>Currency Name *:</label>
-                @Html.DropDownListFor(model => model.currencyIdx, new SelectList(Model.CurrencyLST, "idx", "nameCode"), "Select Currency", new { @Class = "form-control font-weight-bold" })
+                @Html.DropDownListFor(model => model.currencyIdx, new SelectList(Model.CurrencyLST, "idx", "nameCode"), "Select Currency", new { @Class = "select2 form-control font-weight-bold" })
                 @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>
             @Html.ValidationMessageFor(model => model.currencyIdx, "", new { @class = "text-danger" })
@@ -28,3 +28,6 @@
     </div>
 
 </form>
+<script>
+           $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true, dropdownParent: $('#modelbody') });
+</script>

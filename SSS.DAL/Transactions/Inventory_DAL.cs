@@ -536,11 +536,11 @@ namespace SSS.DAL.Report
                         row["creationDate"] = DateTime.Now;
                     }
 
-                    foreach (DataColumn dc in objinventory.DetailData.Columns)
-                    {
-                        sbc.ColumnMappings.Add(dc.ColumnName, dc.ColumnName);
+                    //foreach (DataColumn dc in objinventory.DetailData.Columns)
+                    //{
+                    //    sbc.ColumnMappings.Add(dc.ColumnName, dc.ColumnName);
 
-                    }
+                    //}
 
 
                     //sbc.ColumnMappings.Add("mrnIdx", "mrnIdx");
@@ -558,8 +558,25 @@ namespace SSS.DAL.Report
                     //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
                     //sbc.ColumnMappings.Add("Description", "Description");
 
-                    sbc.DestinationTableName = "inventory_logs";
+                    //SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                    objinventory.DetailData.TableName = "inventory_logs";
+
+                    sbc.ColumnMappings.Clear();
+                    sbc.ColumnMappings.Add("productIdx", "productIdx");
+                    sbc.ColumnMappings.Add("stock", "stock");
+                    sbc.ColumnMappings.Add("unitPrice", "unitPrice");
+                    sbc.ColumnMappings.Add("totalAmount", "totalAmount");
+                    sbc.ColumnMappings.Add("BRANCHID", "BRANCHID");
+                    sbc.ColumnMappings.Add("wareHouseIdx", "wareHouseIdx");
+                    sbc.ColumnMappings.Add("creationDate", "creationDate");
+
+                    sbc.DestinationTableName = objinventory.DetailData.TableName;
                     sbc.WriteToServer(objinventory.DetailData);
+
+
+
+                    //sbc.DestinationTableName = "inventory_logs";
+                    //sbc.WriteToServer(objinventory.DetailData);
 
                 }
 

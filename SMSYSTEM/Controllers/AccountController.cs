@@ -53,6 +53,15 @@ namespace SMSYSTEM.Controllers
 
             }
         }
+        
+        public ActionResult LogOff()
+        {
+
+            Session.Clear();
+            Session.Abandon();
+            // Redirecting to Login page after deleting Session
+            return RedirectToAction("Login", "Account");
+        }
 
     }
 }

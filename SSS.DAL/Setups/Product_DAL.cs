@@ -337,6 +337,7 @@ where pr.visible =1 and pr.HSCODE!=''";
                 cmdToExecute.Parameters.Add(new SqlParameter("@salePrice", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objProduct.salePrice));
                 cmdToExecute.Parameters.Add(new SqlParameter("@productTax", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objProduct.productTax));
                 cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, objProduct.idx));
+                cmdToExecute.Parameters.Add(new SqlParameter("@Reference", SqlDbType.VarChar, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objProduct.Reference));
 
                 if (_mainConnectionIsCreatedLocal)
                 {
@@ -450,6 +451,7 @@ where pr.visible =1 and pr.HSCODE!=''";
                 cmdToExecute.Parameters.Add(new SqlParameter("@costPrice", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objProduct.costPrice));
                 cmdToExecute.Parameters.Add(new SqlParameter("@salePrice", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objProduct.salePrice));
                 cmdToExecute.Parameters.Add(new SqlParameter("@productTax", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objProduct.productTax));
+                cmdToExecute.Parameters.Add(new SqlParameter("@Reference", SqlDbType.VarChar, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objProduct.Reference));
 
                 if (_mainConnectionIsCreatedLocal)
                 {
@@ -468,7 +470,7 @@ where pr.visible =1 and pr.HSCODE!=''";
                 _rowsAffected = cmdToExecute.ExecuteNonQuery();
                 // _iD = (Int32)cmdToExecute.Parameters["@iID"].Value;
                 // _errorCode = (Int32)cmdToExecute.Parameters["@iErrorCode"].Value;
-                if (objProduct.ProductPictureList.Count > 0)
+                if (/*objProduct.ProductPictureList.Count > 0*/ objProduct.ProductPictureList != null)
                 {
                     DataTable dt;
                     //add product id in list

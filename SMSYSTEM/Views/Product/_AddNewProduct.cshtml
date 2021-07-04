@@ -11,7 +11,7 @@
             <!-- text input -->
             <div class="form-group">
                 <label>Product Type *:</label>
-                @Html.DropDownListFor(model => model.productTypeIdx, new SelectList(ViewBag.productTypeLST, "idx", "productType"), "Select ProductType ", new { @Class = "form-control font-weight-bold" })
+                @Html.DropDownListFor(model => model.productTypeIdx, new SelectList(ViewBag.productTypeLST, "idx", "productType"), "Select ProductType ", new { @Class = "select2 form-control font-weight-bold" })
                 @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>
             @Html.ValidationMessageFor(model => model.productTypeIdx, "", new { @class = "text-danger" })
@@ -20,7 +20,7 @@
             <!-- text input -->
             <div class="form-group">
                 <label>Category *:</label>
-                @Html.DropDownListFor(model => model.productCatIdx, new SelectList(ViewBag.catLST, "idx", "category"), "Select Category ", new { @Class = "form-control font-weight-bold" })
+                @Html.DropDownListFor(model => model.productCatIdx, new SelectList(ViewBag.catLST, "idx", "category"), "Select Category ", new { @Class = "select2 form-control font-weight-bold" })
                 @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>
             @Html.ValidationMessageFor(model => model.productCatIdx, "", new { @class = "text-danger" })
@@ -29,7 +29,7 @@
             <!-- text input -->
             <div class="form-group">
                 <label>Sub-Category*:</label>
-                @Html.DropDownListFor(model => model.productSubCatIdx, new SelectList(ViewBag.subCatLST, "idx", "subCategory"), "Select Sub-Category ", new { @Class = "form-control font-weight-bold" })
+                @Html.DropDownListFor(model => model.productSubCatIdx, new SelectList(ViewBag.subCatLST, "idx", "subCategory"), "Select Sub-Category ", new { @Class = "select2 form-control font-weight-bold" })
                 @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>
             @Html.ValidationMessageFor(model => model.productSubCatIdx, "", new { @class = "text-danger" })
@@ -63,11 +63,21 @@
             <!-- text input -->
             <div class="form-group">
                 <label>Unit*:</label>
-                @Html.DropDownListFor(model => model.unitIdx, new SelectList(ViewBag.unitLST, "idx", "itemUnit"), "Select Unit ", new { @Class = "form-control font-weight-bold" })
+                @Html.DropDownListFor(model => model.unitIdx, new SelectList(ViewBag.unitLST, "idx", "itemUnit"), "Select Unit ", new { @Class = "select2 form-control font-weight-bold" })
                 @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>
             @Html.ValidationMessageFor(model => model.unitIdx, "", new { @class = "text-danger" })
         </div>
+    @*  Added By Ahsan*@
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Reference*:</label>
+                @Html.EditorFor(model => model.Reference, new { htmlAttributes = new { @placeholder = "Reference", @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.Reference, "", new { @class = "text-danger" })
+        </div>
+        
+
         <div class="col-sm-6">
             <div class="form-group">
                 <label>Description*:</label>
@@ -108,6 +118,9 @@
 
 </form>
 <script type="text/javascript">
+    
+    $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true, dropdownParent: $('#modelbody') });
+
     var cattext,catValue;
     var subcattext,subcatValue;
     var prdctpic=@Html.Raw(Json.Encode(ViewBag.ProductPics));
@@ -115,32 +128,32 @@
     $('.input-images').imageUploader();
 
 
-        if(prdctpic.length!=null){
+    if(prdctpic.length!=null){
 
 
-            console.log("HELLO")
-            console.log(prdctpic)
-            let preloaded = [];
-            for(var i=0;i<prdctpic.length;i++){
-                var j=i;
-                preloaded.push(
-                    {
-                        id:i,
-                        src:prdctpic[i].PicturePath
-                    }
-                )
-            }
-
-            $('.input-images').imageUploader({
-                preloaded: preloaded,
-                imagesInputName: 'photos',
-                preloadedInputName: 'old',
-                maxSize: 2 * 1024 * 1024,
-                maxFiles: 10
-            });
-
-
+        console.log("HELLO")
+        console.log(prdctpic)
+        let preloaded = [];
+        for(var i=0;i<prdctpic.length;i++){
+            var j=i;
+            preloaded.push(
+                {
+                    id:i,
+                    src:prdctpic[i].PicturePath
+                }
+            )
         }
+
+        $('.input-images').imageUploader({
+            preloaded: preloaded,
+            imagesInputName: 'photos',
+            preloadedInputName: 'old',
+            maxSize: 2 * 1024 * 1024,
+            maxFiles: 10
+        });
+
+
+    }
 
 
     //var imagefiles = document.getElementsByName("images")

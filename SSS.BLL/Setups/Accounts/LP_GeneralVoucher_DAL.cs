@@ -271,20 +271,6 @@ namespace SSS.DAL.Setups.Accounts
                 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 if (_errorCode != (int)LLBLError.AllOk)
                 {
                     // Throw error.

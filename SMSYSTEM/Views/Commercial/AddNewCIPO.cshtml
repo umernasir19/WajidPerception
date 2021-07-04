@@ -15,7 +15,7 @@
                 <!-- text input -->
                 <div class="form-group">
                     <label>Select PI*:</label>
-                    @Html.DropDownListFor(model => model.PINO, new SelectList(Model.PerformaLISt, "idx", "poNumber"), "Select Performa Invoice", new { @Class = "form-control font-weight-bold" })
+                    @Html.DropDownListFor(model => model.PINO, new SelectList(Model.PerformaLISt, "idx", "poNumber"), "Select Performa Invoice", new { @Class = "select2 form-control font-weight-bold" })
                 </div>
                 @Html.ValidationMessageFor(model => model.PINO, "", new { @class = "text-danger" })
             </div>
@@ -103,7 +103,7 @@
                                 </tr>
                                 <tr>
 
-                                    <td><select id="itemIdx" class="form-control"></select></td>
+                                    <td><select id="itemIdx" class="select2 form-control"></select></td>
                                     <td>@Html.EditorFor(model => model.qty, new { htmlAttributes = new { @placeholder = "Qty", @class = "form-control", @onkeyup = "culculateinputs()" } })</td>
                                     <td>@Html.EditorFor(model => model.DVRate, new { htmlAttributes = new { @placeholder = "Unit Price", @class = "form-control" } })</td>
                                     <td>@Html.EditorFor(model => model.TDVRate, new { htmlAttributes = new { @placeholder = "Sub Amount", @class = "form-control", @readonly = true } })</td>
@@ -285,6 +285,9 @@
 @section MyScripts
     {
     <script type="text/javascript">
+        // Added By Ahsan
+        $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true });
+
         var PIData;
         // Add To grid
         $("#PINO").on('change', function () {
@@ -466,7 +469,7 @@
         function SomeDeleteRowFunction(o) {
             //alert(id);
             var $row = $(this).closest("tr"),        // Finds the closest row <tr>
-                 $tds = $row.find("td:nth-child(2)");
+                $tds = $row.find("td:nth-child(2)");
             //console.log($tds);
 
             $.each($tds, function () {                // Visits every single <td> element
@@ -488,7 +491,7 @@
         function changeinunitprice(o) {
             //alert(id);
             var $row = $(this).closest("tr"),        // Finds the closest row <tr>
-                 $tds = $row.find("td:nth-child(2)");
+                $tds = $row.find("td:nth-child(2)");
             //console.log($tds);
 
 
@@ -592,7 +595,7 @@
             var table = $("#example2 tbody");
             table.find('tr').each(function (i) {
                 var $tds = $(this).find('td'),
-                  itemamount = $tds.eq(4).text();
+                    itemamount = $tds.eq(4).text();
 
                 console.log(itemamount);
                 // itemamount = itemamount + itemamount;
@@ -670,43 +673,43 @@
                     ADVRate = $tds.eq(5).text();
 
                 datatosend.objpurchase.CILIST.push({
-                    itemIdx: productid,
-                    qty: qty,
-                    unitprice: unitprice,
-                    productTypeIdx: 1,
-                    amount: qty * unitprice,
-                    DVRate: $tds.eq(3).text(),
-                    TDVRate: $tds.eq(4).text(),
-                    ADVRate: $tds.eq(5).text(),
-                    ItemDescription: $tds.eq(6).text(),
-                    ASSVCI: $tds.eq(7).text(),
-                    Landing: $tds.eq(8).text(),
-                    CDPercntage: $tds.eq(9).text(),
-                    RDPercentage: $tds.eq(10).text(),
-                    ACDPercentage: $tds.eq(11).text(),
-                    STPercentage: $tds.eq(12).text(),
-                    ASTPercentage: $tds.eq(13).text(),
-                    ITPercentage: $tds.eq(14).text(),
-                    TDTax: $tds.eq(15).text(),
-                    CleaningPrice: $tds.eq(16).text(),
-                    TotalAmount: $tds.eq(17).text(),
+                        itemIdx: productid,
+                        qty: qty,
+                        unitprice: unitprice,
+                        productTypeIdx: 1,
+                        amount: qty * unitprice,
+                        DVRate: $tds.eq(3).text(),
+                        TDVRate: $tds.eq(4).text(),
+                        ADVRate: $tds.eq(5).text(),
+                        ItemDescription: $tds.eq(6).text(),
+                        ASSVCI: $tds.eq(7).text(),
+                        Landing: $tds.eq(8).text(),
+                        CDPercntage: $tds.eq(9).text(),
+                        RDPercentage: $tds.eq(10).text(),
+                        ACDPercentage: $tds.eq(11).text(),
+                        STPercentage: $tds.eq(12).text(),
+                        ASTPercentage: $tds.eq(13).text(),
+                        ITPercentage: $tds.eq(14).text(),
+                        TDTax: $tds.eq(15).text(),
+                        CleaningPrice: $tds.eq(16).text(),
+                        TotalAmount: $tds.eq(17).text(),
 
-                    TotalASSVSCI: $tds.eq(18).text(),
-                    TotalLanding: $tds.eq(19).text(),
-                    TotalCDValue: $tds.eq(20).text(),
-                    TotalRDValue: $tds.eq(21).text(),
-                    TotalACDValue: $tds.eq(22).text(),
-                    TotalASTValue: $tds.eq(23).text(),
-                    TotalITValue: $tds.eq(24).text(),
-                    TotalSTValue: $tds.eq(25).text(),
+                        TotalASSVSCI: $tds.eq(18).text(),
+                        TotalLanding: $tds.eq(19).text(),
+                        TotalCDValue: $tds.eq(20).text(),
+                        TotalRDValue: $tds.eq(21).text(),
+                        TotalACDValue: $tds.eq(22).text(),
+                        TotalASTValue: $tds.eq(23).text(),
+                        TotalITValue: $tds.eq(24).text(),
+                        TotalSTValue: $tds.eq(25).text(),
                      
-                    // Added By Ahsan
-                    clearingExpensePerProduct: (TotalACDvalue * ExchangeRate) * 0.25,
+                        // Added By Ahsan
+                        clearingExpensePerProduct: (TotalACDvalue * ExchangeRate) * 0.25,
 
-                    //                Actual Value PKR        TD-Tax   clearing expense                         qty
-                    pricePerProduct: (parseFloat(((landing * qty) * ExchangeRate)) + parseFloat(((TotalACDvalue * ExchangeRate) * 0.25)) + parseFloat((TDtax))) / qty
-                })
-                ;
+                        //                Actual Value PKR        TD-Tax   clearing expense                         qty
+                        pricePerProduct: (parseFloat(((landing * qty) * ExchangeRate)) + parseFloat(((TotalACDvalue * ExchangeRate) * 0.25)) + parseFloat((TDtax))) / qty
+                    })
+                    ;
 
             });
             var form = $("#purchaseform");
@@ -750,20 +753,20 @@
         $('#HSCode').change(function () {
             // get optios of second dropdown and cache it
             var $options = $('#itemIdx')
-              // update the dropdown value if necessary
-              .val('')
-              // get options
-              .find('option')
-              // show all of the initially
-              .show();
+                // update the dropdown value if necessary
+                .val('')
+                // get options
+                .find('option')
+                // show all of the initially
+                .show();
             console.log($options);
             // check current value is not 0
             if (this.value != '0')
                 $options
-                // filter out options which is not corresponds to the first option
-                .not('[data-val="' + this.value + '"],[data-val=""]')
-                // hide them
-                .hide();
+                    // filter out options which is not corresponds to the first option
+                    .not('[data-val="' + this.value + '"],[data-val=""]')
+                    // hide them
+                    .hide();
         })
 
 
@@ -887,8 +890,8 @@
 
             table.find('tr').each(function (i) {
                 var $tds = $(this).find('td'),
-                  totalASTV = $tds.eq(16).text(),
-                  totalTD = $tds.eq(15).text();
+                    totalASTV = $tds.eq(16).text(),
+                    totalTD = $tds.eq(15).text();
 
 
                 tamnt = Number(tamnt) + (Number(totalASTV))

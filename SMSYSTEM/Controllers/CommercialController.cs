@@ -90,13 +90,18 @@ namespace SMSYSTEM.Controllers
                     objPurchaseVM_Property.vendorIdx = Convert.ToInt16(dt.Rows[0]["vendorIdx"].ToString());
                     objPurchaseVM_Property.poNumber = dt.Rows[0]["poNumber"].ToString();
                     objPurchaseVM_Property.description = dt.Rows[0]["description"].ToString();
-                   
+                    objPurchaseVM_Property.reference = dt.Rows[0]["reference"].ToString();
+                    objPurchaseVM_Property.warehouseIdx = Convert.ToInt16(dt.Rows[0]["warehouseIdx"].ToString());
+                    objPurchaseVM_Property.ContainerNo = dt.Rows[0]["ContainerNo"].ToString();
+                    objPurchaseVM_Property.DocumentNumber = dt.Rows[0]["DocumentNumber"].ToString();
+                    objPurchaseVM_Property.ExchangeRate = decimal.Parse(dt.Rows[0]["ExchangeRate"].ToString());
+
                     //objPurchaseVM_Property.DepartmentID = Convert.ToInt16(dt.Rows[0]["DepartmentID"].ToString());
                     objPurchaseVM_Property.totalAmount = Convert.ToDecimal(dt.Rows[0]["totalAmount"].ToString());
                     string pdate = (dt.Rows[0]["purchaseDate"].ToString()).ToString();
                     string ndate = DateTime.Parse(pdate).ToString("yyyy-MM-dd");
                     objPurchaseVM_Property.purchaseDate = Convert.ToDateTime(ndate);// DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
-                    objPurchaseVM_Property.purchaseDate = Convert.ToDateTime(ndate);
+                   
 
                     // Added by Ahsan 6/8/2021, Error Not found in view
                     objPurchaseVM_Property.gridVendorIdx = Convert.ToInt16(dt.Rows[0]["vendorIdx"].ToString());
@@ -107,7 +112,7 @@ namespace SMSYSTEM.Controllers
                     //    objmrndetail
 
                     //}
-                    ViewBag.DetailData = Helper.ConvertDataTable<PurchaseVM_Property>(dt);
+                    objPurchaseVM_Property.CommercialDetailList = Helper.ConvertDataTable<LP_Performa_Invoice_Details_Property>(dt);
                     //update
                     return View("AddNewCI", objPurchaseVM_Property);
                 }

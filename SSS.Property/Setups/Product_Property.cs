@@ -23,6 +23,8 @@ namespace SSS.Property.Setups
         public int productCatIdx { get; set; }
         public int productSubCatIdx { get; set; }
         public string HSCODE { get; set; }
+        [Required]
+        public string Reference { get; set; }// Added By Ahsan
 
         [Required]
         public string itemName { get; set; }

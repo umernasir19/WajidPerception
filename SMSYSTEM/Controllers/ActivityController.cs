@@ -44,6 +44,8 @@ namespace SMSYSTEM.Controllers
             if (Session["LOGGEDIN"] != null)
             {
                 objActivityVM = new LP_Activity_Property();
+
+              
                 if (id > 0)
                 {
                     objActivityVM = new LP_Activity_Property();
@@ -60,6 +62,12 @@ namespace SMSYSTEM.Controllers
                     objActivityVM.vendorIdx = objActivityVM.ActivityDetailLST[0].vendorIdx;
                     objActivityVM.vendorCatIdx = objActivityVM.ActivityDetailLST[0].vendorCatIdx;
                     objActivityVM.idx = objActivityVM.ActivityDetailLST[0].idx;
+                    objActivityVM.activityPrice = objActivityVM.ActivityDetailLST[0].activityPrice;
+                    // Added By Ahsan
+                    objActivityVM.description = objActivityVM.ActivityDetailLST[0].description;
+                    objActivityVM.reference = objActivityVM.ActivityDetailLST[0].reference;
+                    objActivityVM.size = objActivityVM.ActivityDetailLST[0].size;
+                    objActivityVM.qty = objActivityVM.ActivityDetailLST[0].qty;
 
                     objActivityVM.typeIdx = objActivityVM.ActivityDetailLST[0].typeIdx;
                     objActivityVM.orderIdx = objActivityVM.ActivityDetailLST[0].orderIdx;

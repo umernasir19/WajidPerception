@@ -22,7 +22,7 @@
                         <!-- text input -->
                         <div class="form-group">
                             <label>Commercial Invoice*:</label>
-                            <td>@Html.DropDownListFor(model => model.commercialIdx, new SelectList(Model.CIPO, "idx", "poNumber"), "Select CI", new { @Class = "form-control font-weight-bold" })</td>
+                            <td>@Html.DropDownListFor(model => model.commercialIdx, new SelectList(Model.CIPO, "idx", "poNumber"), "Select CI", new { @Class = "select2 form-control font-weight-bold" })</td>
                             @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
                         </div>
                         @Html.ValidationMessageFor(model => model.commercialIdx, "", new { @class = "text-danger" })
@@ -97,8 +97,8 @@
                         </thead>
                         <tbody class="" style="background:white;">
                             <tr>
-                                <td>@Html.DropDownListFor(model => model.vendorIdx, new SelectList(Model.VendorList, "idx", "vendorName"), "Select Vendor", new { @Class = "form-control font-weight-bold" })</td>
-                                <td>@Html.DropDownListFor(model => model.coaIdx, new SelectList(Model.childList, "idx", "childHeadName"), "Select Account", new { @Class = "form-control font-weight-bold" })</td>
+                                <td>@Html.DropDownListFor(model => model.vendorIdx, new SelectList(Model.VendorList, "idx", "vendorName"), "Select Vendor", new { @Class = "select2 form-control font-weight-bold" })</td>
+                                <td>@Html.DropDownListFor(model => model.coaIdx, new SelectList(Model.childList, "idx", "childHeadName"), "Select Account", new { @Class = "select2 form-control font-weight-bold" })</td>
                                 @*<td>@Html.EditorFor(model => model.stock, new { htmlAttributes = new { @placeholder = "Stock", @value = "hello", @class = "form-control", @readonly = "true" } })</td>
                                     <td>@Html.EditorFor(model => model.costPrice, new { htmlAttributes = new { @placeholder = "Cost Price", @class = "form-control", @readonly = "true" } })</td>*@
                                 <td>@Html.EditorFor(model => model.amount, new { htmlAttributes = new { @placeholder = "Amount", @class = "form-control" } })</td>
@@ -268,6 +268,8 @@
     {
     <script type="text/javascript">
 
+        // Added By Ahsan
+        $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true });
 
 
         $("#commercialIdx").on('change', function () {

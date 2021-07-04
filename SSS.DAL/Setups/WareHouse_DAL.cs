@@ -138,10 +138,10 @@ namespace SSS.DAL.Setups
                 cmdToExecute.Parameters.Add(new SqlParameter("@IsActive", SqlDbType.Bit, 1, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, objWarehouse.IsActive));
                 cmdToExecute.Parameters.Add(new SqlParameter("@Isvisible", SqlDbType.Bit, 1, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, objWarehouse.IsVisible));
 
-                cmdToExecute.Parameters.Add(new SqlParameter("@CreationDate", SqlDbType.VarChar, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, objWarehouse.CreationDate));
+                cmdToExecute.Parameters.Add(new SqlParameter("@CreationDate", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, objWarehouse.CreationDate));
                 cmdToExecute.Parameters.Add(new SqlParameter("@createdByUserIdx", SqlDbType.NVarChar, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, objWarehouse.createdByUserIdx));
                 cmdToExecute.Parameters.Add(new SqlParameter("@lastModifiedByUserIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, objWarehouse.lastModifiedByUserIdx));
-                cmdToExecute.Parameters.Add(new SqlParameter("@LastModificationDate", SqlDbType.VarChar, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, objWarehouse.LastModificationDate));
+                cmdToExecute.Parameters.Add(new SqlParameter("@LastModificationDate", SqlDbType.DateTime, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, objWarehouse.LastModificationDate));
                 cmdToExecute.Parameters.Add(new SqlParameter("@IsMainWareHouse", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, objWarehouse.IsMainWareHouse));
 
 

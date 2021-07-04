@@ -15,7 +15,7 @@
             <!-- text input -->
             <div class="form-group">
                 <label>Bank*:</label>
-                @Html.DropDownListFor(model => model.bankIdx, new SelectList(Model.BankList, "idx", "bankName"), "Select Bank", new { @Class = "form-control font-weight-bold" })
+                @Html.DropDownListFor(model => model.bankIdx, new SelectList(Model.BankList, "idx", "bankName"), "Select Bank", new { @Class = "select2 form-control font-weight-bold ", @id = "drp" })
                 @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>
             @Html.ValidationMessageFor(model => model.bankIdx, "", new { @class = "text-danger" })
@@ -24,7 +24,7 @@
             <!-- text input -->
             <div class="form-group">
                 <label>Customer*:</label>
-                @Html.DropDownListFor(model => model.customerIdx, new SelectList(Model.CustomerList, "idx", "customerName"), "Select Customer", new { @Class = "form-control font-weight-bold" })
+                @Html.DropDownListFor(model => model.customerIdx, new SelectList(Model.CustomerList, "idx", "customerName"), "Select Customer", new { @Class = "select2 form-control font-weight-bold" })
                 @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>
             @Html.ValidationMessageFor(model => model.customerIdx, "", new { @class = "text-danger" })
@@ -56,3 +56,10 @@
 
 
 </form>
+
+<script src="~/Scripts/adminlte/components/select2/dist/js/select2.min.js"></script>
+
+<script>
+    $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true, dropdownParent: $('#modelbody') });
+
+</script>

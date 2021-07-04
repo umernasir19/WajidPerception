@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace SMSYSTEM.Controllers
 {
-    public class QuotationController : Controller
+    public class QuotationController : BaseController
     {
         // GET: Quotation
         QuotationVM_Property objQuotationVM_Property;
@@ -50,6 +50,20 @@ namespace SMSYSTEM.Controllers
         {
             if (Session["LOGGEDIN"] != null)
             {
+                // Added By Ahsan
+                List<Product_Property> productList = new List<Product_Property>();
+                DataTable products = ViewAllProducts();
+                foreach (DataRow dr in products.Rows)
+                {
+                    Product_Property objproduct = new Product_Property();
+                    objproduct.idx = Convert.ToInt32(dr["idx"].ToString());
+                    objproduct.Reference = dr["Reference"].ToString();
+                    objproduct.itemName = dr["itemName"].ToString();
+
+                    productList.Add(objproduct);
+                }
+                ViewBag.productList = productList;
+
                 objQuotationVM_Property = new QuotationVM_Property();
 
                 Customers_Property customer = new Customers_Property();

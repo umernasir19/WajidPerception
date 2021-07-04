@@ -39,7 +39,7 @@
                         <div class="form-group">
                             <label>Quotation#:</label>
 
-                            @Html.DropDownListFor(model => model.qsIdx, new SelectList(Model.QSList, "idx", "qsNumber"), "Select Quotation", new { @Class = "form-control font-weight-bold" })
+                            @Html.DropDownListFor(model => model.qsIdx, new SelectList(Model.QSList, "idx", "qsNumber"), "Select Quotation", new { @Class = "select2 form-control font-weight-bold" })
 
                         </div>
                         @Html.ValidationMessageFor(model => model.qsIdx, "", new { @class = "text-danger" })
@@ -49,7 +49,7 @@
                         <div class="form-group">
                             <label>Customer*:</label>
 
-                            @Html.DropDownListFor(model => model.customerIdx, new SelectList(Model.CustomerLST, "idx", "customerName"), "Select Customers", new { @Class = "form-control font-weight-bold" })
+                            @Html.DropDownListFor(model => model.customerIdx, new SelectList(Model.CustomerLST, "idx", "customerName"), "Select Customers", new { @Class = "select2 form-control font-weight-bold" })
 
                         </div>
                         @Html.ValidationMessageFor(model => model.customerIdx, "", new { @class = "text-danger" })
@@ -72,51 +72,61 @@
                         </div>
                         @Html.ValidationMessageFor(model => model.salesorderDate, "", new { @class = "text-danger" })
                     </div>
+                    
                 }
             }
         </div>
-        <div class="row">
-            <div class="col-sm-3">
-                <!-- text input -->
+    <div class="row">
+        <div class="col-sm-3">
+            <!-- text input -->
 
-                <div class="form-group">
-                    <label>Reference:</label>
+            <div class="form-group">
+                <label>Reference:</label>
 
-                    @Html.EditorFor(model => model.reference, new { htmlAttributes = new { @placeholder = "Reference:", @class = "form-control" } })
+                @Html.EditorFor(model => model.reference, new { htmlAttributes = new { @placeholder = "Reference:", @class = "form-control" } })
 
-                </div>
-                @Html.ValidationMessageFor(model => model.reference, "", new { @class = "text-danger" })
             </div>
-            <div class="col-sm-3">
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Ware-House:</label>
-                    @Html.DropDownListFor(model => model.wareHouseIdx, new SelectList(Model.wareHouseList, "idx", "WareHouseName"), "Select Warehouse", new { @Class = "form-control font-weight-bold" })
-                </div>
-                @Html.ValidationMessageFor(model => model.wareHouseIdx, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.reference, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-sm-3">
+            <!-- text input -->
+            <div class="form-group">
+                <label>Ware-House:</label>
+                @Html.DropDownListFor(model => model.wareHouseIdx, new SelectList(Model.wareHouseList, "idx", "WareHouseName"), "Select Warehouse", new { @Class = "select2 form-control font-weight-bold" })
             </div>
-            <div class="col-sm-3">
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Sales Person:</label>
-                    <select id="salespersonIdx" class="form-control font-weight-bold">
-                        @{
-                            <option value="0" data-hscode="0">Select Sales Person</option>
+            @Html.ValidationMessageFor(model => model.wareHouseIdx, "", new { @class = "text-danger" })
+        </div>
+       
+        <div class="col-sm-3">
+            <!-- text input -->
+            <div class="form-group">
+                <label>Sales Person:</label>
+                <select id="salespersonIdx" class="form-control font-weight-bold">
+                    @{
+                        <option value="0" data-hscode="0">Select Sales Person</option>
 
-                            foreach (var item in Model.SalesPersonList)
-                            {
-                                <option value="@item.idx" data-val="@item.warehouseIdx">@item.SalesPersonName</option>
-                            }
-
+                        foreach (var item in Model.SalesPersonList)
+                        {
+                            <option value="@item.idx" data-val="@item.warehouseIdx">@item.SalesPersonName</option>
                         }
-                    </select>
-                </div>
-                @Html.ValidationMessageFor(model => model.salespersonIdx, "", new { @class = "text-danger" })
+
+                    }
+                </select>
             </div>
+            @Html.ValidationMessageFor(model => model.salespersonIdx, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-sm-3">
+            <!-- text input -->
+            <div class="form-group">
+                <label>Delivery Date*:</label>
+                @Html.EditorFor(model => model.DeliveryDate, new { htmlAttributes = new { @placeholder = "Delivery Date*:", @class = "form-control" } })
+                @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+            </div>
+            @Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })
+        </div>
 
 
-
-            @*<div class="col-3">
+        @*<div class="col-3">
                 <div class="form-group">
                     <label></label>
                     
@@ -125,7 +135,18 @@
 
                 </div>
             </div>*@
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="inputName">Description</label>
+
+                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control" } })
+            </div>
         </div>
+    </div>
+
         <hr />
         <div class="row" id="PurchaseDetails">
             <div class="col-md-12">
@@ -146,19 +167,21 @@
                                     <th>QTY</th>
                                     <th>Sales Rate</th>
                                     <th>Amount</th>
+                                    <th>Description</th>
                                     <th>Action</th>
                                 </tr>
                                
                             </thead>
                             <tbody class="" style="background:white;">
                                 <tr>
-                                    <td>@Html.DropDownListFor(model => model.itemIdx, new SelectList(Model.ProductList, "idx", "itemName"), "Select Product", new { @Class = "form-control font-weight-bold" })</td>
+                                    <td>@Html.DropDownListFor(model => model.itemIdx, new SelectList(Model.ProductList, "idx", "itemName"), "Select Product", new { @Class = "select2 form-control font-weight-bold" })</td>
                                     <td>@Html.EditorFor(model => model.stock, new { htmlAttributes = new { @placeholder = "Stock",@value="hello", @class = "form-control",@readonly="true"} })</td>
                                     <td>@Html.EditorFor(model => model.costPrice, new { htmlAttributes = new { @placeholder = "Cost Price", @class = "form-control", @readonly = "true" } })</td>
                                     <td>@Html.EditorFor(model => model.qty, new { htmlAttributes = new { @placeholder = "Qty", @class = "form-control" } })</td>
                                     <td>@Html.EditorFor(model => model.salePrice, new { htmlAttributes = new { @placeholder = "Unit Price", @class = "form-control" } })</td>
                                     <td>@Html.EditorFor(model => model.amount, new { htmlAttributes = new { @placeholder = "Total Price", @class = "form-control", @readonly = true } })</td>
-                                   
+                                    <td>@Html.EditorFor(model => model.SalesOrderDetailLST[0].Description, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control" } })</td>
+                                
                                     <td>
                                         
                                   
@@ -183,7 +206,7 @@
                                                     <th>QTY</th>
                                                     <th>Sale Rate</th>
                                                     <th>Total Amount</th>
-
+                                                    <th>Description</th>
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
@@ -204,6 +227,7 @@
                                                                 <td><input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="@items.salePrice" id="salePrice" class="form-control" /></td>
                                                                 @*<td id="unitprice"></td>*@
                                                                 <td>@items.amount</td>
+                                                                <td>@items.itemIdx</td>
                                                                 @*<td><i class="icon-trash menu-icon" id="btnaddtogrid"><input type="button" id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn-danger" /></i></td>*@
                                                                 <td><button id="deleterow" onclick="SomeDeleteRowFunction(this)"  class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button></td>  
                                                             </tr>
@@ -251,15 +275,7 @@
 
         </div>
         <br />
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="form-group">
-                    <label for="inputName">Description</label>
 
-                    @Html.EditorFor(model => model.description, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control" } })
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-sm-3">
                 <div class="form-group">
@@ -342,7 +358,7 @@
             <div class="col-sm-4" id="banks">
                 <div class="form-group">
                     <label for="inputName">Bank</label>
-                    @Html.DropDownListFor(model => model.bankIdx, new SelectList(Model.BankList, "idx", "accountTitle"), "Select Bank", new { @Class = "form-control font-weight-bold" })
+                    @Html.DropDownListFor(model => model.bankIdx, new SelectList(Model.BankList, "idx", "accountTitle"), "Select Bank", new { @Class = "select2 form-control font-weight-bold" })
                 </div>
             </div>
             <div class="col-sm-3" id="cheqno">
@@ -400,7 +416,9 @@
     {
     <script type="text/javascript">
 
-    // Added By Ahsan
+        // Added By Ahsan
+        $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true });
+
     $('#wareHouseIdx').change(function() {
 
         $('#salespersonIdx').attr('display', 'block')
@@ -800,8 +818,10 @@
         var salePrice = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualSalePrice+'"  id="salePrice" class="form-control" />';
         //$('#salePrice').text(actualSalePrice);
         var totalamount = $("#amount").val();
+        var description = $("#SalesOrderDetailLST_0__Description").val();
+       // var Description = '<input type="text" placeholder="Enter Description"  value="'+description+'"  id="SalesOrderDetailLST_0__Description" class="form-control" />';
         //var duedate = $("#DueDate").val();
-        var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td>" + salePrice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + closebutton + "</td></tr>";
+        var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td>" + salePrice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + description + "</td><td>" + closebutton + "</td></tr>";
         //if (milestone == "") {
         //    alert("Enter milestone");
         //    return;
@@ -1101,7 +1121,7 @@
                 bankIdx:$('#bankIdx option:selected').val(),
                 accorChequeNumber:$('#accorChequeNumber').val(),
                 salesTypeIdx:$('#salesTypeIdx').val(),
-
+                DeliveryDate:$("#DeliveryDate").val(),
                 //PageList:[{ID:1},{ID:2},{ID:3}]
                 SalesOrderDetailLST: [],
                 salesTaxesLST:[]
@@ -1119,16 +1139,17 @@
                 productid = $tds.eq(0).text(),
                 qty = $tds.eq(2).find('#qty').val(),
                 salePrice = $tds.eq(3).find('#salePrice').val(),
-                itemamount = $tds.eq(4).text();
+                itemamount = $tds.eq(4).text(),
+                description = $tds.eq(5).text()
 
             datatosend.objSalesOrder.SalesOrderDetailLST.push({
                 itemIdx: productid,
                 qty: qty,
                 salePrice: salePrice,
                 productTypeIdx:1,
-                amount:itemamount
-            })
-            ;
+                amount:itemamount,
+                Description: description
+            });
 
         });
         WriteTax(datatosend);
@@ -1143,8 +1164,9 @@
         $(this).removeData("validator").removeData("unobtrusiveValidation");//remove the form validation
         $.validator.unobtrusive.parse($(this));//add the form validation
         //if ($(form).valid()) // using not operator for a time being
+        debugger;
         if ($(form).valid())
-        {
+        {alert("done");
             $.ajax({
                 type : "POST",
                 url: "/SalesOrder/AddUpdate",
@@ -1226,13 +1248,15 @@
             $('#cheqno').hide();
             $('#customerBanks').hide();
             $('#divTxtPaid').show();
+            $('#banks').show();
         }
         if ($('#paymenttype option:selected').val() == 4) {
             $('#paymntmethodoptions').show();
             $('#customerIdx').trigger("change");
+           // $('#cheqno').show();
             $('#customerBanks').show();
             
-            $('#cheqno').hide();
+            
             $('#banks').hide()
             $("#bankIdx").prop('selectedIndex', 0);
             $('#divTxtPaid').show();

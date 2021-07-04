@@ -16,14 +16,14 @@
                     <!-- text input -->
                     <div class="form-group">
                         <label>Branch#*:</label>
-                        @Html.DropDownListFor(model => model.branchid, new SelectList(Model.BranchList, "idx", "branchName"), "Select Branch", new { @Class = "form-control font-weight-bold" })
+                        @Html.DropDownListFor(model => model.branchid, new SelectList(Model.BranchList, "idx", "branchName"), "Select Branch", new { @Class = "select2 form-control font-weight-bold" })
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <!-- text input -->
                     <div class="form-group">
                         <label>Product*:</label>
-                        @Html.DropDownListFor(model => model.productid, new SelectList(Model.ProductList, "idx", "itemName"), "Select Product", new { @Class = "form-control font-weight-bold" })
+                        @Html.DropDownListFor(model => model.productid, new SelectList(Model.ProductList, "idx", "itemName"), "Select Product", new { @Class = "select2 form-control font-weight-bold" })
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -84,6 +84,8 @@
 
 @section MyScripts {
     <script type="text/javascript">
+        $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true });
+
         $(document).ready(function () {
 
             $.ajax({
@@ -123,21 +125,21 @@
                         { data: 'unitPrice' },
 
 
-                         { data: 'totalAmount' }
+                        { data: 'totalAmount' }
 
-                   //{
-                   //    "data": "idx",
-                   //    "render": function (idx, type, full, meta) {
+                        //{
+                        //    "data": "idx",
+                        //    "render": function (idx, type, full, meta) {
 
-                   //        return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a>'// <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a>'
-                   //        //<a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + ID + ')"><i class="fa fa-trash"></i></a>
+                        //        return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a>'// <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a>'
+                        //        //<a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + ID + ')"><i class="fa fa-trash"></i></a>
 
-                   //    },
-                   //    "orderable": true,
-                   //    "searchable": true,
+                        //    },
+                        //    "orderable": true,
+                        //    "searchable": true,
 
 
-                   //}
+                        //}
                     ]
                 });
 
@@ -192,7 +194,7 @@
             });
             //console.log(milestonearray);
             var form = $("#reportform");
-           // $.post("/Inventory/GenerateDetailReport", $(form).serialize());
+            // $.post("/Inventory/GenerateDetailReport", $(form).serialize());
             // $.validator.unobtrusive.parse(form);
             // if ($(form).valid()){
             console.log("here1");
@@ -252,7 +254,7 @@
                             'Done!',
                             'Blocked',
                             'success'
-                            )
+                        )
                         window.location.href = "/Client/ViewClient"
                     }
                     else {
@@ -260,7 +262,7 @@
                             'Error!',
                             'Failes',
                             'success'
-                            )
+                        )
                     }
                 },
                 failure: function (res) {

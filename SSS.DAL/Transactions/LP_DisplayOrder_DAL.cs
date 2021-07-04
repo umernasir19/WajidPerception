@@ -184,7 +184,7 @@ inner join products pr on pr.idx = sd.itemIdx where sd.doIdx=@idx ";
                     //sbc.ColumnMappings.Add("Status", "Status");
 
                     //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
-                    //sbc.ColumnMappings.Add("Description", "Description");
+                    sbc.ColumnMappings.Add("Description", "Description");
 
                     sbc.DestinationTableName = _objDOMasterProperty.DetailData.TableName;
                     sbc.WriteToServer(_objDOMasterProperty.DetailData);

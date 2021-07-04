@@ -215,6 +215,7 @@ namespace SSS.DAL.Transactions
 
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@salesOrderDate", SqlDbType.DateTime, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.salesorderDate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DeliveryDate", SqlDbType.DateTime, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.DeliveryDate)); 
                     //wareHouseIdx,salespersonIdx,shippingCost,discount,taxAount,paymentModeIdx,bankIdx,accorChequeNumber
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.idx));
@@ -276,12 +277,14 @@ namespace SSS.DAL.Transactions
                     sbc.ColumnMappings.Add("qty", "qty");
                     sbc.ColumnMappings.Add("amount", "amount");
                     sbc.ColumnMappings.Add("qty", "openItem");
+                    sbc.ColumnMappings.Add("Description", "Description");
+
                     //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
                     //sbc.ColumnMappings.Add("Product", "Product_Name");
                     //sbc.ColumnMappings.Add("Status", "Status");
 
                     //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
-                    //sbc.ColumnMappings.Add("Description", "Description");
+                    
 
                     sbc.DestinationTableName = _objSOMasterProperty.DetailData.TableName;
                     sbc.WriteToServer(_objSOMasterProperty.DetailData);

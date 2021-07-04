@@ -386,7 +386,7 @@ where cc.visble=1";
         public DataTable SelectAllCurrency()
         {
             SqlCommand cmdToExecute = new SqlCommand();
-            cmdToExecute.CommandText = @"select concat(c.Name,'(',c.code,')') as nameCode,* from currency c ";
+            cmdToExecute.CommandText = @"select concat(c.Name,'(',c.code,')') as nameCode,* from currency c ORDER BY nameCode";
             
             DataTable toReturn = new DataTable("Currency");
             SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);

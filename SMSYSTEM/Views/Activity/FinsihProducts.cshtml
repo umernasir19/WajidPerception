@@ -21,7 +21,7 @@
                                new SelectListItem {Text="Select Type",Value="0" },
                                new SelectListItem {Text=" Sales Order",Value="1" },
                                new SelectListItem {Text="Display Order",Value="2" }
-                           }, new { @class = "form-control" })
+                           }, new { @class = "select2 form-control" })
                        
                        
                    }
@@ -39,7 +39,7 @@
                @Html.DropDownListFor(m => m.orderIdx,
                    new SelectList(Enumerable.Empty<SelectListItem>(), "idx", "soNumber"),
                    "Select Order",
-                   new { @class = "form-control" })
+                   new { @class = "select2 form-control" })
 
 
 
@@ -66,7 +66,7 @@
                 <!-- text input -->
                 <div class="form-group">
                     <label>Branch*:</label>
-                    @Html.DropDownListFor(model => model.branchIdx, new SelectList(Model.BranchList, "idx", "branchName"), "Select Branch", new { @Class = "form-control font-weight-bold" })
+                    @Html.DropDownListFor(model => model.branchIdx, new SelectList(Model.BranchList, "idx", "branchName"), "Select Branch", new { @Class = "select2 form-control font-weight-bold" })
                 </div>
                 @Html.ValidationMessageFor(model => model.branchIdx, "", new { @class = "text-danger" })
             </div>
@@ -74,7 +74,7 @@
                 <!-- text input -->
                 <div class="form-group">
                     <label>From WareHouse*:</label>
-                    <select id="FromWareHouseId" class="form-control font-weight-bold">
+                    <select id="FromWareHouseId" class=" form-control font-weight-bold">
                         @{
                             <option value="0" data-hscode="0">Select WareHouse</option>
 
@@ -117,7 +117,7 @@
                                     <th>Ordered QTY</th>
                                     <th>Unit Price</th>
                                     <th>Sub Amount</th>
-                                    <th>Additional Cost</th>
+                                    @*<th>Additional Cost</th>*@
                                 </tr>
                             </thead>
                             <tbody class="" style="background:white;">
@@ -195,6 +195,7 @@
         //});
        
         // Added By Ahsan
+        $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true });
         $("#typeIdx").on('change', function () {
             var value = $("#typeIdx option:selected").val();
             if (value == 1)
@@ -321,7 +322,7 @@
                     productIdx = $tds.eq(0).text(),
                     stock = $tds.eq(2).text(),
                     unitPrice = $tds.eq(3).text(),
-                    additionalAmount = $tds.eq(5).find('#additionalAmount').val(),
+                    //additionalAmount = $tds.eq(5).find('#additionalAmount').val(),
                     totalAmount = Number($tds.eq(4).text()); //+ Number($tds.eq(5).eq(0).val())
                 // $tds.eq(4).text(),
 
@@ -410,7 +411,7 @@
                                 $("#NetAmount").val(tamount);
                                 $("#BalanceAmount").val(tamount);
                                 //var duedate = $("#DueDate").val();
-                                markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + OrderdQty + "</td><td>" + activityPrice + "</td><td class='tamnt'>" + subAmount + "</td><td >" + additionalCost + "</td></tr>";
+                                markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + OrderdQty + "</td><td>" + activityPrice + "</td><td class='tamnt'>" + subAmount + "</td></tr>";
                                 //console.log(markup);
 
                                 $("#example2 tbody").append(markup);

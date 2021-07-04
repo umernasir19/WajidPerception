@@ -59,7 +59,7 @@
                 <!-- text input -->
                 <div class="form-group">
                     <label>Customer*:</label>
-                    @Html.DropDownListFor(model => model.customer_id, new SelectList(Model.customerlist, "coaIdx", "customerName"), "Select Customer", new { @Class = "form-control font-weight-bold" })
+                    @Html.DropDownListFor(model => model.customer_id, new SelectList(Model.customerlist, "coaIdx", "customerName"), "Select Customer", new { @Class = " form-control font-weight-bold" })
                 </div>
                 @Html.ValidationMessageFor(model => model.customer_id, "", new { @class = "text-danger" })
             </div>
@@ -70,7 +70,7 @@
                     @Html.DropDownListFor(m => m.invoiceIdx,
        new SelectList(Enumerable.Empty<SelectListItem>(), "idxx", "invoiceNoIdx"),
               "Select Invoice",
-              new { @class = "form-control" })
+              new { @class = " form-control" })
 
                     @Html.ValidationMessageFor(m => m.invoiceIdx, "", new { @class = "text-danger" })
                 </div>
@@ -92,6 +92,16 @@
                     @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
                 </div>
                 @Html.ValidationMessageFor(model => model.paidAmount, "", new { @class = "text-danger" })
+            </div>
+            
+            <div class="col-sm-3">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Previous Paid Amount*:</label>
+                    @Html.EditorFor(model => model.PreviousPaid, new { htmlAttributes = new {  @class = "form-control", @readonly="true" } })
+                    @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                </div>
+                @Html.ValidationMessageFor(model => model.PreviousPaid, "", new { @class = "text-danger" })
             </div>
             @*<div class="col-sm-3">
                 <!-- text input -->
@@ -304,7 +314,7 @@
             <div class="col-sm-4" id="banks">
                 <div class="form-group">
                     <label for="inputName">Bank</label>
-                    @Html.DropDownListFor(model => model.bankIdx, new SelectList(Model.BankList, "coaIdx", "accountTitle"), "Select Bank", new { @Class = "form-control font-weight-bold" })
+                    @Html.DropDownListFor(model => model.bankIdx, new SelectList(Model.BankList, "coaIdx", "accountTitle"), "Select Bank", new { @Class = "select2 form-control font-weight-bold" })
                 </div>
             </div>
             <div class="col-sm-3" id="cheqno">
@@ -711,6 +721,39 @@
             $('#ddlOrder').hide();
             $('#txtBalanceAmount').hide();
             $('#invoicebalance').val("0");
+        }
+    });
+
+
+    //Added By Ahsan
+    $('#invoiceIdx').change(function (e) {
+
+        var value = $('#customer_id option:selected').val()
+        if (Number(value) > 0) {
+            $.ajax({
+                type: 'GET',
+                url: '/Receipt/getCustomerPaidAmount',
+                data: { id: value },
+                success: function (data) {
+                    
+                    var PoData = JSON.parse(data.data);
+                    console.log(PoData);
+                    //console.log(POData[0].customerBalance)
+
+                    $('#PreviousPaid').val(PoData[0].paidAmount);
+
+                },
+                failure: function (data) {
+                    
+                },
+                err: function (data) {
+                    
+                }
+
+            });
+        }
+        else {
+           alert("Error");
         }
     });
 

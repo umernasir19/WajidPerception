@@ -13,18 +13,18 @@
             <!-- text input -->
             <div class="form-group">
                 <label>Bank Name *:</label>
-                @Html.DropDownListFor(model => model.bankIdx, new SelectList(Model.BankList, "idx", "bankName"), "Select Bank", new { @Class = "form-control font-weight-bold" })
+                @Html.DropDownListFor(model => model.bankIdx, new SelectList(Model.BankList, "idx", "bankName"), "Select Bank", new { @Class = "select2 form-control font-weight-bold" })
                 @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>
             @Html.ValidationMessageFor(model => model.bankIdx, "", new { @class = "text-danger" })
         </div>
         <div class="col-sm-6">
-                <div class="form-group">
-                    <label>Account Title</label>
-                    @Html.EditorFor(model => model.accountTitle, new { htmlAttributes = new { @placeholder = "accountTitle", @class = "form-control" } })
-                </div>
-                @Html.ValidationMessageFor(model => model.accountTitle, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label>Account Title</label>
+                @Html.EditorFor(model => model.accountTitle, new { htmlAttributes = new { @placeholder = "accountTitle", @class = "form-control" } })
             </div>
+            @Html.ValidationMessageFor(model => model.accountTitle, "", new { @class = "text-danger" })
+        </div>
     </div>
     <div class="row">
         <div class="col-sm-6">
@@ -44,20 +44,23 @@
     </div>
     <div class="row">
 
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label>Branch Name</label>
-                    @Html.EditorFor(model => model.Branch, new { htmlAttributes = new { @placeholder = "Branch Name", @class = "form-control" } })
-                </div>
-                @Html.ValidationMessageFor(model => model.Branch, "", new { @class = "text-danger" })
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Branch Name</label>
+                @Html.EditorFor(model => model.Branch, new { htmlAttributes = new { @placeholder = "Branch Name", @class = "form-control" } })
             </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label>Acct Number#</label>
-                    @Html.EditorFor(model => model.accountNumber, new { htmlAttributes = new { @placeholder = "Contact", @class = "form-control" } })
-                </div>
-                @Html.ValidationMessageFor(model => model.accountNumber, "", new { @class = "text-danger" })
-            </div>
+            @Html.ValidationMessageFor(model => model.Branch, "", new { @class = "text-danger" })
         </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Acct Number#</label>
+                @Html.EditorFor(model => model.accountNumber, new { htmlAttributes = new { @placeholder = "Contact", @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.accountNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
   
 </form>
+<script>
+           $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true, dropdownParent: $('#modelbody') });
+</script>

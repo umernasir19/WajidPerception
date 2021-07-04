@@ -26,7 +26,7 @@
                         <div class="form-group">
                             <label>Customer*:</label>
 
-                            @Html.DropDownListFor(model => model.customerIdx, new SelectList(Model.CustomerLST, "idx", "customerName"), "Select Customers", new { @Class = "form-control font-weight-bold" })
+                            @Html.DropDownListFor(model => model.customerIdx, new SelectList(Model.CustomerLST, "idx", "customerName"), "Select Customers", new { @Class = "select2 form-control font-weight-bold" })
 
                         </div>
                         @Html.ValidationMessageFor(model => model.customerIdx, "", new { @class = "text-danger" })
@@ -101,7 +101,7 @@
                             </thead>
                             <tbody class="" style="background:white;">
                                 <tr>
-                                    <td>@Html.DropDownListFor(model => model.itemIdx, new SelectList(Model.ProductList, "idx", "itemName"), "Select Product", new { @Class = "form-control font-weight-bold" })</td>
+                                    <td>@Html.DropDownListFor(model => model.itemIdx, new SelectList(Model.ProductList, "idx", "itemName"), "Select Product", new { @Class = "select2 form-control font-weight-bold" })</td>
                                     <td>@Html.EditorFor(model => model.stock, new { htmlAttributes = new { @placeholder = "Stock", @value = "hello", @class = "form-control", @readonly = "true" } })</td>
                                     <td>@Html.EditorFor(model => model.costPrice, new { htmlAttributes = new { @placeholder = "Cost Price", @class = "form-control", @readonly = "true" } })</td>
                                     <td>@Html.EditorFor(model => model.qty, new { htmlAttributes = new { @placeholder = "Qty", @class = "form-control" } })</td>
@@ -183,7 +183,8 @@
 
 
         
-
+    <select  id="drp" class="select2">
+    </select>
 
         <div class="row">
             <div class="col-sm-12">
@@ -287,6 +288,29 @@
 @section MyScripts
     {
     <script type="text/javascript">
+    //$(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true });
+        
+    var items=@Html.Raw(Json.Encode(ViewBag.productList));
+        console.log(items[0].idx);
+        console.log(items[0].Reference);
+    for(var i=0;i<items.length;i++){
+        $('#drp').append('<option value="'+items[i].idx+'" data-val="'+items[i].Reference+'" >'+items[i].itemName+'</option>');
+    }
+
+    
+    $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true});
+   
+    var $select1 = $('#Reference'),
+        $select2 = $('#drp'),
+        $options = $select2.find('option');
+
+    $select1.on('change', function () {
+        $select2.html($options.filter('[data-val="' + this.value + '"]'));
+    }).trigger('change');
+
+
+
+
     $("#btnaddnew").click(function () {
         //$.post("/Customer/AddCustomer", function (data) {
         //    $("#modal-default").html(data);

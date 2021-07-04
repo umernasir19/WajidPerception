@@ -91,7 +91,10 @@ namespace SMSYSTEM.Controllers
                     objSalesOrderVM_Property.description = dt.Rows[0]["description"].ToString();
                     objSalesOrderVM_Property.qsIdx = Convert.ToInt16(dt.Rows[0]["qsIdx"].ToString());
                     objSalesOrderVM_Property.totalAmount = Convert.ToDecimal(dt.Rows[0]["totalAmount"].ToString());
-                    string pdate = (dt.Rows[0]["salesorderdate"].ToString()).ToString();
+                   // objSalesOrderVM_Property.DeliveryDate = dt.Rows[0]["DeliveryDate"].ToString();
+                   objSalesOrderVM_Property.Description = dt.Rows[0]["Description"].ToString();
+
+                    string pdate = dt.Rows[0]["salesorderdate"].ToString();
                     string ndate = DateTime.Parse(pdate).ToString("yyyy-MM-dd");
                     objSalesOrderVM_Property.salesorderDate = Convert.ToDateTime(ndate);// DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
                     //DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
@@ -163,6 +166,7 @@ namespace SMSYSTEM.Controllers
                     objSalesOrderProperty.wareHouseIdx = objSalesOrder.wareHouseIdx;
                     objSalesOrderProperty.salespersonIdx = objSalesOrder.salespersonIdx;
                     objSalesOrderProperty.qsIdx = qsIdx;
+                    objSalesOrderProperty.DeliveryDate = objSalesOrder.DeliveryDate;
                     objSalesOrderProperty.salesTypeIdx = objSalesOrder.salesTypeIdx;
                     if (objSalesOrderProperty.bankIdx > 0)
                     {
@@ -247,6 +251,8 @@ namespace SMSYSTEM.Controllers
                     objSalesOrderProperty.accorChequeNumber = objSalesOrder.accorChequeNumber;
                     objSalesOrderProperty.wareHouseIdx = objSalesOrder.wareHouseIdx;
                     objSalesOrderProperty.salespersonIdx = objSalesOrder.salespersonIdx;
+                    objSalesOrderProperty.DeliveryDate = objSalesOrder.DeliveryDate;
+
                     objSalesOrderProperty.qsIdx = qsIdx;
                     objSalesOrderProperty.salesTypeIdx = objSalesOrder.salesTypeIdx;
                     if (objSalesOrderProperty.bankIdx > 0)

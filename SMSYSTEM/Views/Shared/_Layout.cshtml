@@ -10,12 +10,15 @@
     <link rel="stylesheet" href="~/node_module/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="~/node_module/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="~/node_module/perfect-scrollbar/dist/css/perfect-scrollbar.min.css">
-    <link href="~/node_module/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/scripts/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/node_module/datatables.net-bs4/css/dataTables.bootstrap4.css" />
 
     <link href="~/Dist/css/icon.css" rel="stylesheet" />
     <link href="~/Dist/image-uploader.min.css" rel="stylesheet" />
-   
+   @* Added By Ahsan*@
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
    <style>
        table.dataTable thead tr {
   background-color: #03A9F3;
@@ -31,7 +34,7 @@
     <!-- End plugin css for this page -->
 
     <!-- plugin css for this page -->
-    <link rel="stylesheet" type="text/css" href="~/node_module/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/scripts/sweetalert2/dist/sweetalert2.min.css">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="~/Dist/css/style.css">
@@ -69,7 +72,9 @@
     <script src="~/Dist/js/jquery.validate.unobtrusive.min.js"></script>
     <!-- Plugin js for this page-->
     <!-- Plugin js for this page-->
-    <script src="~/node_module/sweetalert2/sweetalert2.min.js"></script>
+<script src="~/scripts/sweetalert2/sweetalert2.min.js"></script>
+<script src="~/scripts/sweetalert2/sweetalert2.js"></script>
+    <script src="~/scripts/sweetalert2/sweetalert2.all.js"></script>
     <script src="~/node_module/jquery.avgrund/jquery.avgrund.min.js"></script>
     <!-- End plugin js for this page-->
     <script src="~/node_module/jquery-bar-rating/dist/jquery.barrating.min.js"></script>
@@ -101,7 +106,10 @@ DAtatable -->
     <script src="~/Dist/js/data-table.js"></script>
     <!-- Custom js for this page-->
     <script src="~/Dist/js/alerts.js"></script>
-    <script src="~/Dist/js/avgrund.js"></script>
+<script src="~/Dist/js/avgrund.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <!-- End custom js for this page-->
     @RenderSection("MyScripts", required: false)
 </body>

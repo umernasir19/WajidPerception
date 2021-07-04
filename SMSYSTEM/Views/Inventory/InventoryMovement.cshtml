@@ -533,7 +533,7 @@
             //transfer In
             datatosend.objINV.InventoryLogs.push({
                 productIdx: $('#ProdductID option:selected').val(),
-                stock: quantity,
+                stock: (quantity) * (-1),
                 unitPrice: 1,
                 TransactionTypeID: 20,
                 MasterID: 0,
@@ -542,7 +542,7 @@
             });
             datatosend.objINV.InventoryLogs.push({
                 productIdx: $('#ProdductID option:selected').val(),
-                stock: (quantity)*(-1),
+                stock: quantity,
                 unitPrice: 1,
                 TransactionTypeID: 30,
                 MasterID: 0,
