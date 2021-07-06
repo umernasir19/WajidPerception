@@ -217,11 +217,10 @@ namespace SMSYSTEM.Controllers
 
                         objproduct.lastModifiedByUserIdx = Convert.ToInt32(Session["UID"].ToString());
                         objproduct.lastModificationDate = DateTime.Now.ToString("dd/MM/yyyy");
-                        //objProductProperty = JsonConvert.DeserializeObject<Product_Property>(JsonConvert.SerializeObject(objproduct)); 
-                        if(/*objproduct.ProductPicPath.Length > 0 &&*/ objproduct.ProductPicPath != null)
+                        List<LP_Products_Picture> toFindDeletedImages = objproduct.ProductPictureList;
+                        if (objproduct.PicturePath != null)
                         {
                             picturepath = SavePicture(objproduct.PicturePath);
-
                             objproduct.ProductPictureList = new List<LP_Products_Picture>();
                             for (int i = 0; i < picturepath.Length; i++)
                             {
@@ -229,6 +228,52 @@ namespace SMSYSTEM.Controllers
                                 objprflepicpth.PicturePath = picturepath[i].ToString();
                                 objproduct.ProductPictureList.Add(objprflepicpth);
                             }
+                        }
+                        //objProductProperty = JsonConvert.DeserializeObject<Product_Property>(JsonConvert.SerializeObject(objproduct)); 
+                        if(toFindDeletedImages != null)
+                        {
+
+                            List<LP_Products_Picture> ExistingImages = new List<LP_Products_Picture>();
+                            DataTable ProdctPic = objProductBLL.GetPicturesById(objproduct.idx);
+                            
+                            foreach (DataRow dr in ProdctPic.Rows)
+                            {
+                                LP_Products_Picture objprflepicpth = new LP_Products_Picture();
+                                objprflepicpth.PicturePath = dr["PicturePath"].ToString();
+                                objprflepicpth.ID = Convert.ToInt16(dr["Id"].ToString());
+                                ExistingImages.Add(objprflepicpth);
+                            }
+
+                            List<int> imagestoDelete = new List<int>();
+                            for (int i = 0; i < ExistingImages.Count; i++)
+                            {
+                                var t = toFindDeletedImages
+                                    .Any(x => x.PicturePath == ExistingImages[i].PicturePath);
+                                if (t == false)
+                                {
+                                    imagestoDelete.Add(ExistingImages[i].ID);
+                                }
+                            }
+
+                            //foreach (LP_Products_Picture existingImage in ExistingImages)
+                            //{
+                            //    var t = toFindDeletedImages
+                            //        .Where(x => x.PicturePath == existingImage.PicturePath);
+                            //    if (t == false)
+                            //    {
+                            //        imagestoDelete.Add(existingImage.ID);
+                            //    }
+                            //}
+                            objProductBLL = new Product_BLL(imagestoDelete);
+                            objProductBLL.DeleteProductsImages();
+                            //objproduct.ProductPictureList = new List<LP_Products_Picture>();
+                            //for (int i = 0; i < picturepath.Length; i++)
+                            //{
+                            //    LP_Products_Picture objprflepicpth = new LP_Products_Picture();
+                            //    objprflepicpth.PicturePath = picturepath[i].ToString();
+
+                            //    objproduct.ProductPictureList.Add(objprflepicpth);
+                            //}
                         }
                         objProductBLL = new Product_BLL(objproduct);
 

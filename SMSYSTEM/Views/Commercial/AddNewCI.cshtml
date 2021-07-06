@@ -263,7 +263,7 @@
                                             <tbody style="background:white;color:black; ">
 
                                                 @{
-                                                    if (ViewBag.DetailData != null)
+                                                    if (Model.CommercialDetailList != null)
                                                     {
 
 
@@ -277,6 +277,9 @@
                                                                 <td>@items.qty</td>
                                                                 <td><input type="text" placeholder="Enter Unit Price" onkeyup="changeinunitprice(this)" value="@items.unitPrice" id="unitprice" class="form-control" /></td>
                                                                 <td>@items.amount</td>
+                                                                <td>@items.ADVRate</td>
+                                                                <td>@items.TADVRate</td>
+                                                                <td>@items.ItemDescription</td>
                                                                 <td><button id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button></td>
                                                             </tr>
 

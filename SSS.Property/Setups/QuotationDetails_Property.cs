@@ -7,6 +7,9 @@ namespace SSS.Property.Setups
 {
     public class QuotationDetails_Property
     {
+        // Added By Ahsan 
+        public string ItemDescription { get; set; }
+        public string itemName { get; set; }
         private int _idx;
         public int idx
         {

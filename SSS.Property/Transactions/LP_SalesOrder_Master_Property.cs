@@ -251,5 +251,6 @@ namespace SSS.Property.Transactions
         public int salesTypeIdx { get; set; }
         // Added By Ahsan
         public DateTime DeliveryDate { get; set; }
+        public string ItemDescription { get; set; }
     }
 }

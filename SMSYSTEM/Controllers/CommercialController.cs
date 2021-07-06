@@ -105,7 +105,8 @@ namespace SMSYSTEM.Controllers
 
                     // Added by Ahsan 6/8/2021, Error Not found in view
                     objPurchaseVM_Property.gridVendorIdx = Convert.ToInt16(dt.Rows[0]["vendorIdx"].ToString());
-
+                    objPurchaseVM_Property.grandTotalAVPKR = Convert.ToDecimal(dt.Rows[0]["grandTotalAVPKR"].ToString());
+                    objPurchaseVM_Property.numberOfProducts = Convert.ToInt32(dt.Rows[0]["numberOfProducts"].ToString());
                     //DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
                     //foreach(DataRow dr in dt.Rows)
                     //{
@@ -297,12 +298,13 @@ namespace SMSYSTEM.Controllers
                 //objPurchaseVM_Property.poNumber = "Po-001";
                 if (id > 0)
                 {
-                    //LP_Purchase_Detail_Property objmpurchasedetail;
-                    //objPurchaseProperty = new LP_Performa_Invoice_Property();
-                    //objPurchaseProperty.idx = Convert.ToInt16(id);
+                    LP_CI_ViewModel objmpurchasedetail;
+                    _objCIMaster = new LP_CI_PurchaseOrder_Property();
+                    _objCIMaster.idx = Convert.ToInt16(id);
 
-                    //objpurchaseBll = new LP_PI_BLL();
-                    //DataTable dt = objpurchaseBll.SelectOne();
+                    objpurchaseBll = new LP_PI_BLL(_objCIMaster);
+                    DataTable dt = objpurchaseBll.SelectOneCI();
+
                     //objPurchaseVM_Property.idx = Convert.ToInt16(dt.Rows[0]["purchaseIdx"].ToString());
                     //objPurchaseVM_Property.vendorIdx = Convert.ToInt16(dt.Rows[0]["vendorIdx"].ToString());
                     //objPurchaseVM_Property.poNumber = dt.Rows[0]["poNumber"].ToString();
@@ -313,13 +315,13 @@ namespace SMSYSTEM.Controllers
                     //string pdate = (dt.Rows[0]["purchaseDate"].ToString()).ToString();
                     //string ndate = DateTime.Parse(pdate).ToString("yyyy-MM-dd");
                     //objPurchaseVM_Property.purchaseDate = Convert.ToDateTime(ndate);// DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
-                    ////DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
-                    ////foreach(DataRow dr in dt.Rows)
-                    ////{
-                    ////    objmrndetail
+                    //DateTime.Parse(dt.Rows[0]["mrnDate"].ToString()).ToString("yyyy-MM-dd");
+                    //foreach(DataRow dr in dt.Rows)
+                    //{
+                    //    objmrndetail
 
-                    ////}
-                    //ViewBag.DetailData = Helper.ConvertDataTable<PurchaseVM_Property>(dt);
+                    //}
+                    ViewBag.DetailData = Helper.ConvertDataTable<PurchaseVM_Property>(dt);
                     //update
                     return View("AddNewCIPO", objCIPOVm);
                 }

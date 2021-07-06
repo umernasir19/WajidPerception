@@ -196,7 +196,7 @@ namespace SSS.DAL.Transactions
                     //sbc.ColumnMappings.Add("Status", "Status");
 
                     //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
-                    //sbc.ColumnMappings.Add("Description", "Description");
+                    sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
 
                     sbc.DestinationTableName = _objPOMasterProperty.DetailData.TableName;
                     sbc.WriteToServer(_objPOMasterProperty.DetailData);

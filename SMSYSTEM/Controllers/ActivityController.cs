@@ -68,6 +68,7 @@ namespace SMSYSTEM.Controllers
                     objActivityVM.reference = objActivityVM.ActivityDetailLST[0].reference;
                     objActivityVM.size = objActivityVM.ActivityDetailLST[0].size;
                     objActivityVM.qty = objActivityVM.ActivityDetailLST[0].qty;
+                    objActivityVM.DeliveryDate = objActivityVM.ActivityDetailLST[0].DeliveryDate;
 
                     objActivityVM.typeIdx = objActivityVM.ActivityDetailLST[0].typeIdx;
                     objActivityVM.orderIdx = objActivityVM.ActivityDetailLST[0].orderIdx;
@@ -227,6 +228,7 @@ namespace SMSYSTEM.Controllers
                     obj.activityPrice = objVoucher.activityPrice;
                     obj.description = objVoucher.description;
                     obj.reference = objVoucher.reference;
+                    obj.DeliveryDate = objVoucher.DeliveryDate;
                     obj.DetailData = Helper.ToDataTable<LP_Activity_Property>(objVoucher.ActivityDetailLST);
 
                     LP_Activity_BLL objBLL = new LP_Activity_BLL(obj);
@@ -250,6 +252,7 @@ namespace SMSYSTEM.Controllers
                     obj.activityPrice = objVoucher.activityPrice;
                     obj.description = objVoucher.description;
                     obj.reference = objVoucher.reference;
+                    obj.DeliveryDate = DateTime.Now;
                     obj.DetailData = Helper.ToDataTable<LP_Activity_Property>(objVoucher.ActivityDetailLST);
 
                     LP_Activity_BLL objBLL = new LP_Activity_BLL(obj);

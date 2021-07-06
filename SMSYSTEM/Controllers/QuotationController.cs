@@ -100,7 +100,8 @@ namespace SMSYSTEM.Controllers
                     //    objmrndetail
 
                     //}
-                    ViewBag.DetailData = Helper.ConvertDataTable<QuotationVM_Property>(dt);
+                    objQuotationVM_Property.QuotationDetailLST = Helper.ConvertDataTable<QuotationDetails_Property>(dt);
+
                     //update
                     return View("AddQuotaion", objQuotationVM_Property);//objQuotationVM_Property
                 }

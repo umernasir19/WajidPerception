@@ -11,6 +11,9 @@ namespace SSS.Property.Transactions
     public class LP_Activity_Property
     {   [Required]
         public int typeIdx { get; set; }
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Please Select Date")]
+        public DateTime DeliveryDate { get; set; }
         public int idx { get; set; }
         public int orderIdx { get; set; }//salesOrderIdx or DisplayOrder
         public int productTypeIdx { get; set; }

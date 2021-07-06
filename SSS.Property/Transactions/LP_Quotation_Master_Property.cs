@@ -241,7 +241,7 @@ namespace SSS.Property.Transactions
             }
         }
 
-
+        public string ItemDescription { get; set; }
         public decimal shippingCost { get; set; } //Added By Arsalan
     }
 }

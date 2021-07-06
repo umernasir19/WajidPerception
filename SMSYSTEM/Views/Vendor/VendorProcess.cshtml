@@ -127,6 +127,30 @@
         </div>
       
        
+        <div class="row" style="display:block; overflow:scroll" id="milestoness">
+            <div class="col-md-12">
+                <div class="card card-primary">
+
+                    <div class="">
+                        <table id="example3" class=" table table-dark table-bordered table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Process Name</th>
+                                    <th>Vendor Name</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody style="background:white;color:black; ">
+                              
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
 
     </form>
 </div>
@@ -150,6 +174,63 @@
         $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true });
 
         $(document).ready(function() {
+
+            // Added By Ahsan
+            // Add To grid
+            $("#itemIdx").on('change', function () {
+                var ddvaue = $("#itemIdx option:selected").val();
+                if (ddvaue > 0) {
+                    GetPODataSet(ddvaue)
+                    //$('#btnaddtogrid').attr('disabled', true);
+                }
+                else
+                {
+                    $("#example3 tbody").empty();
+                    $('#btnaddtogrid').attr('disabled', false);
+                    $("#itemIdx").val("");
+                    $("#vendorCatIdx").val("");
+                    $("#vendorIdx").val("");
+                    $("#activityPrice").val("0");
+
+                }
+
+            });
+            function GetPODataSet(poid) {
+                $.ajax({
+                    url: "/Vendor/GetoneVendorProcess",
+                    data: { id: poid },
+                    success: function (data) {
+                        var POData = JSON.parse(data.data);
+                        //data from quotation
+                        for (var i = 0; i < POData.count; i++) {
+                            var itemName = POData[i].itemName;
+                            var vendorCategory = POData[i].vendorCategory;
+                            var vendorName = POData[i].vendorName;
+                            var activityPrice = POData[i].activityPrice;
+                      
+                        }
+
+                        $("#example3 tbody").empty();
+                        $('#milestoness').show();
+                        var markup;
+                        for (var i = 0; i < POData.length; i++) {
+                            var itemName = POData[i].itemName;
+                            var vendorCategory = POData[i].vendorCategory;
+                            var vendorName = POData[i].vendorName;
+                            var activityPrice = POData[i].activityPrice;
+
+                            markup = "<tr><td>" + itemName + "</td><td>" + vendorCategory + "</td><td>" + vendorName + "</td><td>" + activityPrice + "</td></tr>";
+                            //console.log(markup);
+
+                            $("#example3 tbody").append(markup);
+
+                        }
+
+                    }
+                });
+            }
+
+
 
             // Cancel Button
             $("#cancelBtn").click(function() {
@@ -342,19 +423,21 @@
 
                 var processname = $("#vendorCatIdx option:selected").text();
                 var processID = $("#vendorCatIdx option:selected").val();
+                var vendorCatIdx = $("#vendorCatIdx option:selected").val();
+                var vendorIdx = $("#vendorIdx option:selected").val();
 
                 var vendorname = $("#vendorIdx option:selected").text();
                 var vendorID = $("#vendorIdx option:selected").val();
 
                 var activityPrice = $('#activityPrice').val();
 
-                var markup = "<tr><td style='display:none;'>" + itemID + "</td><td>" + itemname + "</td><td style='display:none;'>" + processID + "</td><td>" + processname + "</td><td style='display:none;'>" + vendorID + "</td><td>" + vendorname + "</td><td>" + activityPrice + "</td><td>" + closebutton + "</td></tr>";
+                var markup = "<tr><td style='display:none;'>" + itemID + "</td><td>" + itemname + "</td><td style='display:none;'>" + processID + "</td><td>" + processname + "</td><td style='display:none;'>" + vendorID + "</td><td>" + vendorname + "</td><td>" + activityPrice + "</td><td style='display:none;'>" + vendorCatIdx + "</td><td style='display:none;'>" + vendorIdx + "</td><td>" + closebutton + "</td></tr>";
 
                 $("#example2 tbody").append(markup);
                 $("#typeIdx").prop('disabled', true); //disable
                 $("#orderIdx").prop('disabled', true); //disable
-                $("#vendorCatIdx").prop('disabled', true); //disable
-                $("#vendorIdx").prop('disabled', true); //disable
+                $("#vendorCatIdx").prop('disabled', false); //disable
+                $("#vendorIdx").prop('disabled', false); //disable
 
             });
 
@@ -394,6 +477,8 @@
                     var vendorIdx = $('#vendorIdx').val();
                     var $tds = $(this).find('td'),
                         productid = $tds.eq(0).text();
+                    processIdx = $tds.eq(7).text();
+                    vendorIdx = $tds.eq(8).text();
 
                     if (Id == productid && processId == processIdx && vendorId == vendorIdx) {
                         rtrn = false;

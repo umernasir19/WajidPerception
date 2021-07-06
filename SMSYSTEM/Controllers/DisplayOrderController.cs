@@ -74,8 +74,14 @@ namespace SMSYSTEM.Controllers
                     objDisplayOrderVM.doNumber = dt.Rows[0]["doNumber"].ToString();
                     objDisplayOrderVM.description = dt.Rows[0]["description"].ToString();
                     objDisplayOrderVM.reference = dt.Rows[0]["reference"].ToString();
+
                     // We Don't have Total Amount in view
                     //objDisplayOrderVM.totalAmount = Convert.ToDecimal(dt.Rows[0]["totalAmount"].ToString());
+                    
+
+                            //string pddate = (dt.Rows[0]["DeliveryDate"].ToString()).ToString();
+                            //string nddate = DateTime.Parse(pddate).ToString();
+                            //objDisplayOrderVM.DeliveryDate = Convert.ToDateTime(nddate);
 
                     string pdate = (dt.Rows[0]["orderDate"].ToString()).ToString();
                     string ndate = DateTime.Parse(pdate).ToString("yyyy-MM-dd");
@@ -97,6 +103,7 @@ namespace SMSYSTEM.Controllers
                 else
                 {
                     objDisplayOrderVM.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
+
                     objDOBll = new LP_DisplayOrder_BLL();
                     LP_GenerateTransNumber_Property objtrans = new LP_GenerateTransNumber_Property();
                     objtrans.TableName = "displayOrder";
@@ -127,6 +134,7 @@ namespace SMSYSTEM.Controllers
 
                 objDOProperty.orderDate = objDisplayOrder.orderDate;
                 objDOProperty.description = objDisplayOrder.description;
+                objDOProperty.DeliveryDate = objDisplayOrder.DeliveryDate;
                
                
                 objDOProperty.reference = objDisplayOrder.reference;

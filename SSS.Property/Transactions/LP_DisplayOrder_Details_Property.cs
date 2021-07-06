@@ -107,6 +107,6 @@ namespace SSS.Property.Transactions
         public string itemName { get; set; }
 
         // Added By Ahsan
-        public string Description { get; set; }
+        public string ItemDescription { get; set; }
     }
 }

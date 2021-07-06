@@ -43,6 +43,9 @@ namespace SSS.Property.Transactions
         public string reference { get; set; }
         public string subject { get; set; }
         // Added By Ahsan
-        //public string Description { get; set; }
+        public string ItemDescription { get; set; }
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Please Select Date")]
+        public DateTime DeliveryDate { get; set; }
     }
 }

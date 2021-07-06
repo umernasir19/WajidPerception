@@ -92,7 +92,7 @@ namespace SMSYSTEM.Controllers
                     objSalesOrderVM_Property.qsIdx = Convert.ToInt16(dt.Rows[0]["qsIdx"].ToString());
                     objSalesOrderVM_Property.totalAmount = Convert.ToDecimal(dt.Rows[0]["totalAmount"].ToString());
                    // objSalesOrderVM_Property.DeliveryDate = dt.Rows[0]["DeliveryDate"].ToString();
-                   objSalesOrderVM_Property.Description = dt.Rows[0]["Description"].ToString();
+                   objSalesOrderVM_Property.ItemDescription = dt.Rows[0]["ItemDescription"].ToString();
 
                     string pdate = dt.Rows[0]["salesorderdate"].ToString();
                     string ndate = DateTime.Parse(pdate).ToString("yyyy-MM-dd");

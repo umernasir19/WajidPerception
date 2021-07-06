@@ -46,6 +46,13 @@ namespace SSS.BLL.Setups
             return _objVendorDAL.viewAll();
         }
 
+        // Added By Ahsan
+        public DataTable singlevendorProcess()
+        {
+            _objVendorDAL = new VendorProcess_DAL(_objVendorProcessVmProperty);
+            return _objVendorDAL.singlevendorProcess();
+        }
+
         public bool Delete()
         {
             _objVendorDAL = new VendorProcess_DAL(_objVendorProcessVmProperty);

@@ -258,7 +258,7 @@ namespace SSS.DAL.Transactions
         }
 
         
-        // For Update
+        // For Update view PI
         public override DataTable SelectOne()
         {
             SqlCommand cmdToExecute = new SqlCommand();
@@ -276,6 +276,58 @@ where c.idx=@ID";
             {
                 //cmdToExecute.Parameters.Add(new SqlParameter("@companyIdx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.companyIdx));
                 cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.idx));
+
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Open connection.
+                    _mainConnection.Open();
+                }
+                else
+                {
+                    if (_mainConnectionProvider.IsTransactionPending)
+                    {
+                        cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    }
+                }
+                // Execute query.
+                adapter.Fill(toReturn);
+
+                return toReturn;
+            }
+            catch (Exception ex)
+            {
+                // some error occured. Bubble it to caller and encapsulate Exception object
+                throw new Exception("Branch::Update::Error occured.", ex);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Close connection.
+                    _mainConnection.Close();
+                }
+                cmdToExecute.Dispose();
+            }
+        }
+
+        // For update view CI
+        public  DataTable SelectOneCI()
+        {
+            SqlCommand cmdToExecute = new SqlCommand();
+            cmdToExecute.CommandText = @"select * from [dbo].[CI_PurchaseOrder] c 
+inner join CI_PurchaseDetails cid on cid.purchaseIdx = c.idx
+inner join products p on p.idx = cid.itemIdx
+where c.idx=@ID";
+            //cmdToExecute.CommandType = CommandType.StoredProcedure;
+            DataTable toReturn = new DataTable("Select one Commercial Invoice");
+            SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
+            // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection;
+
+            try
+            {
+                //cmdToExecute.Parameters.Add(new SqlParameter("@companyIdx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.companyIdx));
+                cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, _objCIMaster.idx));
 
                 if (_mainConnectionIsCreatedLocal)
                 {

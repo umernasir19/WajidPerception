@@ -277,7 +277,7 @@ namespace SSS.DAL.Transactions
                     sbc.ColumnMappings.Add("qty", "qty");
                     sbc.ColumnMappings.Add("amount", "amount");
                     sbc.ColumnMappings.Add("qty", "openItem");
-                    sbc.ColumnMappings.Add("Description", "Description");
+                    sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
 
                     //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
                     //sbc.ColumnMappings.Add("Product", "Product_Name");

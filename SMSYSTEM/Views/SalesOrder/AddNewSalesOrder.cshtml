@@ -180,7 +180,7 @@
                                     <td>@Html.EditorFor(model => model.qty, new { htmlAttributes = new { @placeholder = "Qty", @class = "form-control" } })</td>
                                     <td>@Html.EditorFor(model => model.salePrice, new { htmlAttributes = new { @placeholder = "Unit Price", @class = "form-control" } })</td>
                                     <td>@Html.EditorFor(model => model.amount, new { htmlAttributes = new { @placeholder = "Total Price", @class = "form-control", @readonly = true } })</td>
-                                    <td>@Html.EditorFor(model => model.SalesOrderDetailLST[0].Description, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control" } })</td>
+                                    <td>@Html.EditorFor(model => model.ItemDescription, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control" } })</td>
                                 
                                     <td>
                                         
@@ -730,8 +730,9 @@
                     var ProductID = POData[i].itemIdx;// $("#itemIdx option:selected").val();
 
                     var totalamount = (parseFloat(actualQty) * parseFloat(actualSalePrice)).toFixed(2);
+                    var ItemDescription = POData[i].ItemDescription;
                     //var duedate = $("#DueDate").val();
-                    markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td>" + salePrice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + closbutton + "</td></tr>";
+                    markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td>" + salePrice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + ItemDescription + "</td><td>" + closbutton + "</td></tr>";
                     //console.log(markup);
 
                     $("#example2 tbody").append(markup);
@@ -818,7 +819,7 @@
         var salePrice = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualSalePrice+'"  id="salePrice" class="form-control" />';
         //$('#salePrice').text(actualSalePrice);
         var totalamount = $("#amount").val();
-        var description = $("#SalesOrderDetailLST_0__Description").val();
+        var description = $("#ItemDescription").val();
        // var Description = '<input type="text" placeholder="Enter Description"  value="'+description+'"  id="SalesOrderDetailLST_0__Description" class="form-control" />';
         //var duedate = $("#DueDate").val();
         var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td>" + salePrice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + description + "</td><td>" + closebutton + "</td></tr>";

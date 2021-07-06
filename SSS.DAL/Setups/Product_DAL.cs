@@ -17,6 +17,8 @@ namespace SSS.DAL.Setups
     public class Product_DAL : DBInteractionBase
     {
         private Product_Property objProduct;
+        private List<int> imagestoDelete;
+
         //private ErrorTracer objErrorTrace;
 
         public Product_DAL()
@@ -26,6 +28,11 @@ namespace SSS.DAL.Setups
         public Product_DAL(Product_Property obj_Product)
         {
             objProduct = obj_Product;
+        }
+
+        public Product_DAL(List<int> imagestoDelete)
+        {
+            this.imagestoDelete = imagestoDelete;
         }
 
         public override DataTable SelectAll()
@@ -338,6 +345,7 @@ where pr.visible =1 and pr.HSCODE!=''";
                 cmdToExecute.Parameters.Add(new SqlParameter("@productTax", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objProduct.productTax));
                 cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, objProduct.idx));
                 cmdToExecute.Parameters.Add(new SqlParameter("@Reference", SqlDbType.VarChar, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objProduct.Reference));
+                //cmdToExecute.Parameters.Add(new SqlParameter("@PicturePath", SqlDbType.Text, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objProduct.PicturePath));
 
                 if (_mainConnectionIsCreatedLocal)
                 {
@@ -426,6 +434,86 @@ where pr.visible =1 and pr.HSCODE!=''";
                 cmdToExecute.Dispose();
             }
         }
+        // Added By Ahsan
+        
+        public  bool DeleteProductsImages()
+        {
+            SqlCommand cmdToExecute = new SqlCommand();
+            if (imagestoDelete != null)
+            {
+                try
+                {
+                    foreach (var images in imagestoDelete)
+                    {
+                       
+                        cmdToExecute.CommandText = "[dbo].[sp_Delete_productpic]";
+                        cmdToExecute.CommandType = CommandType.StoredProcedure;
+
+                        // Use base class' connection object
+                        cmdToExecute.Connection = _mainConnection;
+
+                       
+                            cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, images));
+                            
+
+                            if (_mainConnectionIsCreatedLocal)
+                            {
+                                // Open connection.
+                                OpenConnection();
+                            }
+                            else
+                            {
+                                if (_mainConnectionProvider.IsTransactionPending)
+                                {
+                                    cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                                }
+                            }
+
+                        // Execute query.
+                        this.StartTransaction();
+                        cmdToExecute.Transaction = this.Transaction;
+                        _rowsAffected = cmdToExecute.ExecuteNonQuery();
+                        this.Commit();
+                        cmdToExecute.Parameters.Clear();
+                        CloseConnection();
+
+                    }
+                    if (_errorCode != (int)LLBLError.AllOk)
+                    {
+                        // Throw error.
+                        throw new Exception(
+                            "Stored Procedure 'sp_insert_product_category' reported the ErrorCode: " + _errorCode);
+                    }
+                    return true;
+                }
+
+                catch (Exception ex)
+                {
+                        // some error occured. Bubble it to caller and encapsulate Exception object
+                        throw new Exception("product_category::Insert::Error occured.", ex);
+                }
+                finally
+                {
+                        if (_mainConnectionIsCreatedLocal)
+                        {
+                            // Close connection.
+                             CloseConnection();
+                        }
+                        cmdToExecute.Dispose();
+                }
+
+            }
+            
+            else
+            {
+                return false;
+            }
+
+            return Convert.ToBoolean(RowsAffected);
+        }
+            
+           
         public override bool Update()
         {
             SqlCommand cmdToExecute = new SqlCommand();
@@ -470,10 +558,11 @@ where pr.visible =1 and pr.HSCODE!=''";
                 _rowsAffected = cmdToExecute.ExecuteNonQuery();
                 // _iD = (Int32)cmdToExecute.Parameters["@iID"].Value;
                 // _errorCode = (Int32)cmdToExecute.Parameters["@iErrorCode"].Value;
-                if (/*objProduct.ProductPictureList.Count > 0*/ objProduct.ProductPictureList != null)
+                if (objProduct.PicturePath != null)
                 {
                     DataTable dt;
                     //add product id in list
+                  
                     for (int i = 0; i < objProduct.ProductPictureList.Count; i++)
                     {
                         objProduct.ProductPictureList[i].ProductID = objProduct.idx;
@@ -491,8 +580,32 @@ where pr.visible =1 and pr.HSCODE!=''";
                     sbc.ColumnMappings.Add("PicturePath", "PicturePath");
                     sbc.DestinationTableName = dt.TableName;
                     sbc.WriteToServer(dt);
-
                 }
+                //if (/*objProduct.ProductPictureList.Count > 0*/ objProduct.ProductPictureList != null)
+                //{
+              
+
+                //    DataTable dt;
+                //    //add product id in list
+                //    for (int i = 0; i < objProduct.ProductPictureList.Count; i++)
+                //    {
+                //        objProduct.ProductPictureList[i].ProductID = objProduct.idx;
+                //    }
+                //    dt = new DataTable();
+
+                //    dt = Helper.ToDataTable<LP_Products_Picture>(objProduct.ProductPictureList);
+                //    dt.AcceptChanges();
+
+                //    SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                //    dt.TableName = "products_Picture";
+
+                //    sbc.ColumnMappings.Clear();
+                //    sbc.ColumnMappings.Add("ProductID", "ProductID");
+                //    sbc.ColumnMappings.Add("PicturePath", "PicturePath");
+                //    sbc.DestinationTableName = dt.TableName;
+                //    sbc.WriteToServer(dt);
+
+                //}
 
                 if (_errorCode != (int)LLBLError.AllOk)
                 {

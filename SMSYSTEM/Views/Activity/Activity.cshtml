@@ -5,7 +5,7 @@
 }
 
 <div class="card-body">
-    <h3><b>Local Purchase</b></h3>
+    <h3><b>Production</b></h3>
     <br />
     <form role="form" id="purchaseform">
         @Html.HiddenFor(model => model.idx, new { id = "idx", value = 0 })
@@ -100,6 +100,16 @@
                     @Html.ValidationMessageFor(m => m.vendorIdx, "", new { @class = "text-danger" })
                 </div>
                 @*@Html.ValidationMessageFor(model => model.vendorIdx, "", new { @class = "text-danger" })*@
+            </div>
+            
+            <div class="col-sm-3">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Delivery Date*:</label>
+                    @Html.EditorFor(model => model.DeliveryDate, new { htmlAttributes = new { @placeholder = "Delivery Date*:", @class = "form-control" } })
+                    @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                </div>
+                @Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })
             </div>
 
         </div>
@@ -737,6 +747,7 @@
                     qty: $('#qty').val(),
                     size: $('#size').val(),
                     description: $("#description").val(),
+                    DeliveryDate: $("#DeliveryDate").val(),
                     ActivityDetailLST: []
 
                 }
@@ -755,7 +766,9 @@
                     size = $tds.eq(3).text(),
                     qty = $tds.eq(4).text(),
                     activityPrice = $tds.eq(5).text(),
-                    description = $tds.eq(6).text()
+                    description = $tds.eq(6).text(),
+                    vendorCatIdx = $tds.eq(7).text(),
+                    vendorIdx =  $tds.eq(8).text(),
                 totalAmount = qty * activityPrice
 
 
@@ -767,7 +780,9 @@
                     activityPrice: activityPrice,
                     description: description,
                     totalAmount,
-                    totalAmount
+                    totalAmount,
+                    vendorCatIdx : vendorCatIdx,
+                    vendorIdx:vendorIdx
                 });
 
             });
@@ -842,7 +857,7 @@
             var Qty = $('#qty').val();
             var activityPrice = $('#activityPrice').val();
             var description = $('#description').val();
-            var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + reference + "</td><td>" + size + "</td><td>" + Qty + "</td><td>" + activityPrice + "</td><td>" + description + "</td><td style=display: none>" + vendorCatIdx + "</td><td style=display: none>" + vendorIdx + "</td><td>" + closebutton + "</td></tr>";
+            var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + reference + "</td><td>" + size + "</td><td>" + Qty + "</td><td>" + activityPrice + "</td><td>" + description + "</td><td style='display:none;'>" + vendorCatIdx + "</td><td style='display:none;'>" + vendorIdx + "</td><td>" + closebutton + "</td></tr>";
 
             $("#example2 tbody").append(markup);
             $("#typeIdx").prop('disabled', true); //disable

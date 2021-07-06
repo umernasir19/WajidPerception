@@ -41,7 +41,7 @@ namespace SSS.DAL.Setups
                 cmdToExecute.Parameters.Add(new SqlParameter("@operatorid", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, objCompanyBankProperty.createdByUserIdx));
                 cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Bit, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, objCompanyBankProperty.visible));
                 cmdToExecute.Parameters.Add(new SqlParameter("@branchCode", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, objCompanyBankProperty.branchCode));
-                cmdToExecute.Parameters.Add(new SqlParameter("@swiftCode", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, objCompanyBankProperty.swiftCode));
+                cmdToExecute.Parameters.Add(new SqlParameter("@swiftCode", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, objCompanyBankProperty.swiftCode));
 
 
                 if (_mainConnectionIsCreatedLocal)

@@ -21,6 +21,8 @@ namespace SSS.Property.Setups
         public string vendorCategory { get; set; }
 
         public int CreatedBy { get; set; }
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Please Select Date")]
         public DateTime creationDate { get; set; }
         public bool visible { get; set; }
 

@@ -16,6 +16,8 @@ namespace SSS.BLL.Setups
         private Product_Property objProductProperty;
 
         private int? id;
+        private List<int> imagestoDelete;
+
         public Product_BLL()
         {
 
@@ -29,6 +31,12 @@ namespace SSS.BLL.Setups
         {
             this.id = id;
         }
+
+        public Product_BLL(List<int> imagestoDelete)
+        {
+            this.imagestoDelete = imagestoDelete;
+        }
+
         public DataTable ViewAll()
         {
             objProduct_DAL = new Product_DAL(objProductProperty);
@@ -74,6 +82,13 @@ namespace SSS.BLL.Setups
         {
             objProduct_DAL = new Product_DAL(objProductProperty);
             return objProduct_DAL.Update();
+        }
+        // Added By Ahsan
+        
+        public bool DeleteProductsImages()
+        {
+            objProduct_DAL = new Product_DAL(imagestoDelete);
+            return objProduct_DAL.DeleteProductsImages();
         }
         public bool Delete(int? id)
         {

@@ -140,7 +140,14 @@ namespace SSS.BLL.Transactions
             }
             //return _objMRNDAL.GenerateMRNNo(objtransno);
         }
-       
+
+        // Added By Ahsan
+        public DataTable SelectOneCI()
+        {
+            _objPIDAL = new LP_PI_DAL(_objCIMaster);
+            return _objPIDAL.SelectOneCI();
+        }
+
         public bool InsertCIPO()
         {
             _objPIDAL = new LP_PI_DAL(_objCIMaster);

@@ -15,6 +15,10 @@ namespace SSS.Property.Setups
         public int taxIdx { get; set; }
         public int saleIdx { get; set; }
         public decimal taxPercent { get; set; }
+        public string ItemDescription { get; set; }
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Please Select Date")]
+        public DateTime DeliveryDate { get; set; }
 
         //public int? MRNIdx { get; set; }
         //public List<LP_MRN_Master_Property> MRList { get; set; }

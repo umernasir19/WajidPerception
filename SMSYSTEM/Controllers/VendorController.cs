@@ -220,6 +220,25 @@ namespace SMSYSTEM.Controllers
             }
         }
 
+        // Single product vendor process list
+        public JsonResult GetoneVendorProcess(int id)
+        {
+            try
+            {
+                objVendorProcessVM_Property = new VendorProcessVM_Property();
+                objVendorProcessVM_Property.itemIdx = id;
+
+                VendorProcess_BLL objBLL = new VendorProcess_BLL(objVendorProcessVM_Property);
+                var Data = JsonConvert.SerializeObject(objBLL.singlevendorProcess());
+                return Json(new { data = Data, success = true, statuscode = 200, count = Data.Length }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult VendorProcess(int? id)
         {
             if (Session["LOGGEDIN"] != null)

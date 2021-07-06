@@ -200,14 +200,15 @@ namespace SSS.DAL.Transactions
                         row["creationDate"] = _objACTasterProperty.creationDate;
                         row["createdBy"] = _objACTasterProperty.createdBy;
                         row["orderIdx"] = _objACTasterProperty.orderIdx;
-                        row["vendorCatIdx"] = _objACTasterProperty.vendorCatIdx;
-                        row["vendorIdx"] = _objACTasterProperty.vendorIdx;
+                        //row["vendorCatIdx"] = _objACTasterProperty.vendorCatIdx;
+                        //row["vendorIdx"] = _objACTasterProperty.vendorIdx;
                         row["typeIdx"] = _objACTasterProperty.typeIdx;
-                        
+                        row["DeliveryDate"] = _objACTasterProperty.DeliveryDate;
+
 
 
                     }
-                    
+
 
                     _objACTasterProperty.DetailData.AcceptChanges();
 
@@ -217,6 +218,7 @@ namespace SSS.DAL.Transactions
                     sbc.ColumnMappings.Clear();
                     sbc.ColumnMappings.Add("activityDate", "activityDate");
                     sbc.ColumnMappings.Add("creationDate", "creationDate");
+                    sbc.ColumnMappings.Add("DeliveryDate", "DeliveryDate");
                     sbc.ColumnMappings.Add("createdBy", "createdBy");
                     sbc.ColumnMappings.Add("orderIdx", "orderIdx");
                     sbc.ColumnMappings.Add("vendorCatIdx", "vendorCatIdx");
