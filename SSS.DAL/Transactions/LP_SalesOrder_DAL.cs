@@ -164,7 +164,7 @@ namespace SSS.DAL.Transactions
             if (_objSOMasterProperty.idx > 0)
             {
                 //sp_PurchaseUpdate
-                cmdToExecute.CommandText = "dbo.[sp_PurchaseUpdate]";
+                cmdToExecute.CommandText = "dbo.[sp_SalesOrderUpdate]";
             }
             else
             {
@@ -183,7 +183,10 @@ namespace SSS.DAL.Transactions
                     cmdToExecute.Parameters.Add(new SqlParameter("@soNumber", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
                     cmdToExecute.Parameters.Add(new SqlParameter("@customerIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
                     cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.description));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@totalamount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.totalAmount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@paidAmount", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.paidAmount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@balanceAmount", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.balanceAmount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@totalamount", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.totalAmount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@netAmount", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.netAmount));
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objSOMasterProperty.creationDate));
 
@@ -192,10 +195,26 @@ namespace SSS.DAL.Transactions
                     cmdToExecute.Parameters.Add(new SqlParameter("@status", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objSOMasterProperty.status));
 
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.InputOutput, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.idx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@glIdx", SqlDbType.Int, 32, ParameterDirection.InputOutput, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.glIdx));
-                    //cmdToExecute.Parameters.Add(new SqlParameter("@MRNIdx", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.MRNIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@salesOrderDate", SqlDbType.DateTime, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.salesorderDate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DeliveryDate", SqlDbType.DateTime, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.DeliveryDate));
+                    //wareHouseIdx,salespersonIdx,shippingCost,discount,taxAount,paymentModeIdx,bankIdx,accorChequeNumber
+
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.idx));
+                    // cmdToExecute.Parameters.Add(new SqlParameter("@MRNIdx", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.MRNIdx));
+                   cmdToExecute.Parameters.Add(new SqlParameter("@masterIdx", SqlDbType.Int, 32, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.glIdx));
                     cmdToExecute.Parameters.Add(new SqlParameter("@qsIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.qsIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@reference", SqlDbType.NVarChar, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.reference));
+
+                    cmdToExecute.Parameters.Add(new SqlParameter("@wareHouseIdx", SqlDbType.Int, 500, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.wareHouseIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@salespersonIdx", SqlDbType.Int, 500, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.salespersonIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@shippingCost", SqlDbType.Decimal, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.shippingCost));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@discount", SqlDbType.Decimal, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.discount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@taxAount", SqlDbType.Decimal, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.taxAount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@paymentModeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.bankIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@bankIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.discount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@accorChequeNumber", SqlDbType.NVarChar, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.accorChequeNumber));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@Productioncheck", SqlDbType.Int, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.Productioncheck));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@salesTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.salesTypeIdx));
                 }
                 else
                 {
@@ -232,6 +251,7 @@ namespace SSS.DAL.Transactions
                     cmdToExecute.Parameters.Add(new SqlParameter("@paymentModeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.bankIdx));
                     cmdToExecute.Parameters.Add(new SqlParameter("@bankIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.discount));
                     cmdToExecute.Parameters.Add(new SqlParameter("@accorChequeNumber", SqlDbType.NVarChar, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.accorChequeNumber));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@Productioncheck", SqlDbType.Int, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.Productioncheck));
                     cmdToExecute.Parameters.Add(new SqlParameter("@salesTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.salesTypeIdx));
                 }
 
@@ -255,103 +275,597 @@ namespace SSS.DAL.Transactions
                 // _iD = (Int32)cmdToExecute.Parameters["@iID"].Value;
                 //_errorCode = cmdToExecute.Parameters["@ErrorCode"].Value;
 
-                if (_objSOMasterProperty.DetailData != null)
+
+                if (_objSOMasterProperty.idx > 0)
                 {
-                    foreach (DataRow row in _objSOMasterProperty.DetailData.Rows)
+                    if (_objSOMasterProperty.DetailData != null)
                     {
-                        row["salesorderIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
-                        _objSOMasterProperty.idx = Convert.ToInt32(cmdToExecute.Parameters["@ID"].Value.ToString());
+                        foreach (DataRow row in _objSOMasterProperty.DetailData.Rows)
+                        {
+                            //                            row["salesorderIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+                            row["salesorderIdx"] = _objSOMasterProperty.idx;
+                            //_objSOMasterProperty.idx = Convert.ToInt32(cmdToExecute.Parameters["@ID"].Value.ToString());
+                        }
+
+                        _objSOMasterProperty.DetailData.AcceptChanges();
+
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default,
+                            this.Transaction);
+                        _objSOMasterProperty.DetailData.TableName = "SalesOrderDetails";
+
+                        sbc.ColumnMappings.Clear();
+                        sbc.ColumnMappings.Add("salesorderIdx", "salesorderIdx");
+                        //sbc.ColumnMappings.Add(2, 1);
+                        sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
+                        sbc.ColumnMappings.Add("itemIdx", "itemIdx");
+                        sbc.ColumnMappings.Add("salePrice", "salePrice");
+                        sbc.ColumnMappings.Add("qty", "qty");
+                        sbc.ColumnMappings.Add("amount", "amount");
+                        sbc.ColumnMappings.Add("qty", "openItem");
+                        sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
+
+                        //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
+                        //sbc.ColumnMappings.Add("Product", "Product_Name");
+                        //sbc.ColumnMappings.Add("Status", "Status");
+
+                        //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
+
+
+                        sbc.DestinationTableName = _objSOMasterProperty.DetailData.TableName;
+                        sbc.WriteToServer(_objSOMasterProperty.DetailData);
+
                     }
 
-                    _objSOMasterProperty.DetailData.AcceptChanges();
-
-                    SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
-                    _objSOMasterProperty.DetailData.TableName = "SalesOrderDetails";
-
-                    sbc.ColumnMappings.Clear();
-                    sbc.ColumnMappings.Add("salesorderIdx", "salesorderIdx");
-                    //sbc.ColumnMappings.Add(2, 1);
-                    sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
-                    sbc.ColumnMappings.Add("itemIdx", "itemIdx");
-                    sbc.ColumnMappings.Add("salePrice", "salePrice");
-                    sbc.ColumnMappings.Add("qty", "qty");
-                    sbc.ColumnMappings.Add("amount", "amount");
-                    sbc.ColumnMappings.Add("qty", "openItem");
-                    sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
-
-                    //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
-                    //sbc.ColumnMappings.Add("Product", "Product_Name");
-                    //sbc.ColumnMappings.Add("Status", "Status");
-
-                    //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
-                    
-
-                    sbc.DestinationTableName = _objSOMasterProperty.DetailData.TableName;
-                    sbc.WriteToServer(_objSOMasterProperty.DetailData);
-
-                }
-
-                if (_objSOMasterProperty.SalesTaxData != null)
-                {
-                    foreach (DataRow row in _objSOMasterProperty.SalesTaxData.Rows)
+                    if (_objSOMasterProperty.SalesTaxData != null)
                     {
-                        row["saleIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
-                        row["taxType"] = "1";
-                        row["creationDate"] = DateTime.Now.ToString("yyyy-MM-dd");
+                        foreach (DataRow row in _objSOMasterProperty.SalesTaxData.Rows)
+                        {
+                            row["saleIdx"] = _objSOMasterProperty.idx;
+                            row["taxType"] = "1";
+                            row["creationDate"] = DateTime.Now.ToString("yyyy-MM-dd");
 
-                        //row["createdBy"] = Convert.ToInt16(Session["UID"].ToString());
+                            //row["createdBy"] = Convert.ToInt16(Session["UID"].ToString());
+                        }
+
+                        _objSOMasterProperty.SalesTaxData.AcceptChanges();
+
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default,
+                            this.Transaction);
+                        _objSOMasterProperty.SalesTaxData.TableName = "salesTaxes";
+
+                        sbc.ColumnMappings.Clear();
+                        sbc.ColumnMappings.Add("taxIdx", "taxIdx");
+                        sbc.ColumnMappings.Add("taxPercent", "taxPercent");
+                        sbc.ColumnMappings.Add("status", "status");
+                        sbc.ColumnMappings.Add("creationDate", "creationDate");
+                        //sbc.ColumnMappings.Add(2, 1);
+                        sbc.ColumnMappings.Add("saleIdx", "saleIdx");
+                        sbc.ColumnMappings.Add("taxType", "taxType");
+                        sbc.DestinationTableName = _objSOMasterProperty.SalesTaxData.TableName;
+                        sbc.WriteToServer(_objSOMasterProperty.SalesTaxData);
+
                     }
-                    _objSOMasterProperty.SalesTaxData.AcceptChanges();
 
-                    SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
-                    _objSOMasterProperty.SalesTaxData.TableName = "salesTaxes";
+                    int GLIDX = (Int32)cmdToExecute.Parameters["@masterIdx"].Value;
+                   // int GLIDX = _objSOMasterProperty.glIdx;
+                    //purchase entry for account gj same for all types
+                    cmdToExecute = new SqlCommand();
+                    // cmdToExecute.CommandType = CommandType.StoredProcedure;
+                    cmdToExecute.CommandType = CommandType.StoredProcedure;
+                    cmdToExecute.CommandText = "sp_InsertAccountGj";
+                    cmdToExecute.Connection = _mainConnection;
+                    cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input,
+                        true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500,
+                        ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
 
-                    sbc.ColumnMappings.Clear();
-                    sbc.ColumnMappings.Add("taxIdx", "taxIdx");
-                    sbc.ColumnMappings.Add("taxPercent", "taxPercent");
-                    sbc.ColumnMappings.Add("status", "status");
-                    sbc.ColumnMappings.Add("creationDate", "creationDate");
-                    //sbc.ColumnMappings.Add(2, 1);
-                    sbc.ColumnMappings.Add("saleIdx", "saleIdx");
-                    sbc.ColumnMappings.Add("taxType", "taxType");
-                    sbc.DestinationTableName = _objSOMasterProperty.SalesTaxData.TableName;
-                    sbc.WriteToServer(_objSOMasterProperty.SalesTaxData);
+                    cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                        _objSOMasterProperty.createdByUserIdx));
 
+                    cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 500,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 25,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                        _objSOMasterProperty.customerIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 6)); //Sales
+                    cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                        _objSOMasterProperty.soNumber));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                        _objSOMasterProperty.netAmount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                        _objSOMasterProperty.creationDate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+
+                    cmdToExecute.Transaction = this.Transaction;
+                    _rowsAffected = cmdToExecute.ExecuteNonQuery();
+
+                    if (_objSOMasterProperty.shippingCost > 0)
+                    {
+                        //int GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value;
+                        //purchase entry for account gj same for all types
+                        cmdToExecute = new SqlCommand();
+                        // cmdToExecute.CommandType = CommandType.StoredProcedure;
+                        cmdToExecute.CommandType = CommandType.StoredProcedure;
+                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+                        cmdToExecute.Connection = _mainConnection;
+                        cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
+                            ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.createdByUserIdx));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 25,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.customerIdx));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 8)); //Shipping Cost
+                        cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.soNumber));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.shippingCost));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.creationDate));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+
+                        cmdToExecute.Transaction = this.Transaction;
+                        _rowsAffected = cmdToExecute.ExecuteNonQuery();
+                    }
+
+                    if (_objSOMasterProperty.discount > 0)
+                    {
+                        //int GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value;
+                        //purchase entry for account gj same for all types
+                        cmdToExecute = new SqlCommand();
+                        // cmdToExecute.CommandType = CommandType.StoredProcedure;
+                        cmdToExecute.CommandType = CommandType.StoredProcedure;
+                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+                        cmdToExecute.Connection = _mainConnection;
+                        cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
+                            ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.createdByUserIdx));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 25,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.customerIdx));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 9)); //Discount
+                        cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.soNumber));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.discount));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.creationDate));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+
+                        cmdToExecute.Transaction = this.Transaction;
+                        _rowsAffected = cmdToExecute.ExecuteNonQuery();
+                    }
+                    //purchase end
+
+                    //TAX entries
+
+                    #region Account Gj Tax Entries
+
+                    if (_objSOMasterProperty.SalesTaxData != null)
+                    {
+                        for (int i = 0; i < _objSOMasterProperty.SalesTaxData.Rows.Count; i++)
+                        {
+
+                            decimal taxpercntage =
+                                Convert.ToDecimal(_objSOMasterProperty.SalesTaxData.Rows[i]["taxPercent"].ToString());
+                            int taxid = Convert.ToInt32(_objSOMasterProperty.SalesTaxData.Rows[i]["taxIdx"].ToString());
+                            decimal taxamount = ((_objSOMasterProperty.netAmount / 100) * (taxpercntage));
+                            cmdToExecute = new SqlCommand();
+                            // cmdToExecute.CommandType = CommandType.StoredProcedure;
+                            cmdToExecute.CommandType = CommandType.StoredProcedure;
+                            cmdToExecute.CommandText = "sp_InsertAccountGj";
+                            cmdToExecute.Connection = _mainConnection;
+                            cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
+                                ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 112));
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objSOMasterProperty.createdByUserIdx));
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objSOMasterProperty.customerIdx));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 25,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, taxid));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objSOMasterProperty.soNumber));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, taxamount));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objSOMasterProperty.creationDate));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+
+                            cmdToExecute.Transaction = this.Transaction;
+                            _rowsAffected = cmdToExecute.ExecuteNonQuery();
+                        }
+                    }
+
+                    #endregion
+
+                    #region Full Payment
+
+                    if (_objSOMasterProperty.balanceAmount == 0)
+                    {
+
+                        //cash entry bank
+                        cmdToExecute = new SqlCommand();
+                        // cmdToExecute.CommandType = CommandType.StoredProcedure;
+
+                        cmdToExecute.CommandType = CommandType.StoredProcedure;
+                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+
+                        cmdToExecute.Connection = _mainConnection;
+                        cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
+                            ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.createdByUserIdx));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.customerIdx));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 25,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.soNumber));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.paidAmount));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.creationDate));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        //cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objMRMasterProperty.isPaid));
+                        if (_objSOMasterProperty.paymentModeIdx == 1)
+                        {
+                            //cash
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 7));
+                        }
+
+                        if (_objSOMasterProperty.paymentModeIdx == 2 || _objSOMasterProperty.paymentModeIdx == 3)
+                        {
+                            //bank
+                            // var data= _objpinvoicepropert
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objSOMasterProperty.BankCOAIDX));
+                        }
+
+                        if (_objSOMasterProperty.paymentModeIdx == 4)
+                        {
+                            //cash
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                55)); //Customer Payment
+                        }
+
+                        cmdToExecute.Transaction = this.Transaction;
+                        //this.StartTransaction();
+                        // cmdToExecute.Transaction = this.Transaction;
+                        // Execute query.
+                        _rowsAffected = cmdToExecute.ExecuteNonQuery();
+
+                        //cash end
+
+
+                    }
+
+
+                    #endregion
+
+
+                    #region partial Payment
+
+                    if (_objSOMasterProperty.paidAmount != _objSOMasterProperty.totalAmount)
+                    {
+
+                        //cash entry bank
+                        cmdToExecute = new SqlCommand();
+                        // cmdToExecute.CommandType = CommandType.StoredProcedure;
+
+                        cmdToExecute.CommandType = CommandType.StoredProcedure;
+                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+
+                        cmdToExecute.Connection = _mainConnection;
+                        cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
+                            ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.createdByUserIdx));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.customerIdx));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 25,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.soNumber));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.paidAmount));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.creationDate));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        //cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objMRMasterProperty.isPaid));
+                        if (_objSOMasterProperty.paymentModeIdx == 1)
+                        {
+                            //cash
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 7));
+                        }
+
+                        if (_objSOMasterProperty.paymentModeIdx == 2 || _objSOMasterProperty.paymentModeIdx == 3)
+                        {
+                            //bank
+                            // var data= _objpinvoicepropert
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objSOMasterProperty.BankCOAIDX));
+                        }
+
+                        if (_objSOMasterProperty.paymentModeIdx == 4)
+                        {
+                            //cash
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                55)); //Customer Payment
+                        }
+
+                        cmdToExecute.Transaction = this.Transaction;
+                        _rowsAffected = cmdToExecute.ExecuteNonQuery();
+
+
+                        //acount receivable
+                        cmdToExecute = new SqlCommand();
+                        cmdToExecute.CommandType = CommandType.StoredProcedure;
+                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+                        cmdToExecute.Connection = _mainConnection;
+                        cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
+                            ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.createdByUserIdx));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.customerIdx));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 25,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.soNumber));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.balanceAmount));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.creationDate));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500,
+                            ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                            _objSOMasterProperty.CustomerCoaidx));
+                        cmdToExecute.Transaction = this.Transaction;
+                        _rowsAffected = cmdToExecute.ExecuteNonQuery();
+
+                        #endregion
+
+                        #region No Pay
+
+                        if (_objSOMasterProperty.paidAmount == 0)
+                        {
+                            //cash entry bank
+                            cmdToExecute = new SqlCommand();
+                            // cmdToExecute.CommandType = CommandType.StoredProcedure;
+                            cmdToExecute.CommandType = CommandType.StoredProcedure;
+                            cmdToExecute.CommandText = "sp_InsertAccountGj";
+                            cmdToExecute.Connection = _mainConnection;
+                            cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
+                                ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objSOMasterProperty.createdByUserIdx));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objSOMasterProperty.customerIdx));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 25,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objSOMasterProperty.soNumber));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objSOMasterProperty.balanceAmount));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objSOMasterProperty.creationDate));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objSOMasterProperty.BankCOAIDX));
+                            cmdToExecute.Transaction = this.Transaction;
+                            _rowsAffected = cmdToExecute.ExecuteNonQuery();
+
+                            #endregion
+
+                        }
+                    }
                 }
-
-
-
-                #region Account GJ Entry
-
-                int GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value;
-                //purchase entry for account gj same for all types
-                cmdToExecute = new SqlCommand();
-                // cmdToExecute.CommandType = CommandType.StoredProcedure;
-                cmdToExecute.CommandType = CommandType.StoredProcedure;
-                cmdToExecute.CommandText = "sp_InsertAccountGj";
-                cmdToExecute.Connection = _mainConnection;
-                cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
-                cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
-
-                cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.createdByUserIdx));
-
-                cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 25, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
-                cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 6)); //Sales
-                cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
-                cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
-                cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.netAmount));
-                cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.creationDate));
-                cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-
-                cmdToExecute.Transaction = this.Transaction;
-                _rowsAffected = cmdToExecute.ExecuteNonQuery();
-
-                if (_objSOMasterProperty.shippingCost > 0)
+                else
                 {
-                    //int GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value;
+                    if (_objSOMasterProperty.DetailData != null)
+                    {
+                        foreach (DataRow row in _objSOMasterProperty.DetailData.Rows)
+                        {
+                            row["salesorderIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+                            _objSOMasterProperty.idx = Convert.ToInt32(cmdToExecute.Parameters["@ID"].Value.ToString());
+                        }
+
+                        _objSOMasterProperty.DetailData.AcceptChanges();
+
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        _objSOMasterProperty.DetailData.TableName = "SalesOrderDetails";
+
+                        sbc.ColumnMappings.Clear();
+                        sbc.ColumnMappings.Add("salesorderIdx", "salesorderIdx");
+                        //sbc.ColumnMappings.Add(2, 1);
+                        sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
+                        sbc.ColumnMappings.Add("itemIdx", "itemIdx");
+                        sbc.ColumnMappings.Add("salePrice", "salePrice");
+                        sbc.ColumnMappings.Add("qty", "qty");
+                        sbc.ColumnMappings.Add("amount", "amount");
+                        sbc.ColumnMappings.Add("qty", "openItem");
+                        sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
+
+                        //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
+                        //sbc.ColumnMappings.Add("Product", "Product_Name");
+                        //sbc.ColumnMappings.Add("Status", "Status");
+
+                        //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
+
+
+                        sbc.DestinationTableName = _objSOMasterProperty.DetailData.TableName;
+                        sbc.WriteToServer(_objSOMasterProperty.DetailData);
+
+                    }
+
+                    if (_objSOMasterProperty.SalesTaxData != null)
+                    {
+                        foreach (DataRow row in _objSOMasterProperty.SalesTaxData.Rows)
+                        {
+                            row["saleIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+                            row["taxType"] = "1";
+                            row["creationDate"] = DateTime.Now.ToString("yyyy-MM-dd");
+
+                            //row["createdBy"] = Convert.ToInt16(Session["UID"].ToString());
+                        }
+                        _objSOMasterProperty.SalesTaxData.AcceptChanges();
+
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        _objSOMasterProperty.SalesTaxData.TableName = "salesTaxes";
+
+                        sbc.ColumnMappings.Clear();
+                        sbc.ColumnMappings.Add("taxIdx", "taxIdx");
+                        sbc.ColumnMappings.Add("taxPercent", "taxPercent");
+                        sbc.ColumnMappings.Add("status", "status");
+                        sbc.ColumnMappings.Add("creationDate", "creationDate");
+                        //sbc.ColumnMappings.Add(2, 1);
+                        sbc.ColumnMappings.Add("saleIdx", "saleIdx");
+                        sbc.ColumnMappings.Add("taxType", "taxType");
+                        sbc.DestinationTableName = _objSOMasterProperty.SalesTaxData.TableName;
+                        sbc.WriteToServer(_objSOMasterProperty.SalesTaxData);
+
+                    }
+
+
+
+                    #region Account GJ Entry
+
+                    int GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value;
                     //purchase entry for account gj same for all types
                     cmdToExecute = new SqlCommand();
                     // cmdToExecute.CommandType = CommandType.StoredProcedure;
@@ -366,75 +880,38 @@ namespace SSS.DAL.Transactions
                     cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
                     cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
                     cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 25, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 8)); //Shipping Cost
+                    cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 6)); //Sales
                     cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.shippingCost));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.netAmount));
                     cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.creationDate));
                     cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
                     cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
 
                     cmdToExecute.Transaction = this.Transaction;
                     _rowsAffected = cmdToExecute.ExecuteNonQuery();
-                }
-                if (_objSOMasterProperty.discount > 0)
-                {
-                    //int GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value;
-                    //purchase entry for account gj same for all types
-                    cmdToExecute = new SqlCommand();
-                    // cmdToExecute.CommandType = CommandType.StoredProcedure;
-                    cmdToExecute.CommandType = CommandType.StoredProcedure;
-                    cmdToExecute.CommandText = "sp_InsertAccountGj";
-                    cmdToExecute.Connection = _mainConnection;
-                    cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.createdByUserIdx));
-
-                    cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 25, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 9));//Discount
-                    cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.discount));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.creationDate));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-
-                    cmdToExecute.Transaction = this.Transaction;
-                    _rowsAffected = cmdToExecute.ExecuteNonQuery();
-                }
-                //purchase end
-
-                //TAX entries
-                #region Account Gj Tax Entries
-
-                if (_objSOMasterProperty.SalesTaxData != null)
-                {
-                    for (int i = 0; i < _objSOMasterProperty.SalesTaxData.Rows.Count; i++)
+                    if (_objSOMasterProperty.shippingCost > 0)
                     {
-
-                        decimal taxpercntage = Convert.ToDecimal(_objSOMasterProperty.SalesTaxData.Rows[i]["taxPercent"].ToString());
-                        int taxid = Convert.ToInt32(_objSOMasterProperty.SalesTaxData.Rows[i]["taxIdx"].ToString());
-                        decimal taxamount = ((_objSOMasterProperty.netAmount / 100) * (taxpercntage));
+                        //int GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value;
+                        //purchase entry for account gj same for all types
                         cmdToExecute = new SqlCommand();
                         // cmdToExecute.CommandType = CommandType.StoredProcedure;
                         cmdToExecute.CommandType = CommandType.StoredProcedure;
                         cmdToExecute.CommandText = "sp_InsertAccountGj";
                         cmdToExecute.Connection = _mainConnection;
                         cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
-                        cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 112));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
 
                         cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.createdByUserIdx));
 
-                        cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
                         cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                        cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 25, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                        cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, taxid));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 25, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 8)); //Shipping Cost
                         cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
-                        cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
-                        cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, taxamount));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.shippingCost));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
                         cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.creationDate));
                         cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
                         cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
@@ -442,150 +919,187 @@ namespace SSS.DAL.Transactions
                         cmdToExecute.Transaction = this.Transaction;
                         _rowsAffected = cmdToExecute.ExecuteNonQuery();
                     }
-                }
-               
-                #endregion
-
-                #region Full Payment
-
-                if (_objSOMasterProperty.balanceAmount == 0)
-                {
-
-                    //cash entry bank
-                    cmdToExecute = new SqlCommand();
-                    // cmdToExecute.CommandType = CommandType.StoredProcedure;
-
-                    cmdToExecute.CommandType = CommandType.StoredProcedure;
-                    cmdToExecute.CommandText = "sp_InsertAccountGj";
-
-                    cmdToExecute.Connection = _mainConnection;
-                    cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
-
-                    cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.createdByUserIdx));
-
-                    cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 25, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-
-                    cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.paidAmount));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,0.00m));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.creationDate));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                    //cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objMRMasterProperty.isPaid));
-                    if (_objSOMasterProperty.paymentModeIdx == 1)
+                    if (_objSOMasterProperty.discount > 0)
                     {
-                        //cash
-                        cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 7));
+                        //int GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value;
+                        //purchase entry for account gj same for all types
+                        cmdToExecute = new SqlCommand();
+                        // cmdToExecute.CommandType = CommandType.StoredProcedure;
+                        cmdToExecute.CommandType = CommandType.StoredProcedure;
+                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+                        cmdToExecute.Connection = _mainConnection;
+                        cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.createdByUserIdx));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 25, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 9));//Discount
+                        cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.discount));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.creationDate));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+
+                        cmdToExecute.Transaction = this.Transaction;
+                        _rowsAffected = cmdToExecute.ExecuteNonQuery();
                     }
-                    if (_objSOMasterProperty.paymentModeIdx == 2 || _objSOMasterProperty.paymentModeIdx == 3)
+                    //purchase end
+
+                    //TAX entries
+                    #region Account Gj Tax Entries
+
+                    if (_objSOMasterProperty.SalesTaxData != null)
                     {
-                        //bank
-                        // var data= _objpinvoicepropert
-                        cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.BankCOAIDX));
+                        for (int i = 0; i < _objSOMasterProperty.SalesTaxData.Rows.Count; i++)
+                        {
+
+                            decimal taxpercntage = Convert.ToDecimal(_objSOMasterProperty.SalesTaxData.Rows[i]["taxPercent"].ToString());
+                            int taxid = Convert.ToInt32(_objSOMasterProperty.SalesTaxData.Rows[i]["taxIdx"].ToString());
+                            decimal taxamount = ((_objSOMasterProperty.netAmount / 100) * (taxpercntage));
+                            cmdToExecute = new SqlCommand();
+                            // cmdToExecute.CommandType = CommandType.StoredProcedure;
+                            cmdToExecute.CommandType = CommandType.StoredProcedure;
+                            cmdToExecute.CommandText = "sp_InsertAccountGj";
+                            cmdToExecute.Connection = _mainConnection;
+                            cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 112));
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.createdByUserIdx));
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 25, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, taxid));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, taxamount));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.creationDate));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+
+                            cmdToExecute.Transaction = this.Transaction;
+                            _rowsAffected = cmdToExecute.ExecuteNonQuery();
+                        }
                     }
-
-                    if (_objSOMasterProperty.paymentModeIdx == 4)
-                    {
-                        //cash
-                        cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 55)); //Customer Payment
-                    }
-
-                    cmdToExecute.Transaction = this.Transaction;
-                    //this.StartTransaction();
-                    // cmdToExecute.Transaction = this.Transaction;
-                    // Execute query.
-                    _rowsAffected = cmdToExecute.ExecuteNonQuery();
-
-                    //cash end
-
-
-                }
-
-
-                #endregion
-
-
-                #region partial Payment
-                if (_objSOMasterProperty.paidAmount != _objSOMasterProperty.totalAmount)
-                {
-
-                    //cash entry bank
-                    cmdToExecute = new SqlCommand();
-                    // cmdToExecute.CommandType = CommandType.StoredProcedure;
-
-                    cmdToExecute.CommandType = CommandType.StoredProcedure;
-                    cmdToExecute.CommandText = "sp_InsertAccountGj";
-
-                    cmdToExecute.Connection = _mainConnection;
-                    cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
-
-                    cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.createdByUserIdx));
-
-                    cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 25, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-
-                    cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.paidAmount));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.creationDate));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                    //cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objMRMasterProperty.isPaid));
-                    if (_objSOMasterProperty.paymentModeIdx == 1)
-                    {
-                        //cash
-                        cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 7));
-                    }
-                    if (_objSOMasterProperty.paymentModeIdx == 2 || _objSOMasterProperty.paymentModeIdx == 3)
-                    {
-                        //bank
-                        // var data= _objpinvoicepropert
-                        cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.BankCOAIDX));
-                    }
-                    if (_objSOMasterProperty.paymentModeIdx == 4)
-                    {
-                        //cash
-                        cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 55));//Customer Payment
-                    }
-                    cmdToExecute.Transaction = this.Transaction;
-                    _rowsAffected = cmdToExecute.ExecuteNonQuery();
-
-
-                    //acount receivable
-                    cmdToExecute = new SqlCommand();
-                    cmdToExecute.CommandType = CommandType.StoredProcedure;
-                    cmdToExecute.CommandText = "sp_InsertAccountGj";
-                    cmdToExecute.Connection = _mainConnection;
-                    cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.createdByUserIdx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 25, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.balanceAmount));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.creationDate));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.CustomerCoaidx));
-                    cmdToExecute.Transaction = this.Transaction;
-                    _rowsAffected = cmdToExecute.ExecuteNonQuery();
 
                     #endregion
 
-                    #region No Pay
+                    #region Full Payment
 
-                    if (_objSOMasterProperty.paidAmount == 0)
+                    if (_objSOMasterProperty.balanceAmount == 0)
                     {
+
                         //cash entry bank
                         cmdToExecute = new SqlCommand();
                         // cmdToExecute.CommandType = CommandType.StoredProcedure;
+
+                        cmdToExecute.CommandType = CommandType.StoredProcedure;
+                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+
+                        cmdToExecute.Connection = _mainConnection;
+                        cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.createdByUserIdx));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 25, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.paidAmount));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.creationDate));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        //cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objMRMasterProperty.isPaid));
+                        if (_objSOMasterProperty.paymentModeIdx == 1)
+                        {
+                            //cash
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 7));
+                        }
+                        if (_objSOMasterProperty.paymentModeIdx == 2 || _objSOMasterProperty.paymentModeIdx == 3)
+                        {
+                            //bank
+                            // var data= _objpinvoicepropert
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.BankCOAIDX));
+                        }
+
+                        if (_objSOMasterProperty.paymentModeIdx == 4)
+                        {
+                            //cash
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 55)); //Customer Payment
+                        }
+
+                        cmdToExecute.Transaction = this.Transaction;
+                        //this.StartTransaction();
+                        // cmdToExecute.Transaction = this.Transaction;
+                        // Execute query.
+                        _rowsAffected = cmdToExecute.ExecuteNonQuery();
+
+                        //cash end
+
+
+                    }
+
+
+                    #endregion
+
+
+                    #region partial Payment
+                    if (_objSOMasterProperty.paidAmount != _objSOMasterProperty.totalAmount)
+                    {
+
+                        //cash entry bank
+                        cmdToExecute = new SqlCommand();
+                        // cmdToExecute.CommandType = CommandType.StoredProcedure;
+
+                        cmdToExecute.CommandType = CommandType.StoredProcedure;
+                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+
+                        cmdToExecute.Connection = _mainConnection;
+                        cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.createdByUserIdx));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 25, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+
+                        cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.paidAmount));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.creationDate));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                        //cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objMRMasterProperty.isPaid));
+                        if (_objSOMasterProperty.paymentModeIdx == 1)
+                        {
+                            //cash
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 7));
+                        }
+                        if (_objSOMasterProperty.paymentModeIdx == 2 || _objSOMasterProperty.paymentModeIdx == 3)
+                        {
+                            //bank
+                            // var data= _objpinvoicepropert
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.BankCOAIDX));
+                        }
+                        if (_objSOMasterProperty.paymentModeIdx == 4)
+                        {
+                            //cash
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 55));//Customer Payment
+                        }
+                        cmdToExecute.Transaction = this.Transaction;
+                        _rowsAffected = cmdToExecute.ExecuteNonQuery();
+
+
+                        //acount receivable
+                        cmdToExecute = new SqlCommand();
                         cmdToExecute.CommandType = CommandType.StoredProcedure;
                         cmdToExecute.CommandText = "sp_InsertAccountGj";
                         cmdToExecute.Connection = _mainConnection;
@@ -601,23 +1115,46 @@ namespace SSS.DAL.Transactions
                         cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.creationDate));
                         cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
                         cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
-                        cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.BankCOAIDX));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.CustomerCoaidx));
                         cmdToExecute.Transaction = this.Transaction;
                         _rowsAffected = cmdToExecute.ExecuteNonQuery();
-                        #endregion
 
                         #endregion
 
+                        #region No Pay
 
+                        if (_objSOMasterProperty.paidAmount == 0)
+                        {
+                            //cash entry bank
+                            cmdToExecute = new SqlCommand();
+                            // cmdToExecute.CommandType = CommandType.StoredProcedure;
+                            cmdToExecute.CommandType = CommandType.StoredProcedure;
+                            cmdToExecute.CommandText = "sp_InsertAccountGj";
+                            cmdToExecute.Connection = _mainConnection;
+                            cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.createdByUserIdx));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 25, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.balanceAmount));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 0.00m));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.creationDate));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.BankCOAIDX));
+                            cmdToExecute.Transaction = this.Transaction;
+                            _rowsAffected = cmdToExecute.ExecuteNonQuery();
+                            #endregion
 
+                        }
 
+                        #endregion
 
-
-
-                       
-                        
                     }
                 }
+
                 if (_errorCode != (int)LLBLError.AllOk)
                 {
                     // Throw error.

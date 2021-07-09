@@ -10,6 +10,12 @@ namespace SSS.Property.Transactions
 {
     public class ImportedExpenseVM
     {
+        public decimal totalTD { get; set; }
+        public decimal grandTotalAVPKR { get; set; }
+
+        public List<ImportedExpenseVM> DetailList { get; set; }
+        public string childHeadName { get; set; }
+        public string vendorName { get; set; }
         public int idx { get; set; }
         public int commercialIdx { get; set; }
         public string ieNumber { get; set; }

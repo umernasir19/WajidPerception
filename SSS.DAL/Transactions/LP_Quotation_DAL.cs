@@ -91,7 +91,7 @@ namespace SSS.DAL.Transactions
             if (_objPOMasterProperty.idx > 0)
             {
                 //sp_PurchaseUpdate
-                cmdToExecute.CommandText = "dbo.[sp_PurchaseUpdate]";
+                cmdToExecute.CommandText = "dbo.[sp_QuotationUpdate]";
             }
             else
             {
@@ -110,8 +110,8 @@ namespace SSS.DAL.Transactions
                     cmdToExecute.Parameters.Add(new SqlParameter("@qsNumber", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.qsNumber));
                     cmdToExecute.Parameters.Add(new SqlParameter("@customerIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.customerIdx));
                     cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.description));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@netAmount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.netAmount));
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalamount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.totalAmount));
-
                     cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objPOMasterProperty.creationDate));
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@createdbyuser", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.createdByUserIdx));
@@ -119,7 +119,22 @@ namespace SSS.DAL.Transactions
                     cmdToExecute.Parameters.Add(new SqlParameter("@status", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objPOMasterProperty.status));
 
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.InputOutput, true, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.idx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@quotationDate", SqlDbType.DateTime, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.quotationDate));
+
+
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.idx));
+                    // cmdToExecute.Parameters.Add(new SqlParameter("@MRNIdx", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.MRNIdx));
+
+                    cmdToExecute.Parameters.Add(new SqlParameter("@reference", SqlDbType.NVarChar, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.reference));
+
+
+                    cmdToExecute.Parameters.Add(new SqlParameter("@shippingCost", SqlDbType.Decimal, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.shippingCost));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@discount", SqlDbType.Decimal, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.discount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@taxAount", SqlDbType.Decimal, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.taxAount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@salescheck", SqlDbType.Int, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.salescheck));
+                    //cmdToExecute.Parameters.Add(new SqlParameter("@modificationDate", SqlDbType.DateTime, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.lastModificationDate));
+                    //cmdToExecute.Parameters.Add(new SqlParameter("@modificationbyuser", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.lastModifiedByUserIdx));
+
                     //cmdToExecute.Parameters.Add(new SqlParameter("@MRNIdx", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.MRNIdx));
                 }
                 else
@@ -148,7 +163,8 @@ namespace SSS.DAL.Transactions
                     cmdToExecute.Parameters.Add(new SqlParameter("@shippingCost", SqlDbType.Decimal, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.shippingCost));
                     cmdToExecute.Parameters.Add(new SqlParameter("@discount", SqlDbType.Decimal, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.discount));
                     cmdToExecute.Parameters.Add(new SqlParameter("@taxAount", SqlDbType.Decimal, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.taxAount));
-                    
+                    cmdToExecute.Parameters.Add(new SqlParameter("@salescheck", SqlDbType.Int, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.salescheck));
+
 
                 }
 
@@ -172,63 +188,128 @@ namespace SSS.DAL.Transactions
                 // _iD = (Int32)cmdToExecute.Parameters["@iID"].Value;
                 //_errorCode = cmdToExecute.Parameters["@ErrorCode"].Value;
 
-                if (_objPOMasterProperty.DetailData != null)
+                if (_objPOMasterProperty.idx > 0)
                 {
-                    foreach (DataRow row in _objPOMasterProperty.DetailData.Rows)
-                        row["quotationIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
-
-                    _objPOMasterProperty.DetailData.AcceptChanges();
-
-                    SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
-                    _objPOMasterProperty.DetailData.TableName = "quotationDetails";
-
-                    sbc.ColumnMappings.Clear();
-                    sbc.ColumnMappings.Add("quotationIdx", "quotationIdx");
-                    //sbc.ColumnMappings.Add(2, 1);
-                    sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
-                    sbc.ColumnMappings.Add("itemIdx", "itemIdx");
-                    sbc.ColumnMappings.Add("salePrice", "salePrice");
-                    sbc.ColumnMappings.Add("qty", "qty");
-                    sbc.ColumnMappings.Add("amount", "amount");
-                    sbc.ColumnMappings.Add("qty", "openItem");
-                    //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
-                    //sbc.ColumnMappings.Add("Product", "Product_Name");
-                    //sbc.ColumnMappings.Add("Status", "Status");
-
-                    //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
-                    sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
-
-                    sbc.DestinationTableName = _objPOMasterProperty.DetailData.TableName;
-                    sbc.WriteToServer(_objPOMasterProperty.DetailData);
-
-                }
-                if (_objPOMasterProperty.SalesTaxData != null)
-                {
-                    foreach (DataRow row in _objPOMasterProperty.SalesTaxData.Rows)
+                    if (_objPOMasterProperty.DetailData != null)
                     {
-                        row["quotationIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
-                        row["taxType"] = "2";
-                        row["creationDate"] = DateTime.Now.ToString("yyyy-MM-dd");
+                        foreach (DataRow row in _objPOMasterProperty.DetailData.Rows)
+                            row["quotationIdx"] = _objPOMasterProperty.idx;
 
-                        //row["createdBy"] = Convert.ToInt16(Session["UID"].ToString());
+                        _objPOMasterProperty.DetailData.AcceptChanges();
+
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        _objPOMasterProperty.DetailData.TableName = "quotationDetails";
+
+                        sbc.ColumnMappings.Clear();
+                        sbc.ColumnMappings.Add("quotationIdx", "quotationIdx");
+                        //sbc.ColumnMappings.Add(2, 1);
+                        sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
+                        sbc.ColumnMappings.Add("itemIdx", "itemIdx");
+                        sbc.ColumnMappings.Add("salePrice", "salePrice");
+                        sbc.ColumnMappings.Add("qty", "qty");
+                        sbc.ColumnMappings.Add("amount", "amount");
+                        sbc.ColumnMappings.Add("qty", "openItem");
+                        //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
+                        //sbc.ColumnMappings.Add("Product", "Product_Name");
+                        //sbc.ColumnMappings.Add("Status", "Status");
+
+                        //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
+                        sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
+
+                        sbc.DestinationTableName = _objPOMasterProperty.DetailData.TableName;
+                        sbc.WriteToServer(_objPOMasterProperty.DetailData);
+
                     }
-                    _objPOMasterProperty.SalesTaxData.AcceptChanges();
+                    if (_objPOMasterProperty.SalesTaxData != null)
+                    {
+                        foreach (DataRow row in _objPOMasterProperty.SalesTaxData.Rows)
+                        {
+                            row["quotationIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+                            row["taxType"] = "2";
+                            row["creationDate"] = DateTime.Now.ToString("yyyy-MM-dd");
 
-                    SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
-                    _objPOMasterProperty.SalesTaxData.TableName = "salesTaxes";
+                            //row["createdBy"] = Convert.ToInt16(Session["UID"].ToString());
+                        }
+                        _objPOMasterProperty.SalesTaxData.AcceptChanges();
 
-                    sbc.ColumnMappings.Clear();
-                    sbc.ColumnMappings.Add("taxIdx", "taxIdx");
-                    sbc.ColumnMappings.Add("taxPercent", "taxPercent");
-                    sbc.ColumnMappings.Add("status", "status");
-                    sbc.ColumnMappings.Add("creationDate", "creationDate");
-                    //sbc.ColumnMappings.Add(2, 1);
-                    sbc.ColumnMappings.Add("quotationIdx", "quotationIdx");
-                    sbc.ColumnMappings.Add("taxType", "taxType");
-                    sbc.DestinationTableName = _objPOMasterProperty.SalesTaxData.TableName;
-                    sbc.WriteToServer(_objPOMasterProperty.SalesTaxData);
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        _objPOMasterProperty.SalesTaxData.TableName = "salesTaxes";
 
+                        sbc.ColumnMappings.Clear();
+                        sbc.ColumnMappings.Add("taxIdx", "taxIdx");
+                        sbc.ColumnMappings.Add("taxPercent", "taxPercent");
+                        sbc.ColumnMappings.Add("status", "status");
+                        sbc.ColumnMappings.Add("creationDate", "creationDate");
+                        //sbc.ColumnMappings.Add(2, 1);
+                        sbc.ColumnMappings.Add("quotationIdx", "quotationIdx");
+                        sbc.ColumnMappings.Add("taxType", "taxType");
+                        sbc.DestinationTableName = _objPOMasterProperty.SalesTaxData.TableName;
+                        sbc.WriteToServer(_objPOMasterProperty.SalesTaxData);
+
+                    }
                 }
+                else
+                {
+                    if (_objPOMasterProperty.DetailData != null)
+                    {
+                        foreach (DataRow row in _objPOMasterProperty.DetailData.Rows)
+                            row["quotationIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+
+                        _objPOMasterProperty.DetailData.AcceptChanges();
+
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        _objPOMasterProperty.DetailData.TableName = "quotationDetails";
+
+                        sbc.ColumnMappings.Clear();
+                        sbc.ColumnMappings.Add("quotationIdx", "quotationIdx");
+                        //sbc.ColumnMappings.Add(2, 1);
+                        sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
+                        sbc.ColumnMappings.Add("itemIdx", "itemIdx");
+                        sbc.ColumnMappings.Add("salePrice", "salePrice");
+                        sbc.ColumnMappings.Add("qty", "qty");
+                        sbc.ColumnMappings.Add("amount", "amount");
+                        sbc.ColumnMappings.Add("qty", "openItem");
+                        //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
+                        //sbc.ColumnMappings.Add("Product", "Product_Name");
+                        //sbc.ColumnMappings.Add("Status", "Status");
+
+                        //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
+                        sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
+
+                        sbc.DestinationTableName = _objPOMasterProperty.DetailData.TableName;
+                        sbc.WriteToServer(_objPOMasterProperty.DetailData);
+
+                    }
+                    if (_objPOMasterProperty.SalesTaxData != null)
+                    {
+                        foreach (DataRow row in _objPOMasterProperty.SalesTaxData.Rows)
+                        {
+                            row["quotationIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+                            row["taxType"] = "2";
+                            row["creationDate"] = DateTime.Now.ToString("yyyy-MM-dd");
+
+                            //row["createdBy"] = Convert.ToInt16(Session["UID"].ToString());
+                        }
+                        _objPOMasterProperty.SalesTaxData.AcceptChanges();
+
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        _objPOMasterProperty.SalesTaxData.TableName = "salesTaxes";
+
+                        sbc.ColumnMappings.Clear();
+                        sbc.ColumnMappings.Add("taxIdx", "taxIdx");
+                        sbc.ColumnMappings.Add("taxPercent", "taxPercent");
+                        sbc.ColumnMappings.Add("status", "status");
+                        sbc.ColumnMappings.Add("creationDate", "creationDate");
+                        //sbc.ColumnMappings.Add(2, 1);
+                        sbc.ColumnMappings.Add("quotationIdx", "quotationIdx");
+                        sbc.ColumnMappings.Add("taxType", "taxType");
+                        sbc.DestinationTableName = _objPOMasterProperty.SalesTaxData.TableName;
+                        sbc.WriteToServer(_objPOMasterProperty.SalesTaxData);
+
+                    }
+                }
+
+              
 
                 this.Commit();
                 if (_errorCode != (int)LLBLError.AllOk)

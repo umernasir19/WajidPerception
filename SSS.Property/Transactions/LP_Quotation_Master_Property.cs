@@ -8,6 +8,8 @@ namespace SSS.Property.Transactions
 {
     public class LP_Quotation_Master_Property
     {
+        public int salescheck { get; set; }
+        public decimal salePrice { get; set; }
         private int _idx;
         public int idx
         {

@@ -80,9 +80,13 @@ namespace SSS.DAL.Transactions
                         row["creationDate"] = _objACTasterProperty.creationDate;
                         row["createdBy"] = _objACTasterProperty.createdBy;
                         row["orderIdx"] = _objACTasterProperty.orderIdx;
-                        row["vendorCatIdx"] = _objACTasterProperty.vendorCatIdx;
-                        row["vendorIdx"] = _objACTasterProperty.vendorIdx;
+                      //  row["vendorCatIdx"] = _objACTasterProperty.vendorCatIdx;
+                       // row["vendorIdx"] = _objACTasterProperty.vendorIdx;
                         row["typeIdx"] = _objACTasterProperty.typeIdx;
+                        row["lastModificationDate"] = _objACTasterProperty.lastModificationDate;
+                        row["lastModifiedByUserIdx"] = _objACTasterProperty.lastModifiedByUserIdx;
+                      
+
 
 
 
@@ -109,6 +113,11 @@ namespace SSS.DAL.Transactions
                     sbc.ColumnMappings.Add("description", "description");
                     sbc.ColumnMappings.Add("reference", "reference");
                     sbc.ColumnMappings.Add("totalAmount", "totalAmount");
+                    sbc.ColumnMappings.Add("DeliveryDate", "DeliveryDate");
+                    sbc.ColumnMappings.Add("lastModificationDate", "lastModificationDate");
+                    sbc.ColumnMappings.Add("lastModifiedByUserIdx", "lastModifiedByUserIdx");
+                 
+
                     sbc.DestinationTableName = _objACTasterProperty.DetailData.TableName;
                     sbc.WriteToServer(_objACTasterProperty.DetailData);
 
@@ -147,18 +156,18 @@ namespace SSS.DAL.Transactions
         public override bool Insert()
         {
             SqlCommand cmdToExecute = new SqlCommand();
-            //cmdToExecute.CommandText = "dbo.[sp_localPurchase_Insert]";
-            //cmdToExecute.CommandType = CommandType.StoredProcedure;
+            cmdToExecute.CommandText = "dbo.[sp_updateOrder]";
+            cmdToExecute.CommandType = CommandType.StoredProcedure;
 
             // Use base class' connection object
             cmdToExecute.Connection = _mainConnection;
             try
             {
-                //cmdToExecute.Parameters.Add(new SqlParameter("@activityDate", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.activityDate));
+               // cmdToExecute.Parameters.Add(new SqlParameter("@activityDate", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.activityDate));
                 //cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.creationDate));
 
                 //cmdToExecute.Parameters.Add(new SqlParameter("@createdBy", SqlDbType.Int, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objACTasterProperty.createdBy));
-                //cmdToExecute.Parameters.Add(new SqlParameter("@orderIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.orderIdx));
+                cmdToExecute.Parameters.Add(new SqlParameter("@orderIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.orderIdx));
                 //cmdToExecute.Parameters.Add(new SqlParameter("@productIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.productIdx));
                 //cmdToExecute.Parameters.Add(new SqlParameter("@vendorCatIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objACTasterProperty.vendorCatIdx));
 
@@ -170,7 +179,7 @@ namespace SSS.DAL.Transactions
                 //cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objACTasterProperty.description));
                 //cmdToExecute.Parameters.Add(new SqlParameter("@reference", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objACTasterProperty.reference));
                 //cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.idx));
-                //cmdToExecute.Parameters.Add(new SqlParameter("@typeIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.typeIdx));
+                cmdToExecute.Parameters.Add(new SqlParameter("@typeIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objACTasterProperty.typeIdx));
                 if (_mainConnectionIsCreatedLocal)
                 {
                     // Open connection.
@@ -186,9 +195,9 @@ namespace SSS.DAL.Transactions
                 }
 
                 this.StartTransaction();
-                //cmdToExecute.Transaction = this.Transaction;
+                cmdToExecute.Transaction = this.Transaction;
                 //// Execute query.
-                //_rowsAffected = cmdToExecute.ExecuteNonQuery();
+                _rowsAffected = cmdToExecute.ExecuteNonQuery();
 
                 if (_objACTasterProperty.DetailData != null)
                 {
@@ -204,6 +213,7 @@ namespace SSS.DAL.Transactions
                         //row["vendorIdx"] = _objACTasterProperty.vendorIdx;
                         row["typeIdx"] = _objACTasterProperty.typeIdx;
                         row["DeliveryDate"] = _objACTasterProperty.DeliveryDate;
+                        
 
 
 
@@ -231,6 +241,7 @@ namespace SSS.DAL.Transactions
                     sbc.ColumnMappings.Add("description", "description");
                     sbc.ColumnMappings.Add("reference", "reference");
                     sbc.ColumnMappings.Add("totalAmount", "totalAmount");
+                  
                     sbc.DestinationTableName = _objACTasterProperty.DetailData.TableName;
                     sbc.WriteToServer(_objACTasterProperty.DetailData);
 

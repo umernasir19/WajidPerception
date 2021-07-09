@@ -13,13 +13,13 @@
 
         <div class="row">
 
-            @{
+            @*@{
                 if (Model.idx > 0)
                 {
 
                 }
                 else
-                {
+                {*@
                    
                     <div class="col-sm-3">
                         <!-- text input -->
@@ -58,8 +58,8 @@
                         </div>
                         @Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })
                     </div>
-                }
-            }
+                @*}
+            }*@
         </div>
         <div class="row">
             <div class="col-sm-3">
@@ -164,7 +164,8 @@
                                                                 <td>@items.itemName</td>
                                                                 
                                                                 <td>@items.qty</td>
-                                                                <td><input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="@items.salePrice" id="salePrice" class="form-control" /></td>
+                                                                <td>@items.salePrice</td>
+                                                                @*<td><input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="@items.salePrice" id="salePrice" class="form-control" /></td>*@
                                                                 @*<td id="unitprice"></td>*@
                                                                 <td>@items.amount</td>
                                                                 <td>@items.ItemDescription</td>
@@ -482,16 +483,17 @@
                          // '</button>'
         var productname = $("#itemIdx option:selected").text();
         var ProductID = $("#itemIdx option:selected").val();
-        var Qty = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualQty+'"  id="qty" class="form-control" />';
+        //var Qty = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualQty+'"  id="qty" class="form-control" />';
         //onkeyup="changeinunitprice(this)"
-        var salePrice = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualSalePrice+'"  id="salePrice" class="form-control" />';
+       // var salePrice = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualSalePrice+'"  id="salePrice" class="form-control" />';
         //$('#salePrice').text(actualSalePrice);
         var totalamount = $("#amount").val();
         //var duedate = $("#DueDate").val();
+        var Qty = $("#qty").val();
         var description = $('#ItemDescription').val();
-        var Description = '<input type="text" placeholder="Enter Description"  value="' + description + '"  id="ItemDescription" class="form-control" />';
+        //var Description = '<input type="text" placeholder="Enter Description"  value="' + description + '"  id="ItemDescription" class="form-control" />';
 
-        var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td>" + salePrice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + Description + "</td><td>" + closebutton + "</td></tr>";
+        var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td>" + actualSalePrice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + description + "</td><td>" + closebutton + "</td></tr>";
         //if (milestone == "") {
         //    alert("Enter milestone");
         //    return;
@@ -727,10 +729,10 @@
         table.find('tr').each(function (i) {
             var $tds = $(this).find('td'),
                 productid = $tds.eq(0).text(),
-                qty = $tds.eq(2).find('#qty').val(),
-                salePrice = $tds.eq(3).find('#salePrice').val(),
+                qty = $tds.eq(2).text(),
+                salePrice = $tds.eq(3).text(),
                 itemamount = $tds.eq(4).text(),
-            ItemDescription = $tds.eq(5).find('#ItemDescription').val()
+            ItemDescription = $tds.eq(5).text()
 
             datatosend.objquotation.QuotationDetailLST.push({
                 itemIdx: productid,

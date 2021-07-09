@@ -14,6 +14,9 @@ namespace SSS.Property.Transactions
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Please Select Date")]
         public DateTime DeliveryDate { get; set; }
+        public string itemName { get; set; }
+      //  public int productionCheck { get; set; }
+
         public int idx { get; set; }
         public int orderIdx { get; set; }//salesOrderIdx or DisplayOrder
         public int productTypeIdx { get; set; }

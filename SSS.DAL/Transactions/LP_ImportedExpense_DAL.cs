@@ -84,7 +84,7 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
             if (_objIEMasterProperty.idx > 0)
             {
                 //sp_PurchaseUpdate
-                cmdToExecute.CommandText = "dbo.[sp_PurchaseUpdate]";
+                cmdToExecute.CommandText = "dbo.[sp_ImportedExpenseUpdate]";
             }
             else
             {
@@ -101,16 +101,29 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
                 if (_objIEMasterProperty.idx > 0)
                 {
                     cmdToExecute.Parameters.Add(new SqlParameter("@ieNumber", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.ieNumber));
-           
-                    cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objIEMasterProperty.creationDate));
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@createdbyuser", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.createdByUserIdx));
+                    //cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.description));
+
+
+                    cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objIEMasterProperty.lastModificationDate));
+
+                    cmdToExecute.Parameters.Add(new SqlParameter("@createdByUserIdx", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.createdByUserIdx));
                     cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objIEMasterProperty.visible));
                     cmdToExecute.Parameters.Add(new SqlParameter("@status", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objIEMasterProperty.status));
-
-
-                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.InputOutput, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.idx));
-                    //cmdToExecute.Parameters.Add(new SqlParameter("@MRNIdx", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.MRNIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@date", SqlDbType.DateTime, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.date));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@totalExpense", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.totalExpense));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.idx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@reference", SqlDbType.NVarChar, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.reference));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@commercialIdx", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.commercialIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@totalCost", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.totalCost));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@valueAdditionPercent", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.valueAdditionPercent));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@valueAddition", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.valueAddition));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@additionalSalesTaxPercent", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.additionalSalesTaxPercent));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@additionalSalesTax", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.additionalSalesTax));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@profitPercent", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.profitPercent));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@profit", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.profit));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@grandTotalExpense", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.grandTotalExpense));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@finalPercentage", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.finalPercentage));
                 }
                 else
                 {
@@ -161,30 +174,66 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
                 // _iD = (Int32)cmdToExecute.Parameters["@iID"].Value;
                 //_errorCode = cmdToExecute.Parameters["@ErrorCode"].Value;
 
-                if (_objIEMasterProperty.DetailData != null)
+                // Added By Ahsan
+                if (_objIEMasterProperty.idx > 0)
                 {
-                    foreach (DataRow row in _objIEMasterProperty.DetailData.Rows)
+                    if (_objIEMasterProperty.DetailData != null)
                     {
-                        row["ieIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
-                        ieIdx = cmdToExecute.Parameters["@ID"].Value.ToString(); 
+                        foreach (DataRow row in _objIEMasterProperty.DetailData.Rows)
+                        {
+                            row["ieIdx"] = _objIEMasterProperty.idx;
+                            ieIdx = _objIEMasterProperty.idx.ToString();
+
+                            //row["ieIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+                            //ieIdx = cmdToExecute.Parameters["@ID"].Value.ToString();
+                        }
+
+
+                        _objIEMasterProperty.DetailData.AcceptChanges();
+
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        _objIEMasterProperty.DetailData.TableName = "importedExpenseDetails";
+
+                        sbc.ColumnMappings.Clear();
+                        sbc.ColumnMappings.Add("ieIdx", "ieIdx");
+                        sbc.ColumnMappings.Add("vendorIdx", "vendorIdx");
+                        sbc.ColumnMappings.Add("coaIdx", "coaIdx");
+                        sbc.ColumnMappings.Add("amount", "amount");
+                        sbc.DestinationTableName = _objIEMasterProperty.DetailData.TableName;
+                        sbc.WriteToServer(_objIEMasterProperty.DetailData);
+
                     }
-                    
 
-                    _objIEMasterProperty.DetailData.AcceptChanges();
+                }
+                else
+                {
+                    if (_objIEMasterProperty.DetailData != null)
+                    {
+                        foreach (DataRow row in _objIEMasterProperty.DetailData.Rows)
+                        {
+                            row["ieIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+                            ieIdx = cmdToExecute.Parameters["@ID"].Value.ToString();
+                        }
 
-                    SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
-                    _objIEMasterProperty.DetailData.TableName = "importedExpenseDetails";
 
-                    sbc.ColumnMappings.Clear();
-                    sbc.ColumnMappings.Add("ieIdx", "ieIdx");                   
-                    sbc.ColumnMappings.Add("vendorIdx", "vendorIdx");
-                    sbc.ColumnMappings.Add("coaIdx", "coaIdx");
-                    sbc.ColumnMappings.Add("amount", "amount");
-                    sbc.DestinationTableName = _objIEMasterProperty.DetailData.TableName;
-                    sbc.WriteToServer(_objIEMasterProperty.DetailData);
+                        _objIEMasterProperty.DetailData.AcceptChanges();
+
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        _objIEMasterProperty.DetailData.TableName = "importedExpenseDetails";
+
+                        sbc.ColumnMappings.Clear();
+                        sbc.ColumnMappings.Add("ieIdx", "ieIdx");
+                        sbc.ColumnMappings.Add("vendorIdx", "vendorIdx");
+                        sbc.ColumnMappings.Add("coaIdx", "coaIdx");
+                        sbc.ColumnMappings.Add("amount", "amount");
+                        sbc.DestinationTableName = _objIEMasterProperty.DetailData.TableName;
+                        sbc.WriteToServer(_objIEMasterProperty.DetailData);
+
+                    }
 
                 }
 
+                #region Commented extra
 
                 // Added By Ahsan
                 //if (_objIEMasterProperty.DetailDataInventory_logs != null)
@@ -229,9 +278,9 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
                 //adapter.Fill(toReturn);
                 //cmdToExecute.Transaction = this.Transaction;
                 //_rowsAffected = cmdToExecute.ExecuteNonQuery();
-                
-                
-                
+
+
+
                 //cmdToExecute = new SqlCommand();
                 //// cmdToExecute.CommandType = CommandType.StoredProcedure;
                 //cmdToExecute.CommandType = CommandType.StoredProcedure;
@@ -256,6 +305,8 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
                 //cmdToExecute.Transaction = this.Transaction;
                 //_rowsAffected = cmdToExecute.ExecuteNonQuery();
 
+
+                #endregion
 
                 this.Commit();
                 if (_errorCode != (int)LLBLError.AllOk)
@@ -455,9 +506,14 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
         public  bool Insertinventory()
         {
             SqlCommand cmdToExecute = new SqlCommand();
-           
-            cmdToExecute.CommandText = "dbo.[sp_insert_inventoryIE]";
-            
+            if (_objIEMasterProperty.idx > 0)
+            {
+                cmdToExecute.CommandText = "dbo.[sp_Update_inventoryIE]";
+            }
+            else
+            {
+                cmdToExecute.CommandText = "dbo.[sp_insert_inventoryIE]";
+            }
 
             cmdToExecute.CommandType = CommandType.StoredProcedure;
 
@@ -466,6 +522,16 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
 
             try
             {
+                if (_objIEMasterProperty.idx > 0)
+                {
+                    cmdToExecute.Parameters.Add(new SqlParameter("@productIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.itemIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@stock", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.qty));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@warehouseIdx", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.warehouseIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@branchIdx", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.BRANCHID));
+
+                }
+                else
+                {
                     //Added By Ahsan
                     cmdToExecute.Parameters.Add(new SqlParameter("@productIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.itemIdx));
                     cmdToExecute.Parameters.Add(new SqlParameter("@stock", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.qty));
@@ -473,6 +539,8 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalAmount", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.amount));
                     cmdToExecute.Parameters.Add(new SqlParameter("@warehouseIdx", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.warehouseIdx));
                     cmdToExecute.Parameters.Add(new SqlParameter("@branchIdx", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objIEMasterProperty.BRANCHID));
+
+                }
 
 
                 if (_mainConnectionIsCreatedLocal)
@@ -522,6 +590,7 @@ inner join products pr on pr.idx = sd.itemIdx where sd.ieIdx=@idx ";
                 cmdToExecute.Dispose();
             }
         }
+
         // Delete Imported Expense 
         public bool DeleteIE()
         {

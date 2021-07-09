@@ -85,14 +85,25 @@ namespace SMSYSTEM.Controllers
 
                     objSalesOrderBll = new LP_SalesOrder_BLL(objSalesOrderProperty);
                     DataTable dt = objSalesOrderBll.SelectOne();
+                    objSalesOrderVM_Property.salesTypeIdx = Convert.ToInt16(dt.Rows[0]["salesTypeIdx"].ToString());
                     objSalesOrderVM_Property.idx = Convert.ToInt16(dt.Rows[0]["salesorderIdx"].ToString());
                     objSalesOrderVM_Property.customerIdx = Convert.ToInt32(dt.Rows[0]["customerIdx"].ToString());
                     objSalesOrderVM_Property.soNumber = dt.Rows[0]["soNumber"].ToString();
                     objSalesOrderVM_Property.description = dt.Rows[0]["description"].ToString();
                     objSalesOrderVM_Property.qsIdx = Convert.ToInt16(dt.Rows[0]["qsIdx"].ToString());
                     objSalesOrderVM_Property.totalAmount = Convert.ToDecimal(dt.Rows[0]["totalAmount"].ToString());
-                   // objSalesOrderVM_Property.DeliveryDate = dt.Rows[0]["DeliveryDate"].ToString();
-                   objSalesOrderVM_Property.ItemDescription = dt.Rows[0]["ItemDescription"].ToString();
+                    objSalesOrderVM_Property.balanceAmount = Convert.ToDecimal(dt.Rows[0]["balanceAmount"].ToString());
+                    objSalesOrderVM_Property.netAmount = Convert.ToDecimal(dt.Rows[0]["netAmount"].ToString());
+                    objSalesOrderVM_Property.discount = Convert.ToDecimal(dt.Rows[0]["discount"].ToString());
+                    objSalesOrderVM_Property.shippingCost = Convert.ToDecimal(dt.Rows[0]["shippingCost"].ToString());
+                    objSalesOrderVM_Property.taxAount = Convert.ToDecimal(dt.Rows[0]["taxAount"].ToString());
+                    objSalesOrderVM_Property.paidAmount = Convert.ToDecimal(dt.Rows[0]["paidAmount"].ToString());
+                    objSalesOrderVM_Property.wareHouseIdx = Convert.ToInt16(dt.Rows[0]["wareHouseIdx"].ToString());
+                    objSalesOrderVM_Property.salespersonIdx = Convert.ToInt16(dt.Rows[0]["salespersonIdx"].ToString());
+                    objSalesOrderVM_Property.reference = dt.Rows[0]["reference"].ToString();
+
+                    // objSalesOrderVM_Property.DeliveryDate = dt.Rows[0]["DeliveryDate"].ToString();
+                    // objSalesOrderVM_Property.ItemDescription = dt.Rows[0]["ItemDescription"].ToString();
 
                     string pdate = dt.Rows[0]["salesorderdate"].ToString();
                     string ndate = DateTime.Parse(pdate).ToString("yyyy-MM-dd");
@@ -103,6 +114,7 @@ namespace SMSYSTEM.Controllers
                     //    objmrndetail
 
                     //}
+                    objSalesOrderVM_Property.SalesOrderDetailLST = Helper.ConvertDataTable<SalesOrdersDetails_Property>(dt);
                     ViewBag.DetailData = Helper.ConvertDataTable<SalesOrderVM_Property>(dt);
                     //update
                     return View("AddNewSalesOrder", objSalesOrderVM_Property);
@@ -168,6 +180,8 @@ namespace SMSYSTEM.Controllers
                     objSalesOrderProperty.qsIdx = qsIdx;
                     objSalesOrderProperty.DeliveryDate = objSalesOrder.DeliveryDate;
                     objSalesOrderProperty.salesTypeIdx = objSalesOrder.salesTypeIdx;
+                    objSalesOrderProperty.Productioncheck = 0;
+
                     if (objSalesOrderProperty.bankIdx > 0)
                     {
                         objSalesOrderProperty.BankCOAIDX = BankList[0].coaidx;
@@ -252,9 +266,9 @@ namespace SMSYSTEM.Controllers
                     objSalesOrderProperty.wareHouseIdx = objSalesOrder.wareHouseIdx;
                     objSalesOrderProperty.salespersonIdx = objSalesOrder.salespersonIdx;
                     objSalesOrderProperty.DeliveryDate = objSalesOrder.DeliveryDate;
-
                     objSalesOrderProperty.qsIdx = qsIdx;
                     objSalesOrderProperty.salesTypeIdx = objSalesOrder.salesTypeIdx;
+                    objSalesOrderProperty.Productioncheck = 0;
                     if (objSalesOrderProperty.bankIdx > 0)
                     {
                         objSalesOrderProperty.BankCOAIDX = BankList[0].coaidx;

@@ -48,7 +48,7 @@ namespace SSS.DAL.Transactions
             if (_objPerformaMaster.idx > 0)
             {
                 //sp_PurchaseUpdate
-                cmdToExecute.CommandText = "dbo.[sp_PurchaseUpdate]";
+                cmdToExecute.CommandText = "dbo.[sp_PerformainvoiceUpdate]";
             }
             else
             {
@@ -66,18 +66,31 @@ namespace SSS.DAL.Transactions
                 {
                     cmdToExecute.Parameters.Add(new SqlParameter("@poNumber", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.poNumber));
                     cmdToExecute.Parameters.Add(new SqlParameter("@vendorIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.vendorIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@warehouseIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.warehouseIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@purchasedate", SqlDbType.DateTime, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.purchaseDate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@reference", SqlDbType.NVarChar, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.reference));
                     cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.description));
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalamount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.totalAmount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@netamount", SqlDbType.Decimal, 9, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.netAmount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@paidAmount", SqlDbType.Decimal, 20, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.paidAmount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@balanceamount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.balanceAmount));
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objPerformaMaster.creationDate));
+                    //cmdToExecute.Parameters.Add(new SqlParameter("@lastModificationDate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, null));
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@createdbyuser", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.createdByUserIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@lastmodifiedBy", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.createdByUserIdx));
                     cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objPerformaMaster.visible));
                     cmdToExecute.Parameters.Add(new SqlParameter("@status", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objPerformaMaster.status));
 
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.InputOutput, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.idx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@reference", SqlDbType.NVarChar, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.reference));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.idx));
+                    //cmdToExecute.Parameters.Add(new SqlParameter("@DepartmentID", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.DepartmentID));
+
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DocumentNumber", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.DocumentNumber));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ContainerNo", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.ContainerNo));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ExchangeRate", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.ExchangeRate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@grandTotalAVPKR", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.grandTotalAVPKR));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@CIcheck", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.CIcheck));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@numberOfProducts", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.numberOfProducts));
 
                 }
                 else
@@ -107,6 +120,7 @@ namespace SSS.DAL.Transactions
                     cmdToExecute.Parameters.Add(new SqlParameter("@ContainerNo", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.ContainerNo));
                     cmdToExecute.Parameters.Add(new SqlParameter("@ExchangeRate", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.ExchangeRate));
                     cmdToExecute.Parameters.Add(new SqlParameter("@grandTotalAVPKR", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.grandTotalAVPKR));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@CIcheck", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.CIcheck));
                     cmdToExecute.Parameters.Add(new SqlParameter("@numberOfProducts", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.numberOfProducts));
                 }
 
@@ -130,45 +144,96 @@ namespace SSS.DAL.Transactions
                 // _iD = (Int32)cmdToExecute.Parameters["@iID"].Value;
                 //_errorCode = cmdToExecute.Parameters["@ErrorCode"].Value;
 
-                if (_objPerformaMaster.DetailData != null)
+                // Added By Ahsan
+                if (_objPerformaMaster.idx > 0)
                 {
-                    foreach (DataRow row in _objPerformaMaster.DetailData.Rows)
+                    if (_objPerformaMaster.DetailData != null)
                     {
-                        row["purchaseIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
-                        row["grandTotalAVPKR"] = (decimal.Parse(row["TADVRate"].ToString()) * (_objPerformaMaster.ExchangeRate)).ToString();
+                        foreach (DataRow row in _objPerformaMaster.DetailData.Rows)
+                        {
+                            row["purchaseIdx"] = _objPerformaMaster.idx;
+
+                           // row["purchaseIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+                            row["grandTotalAVPKR"] = (decimal.Parse(row["TADVRate"].ToString()) * (_objPerformaMaster.ExchangeRate)).ToString();
+                        }
+
+
+                        _objPerformaMaster.DetailData.AcceptChanges();
+
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        _objPerformaMaster.DetailData.TableName = "CommercialDetails";
+
+                        sbc.ColumnMappings.Clear();
+                        sbc.ColumnMappings.Add("purchaseIdx", "purchaseIdx");
+                        //sbc.ColumnMappings.Add(2, 1);
+                        sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
+                        sbc.ColumnMappings.Add("itemIdx", "itemIdx");
+                        sbc.ColumnMappings.Add("gridVendorIdx", "gridVendorIdx");
+                        sbc.ColumnMappings.Add("unitPrice", "unitPrice");
+                        sbc.ColumnMappings.Add("qty", "qty");
+                        sbc.ColumnMappings.Add("amount", "amount");
+                        sbc.ColumnMappings.Add("qty", "openItem");
+                        sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
+                        sbc.ColumnMappings.Add("unitPrice", "DVRate");
+                        sbc.ColumnMappings.Add("amount", "TDVRate");
+                        sbc.ColumnMappings.Add("ADVRate", "ADVRate");
+                        sbc.ColumnMappings.Add("TADVRate", "TADVRate");
+                        sbc.ColumnMappings.Add("grandTotalAVPKR", "grandTotalAVPKR");
+                        //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
+                        //sbc.ColumnMappings.Add("Product", "Product_Name");
+                        //sbc.ColumnMappings.Add("Status", "Status");
+
+                        //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
+                        //sbc.ColumnMappings.Add("Description", "Description");
+
+                        sbc.DestinationTableName = _objPerformaMaster.DetailData.TableName;
+                        sbc.WriteToServer(_objPerformaMaster.DetailData);
+
                     }
-                    
+                }
+                else
+                {
+                    if (_objPerformaMaster.DetailData != null)
+                    {
+                        foreach (DataRow row in _objPerformaMaster.DetailData.Rows)
+                        {
+                            row["purchaseIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+                            row["grandTotalAVPKR"] = (decimal.Parse(row["TADVRate"].ToString()) * (_objPerformaMaster.ExchangeRate)).ToString();
+                        }
 
-                    _objPerformaMaster.DetailData.AcceptChanges();
 
-                    SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
-                    _objPerformaMaster.DetailData.TableName = "CommercialDetails";
+                        _objPerformaMaster.DetailData.AcceptChanges();
 
-                    sbc.ColumnMappings.Clear();
-                    sbc.ColumnMappings.Add("purchaseIdx", "purchaseIdx");
-                    //sbc.ColumnMappings.Add(2, 1);
-                    sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
-                    sbc.ColumnMappings.Add("itemIdx", "itemIdx");
-                    sbc.ColumnMappings.Add("gridVendorIdx", "gridVendorIdx");
-                    sbc.ColumnMappings.Add("unitPrice", "unitPrice");
-                    sbc.ColumnMappings.Add("qty", "qty");
-                    sbc.ColumnMappings.Add("amount", "amount");
-                    sbc.ColumnMappings.Add("qty", "openItem");
-                    sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
-                    sbc.ColumnMappings.Add("unitPrice", "DVRate");
-                    sbc.ColumnMappings.Add("amount", "TDVRate");
-                    sbc.ColumnMappings.Add("ADVRate", "ADVRate");
-                    sbc.ColumnMappings.Add("TADVRate", "TADVRate");
-                    sbc.ColumnMappings.Add("grandTotalAVPKR", "grandTotalAVPKR");
-                    //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
-                    //sbc.ColumnMappings.Add("Product", "Product_Name");
-                    //sbc.ColumnMappings.Add("Status", "Status");
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        _objPerformaMaster.DetailData.TableName = "CommercialDetails";
 
-                    //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
-                    //sbc.ColumnMappings.Add("Description", "Description");
+                        sbc.ColumnMappings.Clear();
+                        sbc.ColumnMappings.Add("purchaseIdx", "purchaseIdx");
+                        //sbc.ColumnMappings.Add(2, 1);
+                        sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
+                        sbc.ColumnMappings.Add("itemIdx", "itemIdx");
+                        sbc.ColumnMappings.Add("gridVendorIdx", "gridVendorIdx");
+                        sbc.ColumnMappings.Add("unitPrice", "unitPrice");
+                        sbc.ColumnMappings.Add("qty", "qty");
+                        sbc.ColumnMappings.Add("amount", "amount");
+                        sbc.ColumnMappings.Add("qty", "openItem");
+                        sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
+                        sbc.ColumnMappings.Add("unitPrice", "DVRate");
+                        sbc.ColumnMappings.Add("amount", "TDVRate");
+                        sbc.ColumnMappings.Add("ADVRate", "ADVRate");
+                        sbc.ColumnMappings.Add("TADVRate", "TADVRate");
+                        sbc.ColumnMappings.Add("grandTotalAVPKR", "grandTotalAVPKR");
+                        //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
+                        //sbc.ColumnMappings.Add("Product", "Product_Name");
+                        //sbc.ColumnMappings.Add("Status", "Status");
 
-                    sbc.DestinationTableName = _objPerformaMaster.DetailData.TableName;
-                    sbc.WriteToServer(_objPerformaMaster.DetailData);
+                        //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
+                        //sbc.ColumnMappings.Add("Description", "Description");
+
+                        sbc.DestinationTableName = _objPerformaMaster.DetailData.TableName;
+                        sbc.WriteToServer(_objPerformaMaster.DetailData);
+
+                    }
 
                 }
 
@@ -265,6 +330,7 @@ namespace SSS.DAL.Transactions
             cmdToExecute.CommandText = @"select * from CommercialInvoice c 
 inner join CommercialDetails cd on cd.purchaseIdx = c.idx
 inner join products p on p.idx = cd.itemIdx
+inner join vendors v on v.idx = c.vendorIdx
 where c.idx=@ID";
             //cmdToExecute.CommandType = CommandType.StoredProcedure;
             DataTable toReturn = new DataTable("Select one Commercial Invoice");
@@ -670,7 +736,7 @@ where c.idx=@ID";
             if (_objCIMaster.idx > 0)
             {
                 //sp_PurchaseUpdate
-                cmdToExecute.CommandText = "dbo.[sp_PurchaseUpdate]";
+                cmdToExecute.CommandText = "dbo.[sp_CI_PO_Update]";
             }
             else
             {
@@ -693,15 +759,16 @@ where c.idx=@ID";
                     cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objCIMaster.description));
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalamount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.totalAmount));
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalTD", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.totalTD));//Added By Arsalan 12-04-21
-                    cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.creationDate));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@lastModificationDate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.creationDate));
+                   // cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.creationDate.ToString("yyyy-MM-ddTHH:mm:ss.fff")));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@IEcheck", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.IEcheck));
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@createdbyuser", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objCIMaster.createdByUserIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@createdByUserIdx", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objCIMaster.createdByUserIdx));
                     cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.visible));
                     cmdToExecute.Parameters.Add(new SqlParameter("@status", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.status));
-
-
-                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.InputOutput, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.idx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@numberOfProducts", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.numberOfProducts));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@grandTotalAVPKR", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.grandTotalAVPKR));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ExchangeRate", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.ExchangeRate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.idx));
                     //cmdToExecute.Parameters.Add(new SqlParameter("@purchaseDate", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.DepartmentID));
 
                 }
@@ -721,7 +788,8 @@ where c.idx=@ID";
                     cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objCIMaster.description));
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalamount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.totalAmount));
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalTD", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.totalTD));//Added By Arsalan 12-04-21
-                    cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.creationDate.ToString("yyyy-MM-ddTHH:mm:ss.fff")));
+                //    cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.creationDate.ToString("yyyy-MM-ddTHH:mm:ss.fff")));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@IEcheck", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.IEcheck));
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@createdByUserIdx", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objCIMaster.createdByUserIdx));
                     cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.visible));
@@ -755,77 +823,154 @@ where c.idx=@ID";
                 // _iD = (Int32)cmdToExecute.Parameters["@iID"].Value;
                 //_errorCode = cmdToExecute.Parameters["@ErrorCode"].Value;
 
-                if (_objCIMaster.DetailData != null)
+
+                if (_objCIMaster.idx > 0)
                 {
-                    foreach (DataRow row in _objCIMaster.DetailData.Rows)
-                        row["purchaseIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+                    if (_objCIMaster.DetailData != null)
+                    {
+                        foreach (DataRow row in _objCIMaster.DetailData.Rows)
+                            // row["purchaseIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+                            row["purchaseIdx"] = _objCIMaster.idx;
+                        _objCIMaster.DetailData.AcceptChanges();
 
-                    _objCIMaster.DetailData.AcceptChanges();
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        _objCIMaster.DetailData.TableName = "CI_PurchaseDetails";
 
-                    SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
-                    _objCIMaster.DetailData.TableName = "CI_PurchaseDetails";
+                        sbc.ColumnMappings.Clear();
 
-                    sbc.ColumnMappings.Clear();
+                        //foreach(DataRow dr in _objCIMaster.DetailData.Rows)
+                        //{
+                        //    foreach (DataColumn dc in _objCIMaster.DetailData.Columns)
+                        //    {
+                        //        sbc.ColumnMappings.Add(dc.ColumnName, dc.ColumnName);
+                        //       // nvEmp.Add(dc.ColumnName, dr[dc]);
+                        //    }
 
-                    //foreach(DataRow dr in _objCIMaster.DetailData.Rows)
-                    //{
-                    //    foreach (DataColumn dc in _objCIMaster.DetailData.Columns)
-                    //    {
-                    //        sbc.ColumnMappings.Add(dc.ColumnName, dc.ColumnName);
-                    //       // nvEmp.Add(dc.ColumnName, dr[dc]);
-                    //    }
-
-                    //}
-
-
-
-                    sbc.ColumnMappings.Add("purchaseIdx", "purchaseIdx");
-                    //sbc.ColumnMappings.Add(2, 1);
-                    sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
-                    sbc.ColumnMappings.Add("itemIdx", "itemIdx");
-                    sbc.ColumnMappings.Add("unitPrice", "unitPrice");
-                    sbc.ColumnMappings.Add("qty", "qty");
-                    sbc.ColumnMappings.Add("amount", "amount");
-                    sbc.ColumnMappings.Add("qty", "openItem");
-                    sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
-                    sbc.ColumnMappings.Add("unitPrice", "DVRate");
-                    sbc.ColumnMappings.Add("amount", "TDVRate");
-                    sbc.ColumnMappings.Add("ADVRate", "ADVRate");
-
-                    sbc.ColumnMappings.Add("ASSVCI", "ASSVCI");
-                    sbc.ColumnMappings.Add("Landing", "Landing");
-                    sbc.ColumnMappings.Add("CDPercntage", "CDPercntage");
-
-                    sbc.ColumnMappings.Add("RDPercentage", "RDPercentage");
-                    sbc.ColumnMappings.Add("ACDPercentage", "ACDPercentage");
-
-                    sbc.ColumnMappings.Add("ASTPercentage", "ASTPercentage");
-                    sbc.ColumnMappings.Add("ITPercentage", "ITPercentage");
-
-                    sbc.ColumnMappings.Add("TDTax", "TDTax");
-                    sbc.ColumnMappings.Add("CleaningPrice", "CleaningPrice");
-
-                    sbc.ColumnMappings.Add("TotalAmount", "TotalAmount");
-                    sbc.ColumnMappings.Add("STPercentage", "STPercentage");
-
-                    sbc.ColumnMappings.Add("TotalASSVSCI", "TotalASSVSCI");
-                    sbc.ColumnMappings.Add("TotalLanding", "TotalLanding");
-                    sbc.ColumnMappings.Add("TotalCDValue", "TotalCDValue");
-                    sbc.ColumnMappings.Add("TotalRDValue", "TotalRDValue");
-                    sbc.ColumnMappings.Add("TotalACDValue", "TotalACDValue");
-                    sbc.ColumnMappings.Add("TotalASTValue", "TotalASTValue");
-                    sbc.ColumnMappings.Add("TotalITValue", "TotalITValue");
-                    sbc.ColumnMappings.Add("TotalSTValue", "TotalSTValue");
-                    // Added By Ahsan
-                    sbc.ColumnMappings.Add("clearingExpensePerProduct", "clearingExpensePerProduct");
-                    sbc.ColumnMappings.Add("pricePerProduct", "pricePerProduct");
+                        //}
 
 
-                    sbc.DestinationTableName = _objCIMaster.DetailData.TableName;
-                    sbc.WriteToServer(_objCIMaster.DetailData);
 
+                        sbc.ColumnMappings.Add("purchaseIdx", "purchaseIdx");
+                        //sbc.ColumnMappings.Add(2, 1);
+                        sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
+                        sbc.ColumnMappings.Add("itemIdx", "itemIdx");
+                        sbc.ColumnMappings.Add("unitPrice", "unitPrice");
+                        sbc.ColumnMappings.Add("qty", "qty");
+                        sbc.ColumnMappings.Add("amount", "amount");
+                        sbc.ColumnMappings.Add("qty", "openItem");
+                        sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
+                        sbc.ColumnMappings.Add("unitPrice", "DVRate");
+                        sbc.ColumnMappings.Add("amount", "TDVRate");
+                        sbc.ColumnMappings.Add("ADVRate", "ADVRate");
+
+                        sbc.ColumnMappings.Add("ASSVCI", "ASSVCI");
+                        sbc.ColumnMappings.Add("Landing", "Landing");
+                        sbc.ColumnMappings.Add("CDPercntage", "CDPercntage");
+
+                        sbc.ColumnMappings.Add("RDPercentage", "RDPercentage");
+                        sbc.ColumnMappings.Add("ACDPercentage", "ACDPercentage");
+
+                        sbc.ColumnMappings.Add("ASTPercentage", "ASTPercentage");
+                        sbc.ColumnMappings.Add("ITPercentage", "ITPercentage");
+
+                        sbc.ColumnMappings.Add("TDTax", "TDTax");
+                        sbc.ColumnMappings.Add("CleaningPrice", "CleaningPrice");
+
+                        sbc.ColumnMappings.Add("TotalAmount", "TotalAmount");
+                        sbc.ColumnMappings.Add("STPercentage", "STPercentage");
+
+                        sbc.ColumnMappings.Add("TotalASSVSCI", "TotalASSVSCI");
+                        sbc.ColumnMappings.Add("TotalLanding", "TotalLanding");
+                        sbc.ColumnMappings.Add("TotalCDValue", "TotalCDValue");
+                        sbc.ColumnMappings.Add("TotalRDValue", "TotalRDValue");
+                        sbc.ColumnMappings.Add("TotalACDValue", "TotalACDValue");
+                        sbc.ColumnMappings.Add("TotalASTValue", "TotalASTValue");
+                        sbc.ColumnMappings.Add("TotalITValue", "TotalITValue");
+                        sbc.ColumnMappings.Add("TotalSTValue", "TotalSTValue");
+                        // Added By Ahsan
+                        sbc.ColumnMappings.Add("clearingExpensePerProduct", "clearingExpensePerProduct");
+                        sbc.ColumnMappings.Add("pricePerProduct", "pricePerProduct");
+
+
+                        sbc.DestinationTableName = _objCIMaster.DetailData.TableName;
+                        sbc.WriteToServer(_objCIMaster.DetailData);
+
+                    }
                 }
+                else
+                {
+                    if (_objCIMaster.DetailData != null)
+                    {
+                        foreach (DataRow row in _objCIMaster.DetailData.Rows)
+                            row["purchaseIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
 
+                        _objCIMaster.DetailData.AcceptChanges();
+
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        _objCIMaster.DetailData.TableName = "CI_PurchaseDetails";
+
+                        sbc.ColumnMappings.Clear();
+
+                        //foreach(DataRow dr in _objCIMaster.DetailData.Rows)
+                        //{
+                        //    foreach (DataColumn dc in _objCIMaster.DetailData.Columns)
+                        //    {
+                        //        sbc.ColumnMappings.Add(dc.ColumnName, dc.ColumnName);
+                        //       // nvEmp.Add(dc.ColumnName, dr[dc]);
+                        //    }
+
+                        //}
+
+
+
+                        sbc.ColumnMappings.Add("purchaseIdx", "purchaseIdx");
+                        //sbc.ColumnMappings.Add(2, 1);
+                        sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
+                        sbc.ColumnMappings.Add("itemIdx", "itemIdx");
+                        sbc.ColumnMappings.Add("unitPrice", "unitPrice");
+                        sbc.ColumnMappings.Add("qty", "qty");
+                        sbc.ColumnMappings.Add("amount", "amount");
+                        sbc.ColumnMappings.Add("qty", "openItem");
+                        sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
+                        sbc.ColumnMappings.Add("unitPrice", "DVRate");
+                        sbc.ColumnMappings.Add("amount", "TDVRate");
+                        sbc.ColumnMappings.Add("ADVRate", "ADVRate");
+
+                        sbc.ColumnMappings.Add("ASSVCI", "ASSVCI");
+                        sbc.ColumnMappings.Add("Landing", "Landing");
+                        sbc.ColumnMappings.Add("CDPercntage", "CDPercntage");
+
+                        sbc.ColumnMappings.Add("RDPercentage", "RDPercentage");
+                        sbc.ColumnMappings.Add("ACDPercentage", "ACDPercentage");
+
+                        sbc.ColumnMappings.Add("ASTPercentage", "ASTPercentage");
+                        sbc.ColumnMappings.Add("ITPercentage", "ITPercentage");
+
+                        sbc.ColumnMappings.Add("TDTax", "TDTax");
+                        sbc.ColumnMappings.Add("CleaningPrice", "CleaningPrice");
+
+                        sbc.ColumnMappings.Add("TotalAmount", "TotalAmount");
+                        sbc.ColumnMappings.Add("STPercentage", "STPercentage");
+
+                        sbc.ColumnMappings.Add("TotalASSVSCI", "TotalASSVSCI");
+                        sbc.ColumnMappings.Add("TotalLanding", "TotalLanding");
+                        sbc.ColumnMappings.Add("TotalCDValue", "TotalCDValue");
+                        sbc.ColumnMappings.Add("TotalRDValue", "TotalRDValue");
+                        sbc.ColumnMappings.Add("TotalACDValue", "TotalACDValue");
+                        sbc.ColumnMappings.Add("TotalASTValue", "TotalASTValue");
+                        sbc.ColumnMappings.Add("TotalITValue", "TotalITValue");
+                        sbc.ColumnMappings.Add("TotalSTValue", "TotalSTValue");
+                        // Added By Ahsan
+                        sbc.ColumnMappings.Add("clearingExpensePerProduct", "clearingExpensePerProduct");
+                        sbc.ColumnMappings.Add("pricePerProduct", "pricePerProduct");
+
+
+                        sbc.DestinationTableName = _objCIMaster.DetailData.TableName;
+                        sbc.WriteToServer(_objCIMaster.DetailData);
+
+                    }
+                }
+                
                 this.Commit();
                 if (_errorCode != (int)LLBLError.AllOk)
                 {

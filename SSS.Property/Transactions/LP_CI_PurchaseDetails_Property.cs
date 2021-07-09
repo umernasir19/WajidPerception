@@ -7,6 +7,8 @@ namespace SSS.Property.Transactions
 {
    public class LP_CI_PurchaseDetails_Property
     {
+        // Added By Ahsan
+        public string itemName { get; set; }
         private int _idx;
         public int idx
         {

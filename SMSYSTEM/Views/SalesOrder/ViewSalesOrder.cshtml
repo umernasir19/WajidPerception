@@ -67,6 +67,7 @@
             function bindCustomersInDataTable(data) {
                 console.log(data);
                 console.log(JSON.parse(data.data));
+                var dataarray = JSON.parse(data.data);
                 var status = "Blocked".toString();
                 var table = $('#example1').DataTable({
                     data: JSON.parse(data.data),
@@ -84,11 +85,24 @@
 
                    {
                        "data": "idx",
-                       "render": function (idx, type, full, meta) {
+                       "render": function (ID, type, full, meta) {
 
-                           return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a> <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a> <a href="#" class="btn btn-secondary" onclick="GenerateReport(' + idx + ')"><i class="fa fa-file"></i></a>'
-                           //<a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + ID + ')"><i class="fa fa-trash"></i></a>
+                           var check = '';
+                           for (var i = 0; i < dataarray.length; i++) {
+                               if (dataarray[i].idx == ID) {
+                                   console.log(dataarray[i].Productioncheck)
+                                   check = dataarray[i].Productioncheck;
+                               }
 
+                           }
+
+                           if (check == '0') {
+                               return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + ID + ')"><i class="fa fa-eye"></i></a> <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + ID + ')"><i class="fa fa-trash"></i></a>'
+                           } else {
+                               // alert(2);
+                           }
+
+                           return ''
                        },
                        "orderable": true,
                        "searchable": true,

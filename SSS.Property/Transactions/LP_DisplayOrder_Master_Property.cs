@@ -13,6 +13,8 @@ namespace SSS.Property.Transactions
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Please Select Date")]
         public DateTime DeliveryDate { get; set; }
+        public int Productioncheck { get; set; }
+
         private int _idx;
         public int idx
         {

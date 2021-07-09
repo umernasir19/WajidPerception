@@ -69,6 +69,7 @@ namespace SMSYSTEM.Controllers
                     objActivityVM.size = objActivityVM.ActivityDetailLST[0].size;
                     objActivityVM.qty = objActivityVM.ActivityDetailLST[0].qty;
                     objActivityVM.DeliveryDate = objActivityVM.ActivityDetailLST[0].DeliveryDate;
+                    objActivityVM.orderIdx = objActivityVM.ActivityDetailLST[0].orderIdx;
 
                     objActivityVM.typeIdx = objActivityVM.ActivityDetailLST[0].typeIdx;
                     objActivityVM.orderIdx = objActivityVM.ActivityDetailLST[0].orderIdx;
@@ -217,7 +218,9 @@ namespace SMSYSTEM.Controllers
                     obj.idx = objVoucher.idx;
                     obj.activityDate = DateTime.Now.ToString("yyyy-MM-dd");
                     obj.creationDate = DateTime.Now.ToString("yyyy-MM-dd");
+                    obj.lastModificationDate = DateTime.Now.ToString("yyyy-MM-dd");
                     obj.createdBy = Convert.ToInt16(Session["UID"].ToString());
+                    obj.lastModifiedByUserIdx = Convert.ToInt16(Session["UID"].ToString());
                     obj.typeIdx = objVoucher.typeIdx;
                     obj.orderIdx = objVoucher.orderIdx;
                     obj.productIdx = objVoucher.productIdx;
@@ -229,6 +232,7 @@ namespace SMSYSTEM.Controllers
                     obj.description = objVoucher.description;
                     obj.reference = objVoucher.reference;
                     obj.DeliveryDate = objVoucher.DeliveryDate;
+                  
                     obj.DetailData = Helper.ToDataTable<LP_Activity_Property>(objVoucher.ActivityDetailLST);
 
                     LP_Activity_BLL objBLL = new LP_Activity_BLL(obj);
@@ -253,6 +257,7 @@ namespace SMSYSTEM.Controllers
                     obj.description = objVoucher.description;
                     obj.reference = objVoucher.reference;
                     obj.DeliveryDate = DateTime.Now;
+                
                     obj.DetailData = Helper.ToDataTable<LP_Activity_Property>(objVoucher.ActivityDetailLST);
 
                     LP_Activity_BLL objBLL = new LP_Activity_BLL(obj);

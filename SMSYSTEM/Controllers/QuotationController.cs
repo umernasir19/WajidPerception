@@ -89,6 +89,11 @@ namespace SMSYSTEM.Controllers
                     objQuotationVM_Property.customerIdx = Convert.ToInt16(dt.Rows[0]["customerIdx"].ToString());
                     objQuotationVM_Property.qsNumber = dt.Rows[0]["qsNumber"].ToString();
                     objQuotationVM_Property.description = dt.Rows[0]["description"].ToString();
+                    objQuotationVM_Property.shippingCost = Convert.ToDecimal(dt.Rows[0]["shippingCost"].ToString());
+                    objQuotationVM_Property.discount = Convert.ToDecimal(dt.Rows[0]["discount"].ToString());
+                    objQuotationVM_Property.netAmount = Convert.ToDecimal(dt.Rows[0]["netAmount"].ToString());
+                    objQuotationVM_Property.taxAount = Convert.ToDecimal(dt.Rows[0]["taxAount"].ToString());
+                    objQuotationVM_Property.reference = dt.Rows[0]["reference"].ToString();
 
                     objQuotationVM_Property.totalAmount = Convert.ToDecimal(dt.Rows[0]["totalAmount"].ToString());
                     string pdate = (dt.Rows[0]["quotationDate"].ToString()).ToString();
@@ -146,7 +151,8 @@ namespace SMSYSTEM.Controllers
                 objQuotationProperty.reference = objquotation.reference;
                 objQuotationProperty.shippingCost = objquotation.shippingCost;
                 objQuotationProperty.discount = objquotation.discount;
-
+                
+                objQuotationProperty.salescheck = 0;
                 //  objPurchaseProperty.paidDate = ;// objpurchase.paidDate;
 
                 objQuotationProperty.DetailData = Helper.ToDataTable<QuotationDetails_Property>(objquotation.QuotationDetailLST);
@@ -162,7 +168,10 @@ namespace SMSYSTEM.Controllers
                     objQuotationProperty.idx = objquotation.idx;
                     objQuotationProperty.creationDate = DateTime.Now;
                     objQuotationProperty.visible = 1;
+                    objQuotationProperty.lastModificationDate = DateTime.Now;
+
                     objQuotationProperty.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
+                    objQuotationProperty.lastModifiedByUserIdx = Convert.ToInt16(Session["UID"].ToString());
                     objQuotationProperty.visible = 1;
                     objQuotationProperty.status = "0";
                     objQuotationProperty.TableName = "quotaionDetails";

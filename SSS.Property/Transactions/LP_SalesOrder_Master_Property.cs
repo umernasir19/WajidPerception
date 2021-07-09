@@ -120,8 +120,8 @@ namespace SSS.Property.Transactions
             set { _createdByUserIdx = value; }
         }
 
-        private DateTime _lastModificationDate;
-        public DateTime lastModificationDate
+        private string _lastModificationDate;
+        public string lastModificationDate
         {
             get { return _lastModificationDate; }
             set { _lastModificationDate = value; }
@@ -252,5 +252,6 @@ namespace SSS.Property.Transactions
         // Added By Ahsan
         public DateTime DeliveryDate { get; set; }
         public string ItemDescription { get; set; }
+        public int Productioncheck { get; set; }
     }
 }

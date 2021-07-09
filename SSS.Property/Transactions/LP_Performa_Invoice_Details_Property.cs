@@ -7,6 +7,7 @@ namespace SSS.Property.Transactions
 {
    public class LP_Performa_Invoice_Details_Property
     {
+        public string vendorName { get; set; }
         private int _idx;
         public int idx
         {

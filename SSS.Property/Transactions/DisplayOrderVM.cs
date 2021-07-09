@@ -12,7 +12,7 @@ namespace SSS.Property.Transactions
 
         public int idx { get; set; }
         public string doNumber { get; set; }
-
+        public int Productioncheck { get; set; }
       
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Please Select Date")]

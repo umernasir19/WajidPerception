@@ -7,6 +7,8 @@ namespace SSS.Property.Setups
 {
     public  class SalesOrdersDetails_Property
     {
+        // Added By Ahsan
+        public string itemName { get; set; }
         private int _idx;
         public int idx
         {
@@ -99,6 +101,6 @@ namespace SSS.Property.Setups
         }
 
         // Added By Ahsan
-        public string Description { get; set; }
+        public string ItemDescription { get; set; }
     }
 }

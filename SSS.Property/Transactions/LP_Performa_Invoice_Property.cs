@@ -8,6 +8,8 @@ namespace SSS.Property.Transactions
 {
   public  class LP_Performa_Invoice_Property
     {
+        // Added By Ahsan
+        public int CIcheck { get; set; }
         private int _idx;
         public int idx
         {

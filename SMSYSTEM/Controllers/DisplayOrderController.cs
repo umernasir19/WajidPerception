@@ -74,7 +74,7 @@ namespace SMSYSTEM.Controllers
                     objDisplayOrderVM.doNumber = dt.Rows[0]["doNumber"].ToString();
                     objDisplayOrderVM.description = dt.Rows[0]["description"].ToString();
                     objDisplayOrderVM.reference = dt.Rows[0]["reference"].ToString();
-
+                    objDisplayOrderVM.DeliveryDate = DateTime.Parse(dt.Rows[0]["DeliveryDate"].ToString());
                     // We Don't have Total Amount in view
                     //objDisplayOrderVM.totalAmount = Convert.ToDecimal(dt.Rows[0]["totalAmount"].ToString());
                     
@@ -138,7 +138,7 @@ namespace SMSYSTEM.Controllers
                
                
                 objDOProperty.reference = objDisplayOrder.reference;
-                
+                objDOProperty.Productioncheck = 0;
 
                 //  objPurchaseProperty.paidDate = ;// objpurchase.paidDate;
 
@@ -150,8 +150,11 @@ namespace SMSYSTEM.Controllers
                     objDOProperty.creationDate = DateTime.Now;
                     objDOProperty.visible = 1;
                     objDOProperty.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
-                    objDOProperty.visible = 1;
+                 
                     objDOProperty.status = "0";
+                    objDOProperty.lastModifiedByUserIdx = Convert.ToInt16(Session["UID"].ToString());
+                    objDOProperty.lastModificationDate = DateTime.Now;
+
                     objDOProperty.TableName = "displayOrderDetails";
                     objDOBll = new LP_DisplayOrder_BLL(objDOProperty);
                     flag = objDOBll.Insert();

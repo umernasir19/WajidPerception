@@ -83,7 +83,7 @@ inner join products pr on pr.idx = sd.itemIdx where sd.doIdx=@idx ";
             if (_objDOMasterProperty.idx > 0)
             {
                 //sp_PurchaseUpdate
-                cmdToExecute.CommandText = "dbo.[sp_PurchaseUpdate]";
+                cmdToExecute.CommandText = "dbo.[sp_DisplayOrderUpdate]";
             }
             else
             {
@@ -100,18 +100,22 @@ inner join products pr on pr.idx = sd.itemIdx where sd.doIdx=@idx ";
                 if (_objDOMasterProperty.idx > 0)
                 {
                     cmdToExecute.Parameters.Add(new SqlParameter("@doNumber", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objDOMasterProperty.doNumber));
-                    // cmdToExecute.Parameters.Add(new SqlParameter("@customerIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objDOMasterProperty.customerIdx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objDOMasterProperty.description));
+                     cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objDOMasterProperty.description));
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objDOMasterProperty.creationDate));
-
                     cmdToExecute.Parameters.Add(new SqlParameter("@createdbyuser", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objDOMasterProperty.createdByUserIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@modificationDate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objDOMasterProperty.lastModificationDate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@modifiedByUser", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objDOMasterProperty.lastModifiedByUserIdx));
+
                     cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objDOMasterProperty.visible));
                     cmdToExecute.Parameters.Add(new SqlParameter("@status", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objDOMasterProperty.status));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@reference", SqlDbType.VarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objDOMasterProperty.reference));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DeliveryDate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objDOMasterProperty.DeliveryDate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@Productioncheck", SqlDbType.Int, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objDOMasterProperty.Productioncheck));
 
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.InputOutput, true, 10, 0, "", DataRowVersion.Proposed, _objDOMasterProperty.idx));
-                    //cmdToExecute.Parameters.Add(new SqlParameter("@MRNIdx", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objDOMasterProperty.MRNIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objDOMasterProperty.idx));
+
                 }
                 else
                 {
@@ -134,6 +138,8 @@ inner join products pr on pr.idx = sd.itemIdx where sd.doIdx=@idx ";
                     // cmdToExecute.Parameters.Add(new SqlParameter("@MRNIdx", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objDOMasterProperty.MRNIdx));
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@reference", SqlDbType.NVarChar, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objDOMasterProperty.reference));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@Productioncheck", SqlDbType.Int, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objDOMasterProperty.Productioncheck));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DeliveryDate", SqlDbType.DateTime, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objDOMasterProperty.DeliveryDate));
 
 
 
@@ -160,34 +166,73 @@ inner join products pr on pr.idx = sd.itemIdx where sd.doIdx=@idx ";
                 // _iD = (Int32)cmdToExecute.Parameters["@iID"].Value;
                 //_errorCode = cmdToExecute.Parameters["@ErrorCode"].Value;
 
-                if (_objDOMasterProperty.DetailData != null)
+                // Added By Ahsan
+                if (_objDOMasterProperty.idx > 0)
                 {
-                    foreach (DataRow row in _objDOMasterProperty.DetailData.Rows)
-                        row["doIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
 
-                    _objDOMasterProperty.DetailData.AcceptChanges();
+                    if (_objDOMasterProperty.DetailData != null)
+                    {
+                        foreach (DataRow row in _objDOMasterProperty.DetailData.Rows)
+                            row["doIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
 
-                    SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
-                    _objDOMasterProperty.DetailData.TableName = "displayOrderDetails";
+                        _objDOMasterProperty.DetailData.AcceptChanges();
 
-                    sbc.ColumnMappings.Clear();
-                    sbc.ColumnMappings.Add("doIdx", "doIdx");
-                    //sbc.ColumnMappings.Add(2, 1);
-                    sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
-                    sbc.ColumnMappings.Add("itemIdx", "itemIdx");
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        _objDOMasterProperty.DetailData.TableName = "displayOrderDetails";
 
-                    sbc.ColumnMappings.Add("qty", "qty");
-                    sbc.ColumnMappings.Add("amount", "amount");
-                    sbc.ColumnMappings.Add("qty", "openItem");
-                    //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
-                    //sbc.ColumnMappings.Add("Product", "Product_Name");
-                    //sbc.ColumnMappings.Add("Status", "Status");
+                        sbc.ColumnMappings.Clear();
+                        sbc.ColumnMappings.Add("doIdx", "doIdx");
+                        //sbc.ColumnMappings.Add(2, 1);
+                        sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
+                        sbc.ColumnMappings.Add("itemIdx", "itemIdx");
 
-                    //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
-                    sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
+                        sbc.ColumnMappings.Add("qty", "qty");
+                        sbc.ColumnMappings.Add("amount", "amount");
+                        sbc.ColumnMappings.Add("qty", "openItem");
+                        //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
+                        //sbc.ColumnMappings.Add("Product", "Product_Name");
+                        //sbc.ColumnMappings.Add("Status", "Status");
 
-                    sbc.DestinationTableName = _objDOMasterProperty.DetailData.TableName;
-                    sbc.WriteToServer(_objDOMasterProperty.DetailData);
+                        //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
+                        sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
+
+                        sbc.DestinationTableName = _objDOMasterProperty.DetailData.TableName;
+                        sbc.WriteToServer(_objDOMasterProperty.DetailData);
+
+                    }
+                }
+                else
+                {
+                    if (_objDOMasterProperty.DetailData != null)
+                    {
+                        foreach (DataRow row in _objDOMasterProperty.DetailData.Rows)
+                            row["doIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+
+                        _objDOMasterProperty.DetailData.AcceptChanges();
+
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        _objDOMasterProperty.DetailData.TableName = "displayOrderDetails";
+
+                        sbc.ColumnMappings.Clear();
+                        sbc.ColumnMappings.Add("doIdx", "doIdx");
+                        //sbc.ColumnMappings.Add(2, 1);
+                        sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
+                        sbc.ColumnMappings.Add("itemIdx", "itemIdx");
+
+                        sbc.ColumnMappings.Add("qty", "qty");
+                        sbc.ColumnMappings.Add("amount", "amount");
+                        sbc.ColumnMappings.Add("qty", "openItem");
+                        //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
+                        //sbc.ColumnMappings.Add("Product", "Product_Name");
+                        //sbc.ColumnMappings.Add("Status", "Status");
+
+                        //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
+                        sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
+
+                        sbc.DestinationTableName = _objDOMasterProperty.DetailData.TableName;
+                        sbc.WriteToServer(_objDOMasterProperty.DetailData);
+
+                    }
 
                 }
 

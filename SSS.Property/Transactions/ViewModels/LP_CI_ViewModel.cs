@@ -9,6 +9,8 @@ namespace SSS.Property.Transactions.ViewModels
 {
   public  class LP_CI_ViewModel
     {
+        // Added By Ahsan
+        public int IEcheck { get; set; }
         public int idx { get; set; }
 
         public int PINO { get; set; }
