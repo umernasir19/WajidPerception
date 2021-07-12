@@ -84,8 +84,8 @@ namespace SMSYSTEM.Controllers
                         dt.Columns["doNumber"].ColumnName = "soNumber";
                         objActivityVM.salesOrderLST= Helper.ConvertDataTable<LP_SalesOrder_Master_Property>(dt);
                     }
-                    
-                    ViewBag.update = true;
+                    ViewBag.update = 1;
+                    //ViewBag.update = true;
                 }
                 else
                 {
@@ -93,7 +93,7 @@ namespace SMSYSTEM.Controllers
                     objActivityVM.salesOrderLST = Helper.ConvertDataTable<LP_SalesOrder_Master_Property>(GetAllSalesInvoice());
                     objActivityVM.vendorCatLST = Helper.ConvertDataTable<Vendor_Category_Property>(GetAllVendorsCategory());
                     objActivityVM.ActivityDetailLST = new List<LP_Activity_Property>();
-                    ViewBag.update = false;
+                    ViewBag.update = 0;
                 }
 
                 return View("Activity", objActivityVM);
@@ -231,7 +231,7 @@ namespace SMSYSTEM.Controllers
                     obj.activityPrice = objVoucher.activityPrice;
                     obj.description = objVoucher.description;
                     obj.reference = objVoucher.reference;
-                    obj.DeliveryDate = objVoucher.DeliveryDate;
+                    obj.DeliveryDate = DateTime.Now;
                   
                     obj.DetailData = Helper.ToDataTable<LP_Activity_Property>(objVoucher.ActivityDetailLST);
 

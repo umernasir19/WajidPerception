@@ -91,6 +91,9 @@
     <Compile Include="Setups\LP_CustomerBanks_Property.cs" />
     <Compile Include="Setups\LP_GenerateTransNumber_Property.cs" />
     <Compile Include="Setups\itemUnit_Property.cs" />
+    <Compile Include="Setups\LP_PageAccess_Property.cs" />
+    <Compile Include="Setups\LP_Pages_Property.cs" />
+    <Compile Include="Setups\LP_PageUser_Property.cs" />
     <Compile Include="Setups\LP_Products_Picture.cs" />
     <Compile Include="Setups\LP_Product_VM.cs" />
     <Compile Include="Setups\LP_Purchase_Type.cs" />

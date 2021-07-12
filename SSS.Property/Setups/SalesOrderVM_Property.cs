@@ -15,6 +15,10 @@ namespace SSS.Property.Setups
         [Required(ErrorMessage = "Please Select Date")]
         public DateTime DeliveryDate { get; set; }
         public string ItemDescription { get; set; }
+        public List<Branch_Property> BranchList { get; set; }
+        public int branchIdx { get; set; }
+        public string DriverName { get; set; }
+        public string DriverCnic { get; set; }
 
         [Required]
         public int salesTypeIdx { get; set; }

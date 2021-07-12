@@ -75,7 +75,7 @@ namespace SMSYSTEM.Controllers
                     objSalesPersonPropertyProperty.BranchList = Helper.ConvertDataTable<Branch_Property>(ViewAllBranches());
 
                     objSalesPersonPropertyProperty.WareHouseList = Helper.ConvertDataTable<WareHouse_Property>(ViewWareHouses());
-
+                    objSalesPersonPropertyProperty.branchIdx = int.Parse(dt.Rows[0]["branchIdx"].ToString());
 
                     return View(objSalesPersonPropertyProperty);
                 }

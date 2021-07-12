@@ -12,14 +12,27 @@
 <div class="row">
     <div class="col-sm-3">
         <!-- text input -->
+       
         <div class="form-group">
-            <label>Voucher Type*:</label>
+           
+            @{
+                if (Model.idx > 0)
+                {
+                    <label>Voucher Type*:</label>
+                    @Html.EditorFor(model => model.voucher_type, new { htmlAttributes = new { @placeholder = "PO Number*:", @class = "form-control", @readonly = true } })
+                }
+                else
+                {
+                    <label>Voucher Type*:</label>
+                    <select class="select2 form-control font-weight-bold" id="voucher_type">
+                        <option value="">Select</option>
+                        <option value="1">Cash</option>
+                        <option value="2">Bank</option>
+                    </select>
+                }
+            }
             @*@Html.DropDownListFor(model => model.voucher_type, new SelectList(Model.vouchertypelist, "idx", "Name"), "Select Voucher Type", new { @Class = "form-control font-weight-bold" })*@
-            <select class="select2 form-control font-weight-bold" id="voucher_type">
-                <option value="">Select</option>
-                <option value="1">Cash</option>
-                <option value="2">Bank</option>
-            </select>
+           
             @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
         </div>
         @Html.ValidationMessageFor(model => model.voucher_type, "", new { @class = "text-danger" })
@@ -154,17 +167,17 @@
                                 </thead>
                                 <tbody style="background:white;color:black; ">
                                 @{
-                                    if (ViewBag.DetailData != null)
+                                    if (Model.AccountGJLST != null)
                                     {
 
-
-
-                                        foreach (var items in ViewBag.DetailData)
+                                      
+                                        foreach (var items in Model.AccountGJLST)
                                         {
                                             <tr>
                                                 <td style="display:none">@items.vendorIdx</td>
                                                 <td>@items.vendorName</td>
-                                                <td>@items.amount</td>
+                                                <td>@items</td>
+                                                <td>@items.paidAmount</td>
                                                 @*<td><i class="icon-trash menu-icon" id="btnaddtogrid"><input type="button" id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn-danger" /></i></td>*@
                                                 <td><button id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button></td>
                                             </tr>
@@ -333,6 +346,40 @@
 </div>
 @section MyScripts {
     <script type="text/javascript">
+        // Added By Ahsan
+        $(document).ready(function() {
+            if (@Model.idx > 0) {
+               
+                var value = $('#voucher_type').val();
+                alert(value);
+                    if (value == 1)
+                    {
+                        $.ajax({
+                            url: "/Payment/getCashBalance",
+                    
+                            success: function (data) {
+                                var POData = JSON.parse(data.data);
+                                PIData = POData;
+                                //console.log(POData[0].numberOfProducts);
+                                $('#cashBankBalance').val(POData[0].cashBalance);
+                                $('#paymntmethodoptions').hide();
+                                $("#paymenttype option[value='2']").attr("disabled", "disabled");
+                                $("#paymenttype option[value='3']").attr("disabled", "disabled");
+                                $("#paymenttype option[value='4']").attr("disabled", "disabled");
+
+                            }
+                        });
+                    }
+                    else
+                    {
+                        $('#cashBankBalance').val("0.00");
+                        $("#paymenttype option[value='2']").attr('disabled', false);
+                        $("#paymenttype option[value='3']").attr("disabled", false);
+                        $("#paymenttype option[value='4']").attr("disabled", false);
+                        $("#paymenttype option[value='1']").attr("disabled", "disabled");
+                    }
+            }
+        });
         $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true });
 
         var errmsg;
@@ -556,7 +603,7 @@
         function SomeDeleteRowFunction(o) {
             //alert(id);
             var $row = $(this).closest("tr"),        // Finds the closest row <tr>
-                 $tds = $row.find("td:nth-child(2)");
+                $tds = $row.find("td:nth-child(2)");
             console.log($tds);
 
             $.each($tds, function () {                // Visits every single <td> element
@@ -628,7 +675,7 @@
             var grossAmountinInvoice = Number('0');
             table.find('tr').each(function (i) {
                 var $tds = $(this).find('td'),
-                  itemamount = $tds.eq(3).text();
+                    itemamount = $tds.eq(3).text();
 
                
                 grossAmountinInvoice = Number(grossAmountinInvoice) + (Number(itemamount))
@@ -986,22 +1033,22 @@
                     var $tds = $(this).find('td'),
                         vendorIdx = $tds.eq(0).text(),
                         invoiceNoIdx = $('#voucher_no').val();
-                        balanceAmount = $tds.eq(2).text(),
+                    balanceAmount = $tds.eq(2).text(),
                         paidAmount = $tds.eq(3).text()
                         
 
 
 
                     datatosend.objVoucher.AccountGJLST.push({
-                        vendorIdx: vendorIdx,
-                        coaIdx : vendorIdx,
-                        invoiceNo: invoiceNoIdx,
-                        debit: balanceAmount,
-                        credit: paidAmount
+                            vendorIdx: vendorIdx,
+                            coaIdx : vendorIdx,
+                            invoiceNo: invoiceNoIdx,
+                            debit: balanceAmount,
+                            credit: paidAmount
                         
 
-                    })
-                    ;
+                        })
+                        ;
 
                 });
 

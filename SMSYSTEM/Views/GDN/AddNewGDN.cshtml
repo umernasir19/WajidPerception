@@ -36,6 +36,25 @@
                 @Html.ValidationMessageFor(model => model.Date_Created, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Driver Name*:</label>
+                    @Html.EditorFor(model => model.DriverName, new { htmlAttributes = new { @placeholder = "Driver Name *:", @class = "form-control" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.DriverName, "", new { @class = "text-danger" })
+            </div>
+            
+            <div class="col-sm-6">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Driver Cnic*:</label>
+                    @Html.EditorFor(model => model.DriverCnic, new { htmlAttributes = new { @placeholder = "Driver Cnic*:", @class = "form-control" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.DriverCnic, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <hr />
         <div class="row" id="PurchaseDetails">
             <div class="col-md-12">
@@ -53,7 +72,7 @@
                                     <th>QTY</th>
                                     <th>Unit Price</th>
                                     <th>Sub Amount</th>
-                                    <th>Recieving Qty</th>
+                                    <th>Delivering Qty</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -135,7 +154,8 @@
                 success: function (data) {
                     var POData =JSON.parse(data.data);
                     console.log(POData);
-
+                    $('#DriverName').val(POData[0].DriverName);
+                    $('#DriverCnic').val(POData[0].DriverCnic);
                     $("#example2 tbody").empty();
                     $('#milestones').show();
                     var markup;
@@ -276,6 +296,8 @@
                     Date_Created: $('#Date_Created').val(),
                     Narration: $('#Narration').val(),
                     Total_Amount: $('#Total_Amount').val(),
+                    DriverName: $('#DriverName').val(),
+                    DriverCnic: $('#DriverCnic').val(),
                     //PageList:[{ID:1},{ID:2},{ID:3}]
                     GDNDetailList: []
                 }

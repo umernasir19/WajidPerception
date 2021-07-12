@@ -13,6 +13,9 @@ namespace SSS.Property.Transactions.ViewModels
     {
         // Added By Ahsan
         public string PreviousPaid { get; set; }
+        public List<Branch_Property> BranchList { get; set; }
+        public int branchIdx { get; set; }
+
         public int idx { get; set; }
         public int voucher_type { get; set; }
         public int natureType { get; set; } //Added By Arsalan 17-05-21

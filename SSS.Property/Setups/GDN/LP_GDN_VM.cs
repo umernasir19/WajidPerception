@@ -9,6 +9,9 @@ namespace SSS.Property.Setups.GDN
 {
    public class LP_GDN_VM
     {
+        public string DriverName { get; set; }
+        public string DriverCnic { get; set; }
+
         public int ID { get; set; }
         [DataType(DataType.Date)]
         public DateTime Date_Created { get; set; }

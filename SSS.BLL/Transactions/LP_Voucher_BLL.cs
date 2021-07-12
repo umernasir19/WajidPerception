@@ -44,6 +44,25 @@ namespace SSS.BLL.Transactions
             objDAL = new LP_Voucher_DAL();
             return objDAL.SelectAllPaymentVoucher();
         }
+        // Added By Ahsan
+        public bool DeletePV()
+        {
+            objDAL = new LP_Voucher_DAL(objvoucherproperty);
+            return objDAL.DeletePV();
+        }
+
+        // Receipt Delete
+        public bool DeleteReceipt()
+        {
+            objDAL = new LP_Voucher_DAL(objvoucherproperty);
+            return objDAL.DeleteReceipt();
+        }
+
+        public DataTable SelectOnePaymentVoucher()
+        {
+            objDAL = new LP_Voucher_DAL(objvoucherproperty);
+            return objDAL.SelectOnePaymentVoucher();
+        }
         public DataTable SelectAllReceiptVoucher()
         {
             objDAL = new LP_Voucher_DAL();
@@ -54,7 +73,19 @@ namespace SSS.BLL.Transactions
             objDAL = new LP_Voucher_DAL(objvoucherproperty);
             return objDAL.SelectOne();
         }
+     
 
+        public DataTable SelectOneReceiptVoucher()
+        {
+            objDAL = new LP_Voucher_DAL(objvoucherproperty);
+            return objDAL.SelectOneReceiptVoucher();
+        }
+
+        public DataTable SelectOneSalesInvoice()
+        {
+            objDAL = new LP_Voucher_DAL(objvoucherproperty);
+            return objDAL.SelectOneSalesInvoice();
+        }
 
         public string GenerateTransNo(LP_GenerateTransNumber_Property objtransno)
         {

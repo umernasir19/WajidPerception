@@ -55,9 +55,24 @@ namespace SMSYSTEM.Controllers
             if (Session["LOGGEDIN"] != null)
             {
                 objvoucherVM = new LP_Voucher_ViewModel();
+                objvoucherVM.idx = Convert.ToInt16(id);
                 if (objvoucherVM.idx > 0)
                 {
+                    objvoucherVM.vendorlist = Helper.ConvertDataTable<Vendors_Property>(Getvendors());
+                    objvoucherVM.explist = Helper.ConvertDataTable<fourthTier_Property>(GetChildAccountsByheadIdx(4)); //All Expenses
+                    objvoucherVM.BankList = Helper.ConvertDataTable<Company_Bank_Property>(GetAllCompanyBanks());
+                   // objvoucherVM.vouchertypelist = Helper.ConvertDataTable<LP_Transaction_Type_Property>(GetAllTransactionType());
 
+                    objvouchermaster = new LP_Voucher_Property();
+                    objvouchermaster.idx = Convert.ToInt16(id);
+                    objVoucherBll = new LP_Voucher_BLL(objvouchermaster);
+                    DataTable dt = objVoucherBll.SelectOnePaymentVoucher();
+                    objvoucherVM.idx = Convert.ToInt16(dt.Rows[0]["idx"].ToString());
+                    objvoucherVM.voucher_type = Convert.ToInt16(dt.Rows[0]["paymentModeIdx"].ToString());
+                    objvoucherVM.voucher_no = dt.Rows[0]["invoiceNoIdx"].ToString();
+                    objvoucherVM.paidAmount = Convert.ToDecimal(dt.Rows[0]["paidAmount"].ToString());
+                    //objvoucherVM.vendor_id = Convert.ToInt16(dt.Rows[0]["vendorIdx"].ToString());
+                    objvoucherVM.AccountGJLST = Helper.ConvertDataTable<AccountGJ>(dt);
                 }
                 else
                 {
@@ -175,6 +190,38 @@ namespace SMSYSTEM.Controllers
             }
         }
 
+        // Delete Payment Voucher
+        public JsonResult DeletePV(int? id)
+        {
+            if (Session["LOGGEDIN"] != null)
+            {
+                try
+                {
+                    objvouchermaster = new LP_Voucher_Property();
+                    objvouchermaster.idx = int.Parse(id.ToString());
+
+                    LP_Voucher_BLL obj = new LP_Voucher_BLL(objvouchermaster);
+                    var flag1 = obj.DeletePV();
+                    if (flag1)
+                    {
+                        return Json(new { data = "Deleted", success = flag1, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { data = "Error", success = flag1, statuscode = 200 }, JsonRequestBehavior.DenyGet);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         public JsonResult getCashBalance()
         {

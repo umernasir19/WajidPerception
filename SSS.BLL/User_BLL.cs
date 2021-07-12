@@ -26,6 +26,11 @@ namespace SSS.BLL
         {
             this.id = id;
         }
+
+        public User_BLL()
+        {
+        }
+
         public DataTable ViewAll()
         {
             objUserDAL = new User_DAL(objUserProperty);
@@ -44,6 +49,21 @@ namespace SSS.BLL
             return objUserDAL.SelectByBranch();
         }
 
+        public DataTable GetAllPages()
+        {
+            objUserDAL = new User_DAL();
+            return objUserDAL.GetAllPages();
+        }
+        public bool UpdatePageUser(LP_PageUser_Property objpageuser)
+        {
+            objUserDAL = new User_DAL();
+            return objUserDAL.UpdatePageUser(objpageuser);
+        }
+        public DataTable GetUserPagsAccess()
+        {
+            objUserDAL = new User_DAL(objUserProperty);
+            return objUserDAL.GetUserPagsAccess();
+        }
         //public DataTable MainBranch()
         //{
         //    objUserDAL = new User_DAL(objUserProperty);

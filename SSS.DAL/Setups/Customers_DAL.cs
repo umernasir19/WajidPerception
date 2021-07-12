@@ -211,6 +211,8 @@ where v.visible=1";
                 cmdToExecute.Parameters.Add(new SqlParameter("@customerName", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objVendors.customerName));
                 cmdToExecute.Parameters.Add(new SqlParameter("@customerCode", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objVendors.customerCode));
                 cmdToExecute.Parameters.Add(new SqlParameter("@contact", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objVendors.contact));
+                cmdToExecute.Parameters.Add(new SqlParameter("@ntn", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objVendors.ntn));
+                cmdToExecute.Parameters.Add(new SqlParameter("@strnNo", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objVendors.strnNo));
 
                 cmdToExecute.Parameters.Add(new SqlParameter("@address", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objVendors.address));
                 cmdToExecute.Parameters.Add(new SqlParameter("@createdByUserIdx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objVendors.createdByUserIdx));
@@ -274,6 +276,8 @@ where v.visible=1";
                 cmdToExecute.Parameters.Add(new SqlParameter("@customerName", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objVendors.customerName));
                 cmdToExecute.Parameters.Add(new SqlParameter("@customerCode", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objVendors.customerCode));
                 cmdToExecute.Parameters.Add(new SqlParameter("@contact", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objVendors.contact));
+                cmdToExecute.Parameters.Add(new SqlParameter("@ntn", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objVendors.ntn));
+                cmdToExecute.Parameters.Add(new SqlParameter("@strnNo", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objVendors.strnNo));
 
                 cmdToExecute.Parameters.Add(new SqlParameter("@address", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objVendors.address));
 

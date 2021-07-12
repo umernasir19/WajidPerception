@@ -10,44 +10,61 @@
     <form role="form" id="purchaseform">
         @Html.HiddenFor(model => model.idx, new { id = "idx", value = 0 })
 
-        <div class="row">
-            <div class="col-sm-3">
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Select PI*:</label>
-                    @Html.DropDownListFor(model => model.PINO, new SelectList(Model.PerformaLISt, "idx", "poNumber"), "Select Performa Invoice", new { @Class = "select2 form-control font-weight-bold" })
+    <div class="row">
+        @{
+            if (Model.idx > 0)
+            {
+                <div class="col-sm-3">
+                    <!-- text input -->
+                    <div class="form-group">
+                        <label>Select PI*:</label>
+                        @Html.DropDownListFor(model => model.PINO, new SelectList(Model.PerformaLISt, "idx", "poNumber"), "Select Performa Invoice", new {@Class = "select2 form-control font-weight-bold" , @disabled = true})
+                    </div>
+                    @Html.ValidationMessageFor(model => model.PINO, "", new {@class = "text-danger"})
                 </div>
-                @Html.ValidationMessageFor(model => model.PINO, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-sm-3">
-                <!-- text input -->
-                <div class="form-group">
-                    <label>PO#*:</label>
-                    @Html.EditorFor(model => model.poNumber, new { htmlAttributes = new { @placeholder = "PO Number*:", @class = "form-control", @readonly = true } })
-                    @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+            }
+            else
+            {
+                <div class="col-sm-3">
+                    <!-- text input -->
+                    <div class="form-group">
+                        <label>Select PI*:</label>
+                        @Html.DropDownListFor(model => model.PINO, new SelectList(Model.PerformaLISt, "idx", "poNumber"), "Select Performa Invoice", new {@Class = "select2 form-control font-weight-bold"})
+                    </div>
+                    @Html.ValidationMessageFor(model => model.PINO, "", new {@class = "text-danger"})
                 </div>
-                @Html.ValidationMessageFor(model => model.poNumber, "", new { @class = "text-danger" })
+            }
+        }
+       
+        <div class="col-sm-3">
+            <!-- text input -->
+            <div class="form-group">
+                <label>PO#*:</label>
+                @Html.EditorFor(model => model.poNumber, new {htmlAttributes = new {@placeholder = "PO Number*:", @class = "form-control", @readonly = true}})
+                @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>
-            <div class="col-sm-3">
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Date*:</label>
-                    @Html.EditorFor(model => model.purchaseDate, new { htmlAttributes = new { @placeholder = "Purchase Date*:", @class = "form-control" } })
-                    @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
-                </div>
-                @Html.ValidationMessageFor(model => model.purchaseDate, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-sm-3">
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Exchange Rate*:</label>
-                    @Html.EditorFor(model => model.ExchangeRate, new { htmlAttributes = new {@id = "exchangerate", @placeholder = "Exchange Rate*:", @class = "form-control", @readonly=true } })
-
-                    @*<input type="text" class="form-control" id="exchangerate" disabled>*@
-                </div>
-                @Html.ValidationMessageFor(model => model.purchaseDate, "", new { @class = "text-danger" })
-            </div>
+            @Html.ValidationMessageFor(model => model.poNumber, "", new {@class = "text-danger"})
         </div>
+        <div class="col-sm-3">
+            <!-- text input -->
+            <div class="form-group">
+                <label>Date*:</label>
+                @Html.EditorFor(model => model.purchaseDate, new {htmlAttributes = new {@placeholder = "Purchase Date*:", @class = "form-control"}})
+                @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+            </div>
+            @Html.ValidationMessageFor(model => model.purchaseDate, "", new {@class = "text-danger"})
+        </div>
+        <div class="col-sm-3">
+            <!-- text input -->
+            <div class="form-group">
+                <label>Exchange Rate*:</label>
+                @Html.EditorFor(model => model.ExchangeRate, new {htmlAttributes = new {@id = "exchangerate", @placeholder = "Exchange Rate*:", @class = "form-control", @readonly = true}})
+
+                @*<input type="text" class="form-control" id="exchangerate" disabled>*@
+            </div>
+            @Html.ValidationMessageFor(model => model.purchaseDate, "", new {@class = "text-danger"})
+        </div>
+    </div>
         <div>
         </div>
         <div class="row">
@@ -306,7 +323,48 @@
 @section MyScripts
     {
     <script type="text/javascript">
-      
+        $(document).ready(function () {
+            if (@Model.idx > 0) {
+                var Pino = $("#PINO").val();
+                //alert(Pino);
+
+                    $.ajax({
+                        url: "/Commercial/GetPIById?id=" + Pino,
+                        data: { id: Pino },
+                        success: function (data) {
+                            var POData = JSON.parse(data.data);
+                            PIData = POData;
+                            console.log(POData);
+
+                            //$("#example2 tbody").empty();
+                            $('#milestones').show();
+                            var markup;
+                            $('#exchangerate').val(POData[0].ExchangeRate);
+                            $('#numberOfProducts').val(POData[0].numberOfProducts);
+                            $('#grandTotalAVPKR').val(POData[0].grandTotalAVPKR);
+                            $('#itemIdx').append($('<option>', {
+                                value: 0,
+                                text: 'Select Product'
+                            }));
+                            for (var i = 0; i < POData.length; i++) {
+
+                                $('#itemIdx').append($('<option>', {
+                                    value: POData[i].itemIdx,
+                                    text: POData[i].itemName
+                                }));
+
+
+                            }
+
+                            var tamount = 0;
+
+                            $("#totalAmount").val(tamount);
+
+                        }
+                    });
+                }
+            
+        });
         // Added By Ahsan
         $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true });
 

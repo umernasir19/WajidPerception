@@ -65,6 +65,9 @@ namespace SMSYSTEM.Controllers
                 objCustomerProperty.customerCode = (dt.Rows[0]["customerCode"].ToString());
                 objCustomerProperty.customerName = (dt.Rows[0]["customerName"].ToString());
                 objCustomerProperty.address = (dt.Rows[0]["address"].ToString());
+                objCustomerProperty.ntn = (dt.Rows[0]["ntn"].ToString());
+                objCustomerProperty.strnNo = (dt.Rows[0]["strnNo"].ToString());
+
                 return View(objCustomerProperty);
             }
             else
@@ -90,6 +93,7 @@ namespace SMSYSTEM.Controllers
             {
                 if (objcustomer.idx > 0)
                 {
+                    
                     objcustomer.lastModifiedByUserIdx = 1;//Session Idx
                     objcustomer.lastModificationDate = DateTime.Now.ToString("yyyy-MM-dd");
                     objCustomer = new Customers_BLL(objcustomer);

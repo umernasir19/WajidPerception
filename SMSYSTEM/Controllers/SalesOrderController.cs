@@ -70,7 +70,8 @@ namespace SMSYSTEM.Controllers
                 // Added By Ahsan
                 objSalesOrderVM_Property.SalesPersonList = Helper.ConvertDataTable<SalesPerson_Property>(objSalesPersonBll.ViewAll());
                 objSalesOrderVM_Property.BankList = Helper.ConvertDataTable<Company_Bank_Property>(GetAllCompanyBanks());
-                objSalesOrderVM_Property.wareHouseList = Helper.ConvertDataTable<WareHouse_Property>(objWareHouseBLL.SelectAll());
+                // objSalesOrderVM_Property.wareHouseList = Helper.ConvertDataTable<WareHouse_Property>(objWareHouseBLL.SelectAll());
+                objSalesOrderVM_Property.BranchList = Helper.ConvertDataTable<Branch_Property>(ViewAllBranches());
 
                 objSalesOrderVM_Property.salesorderDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
                 Taxes_Property obj = new Taxes_Property();
@@ -101,6 +102,8 @@ namespace SMSYSTEM.Controllers
                     objSalesOrderVM_Property.wareHouseIdx = Convert.ToInt16(dt.Rows[0]["wareHouseIdx"].ToString());
                     objSalesOrderVM_Property.salespersonIdx = Convert.ToInt16(dt.Rows[0]["salespersonIdx"].ToString());
                     objSalesOrderVM_Property.reference = dt.Rows[0]["reference"].ToString();
+                    objSalesOrderVM_Property.DriverName = dt.Rows[0]["DriverName"].ToString();
+                    objSalesOrderVM_Property.DriverCnic = dt.Rows[0]["DriverCnic"].ToString();
 
                     // objSalesOrderVM_Property.DeliveryDate = dt.Rows[0]["DeliveryDate"].ToString();
                     // objSalesOrderVM_Property.ItemDescription = dt.Rows[0]["ItemDescription"].ToString();
@@ -181,6 +184,8 @@ namespace SMSYSTEM.Controllers
                     objSalesOrderProperty.DeliveryDate = objSalesOrder.DeliveryDate;
                     objSalesOrderProperty.salesTypeIdx = objSalesOrder.salesTypeIdx;
                     objSalesOrderProperty.Productioncheck = 0;
+                    objSalesOrderProperty.DriverName = objSalesOrder.DriverName;
+                    objSalesOrderProperty.DriverCnic = objSalesOrder.DriverCnic;
 
                     if (objSalesOrderProperty.bankIdx > 0)
                     {
@@ -269,6 +274,9 @@ namespace SMSYSTEM.Controllers
                     objSalesOrderProperty.qsIdx = qsIdx;
                     objSalesOrderProperty.salesTypeIdx = objSalesOrder.salesTypeIdx;
                     objSalesOrderProperty.Productioncheck = 0;
+                    objSalesOrderProperty.DriverName = objSalesOrder.DriverName;
+                    objSalesOrderProperty.DriverCnic = objSalesOrder.DriverCnic;
+
                     if (objSalesOrderProperty.bankIdx > 0)
                     {
                         objSalesOrderProperty.BankCOAIDX = BankList[0].coaidx;

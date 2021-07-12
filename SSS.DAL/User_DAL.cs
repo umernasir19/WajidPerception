@@ -24,6 +24,11 @@ namespace SSS.DAL
         {
             objUserProperty = objUser_Property;
         }
+
+        public User_DAL()
+        {
+        }
+
         /// <summary>
         /// Purpose: Insert method. This method will insert one new row into the database.
         /// </summary>
@@ -121,6 +126,214 @@ namespace SSS.DAL
             }
         }
 
+        // Added By Ahsan
+        public DataTable GetAllPages()
+        {
+            SqlCommand cmdToExecute = new SqlCommand();
+            cmdToExecute.CommandText = "dbo.[sp_GetAllPages]";
+            cmdToExecute.CommandType = CommandType.StoredProcedure;
+            DataTable toReturn = new DataTable("COMPANY");
+            SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
+
+            // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection;
+            cmdToExecute.CommandTimeout = 0;
+            try
+            {
+                // cmdToExecute.Parameters.Add(new SqlParameter("@userid", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objUserProperty.idx));
+
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Open connection.
+                    _mainConnection.Open();
+                }
+                else
+                {
+                    if (_mainConnectionProvider.IsTransactionPending)
+                    {
+                        cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    }
+                }
+
+                // Execute query.
+                adapter.Fill(toReturn);
+                // _errorCode = (Int32)cmdToExecute.Parameters["@iErrorCode"].Value;
+                //objCompanyProperty.TotalRowsNum = Convert.ToInt32(cmdToExecute.Parameters["@TotalRowsNum"].Value);
+                if (_errorCode != (int)LLBLError.AllOk)
+                {
+                    // Throw error.
+                    throw new Exception("Stored Procedure 'sp_Branch_SelectAll' reported the ErrorCode: " + _errorCode);
+                }
+
+                return toReturn;
+            }
+            catch (Exception ex)
+            {
+                // some error occured. Bubble it to caller and encapsulate Exception object
+                throw new Exception("Branch::SelectAll::Error occured.", ex);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Close connection.
+                    _mainConnection.Close();
+                }
+                cmdToExecute.Dispose();
+                adapter.Dispose();
+            }
+        }
+        public bool UpdatePageUser(LP_PageUser_Property objpageuser)
+        {
+            SqlCommand cmdToExecute = new SqlCommand();
+            //cmdToExecute.CommandText = "dbo.[sp_MRNInsert]";
+
+            cmdToExecute.CommandText = "dbo.[DeletePagesFromUser]";
+
+            cmdToExecute.CommandType = CommandType.StoredProcedure;
+
+            // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection;
+
+            try
+            {
+
+                cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objpageuser.UserID));
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Open connection.
+                    //   _mainConnection.Open();
+                    OpenConnection();
+                }
+                else
+                {
+                    if (_mainConnectionProvider.IsTransactionPending)
+                    {
+                        cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    }
+                }
+
+                this.StartTransaction();
+                cmdToExecute.Transaction = this.Transaction;
+                // Execute query.
+                _rowsAffected = cmdToExecute.ExecuteNonQuery();
+                // _iD = (Int32)cmdToExecute.Parameters["@iID"].Value;
+                //_errorCode = cmdToExecute.Parameters["@ErrorCode"].Value;
+
+                if (objpageuser.DetailData != null)
+                {
+                    //cmdToExecute.Parameters["@ID"].Value.ToString();
+                    //row["mrnIdx"] = _rowsAffected;
+                    objpageuser.DetailData.AcceptChanges();
+
+                    SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                    objpageuser.DetailData.TableName = "PageUsers";
+
+                    sbc.ColumnMappings.Clear();
+                    sbc.ColumnMappings.Add("PageID", "PageID");
+                    //sbc.ColumnMappings.Add(2, 1);
+                    //sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
+                    sbc.ColumnMappings.Add("UserID", "UserID");
+                    //sbc.ColumnMappings.Add("unitPrice", "unitPrice");
+                    sbc.ColumnMappings.Add("CreatedDate", "CreatedDate");
+                    sbc.ColumnMappings.Add("status", "status");
+                    //sbc.ColumnMappings.Add("qty", "openItem");
+                    //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
+                    //sbc.ColumnMappings.Add("Product", "Product_Name");
+                    //sbc.ColumnMappings.Add("Status", "Status");
+
+                    //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
+                    //sbc.ColumnMappings.Add("Description", "Description");
+
+                    sbc.DestinationTableName = objpageuser.DetailData.TableName;
+                    sbc.WriteToServer(objpageuser.DetailData);
+
+                }
+
+                this.Commit();
+                if (_errorCode != (int)LLBLError.AllOk)
+                {
+                    // Throw error.
+                    this.RollBack();
+                    throw new Exception("Stored Procedure 'sp_TRANSACTION_MASTER_Insert' reported the ErrorCode: " + _errorCode);
+
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                this.RollBack();
+                // some error occured. Bubble it to caller and encapsulate Exception object
+                throw new Exception("TRANSACTION_MASTER::Insert::Error occured.", ex);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    //// Close connection.
+                    //_mainConnection.Close();
+                    CloseConnection();
+                }
+                cmdToExecute.Dispose();
+            }
+        }
+        public DataTable GetUserPagsAccess()
+        {
+            SqlCommand cmdToExecute = new SqlCommand();
+            cmdToExecute.CommandText = "dbo.[sp_GetUserAccesspage]";
+            cmdToExecute.CommandType = CommandType.StoredProcedure;
+            DataTable toReturn = new DataTable("COMPANY");
+            SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
+
+            // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection;
+            cmdToExecute.CommandTimeout = 0;
+            try
+            {
+                cmdToExecute.Parameters.Add(new SqlParameter("@userid", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objUserProperty.idx));
+
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Open connection.
+                    _mainConnection.Open();
+                }
+                else
+                {
+                    if (_mainConnectionProvider.IsTransactionPending)
+                    {
+                        cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    }
+                }
+
+                // Execute query.
+                adapter.Fill(toReturn);
+                // _errorCode = (Int32)cmdToExecute.Parameters["@iErrorCode"].Value;
+                //objCompanyProperty.TotalRowsNum = Convert.ToInt32(cmdToExecute.Parameters["@TotalRowsNum"].Value);
+                if (_errorCode != (int)LLBLError.AllOk)
+                {
+                    // Throw error.
+                    throw new Exception("Stored Procedure 'sp_Branch_SelectAll' reported the ErrorCode: " + _errorCode);
+                }
+
+                return toReturn;
+            }
+            catch (Exception ex)
+            {
+                // some error occured. Bubble it to caller and encapsulate Exception object
+                throw new Exception("Branch::SelectAll::Error occured.", ex);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Close connection.
+                    _mainConnection.Close();
+                }
+                cmdToExecute.Dispose();
+                adapter.Dispose();
+            }
+        }
 
         /// <summary>
         /// Purpose: Update method. This method will Update one existing row in the database.

@@ -83,7 +83,7 @@ namespace SSS.DAL.Transactions
                       //  row["vendorCatIdx"] = _objACTasterProperty.vendorCatIdx;
                        // row["vendorIdx"] = _objACTasterProperty.vendorIdx;
                         row["typeIdx"] = _objACTasterProperty.typeIdx;
-                        row["lastModificationDate"] = _objACTasterProperty.lastModificationDate;
+                       // row["lastModificationDate"] = _objACTasterProperty.lastModificationDate;
                         row["lastModifiedByUserIdx"] = _objACTasterProperty.lastModifiedByUserIdx;
                       
 
@@ -113,8 +113,8 @@ namespace SSS.DAL.Transactions
                     sbc.ColumnMappings.Add("description", "description");
                     sbc.ColumnMappings.Add("reference", "reference");
                     sbc.ColumnMappings.Add("totalAmount", "totalAmount");
-                    sbc.ColumnMappings.Add("DeliveryDate", "DeliveryDate");
-                    sbc.ColumnMappings.Add("lastModificationDate", "lastModificationDate");
+                   // sbc.ColumnMappings.Add("DeliveryDate", "DeliveryDate");
+                  //  sbc.ColumnMappings.Add("lastModificationDate", "lastModificationDate");
                     sbc.ColumnMappings.Add("lastModifiedByUserIdx", "lastModifiedByUserIdx");
                  
 

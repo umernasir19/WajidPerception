@@ -22,7 +22,7 @@
                    new SelectListItem {Text="Select Type",Value="0" },
                   new SelectListItem {Text=" Sales Order",Value="1" },
                   new SelectListItem {Text="Display Order",Value="2" }
-               }, new { @class = "select2 form-control", @id = "drp" })
+               }, new { @class = "select2 form-control" })
                          
                         }
                         else
@@ -41,23 +41,44 @@
             </div>
         </div>
         <div class="row">
+            @{
+                if (Model.idx > 0)
+                {
+                    <div class="form-group" style="display: none;">
+                        <label>Order#:</label>
 
-            <div class="col-sm-3 " id="ddlOrder">
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Order#:</label>
+                        @*@Html.DropDownListFor(m => m.orderIdx,
+                            new SelectList(Enumerable.Empty<SelectListItem>(), "idx", "soNumber"),
+                            "Select Order",
+                            new { @class = "select2 form-control" })*@
 
-                    @Html.DropDownListFor(m => m.orderIdx,
-       new SelectList(Enumerable.Empty<SelectListItem>(), "idx", "soNumber"),
-              "Select Order",
-              new { @class = "select2 form-control" })
+                        @Html.EditorFor(model => model.orderIdx, new { htmlAttributes = new { @placeholder = "Delivery Date*:", @class = "form-control" } })
 
 
+                        @Html.ValidationMessageFor(m => m.orderIdx, "", new { @class = "text-danger" })
+                    </div>
+                }
+                else
+                {
+                    <div class="col-sm-3 " id="ddlOrder">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label>Order#:</label>
 
-                    @Html.ValidationMessageFor(m => m.orderIdx, "", new { @class = "text-danger" })
-                </div>
+                            @Html.DropDownListFor(m => m.orderIdx,
+                                new SelectList(Enumerable.Empty<SelectListItem>(), "idx", "soNumber"),
+                                "Select Order",
+                                new { @class = "select2 form-control" })
 
-            </div>
+
+
+                            @Html.ValidationMessageFor(m => m.orderIdx, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                }
+            }
+
             <div class="col-sm-3">
                 <!-- text input -->
                 <div class="form-group">
@@ -235,19 +256,108 @@
     <script type="text/javascript">
         $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true});
         $(document).ready(function() {
-          
+
             $('#ddlOrder').hide();
             $('#typeIdx').trigger("change");
             //alert(update);
             checkUpdate();
+            if (@Model.idx > 0) {
+                var id = $("#orderIdx").val();
+                alert(id);
 
+                var orderId = id
+                    var typeId = $("#typeIdx option:selected").val();
+                    if (orderId > 0 && typeId == 1) {
+                        $.ajax({
+                            url: '/Activity/SearchProductsInDetail',
+                            type: "GET",
+                            dataType: "JSON",
+                            data: {
+                                Id: orderId
+                            },
+                            success: function(data) {
+
+                                $("#productIdx").html(""); // clear before appending new list
+                                $('#productIdx').append($('<option>',
+                                    {
+                                        value: "",
+                                        text: "Select Products"
+                                    }));
+
+                                console.log(data.data);
+                                $.each(data.data,
+                                    function(key, value) {
+                                        $('#productIdx').append($('<option>',
+                                            {
+                                                value: value.itemIdx,
+                                                text: value.itemName
+                                            }));
+
+
+                                    });
+
+
+                            }
+                        });
+                    } else if (orderId > 0 && typeId == 2) {
+                        $.ajax({
+                            url: '/Activity/SearchProductsInDODetail',
+                            type: "GET",
+                            dataType: "JSON",
+                            data: {
+                                Id: orderId
+                            },
+                            success: function(data) {
+
+                                $("#productIdx").html(""); // clear before appending new list
+                                //var invoicData = JSON.parse(data.data)
+                                //allInvoice = { invoicData };
+
+                                $('#productIdx').append($('<option>',
+                                    {
+                                        value: "",
+                                        text: "Select Products"
+                                    }));
+
+                                console.log(data.data);
+                                $.each(data.data,
+                                    function(key, value) {
+                                        $('#productIdx').append($('<option>',
+                                            {
+                                                value: value.itemIdx,
+                                                text: value.itemName
+                                            }));
+
+
+                                    });
+
+
+                            }
+                        });
+
+                    } else {
+
+                        $("#productIdx").empty();
+                        $("#productIdx").append($('<option>',
+                            {
+                                value: "",
+                                text: "Select Product"
+                            }));
+
+                    }
+
+
+                }
+            
 
         });
 
         // Check Update
         function checkUpdate() {
-            var update = @Html.Raw(Json.Encode(ViewBag.update));
-            if (update == true) {
+            var number = @ViewBag.update;
+
+           // alert(number);
+            if (number == 1) {
                 if (@Model.ActivityDetailLST.Count > 0) {
 
                     // alert(Model.ActivityDetailLST.Count);
@@ -271,7 +381,7 @@
 
         }
 
-        // Price 
+        // Price
         $("#vendorIdx").on('change',
             function() {
                 var vendorValue = $('#vendorIdx').val();

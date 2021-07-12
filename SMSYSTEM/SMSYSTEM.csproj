@@ -4413,6 +4413,7 @@
     <Content Include="Views\SalesPerson\ViewSalesPerson.cshtml" />
     <Content Include="Views\Commercial\ReadOnlyCI.cshtml" />
     <Content Include="Views\Commercial\ReadOnlyCIPO.cshtml" />
+    <Content Include="Views\Account\PageUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

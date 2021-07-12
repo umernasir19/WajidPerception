@@ -42,7 +42,20 @@
         </div>
     </div>
     <div class="row">
-
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>NTN*:</label>
+                @Html.EditorFor(model => model.ntn, new { htmlAttributes = new { @placeholder = "Address", @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.ntn, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>STRNNO*:</label>
+                @Html.EditorFor(model => model.strnNo, new { htmlAttributes = new { @placeholder = "Address", @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.strnNo, "", new { @class = "text-danger" })
+        </div>
         <div class="col-sm-12">
             <div class="form-group">
                 <label>Address*:</label>
@@ -50,7 +63,8 @@
             </div>
             @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
         </div>
-
+        
+        
     </div>
 </form>
 <script>

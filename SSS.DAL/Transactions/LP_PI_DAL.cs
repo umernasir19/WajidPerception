@@ -788,7 +788,7 @@ where c.idx=@ID";
                     cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objCIMaster.description));
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalamount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.totalAmount));
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalTD", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.totalTD));//Added By Arsalan 12-04-21
-                //    cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.creationDate.ToString("yyyy-MM-ddTHH:mm:ss.fff")));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objCIMaster.creationDate.ToString("yyyy-MM-ddTHH:mm:ss.fff")));
                     cmdToExecute.Parameters.Add(new SqlParameter("@IEcheck", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.IEcheck));
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@createdByUserIdx", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objCIMaster.createdByUserIdx));

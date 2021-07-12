@@ -8,6 +8,10 @@ namespace SSS.Property.Transactions
 {
     public  class LP_SalesOrder_Master_Property
     {
+        public string DriverName { get; set; }
+        public string DriverCnic { get; set; }
+
+        public int branchIdx { get; set; }
         private int _idx;
         public int idx
         {

@@ -7,6 +7,7 @@ using SSS.Property.Transactions.ViewModels;
 using SSS.Utility;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -53,10 +54,34 @@ namespace SMSYSTEM.Controllers
         {
             if (Session["LOGGEDIN"] != null)
             {
+                // Added By Ahsan
                 objvoucherVM = new LP_Voucher_ViewModel();
+                objvoucherVM.BranchList = Helper.ConvertDataTable<Branch_Property>(ViewAllBranches());
+
+                objvoucherVM.idx = Convert.ToInt32(id);
                 if (objvoucherVM.idx > 0)
                 {
+                    objvoucherVM.BankList = Helper.ConvertDataTable<Company_Bank_Property>(GetAllCompanyBanks());
+                    objvoucherVM.customerlist = Helper.ConvertDataTable<Customers_Property>(GetAllCustomers());
 
+                    objvouchermaster = new LP_Voucher_Property();
+                    objvouchermaster.idx = Convert.ToInt32(id);
+                    objVoucherBll = new LP_Voucher_BLL(objvouchermaster);
+
+                    DataTable dt = objVoucherBll.SelectOneReceiptVoucher();
+                    objvoucherVM.idx = Convert.ToInt16(dt.Rows[0]["idxx"].ToString());
+                    objvoucherVM.voucher_no = dt.Rows[0]["invoiceNoIdx"].ToString();
+                    objvoucherVM.date_created = Convert.ToDateTime(dt.Rows[0]["dated"].ToString());
+                   // objvoucherVM.reference = dt.Rows[0]["reference"].ToString();
+                    objvoucherVM.customer_id = Convert.ToInt16(dt.Rows[0]["customerIdx"].ToString());
+                    //objvoucherVM.paidAmount = Convert.ToDecimal(dt.Rows[0]["paidAmount"].ToString());
+                    
+                    //objvouchermaster.customer_id = objvoucherVM.customer_id;
+                    //objVoucherBll = new LP_Voucher_BLL(objvouchermaster);
+                    //DataTable dt = objVoucherBll.SelectOneSalesInvoice();
+                    //var Data = Helper.ConvertDataTable<LP_SalesOrder_Master_Property>(GetAllSIByDate(objvoucherVM.customer_id));//JsonConvert.SerializeObject(GetAllPIByDate(objsearchPI));
+
+                    objvoucherVM.AccountGJLST = Helper.ConvertDataTable<AccountGJ>(dt);
                 }
                 else
                 {
@@ -94,6 +119,7 @@ namespace SMSYSTEM.Controllers
                 objvouchermaster.idx = objVoucher.idx;
                 objvouchermaster.voucher_no = objVoucher.voucher_no;
                 objvouchermaster.customer_id = objVoucher.customer_id;
+                objvouchermaster.branchIdx = objVoucher.branchIdx;
                 //objvouchermaster.voucher_type = objVoucher.voucher_type;
                 objvouchermaster.date_created = objVoucher.date_created.ToString("yyyy-MM-dd");
                 if (objVoucher.description != null)
@@ -111,17 +137,17 @@ namespace SMSYSTEM.Controllers
                 
                 if (objVoucher.idx > 0)
                 {
-                    ////objMRNProperty.creationDate = DateTime.Now;
-                    ////objMRNProperty.visible = 1;
-                    ////// objMRNProperty.status = "0";
-                    ////objMRNProperty.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
-                    //objvouchermaster.creationDate = DateTime.Now;
-                    //objvouchermaster.lastModificationDate = DateTime.Now;
-                    //objvouchermaster.lastModifiedByUserIdx = Convert.ToInt16(Session["UID"].ToString());
-                    ////  objMRNVM_Property.createdByUserIdx = DateTime.Now; ;
-                    //objvouchermaster.TableName = "MRNDetails";
-                    //objMRNBll = new LP_MRN_BLL(objvouchermaster);
-                    //flag = objMRNBll.Insert();
+                    objvouchermaster.status = 0;
+                    objvouchermaster.accorChequeNumber = objVoucher.accorChequeNumber;
+                    objvouchermaster.bankIdx = objVoucher.bankIdx;
+                    objvouchermaster.paymentModeIdx = objVoucher.paymentModeIdx;
+                    objvouchermaster.voucher_amount = objVoucher.voucher_amount;
+                    objvouchermaster.DetailData = Helper.ToDataTable<AccountGJ>(objVoucher.AccountGJLST);
+                    objvouchermaster.u_id = Convert.ToInt16(Session["UID"].ToString());
+
+                    objvouchermaster.TableName = "accountGJ";
+                    objVoucherBll = new LP_Voucher_BLL(objvouchermaster);
+                    flag = objVoucherBll.InsertReceipt();
                     //update
                 }
                 else
@@ -202,6 +228,38 @@ namespace SMSYSTEM.Controllers
             catch (Exception ex)
             {
                 return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult Delete(int? id)
+        {
+            if (Session["LOGGEDIN"] != null)
+            {
+                try
+                {
+                    objvouchermaster = new LP_Voucher_Property();
+                    objvouchermaster.idx = int.Parse(id.ToString());
+
+                    LP_Voucher_BLL obj = new LP_Voucher_BLL(objvouchermaster);
+                    var flag1 = obj.DeleteReceipt();
+                    if (flag1)
+                    {
+                        return Json(new { data = "Deleted", success = flag1, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { data = "Error", success = flag1, statuscode = 200 }, JsonRequestBehavior.DenyGet);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
             }
         }
         #endregion

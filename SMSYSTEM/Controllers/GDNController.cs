@@ -66,6 +66,9 @@ namespace SMSYSTEM.Controllers
 
                     objGDNBLL = new LP_GDN_BLL(objGDNProperty);
                     DataTable dt = objGDNBLL.SelectOne();
+                    objGDNVM.DriverName = dt.Rows[0]["Driver_Name"].ToString();
+                    objGDNVM.DriverCnic = dt.Rows[0]["DriverCnic"].ToString();
+
                     objGDNVM.ID = Convert.ToInt16(dt.Rows[0]["ID"].ToString());
                     //objGRNVM_Property.vendorIdx = Convert.ToInt16(dt.Rows[0]["vendorIdx"].ToString());
 
@@ -109,6 +112,8 @@ namespace SMSYSTEM.Controllers
                 objGDNProperty = new LP_GDNMaster_Property();
                 objGDNProperty.Doc_No = objGDN.Doc_No;
                 objGDNProperty.Parent_DocID = objGDN.Parent_DocID;
+                objGDNProperty.DriverName = objGDN.DriverName;
+                objGDNProperty.DriverCnic = objGDN.DriverCnic;
 
                 objGDNProperty.Date_Created = objGDN.Date_Created;
                 objGDNProperty.Narration = objGDN.Narration;

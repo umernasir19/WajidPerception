@@ -34,6 +34,9 @@ namespace SSS.DAL.Transactions.GDN_DAL
 
             try
             {
+                cmdToExecute.Parameters.Add(new SqlParameter("@DriverName", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.DriverName));
+                cmdToExecute.Parameters.Add(new SqlParameter("@DriverCnic", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.DriverCnic));
+
                 cmdToExecute.Parameters.Add(new SqlParameter("@DocNo", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.Doc_No));
                 cmdToExecute.Parameters.Add(new SqlParameter("@ParentDocId", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.Parent_DocID));
 

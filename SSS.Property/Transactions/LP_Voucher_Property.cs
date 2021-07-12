@@ -109,6 +109,7 @@ namespace SSS.Property.Transactions
         //public DataTable DetailData { get; set; }
 
         //public string TableName { get; set; }
+        public int branchIdx { get; set; }
         public int idx { get; set; }
         public int voucher_type { get; set; }
         public int natureType { get; set; } //Added By Arsalan 17-05-21

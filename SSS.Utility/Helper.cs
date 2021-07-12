@@ -18,6 +18,7 @@ using System.Xml.Serialization;
 using System.Web.Configuration;
 using System.Security.Cryptography;
 using System.Reflection;
+using SSS.Property.Setups;
 
 namespace SSS.Utility
 {
@@ -398,5 +399,27 @@ namespace SSS.Utility
             //put a breakpoint here and check datatable
             return dataTable;
         }
+
+        // Added By Ahsan
+        #region PAgeAmane
+
+        public static bool CheckPageAccess(string pagename, List<LP_Pages_Property> PGlst)
+        {
+
+            bool flg = false;
+
+            for (int i = 0; i < PGlst.Count; i++)
+            {
+                if (PGlst[i].PagePath == pagename)
+                {
+                    flg = true;
+                }
+
+            }
+
+            return flg;
+        }
+
+        #endregion
     }
 }

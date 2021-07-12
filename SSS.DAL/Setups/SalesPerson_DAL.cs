@@ -41,6 +41,7 @@ namespace SSS.DAL.Setups
                 cmdToExecute.Parameters.Add(new SqlParameter("@createdByUserIdx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objSalesPersonProperty.createdByUserIdx));
                 cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objSalesPersonProperty.visible));
                 cmdToExecute.Parameters.Add(new SqlParameter("@IsActive", SqlDbType.Bit, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objSalesPersonProperty.IsActive));
+                cmdToExecute.Parameters.Add(new SqlParameter("@branchIdx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objSalesPersonProperty.branchIdx));
 
 
                 if (_mainConnectionIsCreatedLocal)
@@ -234,6 +235,7 @@ where s.visible = 1";
 
                 cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objSalesPersonProperty.visible));
                 cmdToExecute.Parameters.Add(new SqlParameter("@IsActive", SqlDbType.Bit, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objSalesPersonProperty.IsActive));
+                cmdToExecute.Parameters.Add(new SqlParameter("@branchIdx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objSalesPersonProperty.branchIdx));
 
                 if (_mainConnectionIsCreatedLocal)
                 {
