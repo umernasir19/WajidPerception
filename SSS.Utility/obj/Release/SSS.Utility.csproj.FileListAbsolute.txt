@@ -124,3 +124,6 @@ H:\office\Perception BP\Updated Perception\Wajid New\WajidPerception-master\SSS.
 H:\office\Perception BP\Updated Perception\Wajid New\WajidPerception-master\SSS.Utility\obj\Release\SSS.Utility.csprojResolveAssemblyReference.cache
 H:\office\Perception BP\Updated Perception\Wajid New\WajidPerception-master\SSS.Utility\obj\Release\SSS.Utility.dll
 H:\office\Perception BP\Updated Perception\Wajid New\WajidPerception-master\SSS.Utility\obj\Release\SSS.Utility.pdb
+H:\office\Perception BP\Updated Perception\Wajid New\WajidPerception-master\SSS.Utility\bin\Release\SSS.Property.dll
+H:\office\Perception BP\Updated Perception\Wajid New\WajidPerception-master\SSS.Utility\bin\Release\FluentValidation.dll
+H:\office\Perception BP\Updated Perception\Wajid New\WajidPerception-master\SSS.Utility\bin\Release\SSS.Property.pdb

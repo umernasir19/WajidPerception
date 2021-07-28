@@ -11,13 +11,13 @@
         @Html.HiddenFor(model => model.idx, new { id = "idx", value = 0 })
 
         <div class="row">
-            @{
-                if (Model.idx > 0)
-                {
+            
+                    @*//if (Model.idx > 0)
+                    //{
 
-                }
-                else
-                {
+                    //}
+                    //else
+                    //{*@
 
                     <div class="col-sm-4">
                         <!-- text input -->
@@ -45,8 +45,18 @@
                         </div>
                         @Html.ValidationMessageFor(model => model.orderDate, "", new { @class = "text-danger" })
                     </div>
-                }
-            }
+
+                    <div class="col-sm-4">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label>Delivery Date*:</label>
+                            @Html.EditorFor(model => model.DeliveryDate, new { htmlAttributes = new { @placeholder = "Delivery Date*:", @class = "form-control" } })
+                            @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                        </div>
+                        @Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })
+                    </div>
+
+            
         </div>
 
         <div class="row">
@@ -88,7 +98,7 @@
                                 @*<td>@Html.EditorFor(model => model.stock, new { htmlAttributes = new { @placeholder = "Stock", @value = "hello", @class = "form-control", @readonly = "true" } })</td>
                                 <td>@Html.EditorFor(model => model.costPrice, new { htmlAttributes = new { @placeholder = "Cost Price", @class = "form-control", @readonly = "true" } })</td>*@
                                 <td>@Html.EditorFor(model => model.qty, new { htmlAttributes = new { @placeholder = "Qty", @class = "form-control" } })</td>
-                                <td>@Html.EditorFor(model => model.DisplayOrderDetailLST[0].Description, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control" } })</td>
+                                <td>@Html.EditorFor(model => model.ItemDescription, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control" } })</td>
                                 <td>
 
                                     <input type="button" value="+" id="btnaddtogrid" class="btn btn-outline-primary" style="font-size: 20px " />
@@ -102,28 +112,29 @@
                                 <div class="">
                                     <table id="example2" class=" table table-dark table-bordered table-hover">
                                         <thead class="thead-dark">
-                                            <tr>
-                                                <th>Product Name</th>
-                                                <th>QTY</th>
-                                                <th>Description</th>
-                                                <th>Actions</th>
-                                                
-                                            </tr>
+                                        <tr>
+                                         
+                                            <th>Product Name</th>
+                                            <th>QTY</th>
+                                            <th>Description</th>
+                                            <th>Actions</th>
+
+                                        </tr>
                                         </thead>
                                         <tbody style="background:white;color:black; ">
                                             @{
-                                                if (ViewBag.DetailData != null)
+                                                if (@Model.DisplayOrderDetailLST != null)
                                                 {
 
 
 
-                                                    foreach (var items in ViewBag.DetailData)
+                                                    foreach (var items in Model.DisplayOrderDetailLST)
                                                     {
                                                         <tr>
                                                             <td style="display:none">@items.itemIdx</td>
                                                             <td>@items.itemName</td>
                                                             <td>@items.qty</td>
-                                                            <td></td>
+                                                            <td>@items.ItemDescription</td>
                                                             @*<td><i class="icon-trash menu-icon" id="btnaddtogrid"><input type="button" id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn-danger" /></i></td>*@
                                                             <td><button id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button></td>
                                                         </tr>
@@ -206,16 +217,17 @@
             $('#milestones').show();
       
             var actualQty = $("#qty").val();
-            var description = $('#DisplayOrderDetailLST_0__Description').val();
+            var description = $('#ItemDescription').val();
             var closebutton = '<button id="deleterow" onclick="SomeDeleteRowFunction(this)"  class="close btn "><i class="fa fa-trash menu-icon"></i></button>';
             //'<button type="button" class="close" style="float:left" id="deleterow" aria-label="Close">' +
             //'<span aria-hidden="true" styel="color:red">&times;</span>' +
             // '</button>'
             var productname = $("#itemIdx option:selected").text();
             var ProductID = $("#itemIdx option:selected").val();
-            var Qty = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualQty+'"  id="qty" class="form-control" />';
-            var Description = '<input type="text" placeholder="Enter Description"  value="' + description + '"  id="DisplayOrderDetailLST_0__Description" class="form-control" />';
-            var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td>" + Description + "</td><td>" + closebutton + "</td></tr>";
+            var Qty = $("#qty").val();
+            //var Qty = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualQty+'"  id="qty" class="form-control" />';
+           // var Description = '<input type="text" placeholder="Enter Description"  value="' + description + '"  id="DisplayOrderDetailLST_0__ItemDescription" class="form-control" />';
+            var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td>" + description + "</td><td>" + closebutton + "</td></tr>";
 
             $("#example2 tbody").append(markup);
             var tamount = 0;
@@ -333,7 +345,7 @@
              
                     orderDate: $('#orderDate').val(),
                     description: $('#description').val(),
-               
+                    DeliveryDate: $("#DeliveryDate").val(),
                     //description: $("#description").val(),
                 
                
@@ -353,15 +365,15 @@
             table.find('tr').each(function (i) {
                 var $tds = $(this).find('td'),
                     productid = $tds.eq(0).text(),
-                    qty = $tds.eq(2).find('#qty').val(),
-                    Description = $tds.eq(3).find('#DisplayOrderDetailLST_0__Description').val()
+                    qty = $tds.eq(2).text(),
+                    ItemDescription = $tds.eq(3).text()
                
 
                 datatosend.objDisplayOrder.DisplayOrderDetailLST.push({
                     itemIdx: productid,
                     qty: qty,
                     productTypeIdx:1,
-                    Description: Description
+                    ItemDescription: ItemDescription
                 });
 
             });

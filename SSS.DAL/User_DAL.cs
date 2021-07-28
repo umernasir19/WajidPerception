@@ -374,7 +374,7 @@ namespace SSS.DAL
 
             try
             {
-                //cmdToExecute.Parameters.Add(new SqlParameter("@companyIdx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.companyIdx));
+                cmdToExecute.Parameters.Add(new SqlParameter("@branchIdx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.branchIdx));
                 cmdToExecute.Parameters.Add(new SqlParameter("@idx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.idx));
                 cmdToExecute.Parameters.Add(new SqlParameter("@firstName", SqlDbType.NVarChar, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.firstName));
                 cmdToExecute.Parameters.Add(new SqlParameter("@lastName", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.lastName));

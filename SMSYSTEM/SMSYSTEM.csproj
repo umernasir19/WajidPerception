@@ -4414,6 +4414,8 @@
     <Content Include="Views\Commercial\ReadOnlyCI.cshtml" />
     <Content Include="Views\Commercial\ReadOnlyCIPO.cshtml" />
     <Content Include="Views\Account\PageUser.cshtml" />
+    <Content Include="Views\companyCurrency\_AddCompanyNewCurrency.cshtml" />
+    <Content Include="Views\companyCurrency\ViewCompanyCurrency.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4427,7 +4429,6 @@
     <Folder Include="Models\" />
     <Folder Include="Product_Picture\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\companyCurrency\" />
     <Folder Include="Views\CustomerType\" />
     <Folder Include="Views\Expense\" />
     <Folder Include="Views\FirstTier\" />

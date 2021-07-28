@@ -112,6 +112,12 @@
                     }
                 }
                 console.log($inputImages);
+                debugger;
+                var uploadedImgList = $("div[data-preloaded='true']");
+                for (var j = 0; j < uploadedImgList.length ; j++) {
+                    formdata.append("ProductPictureList[" + j + "].PicturePath", $(uploadedImgList[j]).find('img').attr('src'));
+                }
+               
                 //if (!$inputImages.length) {
                 //    $inputImages = form.find('input[name^="photos"]')
                 //    alert($inputImages.length)

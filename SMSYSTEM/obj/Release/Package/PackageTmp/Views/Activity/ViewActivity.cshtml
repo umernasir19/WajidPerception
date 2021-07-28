@@ -21,8 +21,8 @@
                                 <th>vendor Coder</th>
                                 @*<th>Branch</th>*@
                                 <th>Vendor</th>
-                                <th>contact Person Name</th>
-                                <th>Exchange Rate</th>
+                                @*<th>contact Person Name</th>
+                                <th>Exchange Rate</th>*@
 
                                 <th>Total</th>
                                 @*<th>status</th>*@
@@ -67,13 +67,14 @@
                         { data: 'vendorName' },
 
 
-                         { data: 'contactPersonName' },
-                         { data: 'exchangeRate' },
+                         //{ data: 'contactPersonName' },
+                         //{ data: 'exchangeRate' },
                          { data: 'total' },
                          //{ data: 'statusCode' },
 
                    {
                        "data": "orderIdx",
+
                        "render": function (idx, type, full, meta) {
 
                            return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a> <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a>'

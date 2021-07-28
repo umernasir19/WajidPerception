@@ -10,42 +10,61 @@
     <form role="form" id="purchaseform">
         @Html.HiddenFor(model => model.idx, new { id = "idx", value = 0 })
 
-        <div class="row">
-            <div class="col-sm-3">
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Select PI*:</label>
-                    @Html.DropDownListFor(model => model.PINO, new SelectList(Model.PerformaLISt, "idx", "poNumber"), "Select Performa Invoice", new { @Class = "select2 form-control font-weight-bold" })
+    <div class="row">
+        @{
+            if (Model.idx > 0)
+            {
+                <div class="col-sm-3">
+                    <!-- text input -->
+                    <div class="form-group">
+                        <label>Select PI*:</label>
+                        @Html.DropDownListFor(model => model.PINO, new SelectList(Model.PerformaLISt, "idx", "poNumber"), "Select Performa Invoice", new {@Class = "select2 form-control font-weight-bold" , @disabled = true})
+                    </div>
+                    @Html.ValidationMessageFor(model => model.PINO, "", new {@class = "text-danger"})
                 </div>
-                @Html.ValidationMessageFor(model => model.PINO, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-sm-3">
-                <!-- text input -->
-                <div class="form-group">
-                    <label>PO#*:</label>
-                    @Html.EditorFor(model => model.poNumber, new { htmlAttributes = new { @placeholder = "PO Number*:", @class = "form-control", @readonly = true } })
-                    @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+            }
+            else
+            {
+                <div class="col-sm-3">
+                    <!-- text input -->
+                    <div class="form-group">
+                        <label>Select PI*:</label>
+                        @Html.DropDownListFor(model => model.PINO, new SelectList(Model.PerformaLISt, "idx", "poNumber"), "Select Performa Invoice", new {@Class = "select2 form-control font-weight-bold"})
+                    </div>
+                    @Html.ValidationMessageFor(model => model.PINO, "", new {@class = "text-danger"})
                 </div>
-                @Html.ValidationMessageFor(model => model.poNumber, "", new { @class = "text-danger" })
+            }
+        }
+       
+        <div class="col-sm-3">
+            <!-- text input -->
+            <div class="form-group">
+                <label>PO#*:</label>
+                @Html.EditorFor(model => model.poNumber, new {htmlAttributes = new {@placeholder = "PO Number*:", @class = "form-control", @readonly = true}})
+                @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
             </div>
-            <div class="col-sm-3">
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Date*:</label>
-                    @Html.EditorFor(model => model.purchaseDate, new { htmlAttributes = new { @placeholder = "Purchase Date*:", @class = "form-control" } })
-                    @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
-                </div>
-                @Html.ValidationMessageFor(model => model.purchaseDate, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-sm-3">
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Exchange Rate*:</label>
-                    <input type="text" class="form-control" id="exchangerate" disabled>
-                </div>
-                @Html.ValidationMessageFor(model => model.purchaseDate, "", new { @class = "text-danger" })
-            </div>
+            @Html.ValidationMessageFor(model => model.poNumber, "", new {@class = "text-danger"})
         </div>
+        <div class="col-sm-3">
+            <!-- text input -->
+            <div class="form-group">
+                <label>Date*:</label>
+                @Html.EditorFor(model => model.purchaseDate, new {htmlAttributes = new {@placeholder = "Purchase Date*:", @class = "form-control"}})
+                @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+            </div>
+            @Html.ValidationMessageFor(model => model.purchaseDate, "", new {@class = "text-danger"})
+        </div>
+        <div class="col-sm-3">
+            <!-- text input -->
+            <div class="form-group">
+                <label>Exchange Rate*:</label>
+                @Html.EditorFor(model => model.ExchangeRate, new {htmlAttributes = new {@id = "exchangerate", @placeholder = "Exchange Rate*:", @class = "form-control", @readonly = true}})
+
+                @*<input type="text" class="form-control" id="exchangerate" disabled>*@
+            </div>
+            @Html.ValidationMessageFor(model => model.purchaseDate, "", new {@class = "text-danger"})
+        </div>
+    </div>
         <div>
         </div>
         <div class="row">
@@ -214,19 +233,38 @@
                                             </thead>
                                             <tbody style="background:white;color:black; ">
                                                 @{
-                                                    if (ViewBag.DetailData != null)
+                                                    if (Model.CILIST != null)
                                                     {
-
-
-
-                                                        foreach (var items in ViewBag.DetailData)
+                                                        foreach (var items in Model.CILIST)
                                                         {
                                                 <tr>
                                                     <td style="display:none">@items.itemIdx</td>
                                                     <td>@items.itemName</td>
                                                     <td>@items.qty</td>
-                                                    <td><input type="text" placeholder="Enter Unit Price" onkeyup="changeinunitprice(this)" value="@items.unitPrice" id="unitprice" class="form-control" /></td>
+                                                    <td>@items.unitPrice</td>
+                                                    @*<td><input type="text" placeholder="Enter Unit Price" onkeyup="changeinunitprice(this)" value="@items.unitPrice" id="unitprice" class="form-control" /></td>*@
                                                     <td>@items.amount</td>
+                                                    <td>@items.ADVRate</td>
+                                                    <td>@items.ItemDescription</td>
+                                                    <td>@items.ASSVCI</td>
+                                                    <td>@items.Landing</td>
+                                                    <td>@items.CDPercntage</td>
+                                                    <td>@items.RDPercentage</td>
+                                                    <td>@items.ACDPercentage</td>
+                                                    <td>@items.STPercentage</td>
+                                                    <td>@items.ASTPercentage</td>
+                                                    <td>@items.ITPercentage</td>
+                                                    <td>@items.TDTax</td>
+                                                    <td>@items.TotalASSVSCI</td>
+                                                    <td>@items.TotalLanding</td>
+                                                    <td>@items.TotalCDValue</td>
+                                                    <td>@items.TotalRDValue</td>
+                                                    <td>@items.TotalACDValue</td>
+                                                    <td>@items.TotalASTValue</td>
+                                                    <td>@items.TotalITValue</td>
+                                                    <td>@items.TotalSTValue</td>
+                                                  
+
                                                     <td><button id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button></td>
                                                 </tr>
 
@@ -285,11 +323,55 @@
 @section MyScripts
     {
     <script type="text/javascript">
+        $(document).ready(function () {
+            if (@Model.idx > 0) {
+                var Pino = $("#PINO").val();
+                //alert(Pino);
+
+                    $.ajax({
+                        url: "/Commercial/GetPIById?id=" + Pino,
+                        data: { id: Pino },
+                        success: function (data) {
+                            var POData = JSON.parse(data.data);
+                            PIData = POData;
+                            console.log(POData);
+
+                            //$("#example2 tbody").empty();
+                            $('#milestones').show();
+                            var markup;
+                            $('#exchangerate').val(POData[0].ExchangeRate);
+                            $('#numberOfProducts').val(POData[0].numberOfProducts);
+                            $('#grandTotalAVPKR').val(POData[0].grandTotalAVPKR);
+                            $('#itemIdx').append($('<option>', {
+                                value: 0,
+                                text: 'Select Product'
+                            }));
+                            for (var i = 0; i < POData.length; i++) {
+
+                                $('#itemIdx').append($('<option>', {
+                                    value: POData[i].itemIdx,
+                                    text: POData[i].itemName
+                                }));
+
+
+                            }
+
+                            var tamount = 0;
+
+                            $("#totalAmount").val(tamount);
+
+                        }
+                    });
+                }
+            
+        });
         // Added By Ahsan
         $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true });
 
         var PIData;
         // Add To grid
+
+
         $("#PINO").on('change', function () {
             var ddvaue = $("#PINO option:selected").val();
             if (ddvaue > 0) {
@@ -441,7 +523,7 @@
             var row2markup = "<td>" + ASSVCI + "</td><td>" + Landing + "</td><td>" + CDPercntage + "</td><td>" + RDPercentage + "</td>";
             var row3markup = "<td>" + ACDPercentage + "</td><td>" + STDPercentage + "</td><td>" + ASTPercentage + "</td><td>" + ITTPercentage + "</td>";
             var row4markup = "<td>" + TDTax + "</td>";
-            var row5Totalsmarkup = "<td>" + TotalASSVSCI + "</td><td>" + TotalLanding + "</td><td>" + TotalCDPercntage + "</td><td>" + TotalRDPercentage + "</td><td>" + TotalACDPercentage + "</td><td>" + TotalSTDPercentage + "</td><td>" + TotalASTPercentage + "</td><td>" + TotalITTPercentage + "</td>";
+            var row5Totalsmarkup = "<td>" + TotalASSVSCI + "</td><td>" + TotalLanding + "</td><td>" + TotalCDPercntage + "</td><td>" + TotalRDPercentage + "</td><td>" + TotalACDPercentage + "</td><td>" + TotalASTPercentage + "</td><td>" + TotalITTPercentage + "</td><td>" + TotalSTDPercentage + "</td>";
 
             var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td id='unitprice'>" + unitprice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + adv + "</td><td>" + itemdescription + "</td>" + row2markup + row3markup + row4markup + row5Totalsmarkup + "<td>" + closebutton + "</td></tr>";
             $("#example2 tbody").append(markup);
@@ -638,7 +720,7 @@
                     grandTotalAVPKR: $("#grandTotalAVPKR").val(),
                     numberOfProducts: $("#numberOfProducts").val(),
 
-                    
+
                     //ContainerNo: $('#ContainerNo').val(),
                     //DocumentNumber: $('#DocumentNumber').val(),
                     //ExchangeRate:$('#ExchangeRate').val(),
@@ -694,15 +776,25 @@
                         CleaningPrice: $tds.eq(16).text(),
                         TotalAmount: $tds.eq(17).text(),
 
-                        TotalASSVSCI: $tds.eq(18).text(),
-                        TotalLanding: $tds.eq(19).text(),
-                        TotalCDValue: $tds.eq(20).text(),
-                        TotalRDValue: $tds.eq(21).text(),
-                        TotalACDValue: $tds.eq(22).text(),
-                        TotalASTValue: $tds.eq(23).text(),
-                        TotalITValue: $tds.eq(24).text(),
-                        TotalSTValue: $tds.eq(25).text(),
-                     
+                        //TotalASSVSCI: $tds.eq(18).text(),
+                        //TotalLanding: $tds.eq(19).text(),
+                        //TotalCDValue: $tds.eq(20).text(),
+                        //TotalRDValue: $tds.eq(21).text(),
+                        //TotalACDValue: $tds.eq(22).text(),
+                        //TotalASTValue: $tds.eq(23).text(),
+                        //TotalITValue: $tds.eq(25).text(),
+                        //TotalSTValue: $tds.eq(24).text(),
+
+                        TotalASSVSCI: $tds.eq(16).text(),
+                        TotalLanding: $tds.eq(17).text(),
+                        TotalCDValue: $tds.eq(18).text(),
+                        TotalRDValue: $tds.eq(19).text(),
+                        TotalACDValue: $tds.eq(20).text(),
+                        TotalASTValue: $tds.eq(21).text(),
+                        TotalITValue: $tds.eq(22).text(),
+                        TotalSTValue: $tds.eq(23).text(),
+
+                        totalTD: $('#totalTD').val(),
                         // Added By Ahsan
                         clearingExpensePerProduct: (TotalACDvalue * ExchangeRate) * 0.25,
 

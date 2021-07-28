@@ -9,6 +9,7 @@ namespace SSS.Property.Transactions
     public class LP_ImportedExpense_Master_Property
     {
         // Added By Ahsan
+        public int glIdx { get; set; }
         public decimal qty { get; set; }
         public decimal amount { get; set; }
         public decimal unitPrice { get; set; }

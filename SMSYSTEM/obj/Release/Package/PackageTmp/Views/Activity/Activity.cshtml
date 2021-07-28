@@ -5,7 +5,7 @@
 }
 
 <div class="card-body">
-    <h3><b>Local Purchase</b></h3>
+    <h3><b>Production</b></h3>
     <br />
     <form role="form" id="purchaseform">
         @Html.HiddenFor(model => model.idx, new { id = "idx", value = 0 })
@@ -22,7 +22,7 @@
                    new SelectListItem {Text="Select Type",Value="0" },
                   new SelectListItem {Text=" Sales Order",Value="1" },
                   new SelectListItem {Text="Display Order",Value="2" }
-               }, new { @class = "select2 form-control", @id = "drp" })
+               }, new { @class = "select2 form-control" })
                          
                         }
                         else
@@ -41,23 +41,44 @@
             </div>
         </div>
         <div class="row">
+            @{
+                if (Model.idx > 0)
+                {
+                    <div class="form-group" style="display: none;">
+                        <label>Order#:</label>
 
-            <div class="col-sm-3 " id="ddlOrder">
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Order#:</label>
+                        @*@Html.DropDownListFor(m => m.orderIdx,
+                            new SelectList(Enumerable.Empty<SelectListItem>(), "idx", "soNumber"),
+                            "Select Order",
+                            new { @class = "select2 form-control" })*@
 
-                    @Html.DropDownListFor(m => m.orderIdx,
-       new SelectList(Enumerable.Empty<SelectListItem>(), "idx", "soNumber"),
-              "Select Order",
-              new { @class = "select2 form-control" })
+                        @Html.EditorFor(model => model.orderIdx, new { htmlAttributes = new { @placeholder = "Delivery Date*:", @class = "form-control" } })
 
 
+                        @Html.ValidationMessageFor(m => m.orderIdx, "", new { @class = "text-danger" })
+                    </div>
+                }
+                else
+                {
+                    <div class="col-sm-3 " id="ddlOrder">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label>Order#:</label>
 
-                    @Html.ValidationMessageFor(m => m.orderIdx, "", new { @class = "text-danger" })
-                </div>
+                            @Html.DropDownListFor(m => m.orderIdx,
+                                new SelectList(Enumerable.Empty<SelectListItem>(), "idx", "soNumber"),
+                                "Select Order",
+                                new { @class = "select2 form-control" })
 
-            </div>
+
+
+                            @Html.ValidationMessageFor(m => m.orderIdx, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                }
+            }
+
             <div class="col-sm-3">
                 <!-- text input -->
                 <div class="form-group">
@@ -100,6 +121,16 @@
                     @Html.ValidationMessageFor(m => m.vendorIdx, "", new { @class = "text-danger" })
                 </div>
                 @*@Html.ValidationMessageFor(model => model.vendorIdx, "", new { @class = "text-danger" })*@
+            </div>
+            
+            <div class="col-sm-3">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Delivery Date*:</label>
+                    @Html.EditorFor(model => model.DeliveryDate, new { htmlAttributes = new { @placeholder = "Delivery Date*:", @class = "form-control" } })
+                    @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                </div>
+                @Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })
             </div>
 
         </div>
@@ -159,17 +190,19 @@
                     <div class="">
                         <table id="example2" class=" table table-dark table-bordered table-hover">
                             <thead class="thead-dark">
-                                <tr>
-                                    <th>Product Name</th>
-                                    <th>Reference</th>
-                                    <th>Size</th>
-                                    <th>Qty</th>
-                                    <th>Price</th>
-                                    <th>Description</th>
-                                    <th style="display: none">Process</th>
-                                    <th style="display: none">Vendor</th>
-                                    <th>Actions</th>
-                                </tr>
+                            <tr>
+                             
+                                <th>Product Name</th>
+                                <th>Reference</th>
+                                <th>Size</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Description</th>
+                                <th style="display: none">Process</th>
+                                <th style="display: none">Vendor</th>
+                                <th>Total Price</th>
+                                <th>Actions</th>
+                            </tr>
                             </thead>
                             <tbody style="background:white;color:black; ">
                                 @{
@@ -188,8 +221,11 @@
                                                 <td>@Model.ActivityDetailLST[i].qty</td>
                                                 <td>@Model.ActivityDetailLST[i].activityPrice</td>
                                                 <td>@Model.ActivityDetailLST[i].description</td>
-                                                <td>@Model.ActivityDetailLST[i].vendorCatIdx</td>
-                                                <td>@Model.ActivityDetailLST[i].vendorIdx</td>
+                                                <td style="display: none">@Model.ActivityDetailLST[i].vendorCatIdx</td>
+                                                <td style="display: none">@Model.ActivityDetailLST[i].vendorIdx</td>
+                                                <td id="Price">@Model.ActivityDetailLST[i].Price</td>
+
+
                                                 <td><button id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button></td>
                                             </tr>
 
@@ -206,7 +242,16 @@
         </div>
 
         <hr />
-
+    <div class="row">
+        <div class="col-sm-4">
+            <!-- text input -->
+            <div class="form-group">
+                <label>Total Price:</label>
+                @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @placeholder = "Total Price:", @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.TotalPrice, "", new { @class = "text-danger" })
+        </div>
+    </div>
         <div class="row">
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" id="btnAddSale">Submit</button>
@@ -224,19 +269,108 @@
     <script type="text/javascript">
         $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true});
         $(document).ready(function() {
-          
+
             $('#ddlOrder').hide();
             $('#typeIdx').trigger("change");
             //alert(update);
             checkUpdate();
+            if (@Model.idx > 0) {
+                var id = $("#orderIdx").val();
+                alert(id);
 
+                var orderId = id
+                    var typeId = $("#typeIdx option:selected").val();
+                    if (orderId > 0 && typeId == 1) {
+                        $.ajax({
+                            url: '/Activity/SearchProductsInDetail',
+                            type: "GET",
+                            dataType: "JSON",
+                            data: {
+                                Id: orderId
+                            },
+                            success: function(data) {
+
+                                $("#productIdx").html(""); // clear before appending new list
+                                $('#productIdx').append($('<option>',
+                                    {
+                                        value: "",
+                                        text: "Select Products"
+                                    }));
+
+                                console.log(data.data);
+                                $.each(data.data,
+                                    function(key, value) {
+                                        $('#productIdx').append($('<option>',
+                                            {
+                                                value: value.itemIdx,
+                                                text: value.itemName
+                                            }));
+
+
+                                    });
+
+
+                            }
+                        });
+                    } else if (orderId > 0 && typeId == 2) {
+                        $.ajax({
+                            url: '/Activity/SearchProductsInDODetail',
+                            type: "GET",
+                            dataType: "JSON",
+                            data: {
+                                Id: orderId
+                            },
+                            success: function(data) {
+
+                                $("#productIdx").html(""); // clear before appending new list
+                                //var invoicData = JSON.parse(data.data)
+                                //allInvoice = { invoicData };
+
+                                $('#productIdx').append($('<option>',
+                                    {
+                                        value: "",
+                                        text: "Select Products"
+                                    }));
+
+                                console.log(data.data);
+                                $.each(data.data,
+                                    function(key, value) {
+                                        $('#productIdx').append($('<option>',
+                                            {
+                                                value: value.itemIdx,
+                                                text: value.itemName
+                                            }));
+
+
+                                    });
+
+
+                            }
+                        });
+
+                    } else {
+
+                        $("#productIdx").empty();
+                        $("#productIdx").append($('<option>',
+                            {
+                                value: "",
+                                text: "Select Product"
+                            }));
+
+                    }
+
+
+                }
+            
 
         });
 
         // Check Update
         function checkUpdate() {
-            var update = @Html.Raw(Json.Encode(ViewBag.update));
-            if (update == true) {
+            var number = @ViewBag.update;
+
+           // alert(number);
+            if (number == 1) {
                 if (@Model.ActivityDetailLST.Count > 0) {
 
                     // alert(Model.ActivityDetailLST.Count);
@@ -260,7 +394,7 @@
 
         }
 
-        // Price 
+        // Price
         $("#vendorIdx").on('change',
             function() {
                 var vendorValue = $('#vendorIdx').val();
@@ -736,6 +870,7 @@
                     qty: $('#qty').val(),
                     size: $('#size').val(),
                     description: $("#description").val(),
+                    DeliveryDate: $("#DeliveryDate").val(),
                     ActivityDetailLST: []
 
                 }
@@ -747,6 +882,7 @@
             var milestonedetails = {
             };
             var pomasternetamount = 0;
+            var tamnt = 0;
             table.find('tr').each(function(i) {
                 var $tds = $(this).find('td'),
                     productid = $tds.eq(0).text(),
@@ -754,9 +890,15 @@
                     size = $tds.eq(3).text(),
                     qty = $tds.eq(4).text(),
                     activityPrice = $tds.eq(5).text(),
-                    description = $tds.eq(6).text()
-                totalAmount = qty * activityPrice
-
+                    description = $tds.eq(6).text(),
+                    vendorCatIdx = $tds.eq(7).text(),
+                    vendorIdx =  $tds.eq(8).text(),
+                    totalAmount = qty * activityPrice,
+                    itemamount = $tds.eq(9).text()
+                 
+                
+                //console.log(itemamount);
+                // itemamount = itemamount + itemamount;
 
                 datatosend.objVoucher.ActivityDetailLST.push({
                     productIdx: productid,
@@ -766,8 +908,14 @@
                     activityPrice: activityPrice,
                     description: description,
                     totalAmount,
-                    totalAmount
+                    totalAmount,
+                    vendorCatIdx : vendorCatIdx,
+                    vendorIdx:vendorIdx,
+                    Price: totalAmount,
+                    TotalPrice:  $("#TotalPrice").val()
                 });
+                
+            
 
             });
 
@@ -811,10 +959,12 @@
         });
 
         var errmsg;
-        //Add Project Button Event start
-
-
+        //Add Project Button Event start.
+        var tamnt = 0;
         // Add to Grid Button
+        
+                tamnt = @Model.TotalPrice;
+       
         $("#btnaddtogrid").click(function(e) {
             if (!(gridValidation($("#productIdx option:selected").val(), $('#vendorIdx').val(), $('#vendorCatIdx').val()))) {
 
@@ -841,8 +991,16 @@
             var Qty = $('#qty').val();
             var activityPrice = $('#activityPrice').val();
             var description = $('#description').val();
-            var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + reference + "</td><td>" + size + "</td><td>" + Qty + "</td><td>" + activityPrice + "</td><td>" + description + "</td><td style=display: none>" + vendorCatIdx + "</td><td style=display: none>" + vendorIdx + "</td><td>" + closebutton + "</td></tr>";
-
+            var Price = Number(Qty) * Number(activityPrice);
+            var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + reference + "</td><td>" + size + "</td><td>" + Qty + "</td><td>" + activityPrice + "</td><td>" + description + "</td><td style='display:none;'>" + vendorCatIdx + "</td><td style='display:none;'>" + vendorIdx + "</td><td id='Price'>" + Price + "</td><td>"+ closebutton + "</td></tr>";
+            var price = $('#Price').val();
+            tamnt = Number(tamnt) + (Number(Price));
+            
+            //var temp =Number(temp) + Number(tamnt);
+            ////grossAmountinInvoice = Number(grossAmountinInvoice) + (Number(totalAmount))
+            //alert(temp);
+            
+            $("#TotalPrice").val(tamnt);
             $("#example2 tbody").append(markup);
             $("#typeIdx").prop('disabled', true); //disable
             $("#orderIdx").prop('disabled', true); //disable
@@ -851,6 +1009,8 @@
 
 
         });
+
+
         $('#orderDate').change(function() {
             var date = $(this).val();
             console.log(date, 'change')

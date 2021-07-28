@@ -8,6 +8,7 @@ namespace SSS.Property.Transactions
 {
    public class LP_CI_PurchaseOrder_Property
     {
+        public int glIdx { get; set; }
         public int IEcheck { get; set; }
         public decimal TotalPrice { get; set; }
         public int productIdx { get; set; }

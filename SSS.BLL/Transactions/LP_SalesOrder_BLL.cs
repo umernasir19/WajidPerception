@@ -92,6 +92,11 @@ namespace SSS.BLL.Transactions
                 return TransactionNumber;
             }
         }
+        public bool Delete()
+        {
+            _objPurchaseDAL = new LP_SalesOrder_DAL(_objSOMasterProperty);
+            return _objPurchaseDAL.Delete();
+        }
 
         public DataTable SelectSIByDate(LP_Voucher_ViewModel objvoucherinvoice)
         {

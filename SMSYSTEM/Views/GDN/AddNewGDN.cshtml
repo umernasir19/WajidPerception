@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <!-- text input -->
                 <div class="form-group">
                     <label>Driver Name*:</label>
@@ -46,7 +46,7 @@
                 @Html.ValidationMessageFor(model => model.DriverName, "", new { @class = "text-danger" })
             </div>
             
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <!-- text input -->
                 <div class="form-group">
                     <label>Driver Cnic*:</label>
@@ -54,6 +54,26 @@
                 </div>
                 @Html.ValidationMessageFor(model => model.DriverCnic, "", new { @class = "text-danger" })
             </div>
+            
+            <div class="col-sm-4">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Driver Address*:</label>
+                    @Html.EditorFor(model => model.DriverAddress, new { htmlAttributes = new { @placeholder = "Driver Address*:", @class = "form-control" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.DriverAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="row">
+        <div class="col-sm-12">
+            <!-- text input -->
+            <div class="form-group">
+                <label>Memo*:</label>
+                @Html.EditorFor(model => model.memo, new { htmlAttributes = new { @placeholder = "Memo *:", @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.memo, "", new { @class = "text-danger" })
+        </div>
         </div>
         <hr />
         <div class="row" id="PurchaseDetails">

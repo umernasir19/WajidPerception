@@ -5,19 +5,19 @@
 }
 
 <div class="card-body">
-    <h3>Imported Expense</h3>
+    <h3>Expense</h3>
     <br />
     <form role="form" id="purchaseform">
         @Html.HiddenFor(model => model.idx, new { id = "idx", value = 0 })
 
         <div class="row">
-            @{
-                if (Model.idx > 0)
-                {
+            @*@{
+//if (Model.idx > 0)
+//{
 
-                }
-                else
-                {
+//}
+//else
+//{*@
                     <div class="col-sm-3">
                         <!-- text input -->
                         <div class="form-group">
@@ -53,15 +53,17 @@
                         </div>
                         @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
                     </div>
-                }
-            }
+                @*}*@
+            @*}*@
         </div>
         <div class="row">
             <div class="col-sm-3">
                 <!-- text input -->
                 <div class="form-group">
                     <label>Total TD/Tax*:</label>
-                    <input class="form-control" type="text" id="totalTD" name="totalTD" value="0.00" readonly />
+                    @Html.EditorFor(model => model.totalTD, new { htmlAttributes = new { @placeholder = "Total TD*:", @class = "form-control" , @readonly = true} })
+
+                    @*<input class="form-control" type="text" id="totalTD" name="totalTD" value="0.00" readonly />*@
                 </div>
 
             </div>
@@ -69,7 +71,9 @@
                 <!-- text input -->
                 <div class="form-group">
                     <label>Total Actual Value (PKR)*:</label>
-                    <input class="form-control" type="text" name="grandTotalAVPKR" id="grandTotalAVPKR" value="0.00" readonly />
+                    @Html.EditorFor(model => model.grandTotalAVPKR, new { htmlAttributes = new { @placeholder = "Total AVPKR*:", @class = "form-control", @readonly = true } })
+
+                    @*<input class="form-control" type="text" name="grandTotalAVPKR" id="grandTotalAVPKR" value="0.00" readonly />*@
                 </div>
 
             </div>
@@ -125,16 +129,18 @@
                                         </thead>
                                         <tbody style="background:white;color:black; ">
                                             @{
-                                                if (ViewBag.DetailData != null)
+                                                if (Model.DetailList != null)
                                                 {
 
 
 
-                                                    foreach (var items in ViewBag.DetailData)
+                                                    foreach (var items in Model.DetailList)
                                                     {
                                                         <tr>
                                                             <td style="display:none">@items.vendorIdx</td>
                                                             <td>@items.vendorName</td>
+                                                            <td style="display:none">@items.coaIdx</td>
+                                                            <td>@items.childHeadName</td>
                                                             <td>@items.amount</td>
                                                             @*<td><i class="icon-trash menu-icon" id="btnaddtogrid"><input type="button" id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn-danger" /></i></td>*@
                                                             <td><button id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button></td>
@@ -616,8 +622,8 @@
                 var $tds = $(this).find('td'),
                     vendorIdx = $tds.eq(0).text(),
                     coaIdx = $tds.eq(2).text(),
-                amount = $tds.eq(2).text();
-
+                //amount = $tds.eq(2).text();
+                    amount = $tds.eq(4).text();
 
                 datatosend.objImportedExpense.ImportedExpenseDetailLST.push({
                     vendorIdx: vendorIdx,

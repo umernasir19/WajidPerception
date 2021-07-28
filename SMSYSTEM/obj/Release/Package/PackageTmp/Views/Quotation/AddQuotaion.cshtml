@@ -13,13 +13,13 @@
 
         <div class="row">
 
-            @{
+            @*@{
                 if (Model.idx > 0)
                 {
 
                 }
                 else
-                {
+                {*@
                    
                     <div class="col-sm-3">
                         <!-- text input -->
@@ -49,8 +49,17 @@
                         </div>
                         @Html.ValidationMessageFor(model => model.quotationDate, "", new { @class = "text-danger" })
                     </div>
-                }
-            }
+                    <div class="col-sm-3">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label>Delivery Date*:</label>
+                            @Html.EditorFor(model => model.DeliveryDate, new { htmlAttributes = new { @placeholder = "Delivery Date*:", @class = "form-control" } })
+                            @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                        </div>
+                        @Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })
+                    </div>
+                @*}
+            }*@
         </div>
         <div class="row">
             <div class="col-sm-3">
@@ -90,11 +99,13 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th>Item Name</th>
+                                    
                                     <th>Stock</th>
                                     <th>Cost Price</th>
                                     <th>QTY</th>
                                     <th>Sales Rate</th>
                                     <th>Amount</th>
+                                    <th>Description</th>
                                     <th>Action</th>
                                 </tr>
 
@@ -102,11 +113,12 @@
                             <tbody class="" style="background:white;">
                                 <tr>
                                     <td>@Html.DropDownListFor(model => model.itemIdx, new SelectList(Model.ProductList, "idx", "itemName"), "Select Product", new { @Class = "select2 form-control font-weight-bold" })</td>
-                                    <td>@Html.EditorFor(model => model.stock, new { htmlAttributes = new { @placeholder = "Stock", @value = "hello", @class = "form-control", @readonly = "true" } })</td>
-                                    <td>@Html.EditorFor(model => model.costPrice, new { htmlAttributes = new { @placeholder = "Cost Price", @class = "form-control", @readonly = "true" } })</td>
-                                    <td>@Html.EditorFor(model => model.qty, new { htmlAttributes = new { @placeholder = "Qty", @class = "form-control" } })</td>
-                                    <td>@Html.EditorFor(model => model.salePrice, new { htmlAttributes = new { @placeholder = "Unit Price", @class = "form-control" } })</td>
-                                    <td>@Html.EditorFor(model => model.amount, new { htmlAttributes = new { @placeholder = "Total Price", @class = "form-control", @readonly = true } })</td>
+                                    <td WIDTH="100">@Html.EditorFor(model => model.stock, new { htmlAttributes = new { @placeholder = "Stock", @value = "hello", @class = "form-control", @readonly = "true" } })</td>
+                                    <td WIDTH="100">@Html.EditorFor(model => model.costPrice, new { htmlAttributes = new { @placeholder = "Cost Price", @class = "form-control", @readonly = "true" } })</td>
+                                    <td WIDTH="100">@Html.EditorFor(model => model.qty, new { htmlAttributes = new { @placeholder = "Qty", @class = "form-control" } })</td>
+                                    <td WIDTH="100">@Html.EditorFor(model => model.salePrice, new { htmlAttributes = new { @placeholder = "Unit Price", @class = "form-control" } })</td>
+                                    <td WIDTH="100">@Html.EditorFor(model => model.amount, new { htmlAttributes = new { @placeholder = "Total Price", @class = "form-control", @readonly = true } })</td>
+                                    <td>@Html.EditorFor(model => model.ItemDescription, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control" } })</td>
 
                                     <td>
 
@@ -129,30 +141,34 @@
                                             <thead class="thead-dark">
                                                 <tr>
                                                     <th>Product Name</th>
+                                                    
                                                     <th>QTY</th>
                                                     <th>Sale Rate</th>
                                                     <th>Sub Amount</th>
-
+                                                    <th>Description</th>
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody style="background:white;color:black; ">
 
                                                 @{
-                                                    if (ViewBag.DetailData != null)
+                                                    if (Model.QuotationDetailLST != null)
                                                     {
 
 
 
-                                                        foreach (var items in ViewBag.DetailData)
+                                                        foreach (var items in Model.QuotationDetailLST)
                                                         {
                                                             <tr>
                                                                 <td style="display:none">@items.itemIdx</td>
                                                                 <td>@items.itemName</td>
-                                                                <td>@items.qty</td>
-                                                                <td><input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="@items.salePrice" id="salePrice" class="form-control" /></td>
+                                                                
+                                                                <td WIDTH="100">@items.qty</td>
+                                                                <td WIDTH="100">@items.salePrice</td>
+                                                                @*<td><input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="@items.salePrice" id="salePrice" class="form-control" /></td>*@
                                                                 @*<td id="unitprice"></td>*@
-                                                                <td>@items.amount</td>
+                                                                <td WIDTH="100">@items.amount</td>
+                                                                <td>@items.ItemDescription</td>
                                                                 @*<td><i class="icon-trash menu-icon" id="btnaddtogrid"><input type="button" id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn-danger" /></i></td>*@
                                                                 <td><button id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button></td>
                                                             </tr>
@@ -183,8 +199,8 @@
 
 
         
-    <select  id="drp" class="select2">
-    </select>
+    @*<select  id="drp" class="select2">
+    </select>*@
 
         <div class="row">
             <div class="col-sm-12">
@@ -290,23 +306,23 @@
     <script type="text/javascript">
     //$(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true });
         
-    var items=@Html.Raw(Json.Encode(ViewBag.productList));
+    @*var items=@Html.Raw(Json.Encode(ViewBag.productList));
         console.log(items[0].idx);
         console.log(items[0].Reference);
     for(var i=0;i<items.length;i++){
         $('#drp').append('<option value="'+items[i].idx+'" data-val="'+items[i].Reference+'" >'+items[i].itemName+'</option>');
-    }
+    }*@
 
     
     $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true});
    
-    var $select1 = $('#Reference'),
-        $select2 = $('#drp'),
-        $options = $select2.find('option');
+    //var $select1 = $('#Reference'),
+    //    $select2 = $('#drp'),
+    //    $options = $select2.find('option');
 
-    $select1.on('change', function () {
-        $select2.html($options.filter('[data-val="' + this.value + '"]'));
-    }).trigger('change');
+    //$select1.on('change', function () {
+    //    $select2.html($options.filter('[data-val="' + this.value + '"]'));
+    //}).trigger('change');
 
 
 
@@ -467,13 +483,17 @@
                          // '</button>'
         var productname = $("#itemIdx option:selected").text();
         var ProductID = $("#itemIdx option:selected").val();
-        var Qty = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualQty+'"  id="qty" class="form-control" />';
+        //var Qty = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualQty+'"  id="qty" class="form-control" />';
         //onkeyup="changeinunitprice(this)"
-        var salePrice = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualSalePrice+'"  id="salePrice" class="form-control" />';
+       // var salePrice = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualSalePrice+'"  id="salePrice" class="form-control" />';
         //$('#salePrice').text(actualSalePrice);
         var totalamount = $("#amount").val();
         //var duedate = $("#DueDate").val();
-        var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td>" + salePrice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + closebutton + "</td></tr>";
+        var Qty = $("#qty").val();
+        var description = $('#ItemDescription').val();
+        //var Description = '<input type="text" placeholder="Enter Description"  value="' + description + '"  id="ItemDescription" class="form-control" />';
+
+        var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td>" + actualSalePrice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + description + "</td><td>" + closebutton + "</td></tr>";
         //if (milestone == "") {
         //    alert("Enter milestone");
         //    return;
@@ -687,6 +707,7 @@
                 discount:$('#discount').val(),
                 shippingCost:$('#shippingCost').val(), 
                 reference : $('#reference').val(),
+                DeliveryDate: $('#DeliveryDate').val(),
                 //salespersonIdx:$('#salespersonIdx').val(),
                 //wareHouseIdx:$('#wareHouseIdx option:selected').val(),
                 //paymentModeIdx:$('#paymenttype').val(),
@@ -708,16 +729,18 @@
         table.find('tr').each(function (i) {
             var $tds = $(this).find('td'),
                 productid = $tds.eq(0).text(),
-                qty = $tds.eq(2).find('#qty').val(),
-                salePrice = $tds.eq(3).find('#salePrice').val(),
-                itemamount = $tds.eq(4).text();
+                qty = $tds.eq(2).text(),
+                salePrice = $tds.eq(3).text(),
+                itemamount = $tds.eq(4).text(),
+            ItemDescription = $tds.eq(5).text()
 
             datatosend.objquotation.QuotationDetailLST.push({
                 itemIdx: productid,
                 qty: qty,
                 salePrice: salePrice,
                 productTypeIdx:1,
-                amount:itemamount
+                amount:itemamount,
+                ItemDescription : ItemDescription
             })
             ;
 

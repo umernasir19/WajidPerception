@@ -131,9 +131,9 @@
                                     
                                 </tr>
                                 <tr>
-                                    <td> @Html.DropDownListFor(model => model.HSCode, new SelectList(Model.ProductList, "HSCODE", "HSCODE"), "Select HSCODE", new { @Class = "form-control select2 font-weight-bold" })</td>
+                                    <td WIDTH="100"> @Html.DropDownListFor(model => model.HSCode, new SelectList(Model.ProductList, "HSCODE", "HSCODE"), "Select HSCODE", new { @Class = "form-control select2 font-weight-bold" })</td>
 
-                                    <td>
+                                    <td WIDTH="100">
                                         <select id="itemIdx" class=" form-control font-weight-bold">
                                             @{
                                                 <option value="0" data-hscode="0">Select Product</option>
@@ -148,10 +148,10 @@
 
                                     </td>
 
-                                    <td>@Html.DropDownListFor(model => model.gridVendorIdx, new SelectList(Model.VendorLST, "idx", "vendorName"), "Select Vendor", new { @Class = "form-control select2 font-weight-bold" })</td>
-                                    <td>@Html.EditorFor(model => model.qty, new { htmlAttributes = new { @placeholder = "Qty", @class = "form-control" } })</td>
-                                    <td>@Html.EditorFor(model => model.unitPrice, new { htmlAttributes = new { @placeholder = "Unit Price", @class = "form-control" } })</td>
-                                    <td>@Html.EditorFor(model => model.amount, new { htmlAttributes = new { @placeholder = "Sub Amount", @class = "form-control", @readonly = true } })</td>
+                                    <td WIDTH="200">@Html.DropDownListFor(model => model.gridVendorIdx, new SelectList(Model.VendorLST, "idx", "vendorName"), "Select Vendor", new { @Class = "form-control select2 font-weight-bold" })</td>
+                                    <td WIDTH="100">@Html.EditorFor(model => model.qty, new { htmlAttributes = new { @placeholder = "Qty", @class = "form-control" } })</td>
+                                    <td WIDTH="100">@Html.EditorFor(model => model.unitPrice, new { htmlAttributes = new { @placeholder = "Unit Price", @class = "form-control" } })</td>
+                                    <td WIDTH="100">@Html.EditorFor(model => model.amount, new { htmlAttributes = new { @placeholder = "Sub Amount", @class = "form-control", @readonly = true } })</td>
                                 </tr>
                                 <tr class="thead-dark">
                                     <th>Actual Price</th>
@@ -161,8 +161,8 @@
                                 </tr>
                                 <tr>
 
-                                    <td>@Html.EditorFor(model => model.ADVAmount, new { htmlAttributes = new { @placeholder = "ADV", @class = "form-control" } })</td>
-                                    <td>@Html.EditorFor(model => model.TotalADVAmount, new { htmlAttributes = new { @placeholder = "totalAC", @class = "form-control", @readonly = true } })</td>
+                                    <td WIDTH="100">@Html.EditorFor(model => model.ADVAmount, new { htmlAttributes = new { @placeholder = "ADV", @class = "form-control" } })</td>
+                                    <td WIDTH="100">@Html.EditorFor(model => model.TotalADVAmount, new { htmlAttributes = new { @placeholder = "totalAC", @class = "form-control", @readonly = true } })</td>
                                     <td>@Html.EditorFor(model => model.ItemDescription, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control" } })</td>
 
                                     <td>
@@ -717,7 +717,8 @@
                 DVRate = $tds.eq(5).text(),
                 TDVRate = $tds.eq(6).text(),
                 ADVRate = $tds.eq(7).text();
-                TADVRate = $tds.eq(8).text();
+            TADVRate = $tds.eq(8).text();
+
             datatosend.objpurchase.CommercialDetailList.push({
                 itemIdx: productid,
                 gridVendorIdx: vendorid,
@@ -729,7 +730,8 @@
                 TDVRate : $tds.eq(6).text(),
                 ADVRate: $tds.eq(7).text(),
                 TADVRate: $tds.eq(8).text(),
-                ItemDescription: $tds.eq(9).text()
+                ItemDescription: $tds.eq(9).text(),
+                grandTotalAVPKR: $("#grandTotalAVPKR").val()
             })
             ;
 

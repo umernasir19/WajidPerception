@@ -11,10 +11,13 @@ namespace SSS.Property.Transactions
     public class LP_Activity_Property
     {   [Required]
         public int typeIdx { get; set; }
+        public int glIdx { get; set; } // Master Id 
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Please Select Date")]
         public DateTime DeliveryDate { get; set; }
         public string itemName { get; set; }
+        public decimal Price { get; set; }
+        public decimal TotalPrice { get; set; }
       //  public int productionCheck { get; set; }
 
         public int idx { get; set; }

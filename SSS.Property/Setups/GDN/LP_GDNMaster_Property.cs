@@ -8,6 +8,8 @@ namespace SSS.Property.Setups.GDN
 {
    public class LP_GDNMaster_Property
     {
+        public string DriverAddress { get; set; }
+        public string memo { get; set; }
         public string DriverName { get; set; }
         public string DriverCnic { get; set; }
 

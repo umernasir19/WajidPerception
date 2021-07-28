@@ -67,8 +67,8 @@ namespace SMSYSTEM.Controllers
                     objvouchermaster = new LP_Voucher_Property();
                     objvouchermaster.idx = Convert.ToInt32(id);
                     objVoucherBll = new LP_Voucher_BLL(objvouchermaster);
-
                     DataTable dt = objVoucherBll.SelectOneReceiptVoucher();
+
                     objvoucherVM.idx = Convert.ToInt16(dt.Rows[0]["idxx"].ToString());
                     objvoucherVM.voucher_no = dt.Rows[0]["invoiceNoIdx"].ToString();
                     objvoucherVM.date_created = Convert.ToDateTime(dt.Rows[0]["dated"].ToString());

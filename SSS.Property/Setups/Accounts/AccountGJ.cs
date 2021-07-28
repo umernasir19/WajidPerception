@@ -8,6 +8,7 @@ namespace SSS.Property.Setups.Accounts
     public class AccountGJ
     {
         // Added By Ahsan
+        public string childHeadName { get; set; }
         public string vendorName { get; set; }
         public decimal balanceAmount { get; set; }
         public decimal paidAmount { get; set; }

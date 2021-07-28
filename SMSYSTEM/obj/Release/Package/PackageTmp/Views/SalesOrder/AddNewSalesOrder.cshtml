@@ -12,70 +12,116 @@
     <form role="form" id="purchaseform">
         @Html.HiddenFor(model => model.idx, new { id = "idx", value = 0 })
 
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label>Sales Type#:</label>
-                    <select id="salesTypeIdx" Class = "form-control font-weight-bold">
-                        <option value="1">Standard</option>
-                        <option value="2">Sales Order</option>
-                    </select>
-                </div>
-                @Html.ValidationMessageFor(model => model.qsIdx, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="row">
+       
+    <div class="row">
 
-            @{
-                if (Model.idx > 0)
-                {
-
-                }
-                else
-                {
-                    <div class="col-sm-3">
-                        <!-- text input -->
-
-                        <div class="form-group">
-                            <label>Quotation#:</label>
-
-                            @Html.DropDownListFor(model => model.qsIdx, new SelectList(Model.QSList, "idx", "qsNumber"), "Select Quotation", new { @Class = "select2 form-control font-weight-bold" })
-
-                        </div>
-                        @Html.ValidationMessageFor(model => model.qsIdx, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-sm-3">
-                        <!-- text input -->
-                        <div class="form-group">
-                            <label>Customer*:</label>
-
-                            @Html.DropDownListFor(model => model.customerIdx, new SelectList(Model.CustomerLST, "idx", "customerName"), "Select Customers", new { @Class = "select2 form-control font-weight-bold" })
-
-                        </div>
-                        @Html.ValidationMessageFor(model => model.customerIdx, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-sm-3">
-                        <!-- text input -->
-                        <div class="form-group">
-                            <label>SI Number*:</label>
-                            @Html.EditorFor(model => model.soNumber, new { htmlAttributes = new { @placeholder = "SO Number*:", @class = "form-control", @readonly = true } })
-                            @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
-                        </div>
-                        @Html.ValidationMessageFor(model => model.soNumber, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-sm-3">
-                        <!-- text input -->
-                        <div class="form-group">
-                            <label>Date*:</label>
-                            @Html.EditorFor(model => model.salesorderDate, new { htmlAttributes = new { @placeholder = "Sales Order Date*:", @class = "form-control" } })
-                            @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
-                        </div>
-                        @Html.ValidationMessageFor(model => model.salesorderDate, "", new { @class = "text-danger" })
-                    </div>
+        @{
+            if (Model.idx > 0)
+            {
                     
-                }
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Sales Type#:</label>
+                        @Html.EditorFor(model => model.salesTypeIdx, new { htmlAttributes = new { @placeholder = "SO Number*:", @class = "form-control", @disabled = true } })
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.salesTypeIdx, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-3">
+                    <!-- text input -->
+                    <div class="form-group">
+                        <label>Quotation#:</label>
+                        @Html.DropDownListFor(model => model.qsIdx, new SelectList(Model.QSList, "idx", "qsNumber"), "Select Quotation", new { @Class = "select2 form-control font-weight-bold", @disabled = true })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.qsIdx, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-3">
+                    <!-- text input -->
+                    <div class="form-group">
+                        <label>Customer*:</label>
+                        @Html.DropDownListFor(model => model.customerIdx, new SelectList(Model.CustomerLST, "idx", "customerName"), "Select Customers", new { @Class = "select2 form-control font-weight-bold", @disabled = true })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.customerIdx, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-3">
+                    <!-- text input -->
+                    <div class="form-group">
+                        <label>SI Number*:</label>
+                        @Html.EditorFor(model => model.soNumber, new { htmlAttributes = new { @placeholder = "SO Number*:", @class = "form-control", @disabled = true } })
+                        @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                    </div>
+                    @Html.ValidationMessageFor(model => model.soNumber, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-3">
+                    <!-- text input -->
+                    <div class="form-group">
+                        <label>Date*:</label>
+                        @Html.EditorFor(model => model.salesorderDate, new { htmlAttributes = new { @placeholder = "Sales Order Date*:", @class = "form-control" } })
+                        @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                    </div>
+                    @Html.ValidationMessageFor(model => model.salesorderDate, "", new { @class = "text-danger" })
+                </div>
+
             }
-        </div>
+            else
+            {
+                    
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Sales Type#:</label>
+                        <select id="salesTypeIdx" Class = "form-control font-weight-bold">
+                            <option value="1">Standard</option>
+                            <option value="2">Sales Order</option>
+                        </select>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.qsIdx, "", new { @class = "text-danger" })
+                </div>
+                    
+
+                <div class="col-sm-3">
+                    <!-- text input -->
+
+                    <div class="form-group">
+                        <label>Quotation#:</label>
+
+                        @Html.DropDownListFor(model => model.qsIdx, new SelectList(Model.QSList, "idx", "qsNumber"), "Select Quotation", new { @Class = "select2 form-control font-weight-bold" })
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.qsIdx, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-3">
+                    <!-- text input -->
+                    <div class="form-group">
+                        <label>Customer*:</label>
+
+                        @Html.DropDownListFor(model => model.customerIdx, new SelectList(Model.CustomerLST, "idx", "customerName"), "Select Customers", new { @Class = "select2 form-control font-weight-bold" })
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.customerIdx, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-3">
+                    <!-- text input -->
+                    <div class="form-group">
+                        <label>SI Number*:</label>
+                        @Html.EditorFor(model => model.soNumber, new { htmlAttributes = new { @placeholder = "SO Number*:", @class = "form-control", @readonly = true } })
+                        @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                    </div>
+                    @Html.ValidationMessageFor(model => model.soNumber, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-3">
+                    <!-- text input -->
+                    <div class="form-group">
+                        <label>Date*:</label>
+                        @Html.EditorFor(model => model.salesorderDate, new { htmlAttributes = new { @placeholder = "Sales Order Date*:", @class = "form-control" } })
+                        @*<input type="text"  class="form-control" placeholder="@ViewBag.CustomerCode" disabled>*@
+                    </div>
+                    @Html.ValidationMessageFor(model => model.salesorderDate, "", new { @class = "text-danger" })
+                </div>
+                    
+            }
+        }
+    </div>
+ 
     <div class="row">
         <div class="col-sm-3">
             <!-- text input -->
@@ -91,10 +137,10 @@
         <div class="col-sm-3">
             <!-- text input -->
             <div class="form-group">
-                <label>Ware-House:</label>
-                @Html.DropDownListFor(model => model.wareHouseIdx, new SelectList(Model.wareHouseList, "idx", "WareHouseName"), "Select Warehouse", new { @Class = "select2 form-control font-weight-bold" })
+                <label>Branch:</label>
+                @Html.DropDownListFor(model => model.branchIdx , new SelectList(Model.BranchList, "idx", "branchName"), "Select Branch", new { @Class = "select2 form-control font-weight-bold" })
             </div>
-            @Html.ValidationMessageFor(model => model.wareHouseIdx, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.branchIdx, "", new { @class = "text-danger" })
         </div>
        
         <div class="col-sm-3">
@@ -107,7 +153,7 @@
 
                         foreach (var item in Model.SalesPersonList)
                         {
-                            <option value="@item.idx" data-val="@item.warehouseIdx">@item.SalesPersonName</option>
+                            <option value="@item.idx" data-val="@item.branchIdx">@item.SalesPersonName</option>
                         }
 
                     }
@@ -144,6 +190,8 @@
 
                 @Html.EditorFor(model => model.description, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control" } })
             </div>
+            @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+
         </div>
     </div>
 
@@ -175,12 +223,12 @@
                             <tbody class="" style="background:white;">
                                 <tr>
                                     <td>@Html.DropDownListFor(model => model.itemIdx, new SelectList(Model.ProductList, "idx", "itemName"), "Select Product", new { @Class = "select2 form-control font-weight-bold" })</td>
-                                    <td>@Html.EditorFor(model => model.stock, new { htmlAttributes = new { @placeholder = "Stock",@value="hello", @class = "form-control",@readonly="true"} })</td>
-                                    <td>@Html.EditorFor(model => model.costPrice, new { htmlAttributes = new { @placeholder = "Cost Price", @class = "form-control", @readonly = "true" } })</td>
-                                    <td>@Html.EditorFor(model => model.qty, new { htmlAttributes = new { @placeholder = "Qty", @class = "form-control" } })</td>
-                                    <td>@Html.EditorFor(model => model.salePrice, new { htmlAttributes = new { @placeholder = "Unit Price", @class = "form-control" } })</td>
-                                    <td>@Html.EditorFor(model => model.amount, new { htmlAttributes = new { @placeholder = "Total Price", @class = "form-control", @readonly = true } })</td>
-                                    <td>@Html.EditorFor(model => model.SalesOrderDetailLST[0].Description, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control" } })</td>
+                                    <td WIDTH="100">@Html.EditorFor(model => model.stock, new { htmlAttributes = new { @placeholder = "Stock",@value="hello", @class = "form-control",@readonly="true"} })</td>
+                                    <td WIDTH="100">@Html.EditorFor(model => model.costPrice, new { htmlAttributes = new { @placeholder = "Cost Price", @class = "form-control", @readonly = "true" } })</td>
+                                    <td WIDTH="100">@Html.EditorFor(model => model.qty, new { htmlAttributes = new { @placeholder = "Qty", @class = "form-control" } })</td>
+                                    <td WIDTH="100">@Html.EditorFor(model => model.salePrice, new { htmlAttributes = new { @placeholder = "Unit Price", @class = "form-control" } })</td>
+                                    <td WIDTH="100">@Html.EditorFor(model => model.amount, new { htmlAttributes = new { @placeholder = "Total Price", @class = "form-control", @readonly = true } })</td>
+                                    <td>@Html.EditorFor(model => model.ItemDescription, new { htmlAttributes = new { @placeholder = "Description", @class = "form-control" } })</td>
                                 
                                     <td>
                                         
@@ -213,21 +261,22 @@
                                             <tbody style="background:white;color:black; " >
 
                                                 @{
-                                                    if (ViewBag.DetailData != null)
+                                                    if (Model.SalesOrderDetailLST != null)
                                                     {
 
 
 
-                                                        foreach (var items in ViewBag.DetailData)
+                                                        foreach (var items in Model.SalesOrderDetailLST)
                                                         {
                                                             <tr>
                                                                 <td style="display:none">@items.itemIdx</td>
                                                                 <td>@items.itemName</td>
-                                                                <td>@items.qty</td>
-                                                                <td><input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="@items.salePrice" id="salePrice" class="form-control" /></td>
+                                                                <td WIDTH="100"><input type="text" placeholder="" onkeyup="changeinunitprice(this)" value="@items.qty" id="qty" class="form-control" /></td>
+                                                                <td WIDTH="100"><input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="@items.salePrice" id="salePrice" class="form-control" /></td>
                                                                 @*<td id="unitprice"></td>*@
-                                                                <td>@items.amount</td>
-                                                                <td>@items.itemIdx</td>
+                                                                <td WIDTH="100">@items.amount</td>
+                                                                <td>@items.ItemDescription</td>
+                                                                @*<td>@items.itemIdx</td>*@
                                                                 @*<td><i class="icon-trash menu-icon" id="btnaddtogrid"><input type="button" id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn-danger" /></i></td>*@
                                                                 <td><button id="deleterow" onclick="SomeDeleteRowFunction(this)"  class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button></td>  
                                                             </tr>
@@ -292,35 +341,36 @@
                 @Html.ValidationMessageFor(model => model.shippingCost, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="form-group">
-                    <label for="inputName">Gross Amount</label>
-                    @Html.EditorFor(model => model.netAmount, new { htmlAttributes = new { @type = "number", @placeholder = "Total Amount", @class = "form-control", @readonly = true } })
-                </div>
-                @Html.ValidationMessageFor(model => model.netAmount, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label for="inputName">Gross Amount</label>
+                @Html.EditorFor(model => model.netAmount, new { htmlAttributes = new { @type = "number", @placeholder = "Total Amount", @class = "form-control", @readonly = true } })
             </div>
-            <div class="col-sm-3">
-                <div class="form-group">
-                    <label for="inputName">Total Amount</label>
-                    @Html.EditorFor(model => model.totalAmount, new { htmlAttributes = new { @placeholder = "Total Amount", @class = "form-control", @readonly = true } })
-                </div>
-                @Html.ValidationMessageFor(model => model.totalAmount, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.netAmount, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label for="inputName">Total Amount</label>
+                @Html.EditorFor(model => model.totalAmount, new { htmlAttributes = new { @placeholder = "Total Amount", @class = "form-control", @readonly = true } })
             </div>
-            <div class="col-sm-3">
-                <div class="form-group">
-                    <label for="inputName">Tax Amount</label>
-                    @Html.EditorFor(model => model.taxAount, new { htmlAttributes = new { @placeholder = "Total Amount", @class = "form-control", @readonly = true } })
-                </div>
-                @Html.ValidationMessageFor(model => model.taxAount, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.totalAmount, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label for="inputName">Tax Amount</label>
+                @Html.EditorFor(model => model.taxAount, new { htmlAttributes = new { @placeholder = "Total Amount", @class = "form-control", @readonly = true } })
             </div>
-            @*<div class="col-sm-2">
+            @Html.ValidationMessageFor(model => model.taxAount, "", new { @class = "text-danger" })
+        </div>
+        @*<div class="col-sm-2">
                 <div class="form-group">
                     <label for="inputName"></label>
                     <input type="button" class="btn btn-primary form-control" id="calculate" value="Calculate Total" />
                 </div>
             </div>*@
-        </div>
+    </div>
+
         <div class="row" >
             <div class="col-sm-4" id="divTxtPaid">
                 <div class="form-group">
@@ -415,11 +465,91 @@
 @section MyScripts
     {
     <script type="text/javascript">
+        // Form validation code
+        function onSubmitValdaitions()
+        {
+            var result =true;
+            var paidAmount = $("#paidAmount").val();
+            var paymentType = $("#paymenttype").val();
+            var bankIdx = $("#bankIdx").val();
+            var branchIdx = $("#branchIdx").val();
+            var chequeNumber = $("#accorChequeNumber").val();
+            var salesTypeIdx = $("#salesTypeIdx").val();
+            var customerIdx = $("#customerIdx").val();
+            var salesorderDate = $("#salesorderDate").val();
+            var DeliveryDate = $("#DeliveryDate").val();
+
+            var rowsCount = Number($('#example2 tr').length)-1;
+            if(Number(paidAmount)>0)
+            {
+                if (customerIdx != 0)
+                {
+                    result  = true;
+                } else {
+                    result = false;
+                }
+                if (salesorderDate != null)
+                {
+                    result  = true;
+                } else {
+                    result = false;
+                }
+                if (DeliveryDate != null)
+                {
+                    result  = true;
+                } else {
+                    result = false;
+                }
+                if(Number(paymentType)>0)
+                {
+                    if(Number(paymentType)==1)
+                    {
+                        result= true;
+                    }
+                    else if(Number(paymentType)==2)
+                    {
+                        if(Number(bankIdx)>0 && chequeNumber!='')
+                        {
+                            result=true;
+                        }
+                        else
+                        {
+                            result=false;
+                        }
+                    }
+                    else if(Number(paymentType)==3)
+                    {
+                        if(Number(bankIdx)>0)
+                        {
+                            result=true;
+                        }
+                        else
+                        {
+                            result=false;
+                        }
+                    }
+                    if (Number(branchIdx)<0 && Number(rowsCount)<=0)
+                    {
+                        result =false;
+                    }
+                    else
+                    {
+                        result=true;
+                    }
+                }
+                else
+                {
+                    result=false;
+                }
+            }
+            return result;
+        }
+
 
         // Added By Ahsan
         $(".select2").select2({ width: '100%', placeholder: "Select an Option", allowClear: true });
 
-    $('#wareHouseIdx').change(function() {
+        $('#branchIdx').change(function() {
 
         $('#salespersonIdx').attr('display', 'block')
         // get optios of second dropdown and cache it
@@ -645,6 +775,7 @@
             data: { id: poid },
             success: function (data) {
                 var POData = JSON.parse(data.data);
+                console.log(POData);
                 //data from quotation
                 var customerId =POData[0].customerIdx;
                 var reference =POData[0].reference;
@@ -717,7 +848,7 @@
                 for (var i = 0; i < POData.length; i++) {
                     var actualSalePrice   = POData[i].salePrice;
                     var actualQty   =POData[i].qty;
-                    console.log(data[i]);
+                   // console.log(data[i]);
 
                     var closbutton ='<button id="deleterow" onclick="SomeDeleteRowFunction(this)"  class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button>';
 
@@ -730,8 +861,9 @@
                     var ProductID = POData[i].itemIdx;// $("#itemIdx option:selected").val();
 
                     var totalamount = (parseFloat(actualQty) * parseFloat(actualSalePrice)).toFixed(2);
+                    var ItemDescription = POData[i].ItemDescription;
                     //var duedate = $("#DueDate").val();
-                    markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td>" + salePrice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + closbutton + "</td></tr>";
+                    markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td>" + salePrice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + ItemDescription + "</td><td>" + closbutton + "</td></tr>";
                     //console.log(markup);
 
                     $("#example2 tbody").append(markup);
@@ -818,7 +950,7 @@
         var salePrice = '<input type="text" placeholder="Enter Sales Price" onkeyup="changeinunitprice(this)" value="'+actualSalePrice+'"  id="salePrice" class="form-control" />';
         //$('#salePrice').text(actualSalePrice);
         var totalamount = $("#amount").val();
-        var description = $("#SalesOrderDetailLST_0__Description").val();
+        var description = $("#ItemDescription").val();
        // var Description = '<input type="text" placeholder="Enter Description"  value="'+description+'"  id="SalesOrderDetailLST_0__Description" class="form-control" />';
         //var duedate = $("#DueDate").val();
         var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + Qty + "</td><td>" + salePrice + "</td><td class='tamnt'>" + totalamount + "</td><td>" + description + "</td><td>" + closebutton + "</td></tr>";
@@ -1105,6 +1237,8 @@
                 customerIdx: $('#customerIdx').val(),
                 salesorderDate: $('#salesorderDate').val(),
                 description: $('#description').val(),
+                DriverName: $('#DriverName').val(),
+                DriverCnic: $('#DriverCnic').val(),
                 totalAmount: $('#totalAmount').val(),
                 netAmount: $('#netAmount').val(),
                 paidAmount:$('#paidAmount').val(),
@@ -1116,12 +1250,13 @@
                 description: $("#description").val(),
                 reference : $('#reference').val(),
                 salespersonIdx:$('#salespersonIdx').val(),
-                wareHouseIdx:$('#wareHouseIdx option:selected').val(),
+                branchIdx:$('#branchIdx option:selected').val(),
                 paymentModeIdx:$('#paymenttype').val(),
                 bankIdx:$('#bankIdx option:selected').val(),
                 accorChequeNumber:$('#accorChequeNumber').val(),
                 salesTypeIdx:$('#salesTypeIdx').val(),
                 DeliveryDate:$("#DeliveryDate").val(),
+                customerBankIdx:$("#customerBankIdx").val(),
                 //PageList:[{ID:1},{ID:2},{ID:3}]
                 SalesOrderDetailLST: [],
                 salesTaxesLST:[]
@@ -1148,7 +1283,7 @@
                 salePrice: salePrice,
                 productTypeIdx:1,
                 amount:itemamount,
-                Description: description
+                ItemDescription: description
             });
 
         });
@@ -1161,11 +1296,14 @@
         var form = $("#purchaseform");
         console.log(datatosend)
         e.preventDefault();
-        $(this).removeData("validator").removeData("unobtrusiveValidation");//remove the form validation
-        $.validator.unobtrusive.parse($(this));//add the form validation
+        var result = onSubmitValdaitions();
+        console.log(result);
+        //$(this).removeData("validator").removeData("unobtrusiveValidation");//remove the form validation
+        //$.validator.unobtrusive.parse($(this));//add the form validation
         //if ($(form).valid()) // using not operator for a time being
         debugger;
-        if ($(form).valid())
+        //if ($(form).valid())
+        if(result == true)
         {alert("done");
             $.ajax({
                 type : "POST",
@@ -1239,7 +1377,7 @@
             $('#paymntmethodoptions').show();
             $('#cheqno').show();
             $('#banks').hide();
-            $('#customerBanks').hide();
+            $('#customerBanks').show();
             $('#divTxtPaid').show();
         }
 
@@ -1253,13 +1391,13 @@
         if ($('#paymenttype option:selected').val() == 4) {
             $('#paymntmethodoptions').show();
             $('#customerIdx').trigger("change");
-           // $('#cheqno').show();
             $('#customerBanks').show();
-            
-            
+
+            $('#cheqno').show();
             $('#banks').hide()
             $("#bankIdx").prop('selectedIndex', 0);
             $('#divTxtPaid').show();
+           // $('#divTxtPaid').show();
         }
     });
     if($('#paymenttype').val()==0)

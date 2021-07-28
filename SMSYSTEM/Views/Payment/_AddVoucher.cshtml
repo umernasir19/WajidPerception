@@ -174,8 +174,8 @@
                                         foreach (var items in Model.AccountGJLST)
                                         {
                                             <tr>
-                                                <td style="display:none">@items.vendorIdx</td>
-                                                <td>@items.vendorName</td>
+                                                <td style="display:none">@items.coaIdx</td>
+                                                <td>@items.childHeadName</td>
                                                 <td>@items</td>
                                                 <td>@items.paidAmount</td>
                                                 @*<td><i class="icon-trash menu-icon" id="btnaddtogrid"><input type="button" id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn-danger" /></i></td>*@
@@ -936,7 +936,7 @@
             if ($('#paymenttype option:selected').val() == 2) {
                 $('#paymntmethodoptions').show();
                 $('#cheqno').show();
-                $('#customerBanks').hide();
+                $('#customerBanks').show();
                 $('#divTxtPaid').show();
                 $('#customerPaymentBalancediv').hide();
                 $('#customerPaymentBalance').val("0");
@@ -946,7 +946,7 @@
                 $('#customerIdx').trigger("change");
                 $('#customerBanks').show();
 
-                $('#cheqno').hide();
+                $('#cheqno').show();
                 $('#banks').hide()
                 $("#bankIdx").prop('selectedIndex', 0);
                 $('#divTxtPaid').show();

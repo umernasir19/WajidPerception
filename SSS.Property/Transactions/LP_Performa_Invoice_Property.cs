@@ -10,6 +10,7 @@ namespace SSS.Property.Transactions
     {
         // Added By Ahsan
         public int CIcheck { get; set; }
+        public int glIdx { get; set; }
         private int _idx;
         public int idx
         {

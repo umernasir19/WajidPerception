@@ -12,6 +12,8 @@ namespace SSS.DAL.Transactions
 {
    public class LP_PI_DAL : DBInteractionBase
    {
+        int GLIDX;
+         int ID;
        private LP_ImportedExpense_Master_Property _objIEMaster;
         private LP_Performa_Invoice_Property _objPerformaMaster;
         private LP_Performa_Invoice_Details_Property _objPerformaDetail;
@@ -64,64 +66,152 @@ namespace SSS.DAL.Transactions
             {
                 if (_objPerformaMaster.idx > 0)
                 {
-                    cmdToExecute.Parameters.Add(new SqlParameter("@poNumber", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.poNumber));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@vendorIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.vendorIdx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@warehouseIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.warehouseIdx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@purchasedate", SqlDbType.DateTime, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.purchaseDate));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@reference", SqlDbType.NVarChar, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.reference));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.description));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@totalamount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.totalAmount));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@netamount", SqlDbType.Decimal, 9, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.netAmount));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@paidAmount", SqlDbType.Decimal, 20, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.paidAmount));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@balanceamount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.balanceAmount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@detailID", SqlDbType.Int, 32, ParameterDirection.Output,
+                        true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.idx));
+                    // Accounts
+                    cmdToExecute.Parameters.Add(new SqlParameter("@masterIdx", SqlDbType.Int, 32, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.glIdx));
+
+                    cmdToExecute.Parameters.Add(new SqlParameter("@poNumber", SqlDbType.NVarChar, 50,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.poNumber));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@vendorIdx", SqlDbType.Int, 50,
+                        ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.vendorIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@warehouseIdx", SqlDbType.Int, 50,
+                        ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.warehouseIdx));
+                    //cmdToExecute.Parameters.Add(new SqlParameter("@purchasedate", SqlDbType.DateTime, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.purchaseDate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@reference", SqlDbType.NVarChar, 32,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.reference));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.description));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@totalamount", SqlDbType.Decimal, 4,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.totalAmount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@netamount", SqlDbType.Decimal, 9,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.netAmount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@paidAmount", SqlDbType.Decimal, 20,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.paidAmount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@balanceamount", SqlDbType.Decimal, 4,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.balanceAmount));
 
                     //cmdToExecute.Parameters.Add(new SqlParameter("@lastModificationDate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, null));
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@lastmodifiedBy", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.createdByUserIdx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objPerformaMaster.visible));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@status", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objPerformaMaster.status));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@lastmodifiedBy", SqlDbType.Int, 4,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.createdByUserIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Int, 4, ParameterDirection.Input,
+                        true, 18, 1, "", DataRowVersion.Proposed, _objPerformaMaster.visible));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@status", SqlDbType.Int, 4, ParameterDirection.Input,
+                        true, 18, 1, "", DataRowVersion.Proposed, _objPerformaMaster.status));
 
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.idx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Input,
+                        true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.idx));
                     //cmdToExecute.Parameters.Add(new SqlParameter("@DepartmentID", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.DepartmentID));
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@DocumentNumber", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.DocumentNumber));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@ContainerNo", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.ContainerNo));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@ExchangeRate", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.ExchangeRate));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@grandTotalAVPKR", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.grandTotalAVPKR));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@CIcheck", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.CIcheck));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@numberOfProducts", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.numberOfProducts));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DocumentNumber", SqlDbType.NVarChar, 50,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.DocumentNumber));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ContainerNo", SqlDbType.NVarChar, 80,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.ContainerNo));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ExchangeRate", SqlDbType.Decimal, 32,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.ExchangeRate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@grandTotalAVPKR", SqlDbType.Decimal, 32,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.grandTotalAVPKR));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@CIcheck", SqlDbType.Int, 32,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.CIcheck));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@numberOfProducts", SqlDbType.Int, 32,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.numberOfProducts));
 
                 }
                 else
                 {
-                    cmdToExecute.Parameters.Add(new SqlParameter("@poNumber", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.poNumber));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@vendorIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.vendorIdx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@warehouseIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.warehouseIdx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@purchasedate", SqlDbType.DateTime, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.purchaseDate));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@reference", SqlDbType.NVarChar, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.reference));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.description));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@totalamount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.totalAmount));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@netamount", SqlDbType.Decimal, 9, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.netAmount));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@paidAmount", SqlDbType.Decimal, 20, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.paidAmount));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@balanceamount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.balanceAmount));
+                    // cmdToExecute.Parameters.Add(new SqlParameter("@branchIdx", SqlDbType.Int, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, null)); //Receipt Voucher Transaction Type
+                    //Accounts
+                    cmdToExecute.Parameters.Add(new SqlParameter("@transactionTypeIdx", SqlDbType.Int, 100,
+                        ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 1)); //Activity
+                    cmdToExecute.Parameters.Add(new SqlParameter("@glIdx", SqlDbType.Int, 500,
+                        ParameterDirection.InputOutput, false, 0, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.glIdx));
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objPerformaMaster.creationDate));
+                    // Performa Invoice
+                    cmdToExecute.Parameters.Add(new SqlParameter("@poNumber", SqlDbType.NVarChar, 50,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.poNumber));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@vendorIdx", SqlDbType.Int, 50,
+                        ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.vendorIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@warehouseIdx", SqlDbType.Int, 50,
+                        ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.warehouseIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@purchasedate", SqlDbType.DateTime, 50,
+                        ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.purchaseDate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@reference", SqlDbType.NVarChar, 32,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.reference));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.description));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@totalamount", SqlDbType.Decimal, 4,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.totalAmount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@netamount", SqlDbType.Decimal, 9,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.netAmount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@paidAmount", SqlDbType.Decimal, 20,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.paidAmount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@balanceamount", SqlDbType.Decimal, 4,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.balanceAmount));
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@createdbyuser", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.createdByUserIdx));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objPerformaMaster.visible));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@status", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objPerformaMaster.status));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50,
+                        ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.creationDate));
+
+                    cmdToExecute.Parameters.Add(new SqlParameter("@createdbyuser", SqlDbType.Int, 4,
+                        ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.createdByUserIdx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Int, 4, ParameterDirection.Input,
+                        true, 18, 1, "", DataRowVersion.Proposed, _objPerformaMaster.visible));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@status", SqlDbType.Int, 4, ParameterDirection.Input,
+                        true, 18, 1, "", DataRowVersion.Proposed, _objPerformaMaster.status));
 
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.idx));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Output,
+                        true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.idx));
                     //cmdToExecute.Parameters.Add(new SqlParameter("@DepartmentID", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.DepartmentID));
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@DocumentNumber", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.DocumentNumber));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@ContainerNo", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.ContainerNo));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@ExchangeRate", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.ExchangeRate));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@grandTotalAVPKR", SqlDbType.Decimal, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.grandTotalAVPKR));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@CIcheck", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.CIcheck));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@numberOfProducts", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPerformaMaster.numberOfProducts));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DocumentNumber", SqlDbType.NVarChar, 50,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.DocumentNumber));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ContainerNo", SqlDbType.NVarChar, 80,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.ContainerNo));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ExchangeRate", SqlDbType.Decimal, 32,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.ExchangeRate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@grandTotalAVPKR", SqlDbType.Decimal, 32,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.grandTotalAVPKR));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@CIcheck", SqlDbType.Int, 32,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.CIcheck));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@numberOfProducts", SqlDbType.Int, 32,
+                        ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed,
+                        _objPerformaMaster.numberOfProducts));
                 }
 
                 if (_mainConnectionIsCreatedLocal)
@@ -147,64 +237,153 @@ namespace SSS.DAL.Transactions
                 // Added By Ahsan
                 if (_objPerformaMaster.idx > 0)
                 {
-                    if (_objPerformaMaster.DetailData != null)
+                    int detailID = (Int32)cmdToExecute.Parameters["@detailID"].Value;
+                    if (_objPerformaMaster.DetailData.Rows.Count>0)
                     {
                         foreach (DataRow row in _objPerformaMaster.DetailData.Rows)
                         {
-                            row["purchaseIdx"] = _objPerformaMaster.idx;
+                            row["purchaseIdx"] = detailID;
+                            row["grandTotalAVPKR"] =
+                                (decimal.Parse(row["TADVRate"].ToString()) * (_objPerformaMaster.ExchangeRate))
+                                .ToString();
+                            _objPerformaMaster.DetailData.AcceptChanges();
 
-                           // row["purchaseIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
-                            row["grandTotalAVPKR"] = (decimal.Parse(row["TADVRate"].ToString()) * (_objPerformaMaster.ExchangeRate)).ToString();
+                            SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default,
+                                this.Transaction);
+                            _objPerformaMaster.DetailData.TableName = "CommercialDetails";
+
+                            sbc.ColumnMappings.Clear();
+
+                            //row["purchaseIdx"] = detailID;
+
+                            // row["purchaseIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+
+
+
+
+
+
+                            // SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default,
+                            //    this.Transaction);
+                            //_objPerformaMaster.DetailData.TableName = "CommercialDetails";
+
+                            //sbc.ColumnMappings.Clear();
+                            //_objPerformaMaster.DetailData.AcceptChanges();
+                            sbc.ColumnMappings.Add("purchaseIdx", "purchaseIdx");
+                            //sbc.ColumnMappings.Add(2, 1);
+                            sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
+                            sbc.ColumnMappings.Add("itemIdx", "itemIdx");
+                            sbc.ColumnMappings.Add("gridVendorIdx", "gridVendorIdx");
+                            sbc.ColumnMappings.Add("unitPrice", "unitPrice");
+                            sbc.ColumnMappings.Add("qty", "qty");
+                            sbc.ColumnMappings.Add("amount", "amount");
+                            sbc.ColumnMappings.Add("qty", "openItem");
+                            sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
+                            sbc.ColumnMappings.Add("unitPrice", "DVRate");
+                            sbc.ColumnMappings.Add("amount", "TDVRate");
+                            sbc.ColumnMappings.Add("ADVRate", "ADVRate");
+                            sbc.ColumnMappings.Add("TADVRate", "TADVRate");
+                            sbc.ColumnMappings.Add("grandTotalAVPKR", "grandTotalAVPKR");
+                            //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
+                            //sbc.ColumnMappings.Add("Product", "Product_Name");
+                            //sbc.ColumnMappings.Add("Status", "Status");
+
+                            //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
+                            //sbc.ColumnMappings.Add("Description", "Description");
+
+                            sbc.DestinationTableName = _objPerformaMaster.DetailData.TableName;
+                            sbc.WriteToServer(_objPerformaMaster.DetailData);
+                        }
+                    }
+
+                    // AccountGJ insert
+                    if (_objPerformaMaster.DetailData != null)
+                    {
+                        int masterIdx = (Int32)cmdToExecute.Parameters["@masterIdx"].Value;
+
+                        DataTable dt = new DataTable();
+                        dt = _objPerformaMaster.DetailData;
+                        int count = _objPerformaMaster.DetailData.Rows.Count;
+                        int customerIdx, coaIdx;
+                        string invoiceNo;
+                        decimal Price, TotalPrice, credit, debit;
+                        int vendorIdx, vendor;
+                        for (int i = 0; i < count; i++)
+                        {
+                            decimal.TryParse(dt.Rows[i]["TADVRate"].ToString(), out Price); //paidAmount
+                            decimal.TryParse(dt.Rows[i]["grandTotalAVPKR"].ToString(), out TotalPrice); //BalanceAmount
+                            int.TryParse(dt.Rows[i]["gridVendorIdx"].ToString(), out vendor);
+                            credit = Price;
+                            debit = TotalPrice;
+                            vendorIdx = vendor;
+
+                            //int GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value;
+                            //purchase entry for account gj same for all types
+                            cmdToExecute = new SqlCommand();
+                            // cmdToExecute.CommandType = CommandType.StoredProcedure;
+                            cmdToExecute.CommandType = CommandType.StoredProcedure;
+                            cmdToExecute.CommandText = "sp_CIInsertAccountGj";
+                            cmdToExecute.Connection = _mainConnection;
+                            cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
+                                ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, masterIdx));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed,
+                                1)); //Receipt Voucher Trasaction Type
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objPerformaMaster.createdByUserIdx));
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, vendorIdx));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 25,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 89)); //Sales
+                            cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.poNumber));
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, debit));
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, credit));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.DateTime, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objPerformaMaster.creationDate));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+
+                            cmdToExecute.Transaction = this.Transaction;
+                            _rowsAffected = cmdToExecute.ExecuteNonQuery();
                         }
 
-
-                        _objPerformaMaster.DetailData.AcceptChanges();
-
-                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
-                        _objPerformaMaster.DetailData.TableName = "CommercialDetails";
-
-                        sbc.ColumnMappings.Clear();
-                        sbc.ColumnMappings.Add("purchaseIdx", "purchaseIdx");
-                        //sbc.ColumnMappings.Add(2, 1);
-                        sbc.ColumnMappings.Add("productTypeIdx", "productTypeIdx");
-                        sbc.ColumnMappings.Add("itemIdx", "itemIdx");
-                        sbc.ColumnMappings.Add("gridVendorIdx", "gridVendorIdx");
-                        sbc.ColumnMappings.Add("unitPrice", "unitPrice");
-                        sbc.ColumnMappings.Add("qty", "qty");
-                        sbc.ColumnMappings.Add("amount", "amount");
-                        sbc.ColumnMappings.Add("qty", "openItem");
-                        sbc.ColumnMappings.Add("ItemDescription", "ItemDescription");
-                        sbc.ColumnMappings.Add("unitPrice", "DVRate");
-                        sbc.ColumnMappings.Add("amount", "TDVRate");
-                        sbc.ColumnMappings.Add("ADVRate", "ADVRate");
-                        sbc.ColumnMappings.Add("TADVRate", "TADVRate");
-                        sbc.ColumnMappings.Add("grandTotalAVPKR", "grandTotalAVPKR");
-                        //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
-                        //sbc.ColumnMappings.Add("Product", "Product_Name");
-                        //sbc.ColumnMappings.Add("Status", "Status");
-
-                        //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
-                        //sbc.ColumnMappings.Add("Description", "Description");
-
-                        sbc.DestinationTableName = _objPerformaMaster.DetailData.TableName;
-                        sbc.WriteToServer(_objPerformaMaster.DetailData);
-
                     }
+                    
                 }
                 else
                 {
+                    GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value;
+
                     if (_objPerformaMaster.DetailData != null)
                     {
                         foreach (DataRow row in _objPerformaMaster.DetailData.Rows)
                         {
                             row["purchaseIdx"] = cmdToExecute.Parameters["@ID"].Value.ToString();
-                            row["grandTotalAVPKR"] = (decimal.Parse(row["TADVRate"].ToString()) * (_objPerformaMaster.ExchangeRate)).ToString();
+                            row["grandTotalAVPKR"] =
+                                (decimal.Parse(row["TADVRate"].ToString()) * (_objPerformaMaster.ExchangeRate))
+                                .ToString();
                         }
 
 
                         _objPerformaMaster.DetailData.AcceptChanges();
 
-                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default,
+                            this.Transaction);
                         _objPerformaMaster.DetailData.TableName = "CommercialDetails";
 
                         sbc.ColumnMappings.Clear();
@@ -235,17 +414,84 @@ namespace SSS.DAL.Transactions
 
                     }
 
+                    // AccountGJ insert
+                    if (_objPerformaMaster.DetailData != null)
+                    {
+                        DataTable dt = new DataTable();
+                        dt = _objPerformaMaster.DetailData;
+                        int count = _objPerformaMaster.DetailData.Rows.Count;
+                        int customerIdx, coaIdx;
+                        string invoiceNo;
+                        decimal Price, TotalPrice, credit, debit;
+                        int vendorIdx, vendor;
+                        for (int i = 0; i < count; i++)
+                        {
+                            decimal.TryParse(dt.Rows[i]["TADVRate"].ToString(), out Price); //paidAmount
+                            decimal.TryParse(dt.Rows[i]["grandTotalAVPKR"].ToString(), out TotalPrice); //BalanceAmount
+                            int.TryParse(dt.Rows[i]["gridVendorIdx"].ToString(), out vendor);
+                            credit = Price;
+                            debit = TotalPrice;
+                            vendorIdx = vendor;
+
+                            //int GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value;
+                            //purchase entry for account gj same for all types
+                            cmdToExecute = new SqlCommand();
+                            // cmdToExecute.CommandType = CommandType.StoredProcedure;
+                            cmdToExecute.CommandType = CommandType.StoredProcedure;
+                            cmdToExecute.CommandText = "sp_CIInsertAccountGj";
+                            cmdToExecute.Connection = _mainConnection;
+                            cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
+                                ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed,
+                                1)); //Receipt Voucher Trasaction Type
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objPerformaMaster.createdByUserIdx));
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, vendorIdx));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 25,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 89)); //Sales
+                            cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPerformaMaster.poNumber));
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, debit));
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, credit));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objPerformaMaster.creationDate));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+
+                            cmdToExecute.Transaction = this.Transaction;
+                            _rowsAffected = cmdToExecute.ExecuteNonQuery();
+                        }
+
+                    }
+
+                    this.Commit();
+                    if (_errorCode != (int) LLBLError.AllOk)
+                    {
+                        // Throw error.
+                        this.RollBack();
+                        throw new Exception("Stored Procedure 'sp_TRANSACTION_MASTER_Insert' reported the ErrorCode: " +
+                                            _errorCode);
+
+                    }
+
+                    
                 }
-
-                this.Commit();
-                if (_errorCode != (int)LLBLError.AllOk)
-                {
-                    // Throw error.
-                    this.RollBack();
-                    throw new Exception("Stored Procedure 'sp_TRANSACTION_MASTER_Insert' reported the ErrorCode: " + _errorCode);
-
-                }
-
                 return true;
             }
             catch (Exception ex)
@@ -262,6 +508,7 @@ namespace SSS.DAL.Transactions
                     //_mainConnection.Close();
                     CloseConnection();
                 }
+
                 cmdToExecute.Dispose();
             }
         }
@@ -752,9 +999,11 @@ where c.idx=@ID";
             {
                 if (_objCIMaster.idx > 0)
                 {
+                    cmdToExecute.Parameters.Add(new SqlParameter("@masterIdx", SqlDbType.Int, 32, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.glIdx));
+
                     cmdToExecute.Parameters.Add(new SqlParameter("@poNumber", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.poNumber));
                     cmdToExecute.Parameters.Add(new SqlParameter("@PINO", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.PINO));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@purchaseDate", SqlDbType.DateTime, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.purchaseDate));
+                   // cmdToExecute.Parameters.Add(new SqlParameter("@purchaseDate", SqlDbType.DateTime, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.purchaseDate));
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objCIMaster.description));
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalamount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.totalAmount));
@@ -774,6 +1023,10 @@ where c.idx=@ID";
                 }
                 else
                 {
+                    // Account Master entry
+                    cmdToExecute.Parameters.Add(new SqlParameter("@transactionTypeIdx", SqlDbType.Int, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 1)); //Activity
+                    cmdToExecute.Parameters.Add(new SqlParameter("@glIdx", SqlDbType.Int, 500, ParameterDirection.InputOutput, false, 0, 0, "", DataRowVersion.Proposed, _objCIMaster.glIdx));
+
                     // Insert into inventory
                     cmdToExecute.Parameters.Add(new SqlParameter("@productIdx", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.productIdx));
                     cmdToExecute.Parameters.Add(new SqlParameter("@stock", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objCIMaster.stock));
@@ -823,7 +1076,7 @@ where c.idx=@ID";
                 // _iD = (Int32)cmdToExecute.Parameters["@iID"].Value;
                 //_errorCode = cmdToExecute.Parameters["@ErrorCode"].Value;
 
-
+               
                 if (_objCIMaster.idx > 0)
                 {
                     if (_objCIMaster.DetailData != null)
@@ -896,9 +1149,78 @@ where c.idx=@ID";
                         sbc.WriteToServer(_objCIMaster.DetailData);
 
                     }
+                    int GLIDX = (Int32)cmdToExecute.Parameters["@masterIdx"].Value;
+                    // AccountGJ insert
+                    if (_objCIMaster.DetailData != null)
+                    {
+                        DataTable dt = new DataTable();
+                        dt = _objCIMaster.DetailData;
+                        int count = _objCIMaster.DetailData.Rows.Count;
+                        int customerIdx, coaIdx;
+                        string invoiceNo;
+                        decimal Price, TotalPrice, credit, debit;
+                        int vendorIdx, vendor;
+                        for (int i = 0; i < count; i++)
+                        {
+                            decimal.TryParse(dt.Rows[i]["ADVRate"].ToString(), out Price); //paidAmount
+                            decimal.TryParse(dt.Rows[i]["TDTax"].ToString(), out TotalPrice); //BalanceAmount
+                            //int.TryParse(dt.Rows[i]["gridVendorIdx"].ToString(), out vendor);
+                            credit = Price;
+                            debit = TotalPrice;
+                            // vendorIdx = vendor;
+
+                            //int GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value;
+                            //purchase entry for account gj same for all types
+                            cmdToExecute = new SqlCommand();
+                            // cmdToExecute.CommandType = CommandType.StoredProcedure;
+                            cmdToExecute.CommandType = CommandType.StoredProcedure;
+                            cmdToExecute.CommandText = "sp_CIPOInsertAccountGj";
+                            cmdToExecute.Connection = _mainConnection;
+                            cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
+                                ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed,
+                                1)); //Receipt Voucher Trasaction Type
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objCIMaster.createdByUserIdx));
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 25,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 89)); //Sales
+                            cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objCIMaster.poNumber));
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, debit));
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, credit));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objCIMaster.creationDate));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+
+                            cmdToExecute.Transaction = this.Transaction;
+                            _rowsAffected = cmdToExecute.ExecuteNonQuery();
+                        }
+
+                    }
+
                 }
                 else
                 {
+                    GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value;
+                    ID = (Int32)cmdToExecute.Parameters["@ID"].Value;
                     if (_objCIMaster.DetailData != null)
                     {
                         foreach (DataRow row in _objCIMaster.DetailData.Rows)
@@ -969,6 +1291,73 @@ where c.idx=@ID";
                         sbc.WriteToServer(_objCIMaster.DetailData);
 
                     }
+
+                    // AccountGJ insert
+                    if (_objCIMaster.DetailData != null)
+                    {
+                        DataTable dt = new DataTable();
+                        dt = _objCIMaster.DetailData;
+                        int count = _objCIMaster.DetailData.Rows.Count;
+                        int customerIdx, coaIdx;
+                        string invoiceNo;
+                        decimal Price, TotalPrice, credit, debit;
+                        int vendorIdx, vendor;
+                        for (int i = 0; i < count; i++)
+                        {
+                            decimal.TryParse(dt.Rows[i]["ADVRate"].ToString(), out Price); //paidAmount
+                            decimal.TryParse(dt.Rows[i]["TDTax"].ToString(), out TotalPrice); //BalanceAmount
+                            //int.TryParse(dt.Rows[i]["gridVendorIdx"].ToString(), out vendor);
+                            credit = Price;
+                            debit = TotalPrice;
+                            // vendorIdx = vendor;
+
+                            //int GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value;
+                            //purchase entry for account gj same for all types
+                            cmdToExecute = new SqlCommand();
+                            // cmdToExecute.CommandType = CommandType.StoredProcedure;
+                            cmdToExecute.CommandType = CommandType.StoredProcedure;
+                            cmdToExecute.CommandText = "sp_CIPOInsertAccountGj";
+                            cmdToExecute.Connection = _mainConnection;
+                            cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
+                                ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed,
+                                1)); //Receipt Voucher Trasaction Type
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@useridx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objCIMaster.createdByUserIdx));
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@vendoridx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@employeeidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@customeridx", SqlDbType.Int, 25,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@coaidx", SqlDbType.Int, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, 89)); //Sales
+                            cmdToExecute.Parameters.Add(new SqlParameter("@invoiceidx", SqlDbType.NVarChar, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objCIMaster.poNumber));
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@debit", SqlDbType.Decimal, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, debit));
+
+                            cmdToExecute.Parameters.Add(new SqlParameter("@credit", SqlDbType.Decimal, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, credit));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@creationDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed,
+                                _objCIMaster.creationDate));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@modifiedDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+                            cmdToExecute.Parameters.Add(new SqlParameter("@DueDate", SqlDbType.Date, 500,
+                                ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, null));
+
+                            cmdToExecute.Transaction = this.Transaction;
+                            _rowsAffected = cmdToExecute.ExecuteNonQuery();
+                        }
+
+                    }
+
                 }
                 
                 this.Commit();

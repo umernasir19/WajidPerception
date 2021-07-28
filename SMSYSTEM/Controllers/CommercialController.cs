@@ -257,8 +257,9 @@ namespace SMSYSTEM.Controllers
                 objPurchaseProperty.DetailData = Helper.ToDataTable<LP_Performa_Invoice_Details_Property>(objpurchase.CommercialDetailList);
                 if (objpurchase.idx > 0)
                 {
+
                     objPurchaseProperty.idx = objpurchase.idx;
-                    //objPurchaseProperty.creationDate = DateTime.Now.ToString("yyyy MMMM dd");
+                    objPurchaseProperty.creationDate = DateTime.Now;
                     objPurchaseProperty.visible = 1;
                     objPurchaseProperty.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
                     objPurchaseProperty.visible = 1;
@@ -967,21 +968,21 @@ namespace SMSYSTEM.Controllers
                     //update
 
                     //Update Inventory
-                    objDOBll = new LP_ImportedExpense_BLL(objDOProperty);
+                    //objDOBll = new LP_ImportedExpense_BLL(objDOProperty);
 
-                    objDOProperty.tempList = Helper.ConvertDataTable<LP_ImportedExpense_Master_Property>(objDOBll.SelectItemsData());
+                    //objDOProperty.tempList = Helper.ConvertDataTable<LP_ImportedExpense_Master_Property>(objDOBll.SelectItemsData());
 
-                    for (int i = 0; i < objDOProperty.tempList.Count; i++)
-                    {
-                        objDOProperty.itemIdx = objDOProperty.tempList[i].itemIdx;
-                        objDOProperty.qty = objDOProperty.tempList[i].qty;
-                        //objDOProperty.unitPrice = objDOProperty.tempList[i].pricePerProduct;
-                        //objDOProperty.amount = objDOProperty.qty * objDOProperty.unitPrice;
-                        objDOProperty.BRANCHID = 1;
-                        objDOProperty.warehouseIdx = objDOProperty.tempList[i].warehouseIdx;
-                        objDOBll = new LP_ImportedExpense_BLL(objDOProperty);
-                        flag = objDOBll.Insertinventory();
-                    }
+                    //for (int i = 0; i < objDOProperty.tempList.Count; i++)
+                    //{
+                    //    objDOProperty.itemIdx = objDOProperty.tempList[i].itemIdx;
+                    //    objDOProperty.qty = objDOProperty.tempList[i].qty;
+                    //    //objDOProperty.unitPrice = objDOProperty.tempList[i].pricePerProduct;
+                    //    //objDOProperty.amount = objDOProperty.qty * objDOProperty.unitPrice;
+                    //    objDOProperty.BRANCHID = 1;
+                    //    objDOProperty.warehouseIdx = objDOProperty.tempList[i].warehouseIdx;
+                    //    objDOBll = new LP_ImportedExpense_BLL(objDOProperty);
+                    //    flag = objDOBll.Insertinventory();
+                    //}
 
                 }
                 else

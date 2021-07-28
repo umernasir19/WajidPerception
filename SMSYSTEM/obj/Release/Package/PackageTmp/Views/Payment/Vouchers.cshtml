@@ -181,11 +181,11 @@
                          { data: 'userName' },
 
                    {
-                       "data": "idx",
+                       "data": "idxx",
                        "render": function (idx, type, full, meta) {
 
-                           //return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a>'// <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a>'
-                           return ""
+                           return '<a href="#" class="btn btn-info" onclick="ShowCustomer(' + idx + ')"><i class="fa fa-eye"></i></a> <a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + idx + ')"><i class="fa fa-trash"></i></a>'
+                           //return ""
                            //<a href="#" class="btn btn-danger" onclick="ConfirmDelete(' + ID + ')"><i class="fa fa-trash"></i></a>
 
                        },
@@ -207,16 +207,16 @@
             console.log(CustomerID);
             //$("#isMainBranch").attr("disabled", true);
 
-            var url = "/MRN/AddNewMRN?id=" + CustomerID;
-            $("#modelbody").load(url, function (e) {
+            var url = "/Payment/AddVoucher?id=" + CustomerID;
+           // $("#modelbody").load(url, function (e) {
                 //var id = $('#CustomerID').val();
                 //if (id > 0) {
                 //    $('#btnaddnewclient').html("update ");
 
                 //}
-                $("#exampleModal").modal("show");
-            });
-            // window.location.href = url;
+            //    $("#exampleModal").modal("show");
+            //});
+             window.location.href = url;
 
 
         }
@@ -244,7 +244,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: 'GET',
-                        url: '/Vendor/Delete?id=' + CustomerID,
+                        url: '/Payment/DeletePV?id=' + CustomerID,
 
 
                         dataType: 'JSON',
@@ -255,7 +255,7 @@
                                     'Blocked',
                                     'success'
                                 )
-                                window.location.href = "/Client/ViewClient"
+                                window.location.href = "/Payment/Vouchers"
                             }
                         }
                     })

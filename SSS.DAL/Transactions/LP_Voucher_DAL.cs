@@ -819,7 +819,7 @@ namespace SSS.DAL.Transactions
         {
             SqlCommand cmdToExecute = new SqlCommand();
             cmdToExecute.CommandText = "dbo.[sp_DeleteReceipt]";
-            //cmdToExecute.CommandType = CommandType.StoredProcedure;
+            cmdToExecute.CommandType = CommandType.StoredProcedure;
 
             // Use base class' connection object
             cmdToExecute.Connection = _mainConnection;
@@ -828,7 +828,7 @@ namespace SSS.DAL.Transactions
             {
                 //cmdToExecute.Parameters.Add(new SqlParameter("@companyIdx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.companyIdx));
                // cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 100, ParameterDirection.Input, true, 1, 1, "", DataRowVersion.Proposed, objVoucherProperty.idx));
-                cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objVoucherProperty.idx));
+                cmdToExecute.Parameters.Add(new SqlParameter("@RecieptID", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 10, "", DataRowVersion.Proposed, objVoucherProperty.idx));
 
                 if (_mainConnectionIsCreatedLocal)
                 {
@@ -857,6 +857,7 @@ namespace SSS.DAL.Transactions
             }
             catch (Exception ex)
             {
+                //sp open kro apna
                 // some error occured. Bubble it to caller and encapsulate Exception object
                 throw new Exception("Branch::Update::Error occured.", ex);
             }

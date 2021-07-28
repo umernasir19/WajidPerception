@@ -200,6 +200,7 @@
                                 <th>Description</th>
                                 <th style="display: none">Process</th>
                                 <th style="display: none">Vendor</th>
+                                <th>Total Price</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -222,6 +223,9 @@
                                                 <td>@Model.ActivityDetailLST[i].description</td>
                                                 <td style="display: none">@Model.ActivityDetailLST[i].vendorCatIdx</td>
                                                 <td style="display: none">@Model.ActivityDetailLST[i].vendorIdx</td>
+                                                <td id="Price">@Model.ActivityDetailLST[i].Price</td>
+
+
                                                 <td><button id="deleterow" onclick="SomeDeleteRowFunction(this)" class="close btn btn-outline-danger"><i class="fa fa-trash menu-icon"></i></button></td>
                                             </tr>
 
@@ -238,7 +242,16 @@
         </div>
 
         <hr />
-
+    <div class="row">
+        <div class="col-sm-4">
+            <!-- text input -->
+            <div class="form-group">
+                <label>Total Price:</label>
+                @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @placeholder = "Total Price:", @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.TotalPrice, "", new { @class = "text-danger" })
+        </div>
+    </div>
         <div class="row">
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" id="btnAddSale">Submit</button>
@@ -869,6 +882,7 @@
             var milestonedetails = {
             };
             var pomasternetamount = 0;
+            var tamnt = 0;
             table.find('tr').each(function(i) {
                 var $tds = $(this).find('td'),
                     productid = $tds.eq(0).text(),
@@ -879,8 +893,12 @@
                     description = $tds.eq(6).text(),
                     vendorCatIdx = $tds.eq(7).text(),
                     vendorIdx =  $tds.eq(8).text(),
-                totalAmount = qty * activityPrice
-
+                    totalAmount = qty * activityPrice,
+                    itemamount = $tds.eq(9).text()
+                 
+                
+                //console.log(itemamount);
+                // itemamount = itemamount + itemamount;
 
                 datatosend.objVoucher.ActivityDetailLST.push({
                     productIdx: productid,
@@ -892,8 +910,12 @@
                     totalAmount,
                     totalAmount,
                     vendorCatIdx : vendorCatIdx,
-                    vendorIdx:vendorIdx
+                    vendorIdx:vendorIdx,
+                    Price: totalAmount,
+                    TotalPrice:  $("#TotalPrice").val()
                 });
+                
+            
 
             });
 
@@ -937,10 +959,12 @@
         });
 
         var errmsg;
-        //Add Project Button Event start
-
-
+        //Add Project Button Event start.
+        var tamnt = 0;
         // Add to Grid Button
+        
+                tamnt = @Model.TotalPrice;
+       
         $("#btnaddtogrid").click(function(e) {
             if (!(gridValidation($("#productIdx option:selected").val(), $('#vendorIdx').val(), $('#vendorCatIdx').val()))) {
 
@@ -967,8 +991,16 @@
             var Qty = $('#qty').val();
             var activityPrice = $('#activityPrice').val();
             var description = $('#description').val();
-            var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + reference + "</td><td>" + size + "</td><td>" + Qty + "</td><td>" + activityPrice + "</td><td>" + description + "</td><td style='display:none;'>" + vendorCatIdx + "</td><td style='display:none;'>" + vendorIdx + "</td><td>" + closebutton + "</td></tr>";
-
+            var Price = Number(Qty) * Number(activityPrice);
+            var markup = "<tr><td style='display:none;'>" + ProductID + "</td><td>" + productname + "</td><td>" + reference + "</td><td>" + size + "</td><td>" + Qty + "</td><td>" + activityPrice + "</td><td>" + description + "</td><td style='display:none;'>" + vendorCatIdx + "</td><td style='display:none;'>" + vendorIdx + "</td><td id='Price'>" + Price + "</td><td>"+ closebutton + "</td></tr>";
+            var price = $('#Price').val();
+            tamnt = Number(tamnt) + (Number(Price));
+            
+            //var temp =Number(temp) + Number(tamnt);
+            ////grossAmountinInvoice = Number(grossAmountinInvoice) + (Number(totalAmount))
+            //alert(temp);
+            
+            $("#TotalPrice").val(tamnt);
             $("#example2 tbody").append(markup);
             $("#typeIdx").prop('disabled', true); //disable
             $("#orderIdx").prop('disabled', true); //disable
@@ -977,6 +1009,8 @@
 
 
         });
+
+
         $('#orderDate').change(function() {
             var date = $(this).val();
             console.log(date, 'change')

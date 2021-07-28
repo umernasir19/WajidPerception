@@ -180,8 +180,8 @@ namespace SSS.DAL.Transactions
             {
                 if (_objSOMasterProperty.idx > 0)
                 {
-                    cmdToExecute.Parameters.Add(new SqlParameter("@DriverName", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.DriverName));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@DriverCnic", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.DriverCnic));
+                   //cmdToExecute.Parameters.Add(new SqlParameter("@DriverName", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.DriverName));
+                   //cmdToExecute.Parameters.Add(new SqlParameter("@DriverCnic", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.DriverCnic));
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@soNumber", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
                     cmdToExecute.Parameters.Add(new SqlParameter("@customerIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
@@ -222,8 +222,8 @@ namespace SSS.DAL.Transactions
                 }
                 else
                 {
-                    cmdToExecute.Parameters.Add(new SqlParameter("@DriverName", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.DriverName));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@DriverCnic", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.DriverCnic));
+                    //cmdToExecute.Parameters.Add(new SqlParameter("@DriverName", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.DriverName));
+                    //cmdToExecute.Parameters.Add(new SqlParameter("@DriverCnic", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.DriverCnic));
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@soNumber", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.soNumber));
                     cmdToExecute.Parameters.Add(new SqlParameter("@customerIdx", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.customerIdx));
@@ -360,7 +360,7 @@ namespace SSS.DAL.Transactions
                     cmdToExecute = new SqlCommand();
                     // cmdToExecute.CommandType = CommandType.StoredProcedure;
                     cmdToExecute.CommandType = CommandType.StoredProcedure;
-                    cmdToExecute.CommandText = "sp_InsertAccountGj";
+                    cmdToExecute.CommandText = "sp_InsertSIAccountGj";
                     cmdToExecute.Connection = _mainConnection;
                     cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input,
                         true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
@@ -406,7 +406,7 @@ namespace SSS.DAL.Transactions
                         cmdToExecute = new SqlCommand();
                         // cmdToExecute.CommandType = CommandType.StoredProcedure;
                         cmdToExecute.CommandType = CommandType.StoredProcedure;
-                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+                        cmdToExecute.CommandText = "sp_InsertSIAccountGj";
                         cmdToExecute.Connection = _mainConnection;
                         cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
                             ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
@@ -453,7 +453,7 @@ namespace SSS.DAL.Transactions
                         cmdToExecute = new SqlCommand();
                         // cmdToExecute.CommandType = CommandType.StoredProcedure;
                         cmdToExecute.CommandType = CommandType.StoredProcedure;
-                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+                        cmdToExecute.CommandText = "sp_InsertSIAccountGj";
                         cmdToExecute.Connection = _mainConnection;
                         cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
                             ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
@@ -510,7 +510,7 @@ namespace SSS.DAL.Transactions
                             cmdToExecute = new SqlCommand();
                             // cmdToExecute.CommandType = CommandType.StoredProcedure;
                             cmdToExecute.CommandType = CommandType.StoredProcedure;
-                            cmdToExecute.CommandText = "sp_InsertAccountGj";
+                            cmdToExecute.CommandText = "sp_InsertSIAccountGj";
                             cmdToExecute.Connection = _mainConnection;
                             cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
                                 ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
@@ -562,7 +562,7 @@ namespace SSS.DAL.Transactions
                         // cmdToExecute.CommandType = CommandType.StoredProcedure;
 
                         cmdToExecute.CommandType = CommandType.StoredProcedure;
-                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+                        cmdToExecute.CommandText = "sp_InsertSIAccountGj";
 
                         cmdToExecute.Connection = _mainConnection;
                         cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
@@ -647,7 +647,7 @@ namespace SSS.DAL.Transactions
                         // cmdToExecute.CommandType = CommandType.StoredProcedure;
 
                         cmdToExecute.CommandType = CommandType.StoredProcedure;
-                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+                        cmdToExecute.CommandText = "sp_InsertSIAccountGj";
 
                         cmdToExecute.Connection = _mainConnection;
                         cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
@@ -714,7 +714,7 @@ namespace SSS.DAL.Transactions
                         //acount receivable
                         cmdToExecute = new SqlCommand();
                         cmdToExecute.CommandType = CommandType.StoredProcedure;
-                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+                        cmdToExecute.CommandText = "sp_InsertSIAccountGj";
                         cmdToExecute.Connection = _mainConnection;
                         cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
                             ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
@@ -761,7 +761,7 @@ namespace SSS.DAL.Transactions
                             cmdToExecute = new SqlCommand();
                             // cmdToExecute.CommandType = CommandType.StoredProcedure;
                             cmdToExecute.CommandType = CommandType.StoredProcedure;
-                            cmdToExecute.CommandText = "sp_InsertAccountGj";
+                            cmdToExecute.CommandText = "sp_InsertSIAccountGj";
                             cmdToExecute.Connection = _mainConnection;
                             cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50,
                                 ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
@@ -878,7 +878,7 @@ namespace SSS.DAL.Transactions
                     cmdToExecute = new SqlCommand();
                     // cmdToExecute.CommandType = CommandType.StoredProcedure;
                     cmdToExecute.CommandType = CommandType.StoredProcedure;
-                    cmdToExecute.CommandText = "sp_InsertAccountGj";
+                    cmdToExecute.CommandText = "sp_InsertSIAccountGj";
                     cmdToExecute.Connection = _mainConnection;
                     cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
                     cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
@@ -906,7 +906,7 @@ namespace SSS.DAL.Transactions
                         cmdToExecute = new SqlCommand();
                         // cmdToExecute.CommandType = CommandType.StoredProcedure;
                         cmdToExecute.CommandType = CommandType.StoredProcedure;
-                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+                        cmdToExecute.CommandText = "sp_InsertSIAccountGj";
                         cmdToExecute.Connection = _mainConnection;
                         cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
                         cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
@@ -934,7 +934,7 @@ namespace SSS.DAL.Transactions
                         cmdToExecute = new SqlCommand();
                         // cmdToExecute.CommandType = CommandType.StoredProcedure;
                         cmdToExecute.CommandType = CommandType.StoredProcedure;
-                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+                        cmdToExecute.CommandText = "sp_InsertSIAccountGj";
                         cmdToExecute.Connection = _mainConnection;
                         cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
                         cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
@@ -971,7 +971,7 @@ namespace SSS.DAL.Transactions
                             cmdToExecute = new SqlCommand();
                             // cmdToExecute.CommandType = CommandType.StoredProcedure;
                             cmdToExecute.CommandType = CommandType.StoredProcedure;
-                            cmdToExecute.CommandText = "sp_InsertAccountGj";
+                            cmdToExecute.CommandText = "sp_InsertSIAccountGj";
                             cmdToExecute.Connection = _mainConnection;
                             cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
                             cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 112));
@@ -1006,7 +1006,7 @@ namespace SSS.DAL.Transactions
                         // cmdToExecute.CommandType = CommandType.StoredProcedure;
 
                         cmdToExecute.CommandType = CommandType.StoredProcedure;
-                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+                        cmdToExecute.CommandText = "sp_InsertSIAccountGj";
 
                         cmdToExecute.Connection = _mainConnection;
                         cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
@@ -1067,7 +1067,7 @@ namespace SSS.DAL.Transactions
                         // cmdToExecute.CommandType = CommandType.StoredProcedure;
 
                         cmdToExecute.CommandType = CommandType.StoredProcedure;
-                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+                        cmdToExecute.CommandText = "sp_InsertSIAccountGj";
 
                         cmdToExecute.Connection = _mainConnection;
                         cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
@@ -1109,7 +1109,7 @@ namespace SSS.DAL.Transactions
                         //acount receivable
                         cmdToExecute = new SqlCommand();
                         cmdToExecute.CommandType = CommandType.StoredProcedure;
-                        cmdToExecute.CommandText = "sp_InsertAccountGj";
+                        cmdToExecute.CommandText = "sp_InsertSIAccountGj";
                         cmdToExecute.Connection = _mainConnection;
                         cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
                         cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 2));
@@ -1186,6 +1186,62 @@ namespace SSS.DAL.Transactions
                     //// Close connection.
                     //_mainConnection.Close();
                     CloseConnection();
+                }
+                cmdToExecute.Dispose();
+            }
+        }
+
+        //Delete
+        public bool Delete()
+        {
+            SqlCommand cmdToExecute = new SqlCommand();
+            cmdToExecute.CommandText = @"update salesorder SET visible=0 where idx=@ID";
+            //cmdToExecute.CommandType = CommandType.StoredProcedure;
+
+            // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection;
+
+            try
+            {
+                //cmdToExecute.Parameters.Add(new SqlParameter("@companyIdx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.companyIdx));
+                cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objSOMasterProperty.idx));
+
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Open connection.
+                    _mainConnection.Open();
+                }
+                else
+                {
+                    if (_mainConnectionProvider.IsTransactionPending)
+                    {
+                        cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    }
+                }
+
+                // Execute query.
+                _rowsAffected = cmdToExecute.ExecuteNonQuery();
+                // _errorCode = (Int32)cmdToExecute.Parameters["@iErrorCode"].Value;
+
+                if (_errorCode != (int)LLBLError.AllOk)
+                {
+                    // Throw error.
+                    throw new Exception("Stored Procedure 'sp_upate_branch' reported the ErrorCode: " + _errorCode);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // some error occured. Bubble it to caller and encapsulate Exception object
+                throw new Exception("Branch::Update::Error occured.", ex);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Close connection.
+                    _mainConnection.Close();
                 }
                 cmdToExecute.Dispose();
             }
