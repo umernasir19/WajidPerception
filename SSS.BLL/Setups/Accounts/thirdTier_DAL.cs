@@ -97,8 +97,8 @@ namespace SSS.DAL.Setups.Accounts
                 cmdToExecute.Parameters.Add(new SqlParameter("@idx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objthirdTierProperty.idx));
                 cmdToExecute.Parameters.Add(new SqlParameter("@headIdx", SqlDbType.Int, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objthirdTierProperty.headIdx));
                 cmdToExecute.Parameters.Add(new SqlParameter("@subHeadName", SqlDbType.NVarChar, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objthirdTierProperty.subHeadName));
-                cmdToExecute.Parameters.Add(new SqlParameter("@subHeadCode", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objthirdTierProperty.subHeadCode));
-                cmdToExecute.Parameters.Add(new SqlParameter("@lasModificationDate", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objthirdTierProperty.lasModificationDate));
+               // cmdToExecute.Parameters.Add(new SqlParameter("@subHeadCode", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objthirdTierProperty.subHeadCode));
+                cmdToExecute.Parameters.Add(new SqlParameter("@lastModificationDate", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objthirdTierProperty.lasModificationDate));
                 cmdToExecute.Parameters.Add(new SqlParameter("@lastModifiedByUserIdx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objthirdTierProperty.lastModifiedByUserIdx));
 
                 if (_mainConnectionIsCreatedLocal)

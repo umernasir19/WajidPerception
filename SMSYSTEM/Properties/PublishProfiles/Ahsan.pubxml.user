@@ -6,7 +6,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>H:\office\Perception BP\Updated Perception\Wajid New\Publish\Publish 28-7-21</_PublishTargetUrl>
+    <_PublishTargetUrl>H:\office\Perception BP\Updated Perception\Wajid New\Publish\Publish 31-7-21</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="ApplicationInsights.config">
@@ -97,19 +97,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2021 13:39:36</publishTime>
     </File>
     <File Include="bin/SMSYSTEM.dll">
-      <publishTime>07/28/2021 06:07:44</publishTime>
+      <publishTime>07/31/2021 07:28:09</publishTime>
     </File>
     <File Include="bin/SSS.BLL.dll">
-      <publishTime>07/28/2021 06:07:36</publishTime>
+      <publishTime>07/31/2021 07:28:04</publishTime>
     </File>
     <File Include="bin/SSS.DAL.dll">
-      <publishTime>07/28/2021 06:07:34</publishTime>
+      <publishTime>07/31/2021 07:28:02</publishTime>
     </File>
     <File Include="bin/SSS.Property.dll">
-      <publishTime>07/14/2021 09:15:44</publishTime>
+      <publishTime>07/31/2021 07:28:00</publishTime>
     </File>
     <File Include="bin/SSS.Utility.dll">
-      <publishTime>07/14/2021 09:15:45</publishTime>
+      <publishTime>07/31/2021 07:28:01</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>05/23/2021 13:39:36</publishTime>
@@ -12427,10 +12427,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/17/2021 03:58:17</publishTime>
     </File>
     <File Include="Views/Activity/Activity.cshtml">
-      <publishTime>07/14/2021 06:12:06</publishTime>
+      <publishTime>07/31/2021 02:12:10</publishTime>
     </File>
     <File Include="Views/Activity/FinsihProducts.cshtml">
-      <publishTime>07/06/2021 05:45:29</publishTime>
+      <publishTime>07/31/2021 03:16:25</publishTime>
     </File>
     <File Include="Views/Activity/ViewActivity.cshtml">
       <publishTime>07/14/2021 05:53:15</publishTime>
@@ -12496,7 +12496,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2021 04:49:41</publishTime>
     </File>
     <File Include="Views/Customer/AddNewCustomer.cshtml">
-      <publishTime>07/12/2021 03:22:08</publishTime>
+      <publishTime>07/31/2021 03:56:22</publishTime>
     </File>
     <File Include="Views/Customer/ViewCustomers.cshtml">
       <publishTime>07/02/2021 06:25:37</publishTime>
@@ -12535,7 +12535,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2021 04:38:11</publishTime>
     </File>
     <File Include="Views/GDN/AddNewGDN.cshtml">
-      <publishTime>07/13/2021 02:04:52</publishTime>
+      <publishTime>07/31/2021 02:03:45</publishTime>
     </File>
     <File Include="Views/GDN/ViewGDN.cshtml">
       <publishTime>07/02/2021 06:42:39</publishTime>
@@ -12673,7 +12673,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/02/2021 07:03:50</publishTime>
     </File>
     <File Include="Views/Taxes/_AddNewTaxes.cshtml">
-      <publishTime>06/16/2021 01:41:20</publishTime>
+      <publishTime>07/30/2021 23:54:17</publishTime>
     </File>
     <File Include="Views/ThirdTier/ViewthirdTiers.cshtml">
       <publishTime>07/02/2021 07:04:52</publishTime>
@@ -12718,7 +12718,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2021 13:39:36</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/28/2021 06:08:08</publishTime>
+      <publishTime>07/31/2021 07:28:29</publishTime>
     </File>
   </ItemGroup>
 </Project>

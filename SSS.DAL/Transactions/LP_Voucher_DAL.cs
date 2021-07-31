@@ -75,7 +75,7 @@ namespace SSS.DAL.Transactions
                     cmdToExecute.Parameters.Add(new SqlParameter("@itemId", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, 0));
                     cmdToExecute.Parameters.Add(new SqlParameter("@ChequeDate", SqlDbType.DateTime, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, null));
                     cmdToExecute.Parameters.Add(new SqlParameter("@Isdeposited", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 0));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@glIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, objVoucherProperty.idx));
+                        //cmdToExecute.Parameters.Add(new SqlParameter("@glIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, objVoucherProperty.idx));
                     cmdToExecute.Parameters.Add(new SqlParameter("@masterIdx", SqlDbType.Int, 500, ParameterDirection.Output, false, 0, 0, "", DataRowVersion.Proposed, objVoucherProperty.idx));
 
                 }
@@ -144,7 +144,7 @@ namespace SSS.DAL.Transactions
                 // Execute query.
                  _rowsAffected = cmdToExecute.ExecuteNonQuery();
 
-                GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value; 
+              //  GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value; 
                 //_rowsAffected = 1;
 
                 //if (objVoucherProperty.DetailData != null)
@@ -192,7 +192,7 @@ namespace SSS.DAL.Transactions
                             cmdToExecute = new SqlCommand();
                             // cmdToExecute.CommandType = CommandType.StoredProcedure;
                             cmdToExecute.CommandType = CommandType.StoredProcedure;
-                            cmdToExecute.CommandText = "sp_InsertAccountGj";
+                            cmdToExecute.CommandText = "sp_ReceiptInsertAccountGj";
                             cmdToExecute.Connection = _mainConnection;
                             cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
                             cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 5));//Receipt Voucher Trasaction Type
@@ -242,7 +242,7 @@ namespace SSS.DAL.Transactions
                                 cmdToExecute = new SqlCommand();
                                 // cmdToExecute.CommandType = CommandType.StoredProcedure;
                                 cmdToExecute.CommandType = CommandType.StoredProcedure;
-                                cmdToExecute.CommandText = "sp_InsertAccountGj";
+                                cmdToExecute.CommandText = "sp_ReceiptInsertAccountGj";
                                 cmdToExecute.Connection = _mainConnection;
                                 cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
                                 cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 5));//Receipt Voucher Trasaction Type
@@ -283,6 +283,7 @@ namespace SSS.DAL.Transactions
                 }
                 else
                 {
+                    GLIDX = (Int32)cmdToExecute.Parameters["@glIdx"].Value;
                     if (objVoucherProperty.DetailData != null)
                     {
                         DataTable dt = new DataTable();
@@ -306,7 +307,7 @@ namespace SSS.DAL.Transactions
                             cmdToExecute = new SqlCommand();
                             // cmdToExecute.CommandType = CommandType.StoredProcedure;
                             cmdToExecute.CommandType = CommandType.StoredProcedure;
-                            cmdToExecute.CommandText = "sp_InsertAccountGj";
+                            cmdToExecute.CommandText = "sp_ReceiptInsertAccountGj";
                             cmdToExecute.Connection = _mainConnection;
                             cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
                             cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 5));//Receipt Voucher Trasaction Type
@@ -356,7 +357,7 @@ namespace SSS.DAL.Transactions
                                 cmdToExecute = new SqlCommand();
                                 // cmdToExecute.CommandType = CommandType.StoredProcedure;
                                 cmdToExecute.CommandType = CommandType.StoredProcedure;
-                                cmdToExecute.CommandText = "sp_InsertAccountGj";
+                                cmdToExecute.CommandText = "sp_ReceiptInsertAccountGj";
                                 cmdToExecute.Connection = _mainConnection;
                                 cmdToExecute.Parameters.Add(new SqlParameter("@GLIdx", SqlDbType.Int, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, GLIDX));
                                 cmdToExecute.Parameters.Add(new SqlParameter("@TransTypeIdx", SqlDbType.Int, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 5));//Receipt Voucher Trasaction Type

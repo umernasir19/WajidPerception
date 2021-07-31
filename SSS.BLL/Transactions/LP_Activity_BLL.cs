@@ -25,6 +25,14 @@ namespace SSS.BLL.Transactions
         {
             _objACTMasterProperty = objACTMasterProperty;
         }
+
+        public bool Delete()
+        {
+            _objACTDAL = new LP_Activity_DAL(_objACTMasterProperty);
+            return _objACTDAL.Delete();
+        }
+
+
         public bool Insert()
         {
             _objACTDAL = new LP_Activity_DAL(_objACTMasterProperty);

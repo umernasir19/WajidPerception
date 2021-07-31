@@ -36,16 +36,32 @@
             @Html.ValidationMessageFor(model => model.shortName, "", new { @class = "text-danger" })
         </div>
         <br />
+        @{
+            if (Model.idx > 0)
+            {
         <div class="col-sm-6">
-            <div class="form-group">
-                <label for="inputName">tax type</label>
-                <select id="IsClaimble" class="form-control" name="IsClaimble">
-                    <option value="true">tax input</option>
-                    <option value="false">tax output</option>
-                    
-                </select>
-            </div>
+    <div class="form-group">
+        <label for="inputName">tax type</label>
+                @Html.EditorFor(model => model.IsClaimble, new { htmlAttributes = new { @placeholder = "", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IsClaimble, "", new { @class = "text-danger" })
+    </div>
         </div>
+            }
+            else
+            {
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="inputName">tax type</label>
+                        <select id="IsClaimble" class="form-control" name="IsClaimble">
+                            <option value="true">tax input</option>
+                            <option value="false">tax output</option>
+                    
+                        </select>
+                    </div>
+                </div>
+            }
+        }
+
       
     </div>
 

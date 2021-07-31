@@ -104,6 +104,8 @@ namespace SMSYSTEM.Controllers
                     objSalesOrderVM_Property.reference = dt.Rows[0]["reference"].ToString();
                     objSalesOrderVM_Property.DriverName = dt.Rows[0]["DriverName"].ToString();
                     objSalesOrderVM_Property.DriverCnic = dt.Rows[0]["DriverCnic"].ToString();
+                    objSalesOrderVM_Property.branchIdx = Convert.ToInt16(dt.Rows[0]["branchIdx"].ToString());
+
 
                     // objSalesOrderVM_Property.DeliveryDate = dt.Rows[0]["DeliveryDate"].ToString();
                     // objSalesOrderVM_Property.ItemDescription = dt.Rows[0]["ItemDescription"].ToString();

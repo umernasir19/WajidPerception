@@ -112,14 +112,14 @@ namespace SSS.DAL.Transactions
                     cmdToExecute.Parameters.Add(new SqlParameter("@description", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.description));
                     cmdToExecute.Parameters.Add(new SqlParameter("@netAmount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.netAmount));
                     cmdToExecute.Parameters.Add(new SqlParameter("@totalamount", SqlDbType.Decimal, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.totalAmount));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objPOMasterProperty.creationDate));
+                   // cmdToExecute.Parameters.Add(new SqlParameter("@creationdate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objPOMasterProperty.creationDate));
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@createdbyuser", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.createdByUserIdx));
                     cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objPOMasterProperty.visible));
                     cmdToExecute.Parameters.Add(new SqlParameter("@status", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objPOMasterProperty.status));
 
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@quotationDate", SqlDbType.DateTime, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.quotationDate));
+                   // cmdToExecute.Parameters.Add(new SqlParameter("@quotationDate", SqlDbType.DateTime, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.quotationDate));
 
 
                     cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.idx));
@@ -132,8 +132,7 @@ namespace SSS.DAL.Transactions
                     cmdToExecute.Parameters.Add(new SqlParameter("@discount", SqlDbType.Decimal, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.discount));
                     cmdToExecute.Parameters.Add(new SqlParameter("@taxAount", SqlDbType.Decimal, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.taxAount));
                     cmdToExecute.Parameters.Add(new SqlParameter("@salescheck", SqlDbType.Int, 500, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.salescheck));
-                    //cmdToExecute.Parameters.Add(new SqlParameter("@modificationDate", SqlDbType.DateTime, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.lastModificationDate));
-                    //cmdToExecute.Parameters.Add(new SqlParameter("@modificationbyuser", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.lastModifiedByUserIdx));
+                   // cmdToExecute.Parameters.Add(new SqlParameter("@lastModificationDate", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.lastModificationDate));
 
                     //cmdToExecute.Parameters.Add(new SqlParameter("@MRNIdx", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objPOMasterProperty.MRNIdx));
                 }

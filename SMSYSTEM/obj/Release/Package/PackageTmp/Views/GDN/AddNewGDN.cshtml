@@ -49,8 +49,8 @@
             <div class="col-sm-4">
                 <!-- text input -->
                 <div class="form-group">
-                    <label>Driver Cnic*:</label>
-                    @Html.EditorFor(model => model.DriverCnic, new { htmlAttributes = new { @placeholder = "Driver Cnic*:", @class = "form-control" } })
+                    <label>VECH #*:</label>
+                    @Html.EditorFor(model => model.DriverCnic, new { htmlAttributes = new { @placeholder = "VECH #*:", @class = "form-control" } })
                 </div>
                 @Html.ValidationMessageFor(model => model.DriverCnic, "", new { @class = "text-danger" })
             </div>
@@ -58,8 +58,8 @@
             <div class="col-sm-4">
                 <!-- text input -->
                 <div class="form-group">
-                    <label>Driver Address*:</label>
-                    @Html.EditorFor(model => model.DriverAddress, new { htmlAttributes = new { @placeholder = "Driver Address*:", @class = "form-control" } })
+                    <label>Order By Sales Person*:</label>
+                    @Html.EditorFor(model => model.DriverAddress, new { htmlAttributes = new { @placeholder = "Order By Sales Person*:", @class = "form-control" } })
                 </div>
                 @Html.ValidationMessageFor(model => model.DriverAddress, "", new { @class = "text-danger" })
             </div>
@@ -318,6 +318,8 @@
                     Total_Amount: $('#Total_Amount').val(),
                     DriverName: $('#DriverName').val(),
                     DriverCnic: $('#DriverCnic').val(),
+                    DriverAddress: $('#DriverAddress').val(),
+                    memo: $('#memo').val(),
                     //PageList:[{ID:1},{ID:2},{ID:3}]
                     GDNDetailList: []
                 }

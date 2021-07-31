@@ -41,7 +41,13 @@ namespace SMSYSTEM.Controllers
             LP_Activity_Property objActivityVM;
             LP_Activity_BLL objVoucherBll;
             LP_Voucher_Property objActivityMaster;
-            if (Session["LOGGEDIN"] != null)
+
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+
+            if (Session["LOGGEDIN"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null && Convert.ToBoolean(Session["ISADMIN"].ToString()) == true)
             {
                 objActivityVM = new LP_Activity_Property();
 
@@ -103,9 +109,17 @@ namespace SMSYSTEM.Controllers
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
             }
         }
+
         [HttpGet]
         public JsonResult SearchProductsInDetail(int Id)
         {
@@ -235,7 +249,7 @@ namespace SMSYSTEM.Controllers
                     obj.description = objVoucher.description;
                     obj.reference = objVoucher.reference;
                     obj.DeliveryDate = DateTime.Now;
-                  
+                    obj.TotalPrice = objVoucher.TotalPrice;
                     obj.DetailData = Helper.ToDataTable<LP_Activity_Property>(objVoucher.ActivityDetailLST);
 
                     LP_Activity_BLL objBLL = new LP_Activity_BLL(obj);
@@ -298,6 +312,41 @@ namespace SMSYSTEM.Controllers
             var Data = Helper.ConvertDataTable<LP_DisplayOrder_Master_Property>(GetAllDisplayOrderForDropDown());
             return Json(new { data = Data, success = true, statuscode = 200 }, JsonRequestBehavior.AllowGet);
         }
+
+        // Delete
+        public JsonResult Delete(int? id)
+        {
+            if (Session["LOGGEDIN"] != null)
+            {
+                try
+                {
+                    LP_Activity_Property obj = new LP_Activity_Property();
+                   
+                    obj.idx = int.Parse(id.ToString());
+
+                    LP_Activity_BLL objBLL = new LP_Activity_BLL(obj);
+                    var flag1 = objBLL.Delete();
+                    if (flag1)
+                    {
+                        return Json(new { data = "Deleted", success = flag1, statuscode = 200 }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { data = "Error", success = flag1, statuscode = 200 }, JsonRequestBehavior.DenyGet);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         #endregion
         #region Local Finish Good
         public ActionResult FinsihProducts(int? id)
