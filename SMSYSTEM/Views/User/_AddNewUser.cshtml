@@ -69,6 +69,15 @@
             </div>
             @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
         </div>
+        
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>Is Admin</label>
+                @Html.CheckBoxFor(model => model.Is_Admin, new { htmlAttributes = new { @placeholder = "Is Admin", @class = "form-control" } })
+               
+            </div>
+            @Html.ValidationMessageFor(model => model.Is_Admin, "", new { @class = "text-danger" })
+        </div>
     </div>
     @*<button id="show_password" class="btn btn-primary" type="button">  
         <span class="fa fa-eye-slash icon"></span>  

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SSS.Utility;
 
 namespace SMSYSTEM.Controllers
 {
@@ -16,7 +17,26 @@ namespace SMSYSTEM.Controllers
         CustomerType_Property objCustomerTypeProperty;
         public ActionResult ViewCustomerType()
         {
-            return View();
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null )
+            {
+                return View();
+            }
+            else
+            {
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
+            }
         }
 
         public JsonResult GetAllCustomerTypes()
@@ -38,27 +58,47 @@ namespace SMSYSTEM.Controllers
 
         public ActionResult AddNewCustomerType(int? id)
         {
-            objCustomerTypeProperty = new CustomerType_Property();
-            objCustomerTypeProperty.idx = Convert.ToInt32(id);
-            objCustomerTypeBLL = new CustomerType_BLL(objCustomerTypeProperty);
-
-            if (id != null && id != 0)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null )
             {
+                objCustomerTypeProperty = new CustomerType_Property();
+                objCustomerTypeProperty.idx = Convert.ToInt32(id);
+                objCustomerTypeBLL = new CustomerType_BLL(objCustomerTypeProperty);
 
-                var dt = objCustomerTypeBLL.SelectById();
-                objCustomerTypeProperty.idx = int.Parse(dt.Rows[0]["idx"].ToString());
-                objCustomerTypeProperty.customerType = dt.Rows[0]["customerType"].ToString();
-                //objProductCategoryProperty.HSCodeCat = dt.Rows[0]["HSCodeCat"].ToString();
-                //objProductCategoryProperty.firstName = dt.Rows[0]["firstName"].ToString();
-                //objProductCategoryProperty.lastName = dt.Rows[0]["lastName"].ToString();
-                //objProductCategoryProperty.CNIC = (dt.Rows[0]["CNIC"].ToString());
-                //objProductCategoryProperty.cellNumber = (dt.Rows[0]["cellNumber"].ToString());
-                //objProductCategoryProperty.loginId = (dt.Rows[0]["loginId"].ToString());
-                //objProductCategoryProperty.password = dt.Rows[0]["password"].ToString();
+                if (id != null && id != 0)
+                {
+
+                    var dt = objCustomerTypeBLL.SelectById();
+                    objCustomerTypeProperty.idx = int.Parse(dt.Rows[0]["idx"].ToString());
+                    objCustomerTypeProperty.customerType = dt.Rows[0]["customerType"].ToString();
+                    //objProductCategoryProperty.HSCodeCat = dt.Rows[0]["HSCodeCat"].ToString();
+                    //objProductCategoryProperty.firstName = dt.Rows[0]["firstName"].ToString();
+                    //objProductCategoryProperty.lastName = dt.Rows[0]["lastName"].ToString();
+                    //objProductCategoryProperty.CNIC = (dt.Rows[0]["CNIC"].ToString());
+                    //objProductCategoryProperty.cellNumber = (dt.Rows[0]["cellNumber"].ToString());
+                    //objProductCategoryProperty.loginId = (dt.Rows[0]["loginId"].ToString());
+                    //objProductCategoryProperty.password = dt.Rows[0]["password"].ToString();
+                }
+
+                return PartialView("_AddNewCustomerType", objCustomerTypeProperty);
+            }
+            else
+            {
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
 
 
-            return PartialView("_AddNewCustomerType", objCustomerTypeProperty);
         }
 
         [HttpPost]

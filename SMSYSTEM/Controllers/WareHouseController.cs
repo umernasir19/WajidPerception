@@ -19,19 +19,37 @@ namespace SMSYSTEM.Controllers
         WareHouse_BLL objwarehousebll;
         public ActionResult ViewWareHouse()
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page))
             {
                 return View();
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
-           
+
         }
         public ActionResult AddNewWareHouse(int? id)
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+
+            if (Session["LOGGEDIN"] != null && Helper.CheckPageAccess(pagename, page))
             {
                 objwarehouse = new WareHouse_Property();
                 objwarehouse.Idx = Convert.ToInt32(id);
@@ -61,9 +79,16 @@ namespace SMSYSTEM.Controllers
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
-           
 
         }
 

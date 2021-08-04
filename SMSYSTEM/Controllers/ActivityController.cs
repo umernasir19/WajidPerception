@@ -18,14 +18,27 @@ namespace SMSYSTEM.Controllers
         #region Activity
         public ActionResult ViewActivity()
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+
+            if (Session["LOGGEDIN"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null)
             {
 
                 return View();
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
         }
 
@@ -47,7 +60,7 @@ namespace SMSYSTEM.Controllers
             string pagename = @"/" + controllerName + @"/" + actionName;
             var page = (List<LP_Pages_Property>)Session["PageList"];
 
-            if (Session["LOGGEDIN"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null && Convert.ToBoolean(Session["ISADMIN"].ToString()) == true)
+            if (Session["LOGGEDIN"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null )
             {
                 objActivityVM = new LP_Activity_Property();
 
@@ -352,9 +365,11 @@ namespace SMSYSTEM.Controllers
         public ActionResult FinsihProducts(int? id)
         {  // GET: Payment
 
-
-
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null)
             {
                 LP_FinsihProduct_Property objPInvoiceVM = new LP_FinsihProduct_Property();
                 objPInvoiceVM.BranchList = Helper.ConvertDataTable<Branch_Property>(ViewAllBranches());
@@ -383,7 +398,15 @@ namespace SMSYSTEM.Controllers
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
 
         }

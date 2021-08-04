@@ -69,6 +69,12 @@ namespace SSS.BLL
         //    objUserDAL = new User_DAL(objUserProperty);
         //    return objUserDAL.SelectAllMainBranch();
         //}
+        // Added By Ahsan
+        public DataTable GetPagsAccess()
+        {
+            objUserDAL = new User_DAL(objUserProperty);
+            return objUserDAL.GetPagsAccess();
+        }
 
         public DataTable SelectByIDPassword()
         {

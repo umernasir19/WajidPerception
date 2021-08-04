@@ -6,7 +6,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>H:\office\Perception BP\Updated Perception\Wajid New\Publish\Publish 31-7-21</_PublishTargetUrl>
+    <_PublishTargetUrl>H:\office\Perception BP\Updated Perception\Wajid New\Publish\Publish 4-8-21</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="ApplicationInsights.config">
@@ -97,19 +97,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2021 13:39:36</publishTime>
     </File>
     <File Include="bin/SMSYSTEM.dll">
-      <publishTime>07/31/2021 07:28:09</publishTime>
+      <publishTime>08/04/2021 06:55:40</publishTime>
     </File>
     <File Include="bin/SSS.BLL.dll">
-      <publishTime>07/31/2021 07:28:04</publishTime>
+      <publishTime>08/04/2021 06:55:34</publishTime>
     </File>
     <File Include="bin/SSS.DAL.dll">
-      <publishTime>07/31/2021 07:28:02</publishTime>
+      <publishTime>08/04/2021 06:55:32</publishTime>
     </File>
     <File Include="bin/SSS.Property.dll">
       <publishTime>07/31/2021 07:28:00</publishTime>
     </File>
     <File Include="bin/SSS.Utility.dll">
-      <publishTime>07/31/2021 07:28:01</publishTime>
+      <publishTime>08/04/2021 06:55:30</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>05/23/2021 13:39:36</publishTime>
@@ -12528,6 +12528,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Finance/GeneralVoucher.cshtml">
       <publishTime>07/01/2021 04:13:06</publishTime>
     </File>
+    <File Include="Views/FirstTier/ViewfirstTier.cshtml">
+      <publishTime>05/23/2021 13:39:36</publishTime>
+    </File>
     <File Include="Views/FourthTier/ViewfourthTiers.cshtml">
       <publishTime>07/02/2021 06:40:08</publishTime>
     </File>
@@ -12598,7 +12601,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/04/2021 12:26:18</publishTime>
     </File>
     <File Include="Views/Product/_AddNewProduct.cshtml">
-      <publishTime>07/01/2021 04:43:38</publishTime>
+      <publishTime>08/04/2021 01:06:52</publishTime>
     </File>
     <File Include="Views/Product_Category/ViewProductCategory.cshtml">
       <publishTime>07/02/2021 06:49:39</publishTime>
@@ -12643,7 +12646,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2021 13:39:36</publishTime>
     </File>
     <File Include="Views/SalesOrder/AddNewSalesOrder.cshtml">
-      <publishTime>07/17/2021 03:33:03</publishTime>
+      <publishTime>08/04/2021 06:45:54</publishTime>
     </File>
     <File Include="Views/SalesOrder/ViewSalesOrder.cshtml">
       <publishTime>07/18/2021 00:14:26</publishTime>
@@ -12685,7 +12688,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/02/2021 07:05:47</publishTime>
     </File>
     <File Include="Views/User/_AddNewUser.cshtml">
-      <publishTime>06/21/2021 19:25:39</publishTime>
+      <publishTime>08/03/2021 04:36:16</publishTime>
     </File>
     <File Include="Views/Vendor/VendorProcess.cshtml">
       <publishTime>07/06/2021 02:47:40</publishTime>
@@ -12698,6 +12701,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Views/Vendor/_AddNewVendors.cshtml">
       <publishTime>07/06/2021 05:48:21</publishTime>
+    </File>
+    <File Include="Views/VendorBanks/AddNewVendorBank.cshtml">
+      <publishTime>07/01/2021 04:52:57</publishTime>
+    </File>
+    <File Include="Views/VendorBanks/ViewVendorBanks.cshtml">
+      <publishTime>07/02/2021 07:09:03</publishTime>
     </File>
     <File Include="Views/Vendor_Category/ViewVendorCategory.cshtml">
       <publishTime>07/02/2021 07:08:04</publishTime>
@@ -12718,7 +12727,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2021 13:39:36</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/31/2021 07:28:29</publishTime>
+      <publishTime>08/04/2021 06:55:44</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SSS.Utility;
 
 namespace SMSYSTEM.Controllers
 {
@@ -17,18 +18,29 @@ namespace SMSYSTEM.Controllers
         Product_SubCategory_Property objProductCategoryProperty;
         public ActionResult ViewProductSubCategory()
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page))
             {
 
                 return View();
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
-
-
-
+            
         }
 
         public JsonResult GetAllProductSubCategories()
@@ -62,46 +74,59 @@ namespace SMSYSTEM.Controllers
         public ActionResult AddNewProductSubCategory(int? id)
         {
 
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page))
             {
 
                 objProductCategoryProperty = new Product_SubCategory_Property();
-            objProductCategoryProperty.idx = Convert.ToInt32(id);
-            //objProductCategoryProperty.branchIdx = 1;//It will have the value of session branchIdx
-            objProductSubCategoryBLL = new Product_SubCategory_BLL(objProductCategoryProperty);
-            DataTable dtt = objProductSubCategoryBLL.ViewAllCategories();
-            List<Product_Category_Property> catLST = new List<Product_Category_Property>();
-            foreach (DataRow dr in dtt.Rows)
-            {
-                Product_Category_Property objProductCat = new Product_Category_Property();
-                objProductCat.Category = dr["Category"].ToString();
-                objProductCat.idx = Convert.ToInt32(dr["idx"].ToString());
-                catLST.Add(objProductCat);
-            }
-            ViewBag.catLST = catLST;
+                objProductCategoryProperty.idx = Convert.ToInt32(id);
+                //objProductCategoryProperty.branchIdx = 1;//It will have the value of session branchIdx
+                objProductSubCategoryBLL = new Product_SubCategory_BLL(objProductCategoryProperty);
+                DataTable dtt = objProductSubCategoryBLL.ViewAllCategories();
+                List<Product_Category_Property> catLST = new List<Product_Category_Property>();
+                foreach (DataRow dr in dtt.Rows)
+                {
+                    Product_Category_Property objProductCat = new Product_Category_Property();
+                    objProductCat.Category = dr["Category"].ToString();
+                    objProductCat.idx = Convert.ToInt32(dr["idx"].ToString());
+                    catLST.Add(objProductCat);
+                }
+                ViewBag.catLST = catLST;
 
-            if (id != null && id != 0)
-            {
-                var dt = objProductSubCategoryBLL.GetById(id);
-                //objProductCategoryProperty.companyIdx = 1;
-                objProductCategoryProperty.idx = int.Parse(dt.Rows[0]["idx"].ToString());
-                objProductCategoryProperty.product_catIdx = int.Parse(dt.Rows[0]["product_catIdx"].ToString());
-                objProductCategoryProperty.subCategory = dt.Rows[0]["subCategory"].ToString();
-                objProductCategoryProperty.HS_CodeSub = dt.Rows[0]["HS_CodeSub"].ToString();
-                //objProductCategoryProperty.firstName = dt.Rows[0]["firstName"].ToString();
-                //objProductCategoryProperty.lastName = dt.Rows[0]["lastName"].ToString();
-                //objProductCategoryProperty.CNIC = (dt.Rows[0]["CNIC"].ToString());
-                //objProductCategoryProperty.cellNumber = (dt.Rows[0]["cellNumber"].ToString());
-                //objProductCategoryProperty.loginId = (dt.Rows[0]["loginId"].ToString());
-                //objProductCategoryProperty.password = dt.Rows[0]["password"].ToString();
-            }
+                if (id != null && id != 0)
+                {
+                    var dt = objProductSubCategoryBLL.GetById(id);
+                    //objProductCategoryProperty.companyIdx = 1;
+                    objProductCategoryProperty.idx = int.Parse(dt.Rows[0]["idx"].ToString());
+                    objProductCategoryProperty.product_catIdx = int.Parse(dt.Rows[0]["product_catIdx"].ToString());
+                    objProductCategoryProperty.subCategory = dt.Rows[0]["subCategory"].ToString();
+                    objProductCategoryProperty.HS_CodeSub = dt.Rows[0]["HS_CodeSub"].ToString();
+                    //objProductCategoryProperty.firstName = dt.Rows[0]["firstName"].ToString();
+                    //objProductCategoryProperty.lastName = dt.Rows[0]["lastName"].ToString();
+                    //objProductCategoryProperty.CNIC = (dt.Rows[0]["CNIC"].ToString());
+                    //objProductCategoryProperty.cellNumber = (dt.Rows[0]["cellNumber"].ToString());
+                    //objProductCategoryProperty.loginId = (dt.Rows[0]["loginId"].ToString());
+                    //objProductCategoryProperty.password = dt.Rows[0]["password"].ToString();
+                }
 
 
-            return PartialView("_AddNewProductSubCategory", objProductCategoryProperty);
+                return PartialView("_AddNewProductSubCategory", objProductCategoryProperty);
             }
             else
             {
-                return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
         }
 

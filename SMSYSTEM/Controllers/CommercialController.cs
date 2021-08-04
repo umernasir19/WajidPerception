@@ -33,13 +33,25 @@ namespace SMSYSTEM.Controllers
         // GET: Commercial
         public ActionResult ViewCI()
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null)
             {
                 return View();
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
         }
         public JsonResult GetAllPurchase()
@@ -145,7 +157,11 @@ namespace SMSYSTEM.Controllers
 
         public ActionResult AddNewCI(int? id)
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null)
             {
                 objPurchaseVM_Property = new LP_PerformaInvoice_ViewModel();
                 Vendors_Property vendor = new Vendors_Property();
@@ -222,7 +238,15 @@ namespace SMSYSTEM.Controllers
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
 
         }
@@ -331,13 +355,25 @@ namespace SMSYSTEM.Controllers
 
         public ActionResult ViewCommercialInvoice()
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null)
             {
                 return View();
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
         }
         public JsonResult GetAllCI()
@@ -444,7 +480,11 @@ namespace SMSYSTEM.Controllers
 
         public ActionResult AddNewCIPO(int? id)
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null)
             {
                 objCIPOVm = new LP_CI_ViewModel();
                 Vendors_Property vendor = new Vendors_Property();
@@ -530,7 +570,15 @@ namespace SMSYSTEM.Controllers
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
 
         }
@@ -833,13 +881,25 @@ namespace SMSYSTEM.Controllers
         LP_ImportedExpense_BLL objDOBll;
         public ActionResult ViewImportedExpense()
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null)
             {
                 return View();
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
         }
         public JsonResult GetAllImportedExpense()
@@ -860,7 +920,11 @@ namespace SMSYSTEM.Controllers
 
         public ActionResult AddNewImportedExpense(int? id)
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null)
             {
                 objImportedExpenseVM = new ImportedExpenseVM();
                 Vendors_BLL objVendorbll = new Vendors_BLL();
@@ -924,7 +988,15 @@ namespace SMSYSTEM.Controllers
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
 
         }

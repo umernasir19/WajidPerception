@@ -28,9 +28,8 @@ namespace SMSYSTEM.Controllers
             string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
             string pagename = @"/" + controllerName + @"/" + actionName;
-            //  var page = (List<LP_Pages_Property>)Session["PageList"];
-
-            if (Session["LoggedIn"] != null)
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null)
             {
                 return View();
             }
@@ -50,8 +49,13 @@ namespace SMSYSTEM.Controllers
 
         public ActionResult AddNewGDN(int? id)
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null)
             {
+
                 objGDNVM = new LP_GDN_VM();
                 objSalesBLL = new LP_SalesOrder_BLL();
                 objGDNBLL = new LP_GDN_BLL();
@@ -100,7 +104,15 @@ namespace SMSYSTEM.Controllers
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
 
         }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SSS.Utility;
 
 namespace SMSYSTEM.Controllers
 {
@@ -17,16 +18,30 @@ namespace SMSYSTEM.Controllers
         Vendor_Category_Property objVendorCategoryProperty;
         public ActionResult ViewVendorCategory()
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page))
             {
 
                 return View();
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
         }
+
 
         public JsonResult GetAllVendorCategories()
         {
@@ -56,44 +71,57 @@ namespace SMSYSTEM.Controllers
 
         public ActionResult AddNewVendorCategory(int? id)
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page))
             {
                 objVendorCategoryProperty = new Vendor_Category_Property();
-            objVendorCategoryProperty.idx = Convert.ToInt32(id);
-            //objVendorCategoryProperty.branchIdx = 1;//It will have the value of session branchIdx
-            objVendorCategoryBLL = new Vendor_Category_BLL(objVendorCategoryProperty);
-            //DataTable dtt = objVendorCategory.SelectBranch();
-            //List<Branch_Property> BranchList = new List<Branch_Property>();
-            //foreach (DataRow dr in dtt.Rows)
-            //{
-            //    Branch_Property objbranch = new Branch_Property();
-            //    objbranch.branchName = dr["branchname"].ToString();
-            //    objbranch.idx = Convert.ToInt32(dr["idx"].ToString());
-            //    BranchList.Add(objbranch);
-            //}
-            //ViewBag.branchList = BranchList;
+                objVendorCategoryProperty.idx = Convert.ToInt32(id);
+                //objVendorCategoryProperty.branchIdx = 1;//It will have the value of session branchIdx
+                objVendorCategoryBLL = new Vendor_Category_BLL(objVendorCategoryProperty);
+                //DataTable dtt = objVendorCategory.SelectBranch();
+                //List<Branch_Property> BranchList = new List<Branch_Property>();
+                //foreach (DataRow dr in dtt.Rows)
+                //{
+                //    Branch_Property objbranch = new Branch_Property();
+                //    objbranch.branchName = dr["branchname"].ToString();
+                //    objbranch.idx = Convert.ToInt32(dr["idx"].ToString());
+                //    BranchList.Add(objbranch);
+                //}
+                //ViewBag.branchList = BranchList;
 
-            if (id != null && id != 0)
-            {
-                var dt = objVendorCategoryBLL.GetById(id);
-                //objVendorCategoryProperty.companyIdx = 1;
-                objVendorCategoryProperty.idx = int.Parse(dt.Rows[0]["idx"].ToString());
-                objVendorCategoryProperty.vendorCategory = dt.Rows[0]["vendorCategory"].ToString();
-             
-                //objVendorCategoryProperty.firstName = dt.Rows[0]["firstName"].ToString();
-                //objVendorCategoryProperty.lastName = dt.Rows[0]["lastName"].ToString();
-                //objVendorCategoryProperty.CNIC = (dt.Rows[0]["CNIC"].ToString());
-                //objVendorCategoryProperty.cellNumber = (dt.Rows[0]["cellNumber"].ToString());
-                //objVendorCategoryProperty.loginId = (dt.Rows[0]["loginId"].ToString());
-                //objVendorCategoryProperty.password = dt.Rows[0]["password"].ToString();
-            }
+                if (id != null && id != 0)
+                {
+                    var dt = objVendorCategoryBLL.GetById(id);
+                    //objVendorCategoryProperty.companyIdx = 1;
+                    objVendorCategoryProperty.idx = int.Parse(dt.Rows[0]["idx"].ToString());
+                    objVendorCategoryProperty.vendorCategory = dt.Rows[0]["vendorCategory"].ToString();
+                 
+                    //objVendorCategoryProperty.firstName = dt.Rows[0]["firstName"].ToString();
+                    //objVendorCategoryProperty.lastName = dt.Rows[0]["lastName"].ToString();
+                    //objVendorCategoryProperty.CNIC = (dt.Rows[0]["CNIC"].ToString());
+                    //objVendorCategoryProperty.cellNumber = (dt.Rows[0]["cellNumber"].ToString());
+                    //objVendorCategoryProperty.loginId = (dt.Rows[0]["loginId"].ToString());
+                    //objVendorCategoryProperty.password = dt.Rows[0]["password"].ToString();
+                }
 
 
-            return PartialView("_AddNewVendorCategory", objVendorCategoryProperty);
+                return PartialView("_AddNewVendorCategory", objVendorCategoryProperty);
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
 
         }

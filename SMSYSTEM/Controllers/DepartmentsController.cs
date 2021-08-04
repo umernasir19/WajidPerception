@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using SSS.BLL.Setups;
 using SSS.Property.Setups;
 using Newtonsoft.Json;
+using SSS.Utility;
 
 namespace SMSYSTEM.Controllers
 {
@@ -12,18 +14,29 @@ namespace SMSYSTEM.Controllers
      
        Departments_BLL objDepartmentsBLL;
        Departments_property objDepartmentsProperty;
-        public ActionResult ViewDepartments()
-        {
-            if (Session["LOGGEDIN"] != null)
-            {
+       public ActionResult ViewDepartments()
+       {
+           string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+           string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+           string pagename = @"/" + controllerName + @"/" + actionName;
+           var page = (List<LP_Pages_Property>)Session["PageList"];
+           if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null )
+           {
+               return View();
+           }
+           else
+           {
+               if (Session["LoggedIn"] == null)
+               {
+                   return RedirectToAction("Login", "Account");
+               }
+               else
+               {
+                   return RedirectToAction("NotAuthorized", "Account");
+               }
 
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
-        }
+           }
+       }
 
         public JsonResult GetAllDepartments()
         {
@@ -53,7 +66,11 @@ namespace SMSYSTEM.Controllers
 
         public ActionResult AddNewDepartments(int? id)
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null )
             {
                 objDepartmentsProperty = new Departments_property();
                 objDepartmentsProperty.idx = Convert.ToInt32(id);
@@ -76,7 +93,15 @@ namespace SMSYSTEM.Controllers
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
 
         }

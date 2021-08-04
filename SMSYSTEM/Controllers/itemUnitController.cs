@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SSS.Utility;
 
 namespace SMSYSTEM.Controllers
 {
@@ -16,7 +17,27 @@ namespace SMSYSTEM.Controllers
         itemUnit_Property objItemUnitProperty;
         public ActionResult ViewItemUnit()
         {
-            return View();
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null )
+            {
+                return View();
+            }
+            else
+            {
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
+            }
+
         }
 
         public JsonResult GetAllItemUnits()

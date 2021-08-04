@@ -18,7 +18,12 @@ namespace SMSYSTEM.Controllers
         // GET: SalesPerson
         public ActionResult ViewSalesPerson()
         {
-            if(Session["LoggedIn"] != null )
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null)
             {
                 return View();
             }

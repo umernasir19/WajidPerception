@@ -4416,6 +4416,9 @@
     <Content Include="Views\Account\PageUser.cshtml" />
     <Content Include="Views\companyCurrency\_AddCompanyNewCurrency.cshtml" />
     <Content Include="Views\companyCurrency\ViewCompanyCurrency.cshtml" />
+    <Content Include="Views\FirstTier\ViewfirstTier.cshtml" />
+    <Content Include="Views\VendorBanks\AddNewVendorBank.cshtml" />
+    <Content Include="Views\VendorBanks\ViewVendorBanks.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4431,10 +4434,8 @@
     <Folder Include="Views\Base\" />
     <Folder Include="Views\CustomerType\" />
     <Folder Include="Views\Expense\" />
-    <Folder Include="Views\FirstTier\" />
     <Folder Include="Views\Performa\" />
     <Folder Include="Views\Report\" />
-    <Folder Include="Views\VendorBanks\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SSS.BLL\SSS.BLL.csproj">

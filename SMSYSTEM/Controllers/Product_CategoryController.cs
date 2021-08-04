@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SSS.Utility;
 
 namespace SMSYSTEM.Controllers
 {
@@ -16,13 +17,26 @@ namespace SMSYSTEM.Controllers
         Product_Category_Property objProductCategoryProperty;
         public ActionResult ViewProductCategory()
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page))
             {
                 return View();
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
         }
 
@@ -52,7 +66,12 @@ namespace SMSYSTEM.Controllers
 
         public ActionResult AddNewProductCategory(int? id)
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page))
             {
                 objProductCategoryProperty = new Product_Category_Property();
                 objProductCategoryProperty.idx = Convert.ToInt32(id);
@@ -89,7 +108,15 @@ namespace SMSYSTEM.Controllers
             }
             else
             {
-                return Json(new { data = "Session Expired", success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
         }
 

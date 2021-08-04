@@ -83,6 +83,7 @@ namespace SSS.DAL
                 //cmdToExecute.Parameters.Add(new SqlParameter("@sStatus", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objCompanyProperty.Status));
                 //cmdToExecute.Parameters.Add(new SqlParameter("@iID", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, objCompanyProperty.ID));
                 //cmdToExecute.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
+                cmdToExecute.Parameters.Add(new SqlParameter("@Admin", SqlDbType.Bit, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.Is_Admin));
 
                 if (_mainConnectionIsCreatedLocal)
                 {
@@ -335,6 +336,64 @@ namespace SSS.DAL
             }
         }
 
+        // Added By Ahsan
+        public DataTable GetPagsAccess()
+        {
+            SqlCommand cmdToExecute = new SqlCommand();
+            cmdToExecute.CommandText = "dbo.[sp_GetAccesspage]";
+            cmdToExecute.CommandType = CommandType.StoredProcedure;
+            DataTable toReturn = new DataTable("COMPANY");
+            SqlDataAdapter adapter = new SqlDataAdapter(cmdToExecute);
+
+            // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection;
+            cmdToExecute.CommandTimeout = 0;
+            try
+            {
+                cmdToExecute.Parameters.Add(new SqlParameter("@userid", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objUserProperty.idx));
+
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Open connection.
+                    _mainConnection.Open();
+                }
+                else
+                {
+                    if (_mainConnectionProvider.IsTransactionPending)
+                    {
+                        cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    }
+                }
+
+                // Execute query.
+                adapter.Fill(toReturn);
+                // _errorCode = (Int32)cmdToExecute.Parameters["@iErrorCode"].Value;
+                //objCompanyProperty.TotalRowsNum = Convert.ToInt32(cmdToExecute.Parameters["@TotalRowsNum"].Value);
+                if (_errorCode != (int)LLBLError.AllOk)
+                {
+                    // Throw error.
+                    throw new Exception("Stored Procedure 'sp_Branch_SelectAll' reported the ErrorCode: " + _errorCode);
+                }
+
+                return toReturn;
+            }
+            catch (Exception ex)
+            {
+                // some error occured. Bubble it to caller and encapsulate Exception object
+                throw new Exception("Branch::SelectAll::Error occured.", ex);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Close connection.
+                    _mainConnection.Close();
+                }
+                cmdToExecute.Dispose();
+                adapter.Dispose();
+            }
+        }
+
         /// <summary>
         /// Purpose: Update method. This method will Update one existing row in the database.
         /// </summary>
@@ -385,6 +444,7 @@ namespace SSS.DAL
                 cmdToExecute.Parameters.Add(new SqlParameter("@lastModifiedByUserIdx", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.lastModifiedByUserIdx));
                 cmdToExecute.Parameters.Add(new SqlParameter("@lastModificationDate", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.lastModificationDate));
                 //cmdToExecute.Parameters.Add(new SqlParameter("@isMainBranch", SqlDbType.Int, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.isMainBranch));
+                cmdToExecute.Parameters.Add(new SqlParameter("@Admin", SqlDbType.Bit, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objUserProperty.Is_Admin));
 
                 if (_mainConnectionIsCreatedLocal)
                 {

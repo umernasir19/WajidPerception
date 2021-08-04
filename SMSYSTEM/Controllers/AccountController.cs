@@ -45,7 +45,16 @@ namespace SMSYSTEM.Controllers
                     objUserBll = new User_BLL(objuserproperty);
 
                     List<LP_Pages_Property> pagelist = new List<LP_Pages_Property>();
-                    pagelist = Helper.ConvertDataTable<LP_Pages_Property>(objUserBll.GetUserPagsAccess());
+                    //Added By Ahsan
+                    if (Session["LoggedIn"] != null && Session["ISADMIN"] != null && Convert.ToBoolean(Session["ISADMIN"].ToString()) == true)
+                    {
+                        pagelist = Helper.ConvertDataTable<LP_Pages_Property>(objUserBll.GetUserPagsAccess());
+                    }
+                    else
+                    {
+                        pagelist = Helper.ConvertDataTable<LP_Pages_Property>(objUserBll.GetPagsAccess());
+
+                    }
                     Session["PageList"] = pagelist;
 
                     return Json(new { data = "",msg="Login Successfull", success = true, statuscode = 200, count = data.Rows.Count }, JsonRequestBehavior.AllowGet);

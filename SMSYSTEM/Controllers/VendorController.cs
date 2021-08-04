@@ -25,7 +25,27 @@ namespace SMSYSTEM.Controllers
 
         public ActionResult ViewVendors()
         {
-            return View();
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page))
+            {
+                return View();
+            }
+            else
+            {
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
+            }
         }
 
         public JsonResult GetAllVendors()
@@ -47,62 +67,82 @@ namespace SMSYSTEM.Controllers
 
         public ActionResult AddNewVendors(int? id)
         {
-            objVendorsProperty = new Vendors_Property();
-            objVendorsProperty.idx = Convert.ToInt32(id);
-            //objVendorsProperty.branchIdx = 1;//It will have the value of session branchIdx
-            objVendorsBLL = new Vendors_BLL(objVendorsProperty);
-            DataTable categories = objVendorsBLL.ddlCategory();
-            List<Vendor_Category_Property> catLST = new List<Vendor_Category_Property>();
-   
-            DataTable VendorTypes = objVendorsBLL.ddlVendorsType();
-            List<VendorType_Property> VendorTypeLST = new List<VendorType_Property>();
-            
-            foreach (DataRow dr in categories.Rows)
-            {
-                Vendor_Category_Property objVendorsCat = new Vendor_Category_Property();
-                objVendorsCat.vendorCategory = dr["vendorCategory"].ToString();
-                objVendorsCat.idx = Convert.ToInt32(dr["idx"].ToString());
-                catLST.Add(objVendorsCat);
-            }
-            ViewBag.catLST = catLST;
-            
-            foreach (DataRow dr in VendorTypes.Rows)
-            {
-                VendorType_Property objVendorsCat = new VendorType_Property();
-                objVendorsCat.vendorType = dr["vendorType"].ToString();
-                objVendorsCat.idx = Convert.ToInt32(dr["idx"].ToString());
-                VendorTypeLST.Add(objVendorsCat);
-            }
-            ViewBag.VendorsTypeLST = VendorTypeLST;
-            if (id != null && id != 0)
-            {
-                var dt = objVendorsBLL.GetById(id);
-                //objVendorsProperty.companyIdx = 1;
-                objVendorsProperty.idx = int.Parse(dt.Rows[0]["idx"].ToString());
-                objVendorsProperty.vendorTypeIdx = int.Parse(dt.Rows[0]["vendorTypeIdx"].ToString());
-                objVendorsProperty.vendorCatIdx = int.Parse(dt.Rows[0]["vendorCatIdx"].ToString());
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
 
-                objVendorsProperty.contact = (dt.Rows[0]["contact"].ToString());
-                objVendorsProperty.vendorCode = (dt.Rows[0]["vendorCode"].ToString());
-                objVendorsProperty.vendorName = (dt.Rows[0]["vendorName"].ToString());
-                objVendorsProperty.address = (dt.Rows[0]["address"].ToString());
-                return PartialView("_AddNewVendors", objVendorsProperty);
-            }
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page))
+            {
+                objVendorsProperty = new Vendors_Property();
+                objVendorsProperty.idx = Convert.ToInt32(id);
+                //objVendorsProperty.branchIdx = 1;//It will have the value of session branchIdx
+                objVendorsBLL = new Vendors_BLL(objVendorsProperty);
+                DataTable categories = objVendorsBLL.ddlCategory();
+                List<Vendor_Category_Property> catLST = new List<Vendor_Category_Property>();
 
+                DataTable VendorTypes = objVendorsBLL.ddlVendorsType();
+                List<VendorType_Property> VendorTypeLST = new List<VendorType_Property>();
+
+                foreach (DataRow dr in categories.Rows)
+                {
+                    Vendor_Category_Property objVendorsCat = new Vendor_Category_Property();
+                    objVendorsCat.vendorCategory = dr["vendorCategory"].ToString();
+                    objVendorsCat.idx = Convert.ToInt32(dr["idx"].ToString());
+                    catLST.Add(objVendorsCat);
+                }
+
+                ViewBag.catLST = catLST;
+
+                foreach (DataRow dr in VendorTypes.Rows)
+                {
+                    VendorType_Property objVendorsCat = new VendorType_Property();
+                    objVendorsCat.vendorType = dr["vendorType"].ToString();
+                    objVendorsCat.idx = Convert.ToInt32(dr["idx"].ToString());
+                    VendorTypeLST.Add(objVendorsCat);
+                }
+
+                ViewBag.VendorsTypeLST = VendorTypeLST;
+                if (id != null && id != 0)
+                {
+                    var dt = objVendorsBLL.GetById(id);
+                    //objVendorsProperty.companyIdx = 1;
+                    objVendorsProperty.idx = int.Parse(dt.Rows[0]["idx"].ToString());
+                    objVendorsProperty.vendorTypeIdx = int.Parse(dt.Rows[0]["vendorTypeIdx"].ToString());
+                    objVendorsProperty.vendorCatIdx = int.Parse(dt.Rows[0]["vendorCatIdx"].ToString());
+
+                    objVendorsProperty.contact = (dt.Rows[0]["contact"].ToString());
+                    objVendorsProperty.vendorCode = (dt.Rows[0]["vendorCode"].ToString());
+                    objVendorsProperty.vendorName = (dt.Rows[0]["vendorName"].ToString());
+                    objVendorsProperty.address = (dt.Rows[0]["address"].ToString());
+                    return PartialView("_AddNewVendors", objVendorsProperty);
+                }
+
+                else
+                {
+                    objVendorsProperty.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
+                    objVendorsBLL = new Vendors_BLL();
+                    LP_GenerateTransNumber_Property objtrans = new LP_GenerateTransNumber_Property();
+                    objtrans.TableName = "vendors";
+                    objtrans.Identityfieldname = "idx";
+                    objtrans.userid = Session["UID"].ToString();
+
+                    objVendorsProperty.vendorCode = objVendorsBLL.GenerateSO(objtrans);
+                    return PartialView("_AddNewVendors", objVendorsProperty);
+                }
+            }
             else
             {
-                objVendorsProperty.createdByUserIdx = Convert.ToInt16(Session["UID"].ToString());
-                objVendorsBLL = new Vendors_BLL();
-                LP_GenerateTransNumber_Property objtrans = new LP_GenerateTransNumber_Property();
-                objtrans.TableName = "vendors";
-                objtrans.Identityfieldname = "idx";
-                objtrans.userid = Session["UID"].ToString();
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
 
-                objVendorsProperty.vendorCode = objVendorsBLL.GenerateSO(objtrans);
-                return PartialView("_AddNewVendors", objVendorsProperty);
             }
-
-            
         }
 
         [HttpPost]
@@ -192,14 +232,27 @@ namespace SMSYSTEM.Controllers
 
         public ActionResult ViewVendorProcess()
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page))
             {
 
                 return View();
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
         }
 

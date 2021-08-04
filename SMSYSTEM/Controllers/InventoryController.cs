@@ -23,7 +23,12 @@ namespace SMSYSTEM.Controllers
         public ActionResult ViewInventory()
         {
             LP_Inv_Report objinvrprt = new LP_Inv_Report();
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page))
             {
                 objinvrprt.BranchList = Helper.ConvertDataTable<Branch_Property>(ViewAllBranches());
                 objinvrprt.ProductList = Helper.ConvertDataTable<Product_Property>(ViewAllProduct());
@@ -31,7 +36,15 @@ namespace SMSYSTEM.Controllers
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
         }
 
@@ -133,7 +146,11 @@ namespace SMSYSTEM.Controllers
         public ActionResult InventoryMovement()
         {
             //LP_Inventory_Movement objinvrprt = new LP_Inventory_Movement();
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null )
             {
                 LP_Inventory_Movement objinvrprt = new LP_Inventory_Movement();
                 objinvrprt.BranchList = Helper.ConvertDataTable<Branch_Property>(ViewAllBranches());
@@ -143,7 +160,15 @@ namespace SMSYSTEM.Controllers
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
         }
 

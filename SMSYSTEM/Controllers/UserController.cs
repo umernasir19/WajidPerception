@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SSS.Utility;
 
 namespace SMSYSTEM.Controllers
 {
@@ -18,13 +19,26 @@ namespace SMSYSTEM.Controllers
         User_Property objUserProperty;
         public ActionResult ViewUser()
         {
-            if (Session["LOGGEDIN"] != null)
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string pagename = @"/" + controllerName + @"/" + actionName;
+            var page = (List<LP_Pages_Property>)Session["PageList"];
+
+            if (Session["LoggedIn"] != null && Helper.CheckPageAccess(pagename, page) && Session["ISADMIN"] != null)
             {
                 return View();
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                if (Session["LoggedIn"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("NotAuthorized", "Account");
+                }
+
             }
         }
 
@@ -102,6 +116,8 @@ namespace SMSYSTEM.Controllers
                     objUserProperty.cellNumber = (dt.Rows[0]["cellNumber"].ToString());
                     objUserProperty.loginId = (dt.Rows[0]["loginId"].ToString());
                     objUserProperty.password = dt.Rows[0]["password"].ToString();
+                    objUserProperty.Is_Admin = Convert.ToBoolean(dt.Rows[0]["Is_Admin"].ToString());
+
                 }
 
 
