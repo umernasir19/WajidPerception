@@ -26,7 +26,15 @@ namespace SSS.DAL.Transactions.GDN_DAL
         public override bool Insert()
         {
             SqlCommand cmdToExecute = new SqlCommand();
-            cmdToExecute.CommandText = "dbo.[sp_GDN_INSERT]";
+            if (_objGDNMaster.ID > 0)
+            {
+                cmdToExecute.CommandText = "dbo.[sp_GDN_Update]";
+            }
+            else
+            {
+                cmdToExecute.CommandText = "dbo.[sp_GDN_INSERT]";
+            }
+            
             cmdToExecute.CommandType = CommandType.StoredProcedure;
 
             // Use base class' connection object
@@ -34,45 +42,69 @@ namespace SSS.DAL.Transactions.GDN_DAL
 
             try
             {
-                cmdToExecute.Parameters.Add(new SqlParameter("@DriverName", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.DriverName));
-                cmdToExecute.Parameters.Add(new SqlParameter("@DriverCnic", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.DriverCnic));
-                cmdToExecute.Parameters.Add(new SqlParameter("@DriverAddress", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.DriverAddress));
-                cmdToExecute.Parameters.Add(new SqlParameter("@memo", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.memo));
+                if (_objGDNMaster.ID > 0)
+                {
+                    cmdToExecute.Parameters.Add(new SqlParameter("@@masterId", SqlDbType.Int, 32, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.ID));
 
-                cmdToExecute.Parameters.Add(new SqlParameter("@DocNo", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.Doc_No));
-                cmdToExecute.Parameters.Add(new SqlParameter("@ParentDocId", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.Parent_DocID));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.ID));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DriverName", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.DriverName));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DriverCnic", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.DriverCnic));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DriverAddress", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.DriverAddress));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@memo", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.memo));
 
-                cmdToExecute.Parameters.Add(new SqlParameter("@Narration", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objGDNMaster.Narration));
-                cmdToExecute.Parameters.Add(new SqlParameter("@Totalamount", SqlDbType.Decimal, 14, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.Total_Amount));
-                cmdToExecute.Parameters.Add(new SqlParameter("@Status", SqlDbType.NVarChar, 9, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.Status));
-                cmdToExecute.Parameters.Add(new SqlParameter("@DateCreated", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objGDNMaster.Date_Created));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DocNo", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.Doc_No));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ParentDocId", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.Parent_DocID));
 
-                cmdToExecute.Parameters.Add(new SqlParameter("@userid", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objGDNMaster.User_ID));
-                //cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objGDNMaster.visible));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@Narration", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objGDNMaster.Narration));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@Totalamount", SqlDbType.Decimal, 14, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.Total_Amount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@Status", SqlDbType.NVarChar, 9, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.Status));
+                 
+                    cmdToExecute.Parameters.Add(new SqlParameter("@userid", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objGDNMaster.User_ID));
 
-                //cmdToExecute.Parameters.Add(new SqlParameter("@NetAmount", SqlDbType.Decimal, 9, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, objPurchaseRequisitionMaster_Property.NetAmount));
-                //cmdToExecute.Parameters.Add(new SqlParameter("@DeliveryDate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, objPurchaseRequisitionMaster_Property.DeliveryDate));
-                //cmdToExecute.Parameters.Add(new SqlParameter("@Reference", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objPurchaseRequisitionMaster_Property.Reference));
-                //cmdToExecute.Parameters.Add(new SqlParameter("@DocumentType", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objPurchaseRequisitionMaster_Property.DocumentType));
-                //cmdToExecute.Parameters.Add(new SqlParameter("@IsActive", SqlDbType.Bit, 20, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objPurchaseRequisitionMaster_Property.IsActive));
-                ////cmdToExecute.Parameters.Add(new SqlParameter("Ref_Document1", SqlDbType.NVarChar, 20, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Ref_Document1));
-                ////cmdToExecute.Parameters.Add(new SqlParameter("Processed", SqlDbType.Bit, 1, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Processed));
-                ////cmdToExecute.Parameters.Add(new SqlParameter("Status", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Status));
-                ////cmdToExecute.Parameters.Add(new SqlParameter("Pos_ID", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Pos_ID));
-                ////cmdToExecute.Parameters.Add(new SqlParameter("PersonnelRef_ID", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.PersonnelRef_ID));
-                ////cmdToExecute.Parameters.Add(new SqlParameter("Prp_ID", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Prp_ID));
-                ////cmdToExecute.Parameters.Add(new SqlParameter("DeliveryDate", SqlDbType.DateTime, 8, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.DeliveryDate));
-                ////cmdToExecute.Parameters.Add(new SqlParameter("Route_ID", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Route_ID));
-                ////cmdToExecute.Parameters.Add(new SqlParameter("Transactionid", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.ID));
 
-                cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.ID));
-                ////cmdToExecute.Parameters.Add(new SqlParameter("ErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
+                }
+                else
+                {
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DriverName", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.DriverName));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DriverCnic", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.DriverCnic));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DriverAddress", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.DriverAddress));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@memo", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.memo));
 
-                ////cmdToExecute.Parameters.Add(new SqlParameter("Record_Table_Name", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Record_Table_Name));
-                ////cmdToExecute.Parameters.Add(new SqlParameter("Operation", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Operation));
-                ////cmdToExecute.Parameters.Add(new SqlParameter("Operated_By", SqlDbType.Int, 32, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Operated_By));
-                ////cmdToExecute.Parameters.Add(new SqlParameter("Operation_Date", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Operation_Date));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DocNo", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.Doc_No));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ParentDocId", SqlDbType.Int, 50, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.Parent_DocID));
 
+                    cmdToExecute.Parameters.Add(new SqlParameter("@Narration", SqlDbType.NVarChar, 80, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objGDNMaster.Narration));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@Totalamount", SqlDbType.Decimal, 14, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.Total_Amount));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@Status", SqlDbType.NVarChar, 9, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.Status));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@DateCreated", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objGDNMaster.Date_Created));
+
+                    cmdToExecute.Parameters.Add(new SqlParameter("@userid", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, _objGDNMaster.User_ID));
+                    //cmdToExecute.Parameters.Add(new SqlParameter("@visible", SqlDbType.Int, 4, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, _objGDNMaster.visible));
+
+                    //cmdToExecute.Parameters.Add(new SqlParameter("@NetAmount", SqlDbType.Decimal, 9, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, objPurchaseRequisitionMaster_Property.NetAmount));
+                    //cmdToExecute.Parameters.Add(new SqlParameter("@DeliveryDate", SqlDbType.DateTime, 50, ParameterDirection.Input, true, 18, 1, "", DataRowVersion.Proposed, objPurchaseRequisitionMaster_Property.DeliveryDate));
+                    //cmdToExecute.Parameters.Add(new SqlParameter("@Reference", SqlDbType.NVarChar, 500, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objPurchaseRequisitionMaster_Property.Reference));
+                    //cmdToExecute.Parameters.Add(new SqlParameter("@DocumentType", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, objPurchaseRequisitionMaster_Property.DocumentType));
+                    //cmdToExecute.Parameters.Add(new SqlParameter("@IsActive", SqlDbType.Bit, 20, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, objPurchaseRequisitionMaster_Property.IsActive));
+                    ////cmdToExecute.Parameters.Add(new SqlParameter("Ref_Document1", SqlDbType.NVarChar, 20, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Ref_Document1));
+                    ////cmdToExecute.Parameters.Add(new SqlParameter("Processed", SqlDbType.Bit, 1, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Processed));
+                    ////cmdToExecute.Parameters.Add(new SqlParameter("Status", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Status));
+                    ////cmdToExecute.Parameters.Add(new SqlParameter("Pos_ID", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Pos_ID));
+                    ////cmdToExecute.Parameters.Add(new SqlParameter("PersonnelRef_ID", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.PersonnelRef_ID));
+                    ////cmdToExecute.Parameters.Add(new SqlParameter("Prp_ID", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Prp_ID));
+                    ////cmdToExecute.Parameters.Add(new SqlParameter("DeliveryDate", SqlDbType.DateTime, 8, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.DeliveryDate));
+                    ////cmdToExecute.Parameters.Add(new SqlParameter("Route_ID", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Route_ID));
+                    ////cmdToExecute.Parameters.Add(new SqlParameter("Transactionid", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.ID));
+
+                    cmdToExecute.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 32, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _objGDNMaster.ID));
+                    ////cmdToExecute.Parameters.Add(new SqlParameter("ErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
+
+                    ////cmdToExecute.Parameters.Add(new SqlParameter("Record_Table_Name", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Record_Table_Name));
+                    ////cmdToExecute.Parameters.Add(new SqlParameter("Operation", SqlDbType.NVarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Operation));
+                    ////cmdToExecute.Parameters.Add(new SqlParameter("Operated_By", SqlDbType.Int, 32, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Operated_By));
+                    ////cmdToExecute.Parameters.Add(new SqlParameter("Operation_Date", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, ObjTransactionMasterProperty.Operation_Date));
+
+                }
 
                 if (_mainConnectionIsCreatedLocal)
                 {
@@ -94,37 +126,74 @@ namespace SSS.DAL.Transactions.GDN_DAL
                 _rowsAffected = cmdToExecute.ExecuteNonQuery();
                 // _iD = (Int32)cmdToExecute.Parameters["@iID"].Value;
                 //_errorCode = cmdToExecute.Parameters["@ErrorCode"].Value;
-
-                if (_objGDNMaster.DetailData != null)
+                if (_objGDNMaster.ID > 0)
                 {
-                    foreach (DataRow row in _objGDNMaster.DetailData.Rows)
-                        row["GRN_MasterId"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+                    if (_objGDNMaster.DetailData != null)
+                    {
+                        foreach (DataRow row in _objGDNMaster.DetailData.Rows)
+                            row["GRN_MasterId"] = cmdToExecute.Parameters["@masterId"].Value.ToString();
 
-                    _objGDNMaster.DetailData.AcceptChanges();
+                        _objGDNMaster.DetailData.AcceptChanges();
 
-                    SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
-                    _objGDNMaster.DetailData.TableName = "GDN_Detail";
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        _objGDNMaster.DetailData.TableName = "GDN_Detail";
 
-                    sbc.ColumnMappings.Clear();
-                    sbc.ColumnMappings.Add("GRN_MasterId", "GRN_MasterId");
-                    //sbc.ColumnMappings.Add(2, 1);
-                    sbc.ColumnMappings.Add("Product_Id", "Product_Id");
-                    sbc.ColumnMappings.Add("Quantity", "Quantity");
-                    sbc.ColumnMappings.Add("TotalAmount", "TotalAmount");
-                    sbc.ColumnMappings.Add("Rate", "Rate");
-                    //sbc.ColumnMappings.Add("amount", "amount");
-                    //sbc.ColumnMappings.Add("qty", "openItem");
-                    //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
-                    //sbc.ColumnMappings.Add("Product", "Product_Name");
-                    //sbc.ColumnMappings.Add("Status", "Status");
+                        sbc.ColumnMappings.Clear();
+                        sbc.ColumnMappings.Add("GRN_MasterId", "GRN_MasterId");
+                        //sbc.ColumnMappings.Add(2, 1);
+                        sbc.ColumnMappings.Add("Product_Id", "Product_Id");
+                        sbc.ColumnMappings.Add("Quantity", "Quantity");
+                        sbc.ColumnMappings.Add("TotalAmount", "TotalAmount");
+                        sbc.ColumnMappings.Add("Rate", "Rate");
+                        //sbc.ColumnMappings.Add("amount", "amount");
+                        //sbc.ColumnMappings.Add("qty", "openItem");
+                        //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
+                        //sbc.ColumnMappings.Add("Product", "Product_Name");
+                        //sbc.ColumnMappings.Add("Status", "Status");
 
-                    //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
-                    //sbc.ColumnMappings.Add("Description", "Description");
+                        //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
+                        //sbc.ColumnMappings.Add("Description", "Description");
 
-                    sbc.DestinationTableName = _objGDNMaster.DetailData.TableName;
-                    sbc.WriteToServer(_objGDNMaster.DetailData);
+                        sbc.DestinationTableName = _objGDNMaster.DetailData.TableName;
+                        sbc.WriteToServer(_objGDNMaster.DetailData);
+
+                    }
+                }
+                else
+                {
+                    if (_objGDNMaster.DetailData != null)
+                    {
+                        foreach (DataRow row in _objGDNMaster.DetailData.Rows)
+                            row["GRN_MasterId"] = cmdToExecute.Parameters["@ID"].Value.ToString();
+
+                        _objGDNMaster.DetailData.AcceptChanges();
+
+                        SqlBulkCopy sbc = new SqlBulkCopy(_mainConnection, SqlBulkCopyOptions.Default, this.Transaction);
+                        _objGDNMaster.DetailData.TableName = "GDN_Detail";
+
+                        sbc.ColumnMappings.Clear();
+                        sbc.ColumnMappings.Add("GRN_MasterId", "GRN_MasterId");
+                        //sbc.ColumnMappings.Add(2, 1);
+                        sbc.ColumnMappings.Add("Product_Id", "Product_Id");
+                        sbc.ColumnMappings.Add("Quantity", "Quantity");
+                        sbc.ColumnMappings.Add("TotalAmount", "TotalAmount");
+                        sbc.ColumnMappings.Add("Rate", "Rate");
+                        //sbc.ColumnMappings.Add("amount", "amount");
+                        //sbc.ColumnMappings.Add("qty", "openItem");
+                        //sbc.ColumnMappings.Add("Product_Code", "Product_Code");
+                        //sbc.ColumnMappings.Add("Product", "Product_Name");
+                        //sbc.ColumnMappings.Add("Status", "Status");
+
+                        //sbc.ColumnMappings.Add("Department_Id", "Department_Id");
+                        //sbc.ColumnMappings.Add("Description", "Description");
+
+                        sbc.DestinationTableName = _objGDNMaster.DetailData.TableName;
+                        sbc.WriteToServer(_objGDNMaster.DetailData);
+
+                    }
 
                 }
+                
 
                 this.Commit();
                 if (_errorCode != (int)LLBLError.AllOk)

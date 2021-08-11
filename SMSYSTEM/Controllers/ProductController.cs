@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using SSS.Utility;
@@ -309,13 +310,21 @@ namespace SMSYSTEM.Controllers
                     }
                     else
                     {
+                        StringBuilder sb = new StringBuilder();
+                        sb.Append("Inside Else Block");
+                        System.IO.File.WriteAllText(@"C:\TextFile.txt", sb.ToString());
+
                         //objProductCategory.companyIdx = 1;
                         objproduct.createdByUserIdx = Convert.ToInt32(Session["UID"].ToString());
+                        sb.Append("CreatedByIdx Evaluated");
+                        System.IO.File.WriteAllText(@"C:\TextFile.txt", sb.ToString());
+
                         //objProductProperty = JsonConvert.DeserializeObject<Product_Property>(JsonConvert.SerializeObject(objproduct));
                         if (objproduct.PicturePath.Length > 0)
                         {
+                           
                             picturepath = SavePicture(objproduct.PicturePath);
-
+                            
                             objproduct.ProductPictureList = new List<LP_Products_Picture>();
                             for(int i = 0; i < picturepath.Length; i++)
                             {
@@ -323,6 +332,7 @@ namespace SMSYSTEM.Controllers
                                 objprflepicpth.PicturePath = picturepath[i].ToString();
                                 objproduct.ProductPictureList.Add(objprflepicpth);
                             }
+                            
                         }
                         objProductBLL = new Product_BLL(objproduct);
                         
@@ -336,6 +346,7 @@ namespace SMSYSTEM.Controllers
                         //}
 
                         bool flag = objProductBLL.Insert();
+                        
                         return Json(new { data = "Inserted", success = flag, statuscode = 200 }, JsonRequestBehavior.AllowGet);
                     }
 
@@ -343,7 +354,7 @@ namespace SMSYSTEM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return Json(new { data = ex.Message, success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = ex.Message+"-"+ex.InnerException.ToString(), success = false, statuscode = 400, count = 0 }, JsonRequestBehavior.AllowGet);
                 }
             }
             else

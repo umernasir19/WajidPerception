@@ -140,7 +140,7 @@ namespace SMSYSTEM.Controllers
                 if (objGDN.ID > 0)
                 {
                     //update
-
+                    objGDNProperty.ID = objGDN.ID;
 
                     objGDNProperty.TableName = "GDN_Detail";
                     objGDNProperty.Status = "Active";
